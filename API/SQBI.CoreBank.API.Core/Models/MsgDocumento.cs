@@ -5,6 +5,16 @@ using System.Web;
 
 namespace SQBI.CoreBank.API.Core.Models
 {
+    public class MsgDocumento
+    {
+        public MsgHeader header { get; set; }
+        public MsgRegistroDocumentoBody body { get; set; }
+    }
+
+    public class MsgRegistroDocumentoBody
+    {
+        public MsgRegistrodocumento RegistroDocumento { get; set; }
+    }
     public class MsgRegistrodocumento
     {
         public string codigoPessoa { get; set; }

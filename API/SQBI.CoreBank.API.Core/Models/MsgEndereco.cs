@@ -5,6 +5,17 @@ using System.Web;
 
 namespace SQBI.CoreBank.API.Core.Models
 {
+
+    public class MsgEndereco
+    {
+        public MsgHeader header { get; set; }
+        public MsgRegistroEnderecoBody body { get; set; }
+    }
+
+    public class MsgRegistroEnderecoBody
+    {
+        public MsgEndereco RegistroEndereco { get; set; }
+    }
     public class MsgRegistroendereco
     {
         public string codigoPessoa { get; set; }
