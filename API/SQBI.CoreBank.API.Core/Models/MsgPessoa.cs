@@ -176,9 +176,9 @@ namespace SQBI.CoreBank.API.Core.Models
         public string nivelRiscoPld { get; set; }
         public string observacaoPld { get; set; }
         public float codigoGerente { get; set; }
-        public MsgRegistroperfil[] RegistroPerfil { get; set; }
+        public MsgPerfil[] RegistroPerfil { get; set; }
         public MsgRegistrodocumento[] RegistroDocumento { get; set; }
-        public MsgRegistroendereco[] RegistroEndereco { get; set; }
-        public MsgRegistroreferencia[] RegistroReferencia { get; set; }
+        public MsgEndereco[] RegistroEndereco { get; set; }
+        public MsgReferencia[] RegistroReferencia { get; set; }
     }
 }
