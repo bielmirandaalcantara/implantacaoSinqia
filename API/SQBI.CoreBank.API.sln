@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQBI.CoreBank.API.Core", "SQBI.CoreBank.API.Core\SQBI.CoreBank.API.Core.csproj", "{C9020FCB-0BB2-456A-89B0-CE45A05D5572}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQBI.CoreBank.API.Core", "SQBI.CoreBank.API.Core\SQBI.CoreBank.API.Core\SQBI.CoreBank.API.Core.csproj", "{88AF899D-8674-4C97-B12F-2E6D99117828}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C9020FCB-0BB2-456A-89B0-CE45A05D5572}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C9020FCB-0BB2-456A-89B0-CE45A05D5572}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C9020FCB-0BB2-456A-89B0-CE45A05D5572}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C9020FCB-0BB2-456A-89B0-CE45A05D5572}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88AF899D-8674-4C97-B12F-2E6D99117828}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88AF899D-8674-4C97-B12F-2E6D99117828}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88AF899D-8674-4C97-B12F-2E6D99117828}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88AF899D-8674-4C97-B12F-2E6D99117828}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9D903CC6-BE3E-4C79-811A-64D8FBB01B0B}
+		SolutionGuid = {1EDFCB4D-52D1-4E60-88F0-A74357042DEB}
 	EndGlobalSection
 EndGlobal
