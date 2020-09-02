@@ -44,12 +44,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
-        [HttpPut]
+        [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult putReferencia([FromRoute] string codPessoa, [FromRoute] string codReferencia, [FromBody] MsgReferencia msg)
+        public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] string codReferencia, [FromBody] MsgReferencia msg)
         {
             AdaptadorReferencia adaptador = new AdaptadorReferencia();
             List<string> listaErros = new List<string>();
