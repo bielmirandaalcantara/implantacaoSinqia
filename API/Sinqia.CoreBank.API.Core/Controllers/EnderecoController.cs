@@ -13,6 +13,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class EnderecoController : ControllerBase
     {
+        /// <summary>
+        /// Cadastro de dados de documentos de pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

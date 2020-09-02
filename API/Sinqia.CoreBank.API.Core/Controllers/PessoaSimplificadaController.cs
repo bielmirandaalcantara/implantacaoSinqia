@@ -12,6 +12,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaSimplificadaController : ControllerBase
     {
+        /// <summary>
+        /// Armazena os dados de pessoa simplificada
+        /// </summary>
+        /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoaSimplificada")]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]

@@ -1,0 +1,1658 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sinqia.CoreBank.API.Core</name>
+    </assembly>
+    <members>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.DocumentoController.postDocumento(System.String,Sinqia.CoreBank.API.Core.Models.MsgDocumento)">
+            <summary>
+            Cadastro de dados de documentos de pessoas físicas e jurídicas
+            </summary>
+            <param name="codPessoa">Código da pessoa</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.EnderecoController.postEndereco(System.String,Sinqia.CoreBank.API.Core.Models.MsgEndereco)">
+            <summary>
+            Cadastro de dados de documentos de pessoas físicas e jurídicas
+            </summary>
+            <param name="codPessoa">Código da pessoa</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PerfilController.postPerfil(System.String,Sinqia.CoreBank.API.Core.Models.MsgPerfil)">
+            <summary>
+            Vinculação de perfis para uma pessoa
+            </summary>
+            <param name="codPessoa">Código da pessoa</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.postPessoa(Sinqia.CoreBank.API.Core.Models.MsgPessoaCompleto)">
+            <summary>
+            Cadastro de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.postPessoaSimplificada(Sinqia.CoreBank.API.Core.Models.MsgPessoaSimplificada)">
+            <summary>
+            Armazena os dados de pessoa simplificada
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.ReferenciaController.postReferencia(System.String,Sinqia.CoreBank.API.Core.Models.MsgReferencia)">
+            <summary>
+            Cadastro de dados de referência de pessoas físicas e jurídicas
+            </summary>
+            <param name="codPessoa">Código da pessoa</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.codigoPessoa">
+            <summary>
+            Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.numeroDocumento">
+            <summary>
+            Nº Documento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.dataExpedicao">
+            <summary>
+            Data Expedição
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.orgaoExpedidor">
+            <summary>
+            Orgão Expedidor
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.observacao">
+            <summary>
+            observacao
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.dataCadastro">
+            <summary>
+            Data Cadastro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.usuarioUltimaAtualizacao">
+            <summary>
+            Usuário Última Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.dataAtualizacao">
+            <summary>
+            Data Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.IndicadorSituacao">
+            <summary>
+            Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.dataSituacao">
+            <summary>
+            Data Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.tipoDocumento">
+            <summary>
+            Tipo Documento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.ufExpedicao">
+            <summary>
+            UF Expedição
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.documentoCheque">
+            <summary>
+            Doc. Identif. Talão de Cheques
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.indicadorMicroEmpresa">
+            <summary>
+            Idc. Micro Empresa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.IndicadorComprovado">
+            <summary>
+            Idc. Comprovado
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.tipoComprovacaoRenda">
+            <summary>
+            Tipo de Comprovação de Renda
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.indicadorPreposto">
+            <summary>
+            Idc. Preposto
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.dataVencimento">
+            <summary>
+            Data Vencimento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.codigoNacionalidade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoPessoa">
+            <summary>
+            Código Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoFilial">
+            <summary>
+            Filial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoEndereco">
+            <summary>
+            Código
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.tipoEndereco">
+            <summary>
+            Tipo
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.tipoLogradouro">
+            <summary>
+            Logradouro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.nomeLogradouro">
+            <summary>
+            Logradouro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.complementoLogradouro">
+            <summary>
+            Complemento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.nomeBairro">
+            <summary>
+            Bairro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.Cep">
+            <summary>
+            CEP
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFone1">
+            <summary>
+            Fone 1 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFone2">
+            <summary>
+            Fone 2 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFone3">
+            <summary>
+            Fone 3 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFone4">
+            <summary>
+            Fone 4 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroTelefone1">
+            <summary>
+            Fone 1
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroTelefone2">
+            <summary>
+            Fone 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroTelefone3">
+            <summary>
+            Fone 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroTelefone4">
+            <summary>
+            Fone 4
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroRamal1">
+            <summary>
+            Ramal 1
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroRamal2">
+            <summary>
+            Ramal 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroRamal3">
+            <summary>
+            Ramal 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroRamal4">
+            <summary>
+            Ramal 4
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.situacaoTelefone1">
+            <summary>
+            Situação (Fone 1)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.situacaoTelefone2">
+            <summary>
+            Situação (Fone 2)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.situacaoTelefone3">
+            <summary>
+            Situação (Fone 3)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.situacaoTelefone4">
+            <summary>
+            Situação (Fone 4)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFax1">
+            <summary>
+            Fax 1 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFax2">
+            <summary>
+            Fax 2 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDddFax3">
+            <summary>
+            Fax 3 (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroFax1">
+            <summary>
+            Fax 1
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroFax2">
+            <summary>
+            Fax 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroFax3">
+            <summary>
+            Fax 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.indicadorSituacaoResidencia">
+            <summary>
+            Situação Residência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.indicadorCorrespondencia">
+            <summary>
+            Corresp.
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.dataInicial">
+            <summary>
+            Data Início
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.dataFinal">
+            <summary>
+            Data Fim
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.dataCadastro">
+            <summary>
+            Data Cadastro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.usuarioUltimaAtualizacao">
+            <summary>
+            Usuário Última Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.dataAtualizacao">
+            <summary>
+            Data Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.indicadorSituacao">
+            <summary>
+            Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.dataSituacao">
+            <summary>
+            Data Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoMunicipio">
+            <summary>
+            Município
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.descricaoMunicipio">
+            <summary>
+            Município
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.numeroEndereco">
+            <summary>
+            Número
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.indicadorEnvioCorrespondencia">
+            <summary>
+            Envio de Correspondência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoMotivo">
+            <summary>
+            Motivo
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.indicadorSituacaoRegistro">
+            <summary>
+            Situação Registro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.enderecoEstrangeiro">
+            <summary>
+            Endereço Fora do País
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoPais">
+            <summary>
+            País FATCA
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.descricaoMunicipioInternacional">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.descricaoEstadoInternacional">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Sinqia.CoreBank.API.Core.Models.MsgHeader">
+            <summary>
+            Classe responsável pelo header das mensagens 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.identificadorEnvio">
+            <summary>
+            Identificador da mensagem para localização (caso exista)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.dataHoraEnvio">
+            <summary>
+            Data e hora que foi enviado a mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroperfil.codigoPessoa">
+            <summary>
+            Código Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroperfil.codigoPerfil">
+            <summary>
+            Perfil
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoPessoa">
+            <summary>
+            Código
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomePessoa">
+            <summary>
+            Nome
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeAbvPessoa">
+            <summary>
+            Abreviação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.setorAtividade">
+            <summary>
+            Setor Atividade
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.descricaoProfissao">
+            <summary>
+            Profissão
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.estadoCivil">
+            <summary>
+            Estado Civil
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.regimeComunhao">
+            <summary>
+            Regime Comunhão
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.sexoPessoa">
+            <summary>
+            Sexo
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.grauInstrucao">
+            <summary>
+            Grau de Instrução
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomePai">
+            <summary>
+            Pai
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeMae">
+            <summary>
+            Mãe
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.qtdeDependentes">
+            <summary>
+            Dependentes
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataCadastro">
+            <summary>
+            Data Cadastro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.usuarioAtualizacao">
+            <summary>
+            Usuário Última Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataAtualizacao">
+            <summary>
+            Data Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataFundacao">
+            <summary>
+            Data Nascimento/Fundação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoAtividade">
+            <summary>
+            Ativ. Class. Gerencial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoGrupoEmpresarial">
+            <summary>
+            Grupo Empresarial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoMunicipio">
+            <summary>
+            Natural De
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.descricaoMunicipio">
+            <summary>
+            Natural De
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.descricaoNacionalidade">
+            <summary>
+            Nacionalidade
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataNaturalizacao">
+            <summary>
+            Data Naturalização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCbo">
+            <summary>
+            Profissão Class. CBO
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSetor">
+            <summary>
+            Ativ. Class. CNAE
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSubsetor">
+            <summary>
+            Ativ. Class. CNAE
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoRamo">
+            <summary>
+            Ativ. Class. CNAE
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoRamoAtiv">
+            <summary>
+            Ativ. Class. CNAE
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorConstituicao">
+            <summary>
+            Constituição
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nivelRisco">
+            <summary>
+            Nível Risco
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorfuncionario">
+            <summary>
+            Funcionário
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSegmento">
+            <summary>
+            Segmento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSubsegmento">
+            <summary>
+            Sub Segmento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoClasse">
+            <summary>
+            Classe
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataRenovacao">
+            <summary>
+            Renovação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataVencimento">
+            <summary>
+            Vencimento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoTipo">
+            <summary>
+            Tipo
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoclassificacaoLegal">
+            <summary>
+            Classificação Legal
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorEstrangeiro">
+            <summary>
+            Estrangeiro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDddContato">
+            <summary>
+            Telefone Para Contato (DDD)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.telefoneContato">
+            <summary>
+            Telefone Para Contato
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroRamalContato">
+            <summary>
+            Ramal
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorConsRisco">
+            <summary>
+            Idc. Cons. Risco
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCvm">
+            <summary>
+            Classificação CVM
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoAnbid">
+            <summary>
+            Classificação ANBID
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoPessoa">
+            <summary>
+            Tipo Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacionalidade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorSituacaoCadastral">
+            <summary>
+            Situação Cadastral CPF
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorImpedidoOperar">
+            <summary>
+            Impedido de Operar
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCnpjCpfVerificado">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataConsulta">
+            <summary>
+            Data Consulta
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroProcuracao">
+            <summary>
+            Número Procuração
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeDivergente">
+            <summary>
+            Nome Divergente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.usuarioCadastro">
+            <summary>
+            Usuário
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoPisPasep">
+            <summary>
+            PIS/PASEP
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.valorTotalBens">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.valorRendaMensal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorPosuiRenda">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.pessoaLigada">
+            <summary>
+            Pessoa Ligada
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCobrancaIOf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoFilial">
+            <summary>
+            Filial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCpfCnpjBase">
+            <summary>
+            CPF/CNPJ (Base)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCpfCnpjFilial">
+            <summary>
+            CPF/CNPJ (Filial)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCpfCnpjDigito">
+            <summary>
+            CPF/CNPJ (Dígito)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoPessoaFilial">
+            <summary>
+            Tipo Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorIsencaoCpf">
+            <summary>
+            Isento CPF
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.CpfTitular">
+            <summary>
+            Titularidade
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.inscricaoEstadualTitular">
+            <summary>
+            Inscrição Estadual
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.inscricaoMunicipalTitular">
+            <summary>
+            Inscrição Municipal
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorDependente">
+            <summary>
+            Idc Dependente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorFornecedor">
+            <summary>
+            Idc Fornecedor
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCliente">
+            <summary>
+            Idc Cliente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorSituacaoFilial">
+            <summary>
+            Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataCadastro1">
+            <summary>
+            Data Cadastro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.usuarioAtualizacao1">
+            <summary>
+            Usuário Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataAtualizacao1">
+            <summary>
+            Data Atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataSituacao">
+            <summary>
+            Data Situação
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoEmpresa">
+            <summary>
+            Gerente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDependente">
+            <summary>
+            Gerente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoOperador">
+            <summary>
+            Gerente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataInicialGerente">
+            <summary>
+            Data Início Gerente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCliente">
+            <summary>
+            Código Cliente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoPorte">
+            <summary>
+            Porte
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.qtdAssinaturas">
+            <summary>
+            Quantidade Assinaturas
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.enderecoHomePage">
+            <summary>
+            Home Page
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.email1">
+            <summary>
+            E-mail 1
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.email2">
+            <summary>
+            E-mail 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.email3">
+            <summary>
+            E-mail 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.email4">
+            <summary>
+            E-mail 4
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.email5">
+            <summary>
+            E-mail 5
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorIsencaoIr">
+            <summary>
+            Isento IR
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoEmpresaIndic">
+            <summary>
+            Indicado Por
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoOperIndic">
+            <summary>
+            Indicado Por
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSistemaOrigem">
+            <summary>
+            Código Sistema Origem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.obs">
+            <summary>
+            observacao
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoIspb">
+            <summary>
+            Cod. ISPB
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.sequencialCnpjDuplicado">
+            <summary>
+            Sequência CNPJ
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCorrespAgencia">
+            <summary>
+            Envio Carnê Agência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataInicioSfn">
+            <summary>
+            Data SFN
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.CpfConjugue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeConjugue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorNaoResidente">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorRes2686">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNovaNacionalidade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataSaídaPais">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNatureza">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoImunidade">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataRegistroRbf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroProcesso">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroVara">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataInicio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataFim">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorSituacaoRegistro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCnae2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorClienteFatca">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacionalidade1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacionalidade2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacionalidade3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacionalidade4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDomicilio1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDomicilio2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDomicilio3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDomicilio4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.sUnid">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.apelido1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.apelido2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.apelido3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorOptanteSimples">
+            <summary>
+            Optante Simples
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.CpfFormatado">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.situacaoBeneficiario">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorOperaContaPropria">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorTransmissaoProcurador">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoDeclarado">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorClienteEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoDocumentoEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroDocumentoEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoJustificativa">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorAtivo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.pesjustificativa">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.cpfCnpj">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeContato">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCargo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorDeclaracaoFatca1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorDeclaracaoFatca2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorDomicilioExterno">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroFuncionarios">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNacCapital">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.valorCapitalEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.valorCapitalNacional">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoCapital">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoClasseEconomicaCetip">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoIdentificadorRacial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDdi">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeSocialPessoa">
+            <summary>
+            NomeSocial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorIsencaoInscricaoEstadual">
+            <summary>
+            Isento Inscricao Estadual
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSubgrupoEmpresarial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nivelRiscoPld">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.observacaoPld">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoGerente">
+            <summary>
+            Gerente
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCobrancaIofAdicional">
+            <summary>
+            Indicador de cobrança de IOF Adicional 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoCestroResultado">
+            <summary>
+            Centro de Resultado 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.cpfCnpjFormatado">
+            <summary>
+            CPF ou CNPJ Formatado 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nome">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDddFone1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDddFone2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroTelefone1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroTelefone2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroRamal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroRamal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.situacaoTelefone1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.situacaoTelefone2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.dataNascimento">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.observacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.tipoReferencia">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.dataCadastramento">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.usuarioUltimaAtualizacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.dataAtualizacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoMunicipio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.descricaoMunicipio">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.tipoLogradouro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.descricicaoLogradouro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroEndereco">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.complementoLogradouro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nomeBairro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.tipoEndereco">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.uf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.pais">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroCep">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.estadoCivil">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.regimeComunhao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nomeConjugue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.indicadorAvalista">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.CpfCnpjSimplificado">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.tipoPessoa">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.identificadorIsentoCpf">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoSistemaOrigem">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.CpfConjugue">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.indicadorClienteFatca">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroRg">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroIdentificadorFiscal">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoNacionalidade1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoNacionalidade2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoNacionalidade3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoNacionalidade4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDomicilioFiscal1">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDomicilioFiscal2">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDomicilioFiscal3">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDomicilioFiscal4">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigoDddCelular">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroCelular">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.email">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.indicadorClienteEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.tipoDocumentoEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.numeroDocumentoEstrangeiro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nomeSocial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nivelRiscoPld">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.observacaoPld">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoPessoaTitular">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoFilialTitular">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.sequencial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.tipo">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.observacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.numeroCartao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.valorLimite">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataInicioEmprego">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataFinalEmprego">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataCadastro">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.usuarioUltimaAtualizacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataAtualizacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.indicadorSituacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataSituacao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoCartao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoSeguradora">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoPessoaReferencia">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoFilialReferencia">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoPessoaSimplificada">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.dataVencimentoSeguroCartao">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRetorno">
+            <summary>
+            Classe responsável pelas mensagens de retorno 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.identificador">
+            <summary>
+            Identificador da mensagem para localização (caso exista)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraEnvio">
+            <summary>
+            Data e hora que foi enviado a mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraRetorno">
+            <summary>
+            Data e hora do retorno da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.status">
+            <summary>
+            OK - sucesso / ERRO - Com erro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.erros">
+            <summary>
+            Lista de erros na integração (nulo caso a integração ocorra com sucesso)
+            </summary>
+        </member>
+    </members>
+</doc>

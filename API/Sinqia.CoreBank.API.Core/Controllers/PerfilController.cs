@@ -13,6 +13,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PerfilController : ControllerBase
     {
+        /// <summary>
+        /// Vinculação de perfis para uma pessoa
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

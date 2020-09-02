@@ -14,7 +14,7 @@ namespace Sinqia.CoreBank.API.Core.Models
 
     public class MsgRegistroEnderecoBody
     {
-        public MsgEndereco RegistroEndereco { get; set; }
+        public MsgRegistroendereco RegistroEndereco { get; set; }
     }
     public class MsgRegistroendereco
     {

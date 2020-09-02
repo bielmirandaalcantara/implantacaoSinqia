@@ -15,7 +15,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// <summary>
         /// Cadastro de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
         /// </summary>
-        /// <param name="msg">MsgPessoaCompleto - Json com os dados de cadastro</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa")]
