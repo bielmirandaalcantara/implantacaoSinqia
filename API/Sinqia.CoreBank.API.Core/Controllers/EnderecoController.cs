@@ -43,5 +43,36 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
         }
+
+        [HttpPut]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        public ActionResult putEndereco([FromRoute] string codPessoa, [FromRoute] string codEndereco, [FromBody] MsgEndereco msg)
+        {
+            AdaptadorEndereco adaptador = new AdaptadorEndereco();
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+
+            try
+            {
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+        }
     }
 }
