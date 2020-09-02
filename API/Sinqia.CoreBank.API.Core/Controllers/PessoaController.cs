@@ -1,12 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using SQBI.CoreBank.API.Core.Adaptadores;
-using SQBI.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Adaptadores;
+using Sinqia.CoreBank.API.Core.Models;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 
-namespace SQBI.CoreBank.API.Core.Controllers
+namespace Sinqia.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]

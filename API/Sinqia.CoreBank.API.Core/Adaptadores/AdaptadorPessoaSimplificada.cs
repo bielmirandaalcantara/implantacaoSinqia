@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using SQBI.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models;
 
-namespace SQBI.CoreBank.API.Core.Adaptadores
+namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorPessoaSimplificada
     {

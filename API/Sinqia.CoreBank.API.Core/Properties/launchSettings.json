@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "SQBI.CoreBank.API.Core": {
+    "Sinqia.CoreBank.API.Core": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",

@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace SQBI.CoreBank.API.Core
+namespace Sinqia.CoreBank.API.Core
 {
     public class Startup
     {

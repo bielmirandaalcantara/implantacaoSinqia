@@ -1,10 +1,10 @@
-﻿using SQBI.CoreBank.API.Core.Models;
+﻿using Sinqia.CoreBank.API.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SQBI.CoreBank.API.Core.Adaptadores
+namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorPerfil
     {

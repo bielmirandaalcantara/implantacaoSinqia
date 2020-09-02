@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SQBI.CoreBank.API.Core.Models
+namespace Sinqia.CoreBank.API.Core.Models
 {
 
     public class MsgPessoaSimplificada

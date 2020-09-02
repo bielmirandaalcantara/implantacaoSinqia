@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace SQBI.CoreBank.API.Core
+namespace Sinqia.CoreBank.API.Core
 {
     public class Program
     {
