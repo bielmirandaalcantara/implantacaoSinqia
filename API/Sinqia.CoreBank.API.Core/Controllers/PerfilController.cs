@@ -11,16 +11,16 @@ namespace SQBI.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class DocumentoController : ControllerBase
+    public class PerfilController : ControllerBase
     {
         [HttpPost]
-        [Route("api/core/cadastros/Documento")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/perfil")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult postDocumento([FromBody] MsgDocumento msg)
+        public ActionResult postPerfil([FromRoute] string codPessoa, [FromBody] MsgPerfil msg)
         {
-            AdaptadorDocumento adaptador = new AdaptadorDocumento();
+            AdaptadorPerfil adaptador = new AdaptadorPerfil();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 

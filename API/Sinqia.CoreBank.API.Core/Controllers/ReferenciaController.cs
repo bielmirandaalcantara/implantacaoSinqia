@@ -11,16 +11,16 @@ namespace SQBI.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class EnderecoController : ControllerBase
+    public class ReferenciaController : ControllerBase
     {
         [HttpPost]
-        [Route("api/core/cadastros/endereco")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status201Created)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult postEndereco([FromBody] MsgEndereco msg)
+        public ActionResult postReferencia([FromRoute] string codPessoa,[FromBody] MsgReferencia msg)
         {
-            AdaptadorEndereco adaptador = new AdaptadorEndereco();
+            AdaptadorReferencia adaptador = new AdaptadorReferencia();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
