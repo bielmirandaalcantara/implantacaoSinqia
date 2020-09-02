@@ -36,7 +36,7 @@
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.EnderecoController.putEndereco(System.String,System.String,Sinqia.CoreBank.API.Core.Models.MsgEndereco)">
             <summary>
-            Altercaação de dados de documentos de pessoas físicas e jurídicas
+            Alteracação de dados de documentos de pessoas físicas e jurídicas
             </summary>
             <param name="codPessoa">Código da pessoa</param>
             <param name="codEndereco">Código do endereço</param>
@@ -494,36 +494,6 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoPais">
             <summary>
             País FATCA
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone1">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone2">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone3">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoDdiFone4">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.descricaoMunicipioInternacional">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.descricaoEstadoInternacional">
-            <summary>
-            
             </summary>
         </member>
         <member name="T:Sinqia.CoreBank.API.Core.Models.MsgHeader">
@@ -1061,16 +1031,6 @@
             Data SFN
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.CpfConjugue">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeConjugue">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorNaoResidente">
             <summary>
             
@@ -1087,11 +1047,6 @@
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.dataSaídaPais">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoNatureza">
             <summary>
             
             </summary>
@@ -1206,11 +1161,6 @@
             Optante Simples
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.CpfFormatado">
-            <summary>
-            
-            </summary>
-        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.situacaoBeneficiario">
             <summary>
             
@@ -1227,21 +1177,6 @@
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoDeclarado">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorClienteEstrangeiro">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.tipoDocumentoEstrangeiro">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.numeroDocumentoEstrangeiro">
             <summary>
             
             </summary>
@@ -1319,21 +1254,6 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoIdentificadorRacial">
             <summary>
             
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDdi">
-            <summary>
-            
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeSocialPessoa">
-            <summary>
-            NomeSocial
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorIsencaoInscricaoEstadual">
-            <summary>
-            Isento Inscricao Estadual
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSubgrupoEmpresarial">

@@ -53,12 +53,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int numeroCartao { get; set; }
+        public Decimal numeroCartao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int valorLimite { get; set; }
+        public decimal valorLimite { get; set; }
 
         /// <summary>
         /// 

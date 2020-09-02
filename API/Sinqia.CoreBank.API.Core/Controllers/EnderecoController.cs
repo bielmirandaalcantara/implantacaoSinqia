@@ -50,7 +50,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Altercaação de dados de documentos de pessoas físicas e jurídicas
+        /// Alteracação de dados de documentos de pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <param name="codEndereco">Código do endereço</param>

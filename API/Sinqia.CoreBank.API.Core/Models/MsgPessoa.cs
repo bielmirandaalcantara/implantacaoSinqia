@@ -118,7 +118,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Natural De
         /// </summary>
-        public int codigoMunicipio { get; set; }
+        public decimal codigoMunicipio { get; set; }
 
         /// <summary>
         /// Natural De
@@ -298,12 +298,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int valorTotalBens { get; set; }
+        public decimal valorTotalBens { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int valorRendaMensal { get; set; }
+        public decimal valorRendaMensal { get; set; }
 
         /// <summary>
         /// 
@@ -515,15 +515,11 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public DateTime dataInicioSfn { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CpfConjugue { get; set; }
+ 
+        //public string CpfConjugue { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string nomeConjugue { get; set; }
+      
+        //public string nomeConjugue { get; set; }
 
         /// <summary>
         /// 
@@ -545,10 +541,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public DateTime dataSaídaPais { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public int codigoNatureza { get; set; }
+        //public int codigoNatureza { get; set; }
 
         /// <summary>
         /// 
@@ -660,10 +653,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string indicadorOptanteSimples { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string CpfFormatado { get; set; }
+        //public string CpfFormatado { get; set; }
 
         /// <summary>
         /// 
@@ -685,20 +675,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string tipoDeclarado { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string indicadorClienteEstrangeiro { get; set; }
+ 
+       //public string indicadorClienteEstrangeiro { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string tipoDocumentoEstrangeiro { get; set; }
+        //public string tipoDocumentoEstrangeiro { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string numeroDocumentoEstrangeiro { get; set; }
+        //public string numeroDocumentoEstrangeiro { get; set; }
 
         /// <summary>
         /// 
@@ -758,12 +740,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int valorCapitalEstrangeiro { get; set; }
+        public decimal valorCapitalEstrangeiro { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int valorCapitalNacional { get; set; }
+        public decimal valorCapitalNacional { get; set; }
 
         /// <summary>
         /// 
@@ -773,27 +755,28 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string codigoClasseEconomicaCetip { get; set; }
+        public int codigoClasseEconomicaCetip { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         public string codigoIdentificadorRacial { get; set; }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        public string codigoDdi { get; set; }
+        //public string codigoDdi { get; set; }
 
+        /*
         /// <summary>
         /// NomeSocial
         /// </summary>
         public string nomeSocialPessoa { get; set; }
+        */
 
+        /*
         /// <summary>
         /// Isento Inscricao Estadual
         /// </summary>
         public string indicadorIsencaoInscricaoEstadual { get; set; }
+        */
 
         /// <summary>
         /// 

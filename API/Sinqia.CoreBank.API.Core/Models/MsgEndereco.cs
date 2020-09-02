@@ -270,6 +270,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public int codigoPais { get; set; }
 
+        /*
         /// <summary>
         /// 
         /// </summary>
@@ -299,6 +300,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         public string descricaoEstadoInternacional { get; set; }
+        */
 
     }
 }
