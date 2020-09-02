@@ -15,7 +15,7 @@ namespace SQBI.CoreBank.API.Core.Controllers
     {
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil")]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status201Created)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult postPerfil([FromRoute] string codPessoa, [FromBody] MsgPerfil msg)
@@ -27,7 +27,7 @@ namespace SQBI.CoreBank.API.Core.Controllers
             try
             {
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)
             {
