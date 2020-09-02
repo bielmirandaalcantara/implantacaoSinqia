@@ -49,6 +49,49 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Alteração de dados de referência de pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codReferencia">Código de referencia</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpPut]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codReferencia}")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        public ActionResult putReferencia([FromRoute] string codPessoa, [FromRoute] string codReferencia, [FromBody] MsgReferencia msg)
+        {
+            AdaptadorReferencia adaptador = new AdaptadorReferencia();
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+
+            try
+            {
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+        }
+
+        /// <summary>
+        /// Exclusão de dados de referência de pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codReferencia">Código de referencia</param>
+        /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

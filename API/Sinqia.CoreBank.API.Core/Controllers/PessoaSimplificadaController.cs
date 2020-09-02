@@ -48,6 +48,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         }
 
+        /// <summary>
+        /// Alterar os dados de pessoa simplificada
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
@@ -80,6 +85,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         }
 
+        /// <summary>
+        /// Excluir os dados de pessoa simplificada
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

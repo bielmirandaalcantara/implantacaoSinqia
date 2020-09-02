@@ -48,6 +48,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         }
 
+        /// <summary>
+        /// Alteração de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
@@ -80,6 +85,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         }
 
+        /// <summary>
+        /// Exclusão de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

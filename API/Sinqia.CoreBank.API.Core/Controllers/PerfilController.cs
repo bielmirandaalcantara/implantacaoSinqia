@@ -49,6 +49,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Alteração de perfis para uma pessoa
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codPerfil">Código do perfil</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil/{codPerfil}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
@@ -80,6 +86,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclusão de perfis para uma pessoa
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codPerfil">Código do perfil</param>
+        /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil/{codPerfil}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]

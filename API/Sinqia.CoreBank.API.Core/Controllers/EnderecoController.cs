@@ -49,6 +49,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Altercaação de dados de documentos de pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codEndereco">Código do endereço</param>
+        /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
@@ -80,6 +86,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /// <summary>
+        /// Exclusão de dados de documentos de pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="codEndereco">Código do endereço</param>
+        /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
