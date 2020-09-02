@@ -718,7 +718,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string cpfCnpj { get; set; }
+        //public string cpfCnpj { get; set; }
 
         /// <summary>
         /// 

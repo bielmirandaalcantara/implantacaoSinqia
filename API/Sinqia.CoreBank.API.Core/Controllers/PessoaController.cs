@@ -95,7 +95,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deletePessoa([FromRoute] string codPessoa, [FromBody] MsgPessoa msg)
+        public ActionResult deletePessoa([FromRoute] string codPessoa)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
@@ -103,20 +103,20 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 

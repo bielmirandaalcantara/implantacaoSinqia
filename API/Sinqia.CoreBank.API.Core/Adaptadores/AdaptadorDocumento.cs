@@ -33,5 +33,24 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
+        public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
+        {
+            MsgRetorno retorno = new MsgRetorno();
+            string identificador = string.Empty;
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? "ERRO" : "OK";
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+
+            retorno.header = header;
+            return retorno;
+        }
+
     }
 }
