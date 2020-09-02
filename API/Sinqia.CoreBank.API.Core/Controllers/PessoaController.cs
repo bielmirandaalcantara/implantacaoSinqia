@@ -44,6 +44,38 @@ namespace SQBI.CoreBank.API.Core.Controllers
 
         }
 
+        [HttpPut]
+        [Route("api/core/cadastros/pessoa/{codPessoa}")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        public ActionResult putPessoa([FromRoute] string codPessoa, [FromBody] MsgPessoa msg)
+        {
+            AdaptadorPessoa adaptador = new AdaptadorPessoa();
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+
+            try
+            {
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
+        }
+
         /*
         [HttpGet]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
