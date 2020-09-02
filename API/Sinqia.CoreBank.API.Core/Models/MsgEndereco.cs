@@ -8,7 +8,14 @@ namespace Sinqia.CoreBank.API.Core.Models
 
     public class MsgEndereco
     {
+        /// <summary>
+        /// header da mensagem
+        /// </summary>
         public MsgHeader header { get; set; }
+
+        /// <summary>
+        /// corpo da mensagem
+        /// </summary>
         public MsgRegistroEnderecoBody body { get; set; }
     }
 

@@ -44,6 +44,16 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgDocumento.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgDocumento.body">
+            <summary>
+            corpo da mensagem
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.codigoPessoa">
             <summary>
             Pessoa
@@ -137,6 +147,16 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistrodocumento.codigoNacionalidade">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgEndereco.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgEndereco.body">
+            <summary>
+            corpo da mensagem
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroendereco.codigoPessoa">
@@ -429,6 +449,16 @@
             Data e hora que foi enviado a mensagem
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPerfil.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPerfil.body">
+            <summary>
+            corpo da mensagem
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroperfil.codigoPessoa">
             <summary>
             Código Pessoa
@@ -437,6 +467,16 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroperfil.codigoPerfil">
             <summary>
             Perfil
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoa.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoa.body">
+            <summary>
+            corpo da mensagem
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoPessoa">
@@ -1244,6 +1284,46 @@
             CPF ou CNPJ Formatado 
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoaCompleto.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoaCompleto.body">
+            <summary>
+            corpo da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoaCompleto.RegistroPerfil">
+            <summary>
+            inclusão de perfil
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoaCompleto.RegistroDocumento">
+            <summary>
+            Inclusão de documentos
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoaCompleto.RegistroEndereco">
+            <summary>
+            Inclusão de endereços
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoaCompleto.RegistroReferencia">
+            <summary>
+            Inclusão de referências da pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoaSimplificada.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPessoaSimplificada.body">
+            <summary>
+            corpo da mensagem
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.codigo">
             <summary>
             
@@ -1524,6 +1604,16 @@
             
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgReferencia.header">
+            <summary>
+            header da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgReferencia.body">
+            <summary>
+            corpo da mensagem
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroreferencia.codigoPessoaTitular">
             <summary>
             
@@ -1627,6 +1717,11 @@
         <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRetorno">
             <summary>
             Classe responsável pelas mensagens de retorno 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRetorno.header">
+            <summary>
+            header da mensagem de retorno
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.identificador">

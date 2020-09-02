@@ -7,7 +7,14 @@ namespace Sinqia.CoreBank.API.Core.Models
 {
     public class MsgReferencia
     {
+        /// <summary>
+        /// header da mensagem
+        /// </summary>
         public MsgHeader header { get; set; }
+
+        /// <summary>
+        /// corpo da mensagem
+        /// </summary>
         public MsgRegistroReferenciaBody body { get; set; }
     }
 

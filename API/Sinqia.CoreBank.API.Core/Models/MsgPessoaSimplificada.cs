@@ -8,7 +8,14 @@ namespace Sinqia.CoreBank.API.Core.Models
 
     public class MsgPessoaSimplificada
     {
+        /// <summary>
+        /// header da mensagem
+        /// </summary>
         public MsgHeader header { get; set; }
+
+        /// <summary>
+        /// corpo da mensagem
+        /// </summary>
         public MsgRegistroPessoaSimplificadaBody body { get; set; }
     }
 
