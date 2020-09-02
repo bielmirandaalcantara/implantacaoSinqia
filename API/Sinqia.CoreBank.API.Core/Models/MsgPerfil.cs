@@ -17,7 +17,14 @@ namespace SQBI.CoreBank.API.Core.Models
     }
     public class MsgRegistroperfil
     {
+        /// <summary>
+        /// Código Pessoa
+        /// </summary>
         public string codigoPessoa { get; set; }
+
+        /// <summary>
+        /// Perfil
+        /// </summary>
         public string codigoPerfil { get; set; }
     }
 }

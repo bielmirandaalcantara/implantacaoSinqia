@@ -10,21 +10,16 @@ namespace SQBI.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class PessoaController : ControllerBase
+    public class PessoaSimplificadaController : ControllerBase
     {
-        /// <summary>
-        /// Cadastro de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
-        /// </summary>
-        /// <param name="msg">MsgPessoaCompleto - Json com os dados de cadastro</param>
-        /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/pessoa")]
+        [Route("api/core/cadastros/pessoaSimplificada")]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
-        public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
+        public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
+            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
@@ -45,38 +40,6 @@ namespace SQBI.CoreBank.API.Core.Controllers
                 listaErros.Add(ex.Message);
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);                
                 return StatusCode((int)HttpStatusCode.InternalServerError,retorno);
-            }
-
-        }
-
-        [HttpPut]
-        [Route("api/core/cadastros/pessoa/{codPessoa}")]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult putPessoa([FromRoute] string codPessoa, [FromBody] MsgPessoa msg)
-        {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
-            List<string> listaErros = new List<string>();
-            MsgRetorno retorno;
-
-            try
-            {
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                return StatusCode((int)HttpStatusCode.OK, retorno);
-            }
-            catch (ApplicationException appEx)
-            {
-
-                listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
-            }
-            catch (Exception ex)
-            {
-                listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }

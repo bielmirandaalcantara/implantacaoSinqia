@@ -18,163 +18,810 @@ namespace SQBI.CoreBank.API.Core.Models
 
     public class MsgRegistropessoa
     {
+        /// <summary>
+        /// Código
+        /// </summary>
         public string codigoPessoa { get; set; }
+
+        /// <summary>
+        /// Nome
+        /// </summary>
         public string nomePessoa { get; set; }
+
+        /// <summary>
+        /// Abreviação
+        /// </summary>
         public string nomeAbvPessoa { get; set; }
+
+        /// <summary>
+        /// Setor Atividade
+        /// </summary>
         public string setorAtividade { get; set; }
+
+        /// <summary>
+        /// Profissão
+        /// </summary>
         public string descricaoProfissao { get; set; }
+
+        /// <summary>
+        /// Estado Civil
+        /// </summary>
         public string estadoCivil { get; set; }
+
+        /// <summary>
+        /// Regime Comunhão
+        /// </summary>
         public string regimeComunhao { get; set; }
+
+        /// <summary>
+        /// Sexo
+        /// </summary>
         public string sexoPessoa { get; set; }
+
+        /// <summary>
+        /// Grau de Instrução
+        /// </summary>
         public string grauInstrucao { get; set; }
+
+        /// <summary>
+        /// Pai
+        /// </summary>
         public string nomePai { get; set; }
+
+        /// <summary>
+        /// Mãe
+        /// </summary>
         public string nomeMae { get; set; }
+
+        /// <summary>
+        /// Dependentes
+        /// </summary>
         public int qtdeDependentes { get; set; }
-        public string dataCadastro { get; set; }
+
+        /// <summary>
+        /// Data Cadastro
+        /// </summary>
+        public DateTime dataCadastro { get; set; }
+
+        /// <summary>
+        /// Usuário Última Atualização
+        /// </summary>
         public string usuarioAtualizacao { get; set; }
-        public string dataAtualizacao { get; set; }
-        public string dataFundacao { get; set; }
+
+        /// <summary>
+        /// Data Atualização
+        /// </summary>
+        public DateTime dataAtualizacao { get; set; }
+
+        /// <summary>
+        /// Data Nascimento/Fundação
+        /// </summary>
+        public DateTime dataFundacao { get; set; }
+
+        /// <summary>
+        /// Ativ. Class. Gerencial
+        /// </summary>
         public int codigoAtividade { get; set; }
+
+        /// <summary>
+        /// Grupo Empresarial
+        /// </summary>
         public int codigoGrupoEmpresarial { get; set; }
-        public float codigoMunicipio { get; set; }
+
+        /// <summary>
+        /// Natural De
+        /// </summary>
+        public int codigoMunicipio { get; set; }
+
+        /// <summary>
+        /// Natural De
+        /// </summary>
         public string descricaoMunicipio { get; set; }
+
+        /// <summary>
+        /// Nacionalidade
+        /// </summary>
         public string descricaoNacionalidade { get; set; }
-        public string dataNaturalizacao { get; set; }
+
+        /// <summary>
+        /// Data Naturalização
+        /// </summary>
+        public DateTime dataNaturalizacao { get; set; }
+
+        /// <summary>
+        /// Profissão Class. CBO
+        /// </summary>
         public string codigoCbo { get; set; }
-        public float codigoSetor { get; set; }
-        public float codigoSubsetor { get; set; }
-        public float codigoRamo { get; set; }
-        public float codigoRamoAtiv { get; set; }
+
+        /// <summary>
+        /// Ativ. Class. CNAE
+        /// </summary>
+        public int codigoSetor { get; set; }
+
+        /// <summary>
+        /// Ativ. Class. CNAE
+        /// </summary>
+        public int codigoSubsetor { get; set; }
+
+        /// <summary>
+        /// Ativ. Class. CNAE
+        /// </summary>
+        public int codigoRamo { get; set; }
+
+        /// <summary>
+        /// Ativ. Class. CNAE
+        /// </summary>
+        public int codigoRamoAtiv { get; set; }
+
+        /// <summary>
+        /// Constituição
+        /// </summary>
         public string indicadorConstituicao { get; set; }
+
+        /// <summary>
+        /// Nível Risco
+        /// </summary>
         public string nivelRisco { get; set; }
+
+        /// <summary>
+        /// Funcionário
+        /// </summary>
         public string indicadorfuncionario { get; set; }
+
+        /// <summary>
+        /// Segmento
+        /// </summary>
         public string codigoSegmento { get; set; }
+
+        /// <summary>
+        /// Sub Segmento
+        /// </summary>
         public string codigoSubsegmento { get; set; }
+
+        /// <summary>
+        /// Classe
+        /// </summary>
         public string codigoClasse { get; set; }
-        public string dataRenovacao { get; set; }
-        public string dataVencimento { get; set; }
-        public float codigoTipo { get; set; }
-        public float codigoclassificacaoLegal { get; set; }
+
+        /// <summary>
+        /// Renovação
+        /// </summary>
+        public DateTime dataRenovacao { get; set; }
+
+        /// <summary>
+        /// Vencimento
+        /// </summary>
+        public DateTime dataVencimento { get; set; }
+
+        /// <summary>
+        /// Tipo
+        /// </summary>
+        public int codigoTipo { get; set; }
+
+        /// <summary>
+        /// Classificação Legal
+        /// </summary>
+        public int codigoclassificacaoLegal { get; set; }
+
+        /// <summary>
+        /// Estrangeiro
+        /// </summary>
         public string indicadorEstrangeiro { get; set; }
+
+        /// <summary>
+        /// Telefone Para Contato (DDD)
+        /// </summary>
         public string codigoDddContato { get; set; }
+
+        /// <summary>
+        /// Telefone Para Contato
+        /// </summary>
         public string telefoneContato { get; set; }
+
+        /// <summary>
+        /// Ramal
+        /// </summary>
         public string numeroRamalContato { get; set; }
+
+        /// <summary>
+        /// Idc. Cons. Risco
+        /// </summary>
         public string indicadorConsRisco { get; set; }
+
+        /// <summary>
+        /// Classificação CVM
+        /// </summary>
         public string codigoCvm { get; set; }
+
+        /// <summary>
+        /// Classificação ANBID
+        /// </summary>
         public string codigoAnbid { get; set; }
+
+        /// <summary>
+        /// Tipo Pessoa
+        /// </summary>
         public string tipoPessoa { get; set; }
-        public float codigoNacionalidade { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacionalidade { get; set; }
+
+        /// <summary>
+        /// Situação Cadastral CPF
+        /// </summary>
         public string indicadorSituacaoCadastral { get; set; }
+
+        /// <summary>
+        /// Impedido de Operar
+        /// </summary>
         public string indicadorImpedidoOperar { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorCnpjCpfVerificado { get; set; }
-        public string dataConsulta { get; set; }
-        public float numeroProcuracao { get; set; }
+
+        /// <summary>
+        /// Data Consulta
+        /// </summary>
+        public DateTime dataConsulta { get; set; }
+
+        /// <summary>
+        /// Número Procuração
+        /// </summary>
+        public int numeroProcuracao { get; set; }
+
+        /// <summary>
+        /// Nome Divergente
+        /// </summary>
         public string nomeDivergente { get; set; }
+
+        /// <summary>
+        /// Usuário
+        /// </summary>
         public string usuarioCadastro { get; set; }
-        public float codigoPisPasep { get; set; }
-        public float valorTotalBens { get; set; }
-        public float valorRendaMensal { get; set; }
+
+        /// <summary>
+        /// PIS/PASEP
+        /// </summary>
+        public int codigoPisPasep { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int valorTotalBens { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int valorRendaMensal { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorPosuiRenda { get; set; }
+
+        /// <summary>
+        /// Pessoa Ligada
+        /// </summary>
         public string pessoaLigada { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorCobrancaIOf { get; set; }
+
+        /// <summary>
+        /// Filial
+        /// </summary>
         public string codigoFilial { get; set; }
+
+        /// <summary>
+        /// CPF/CNPJ (Base)
+        /// </summary>
         public string codigoCpfCnpjBase { get; set; }
+
+        /// <summary>
+        /// CPF/CNPJ (Filial)
+        /// </summary>
         public string codigoCpfCnpjFilial { get; set; }
+
+        /// <summary>
+        /// CPF/CNPJ (Dígito)
+        /// </summary>
         public string codigoCpfCnpjDigito { get; set; }
+
+        /// <summary>
+        /// Tipo Pessoa
+        /// </summary>
         public string tipoPessoaFilial { get; set; }
+
+        /// <summary>
+        /// Isento CPF
+        /// </summary>
         public string indicadorIsencaoCpf { get; set; }
+
+        /// <summary>
+        /// Titularidade
+        /// </summary>
         public string CpfTitular { get; set; }
+
+        /// <summary>
+        /// Inscrição Estadual
+        /// </summary>
         public string inscricaoEstadualTitular { get; set; }
+
+        /// <summary>
+        /// Inscrição Municipal
+        /// </summary>
         public string inscricaoMunicipalTitular { get; set; }
+
+        /// <summary>
+        /// Idc Dependente
+        /// </summary>
         public string indicadorDependente { get; set; }
+
+        /// <summary>
+        /// Idc Fornecedor
+        /// </summary>
         public string indicadorFornecedor { get; set; }
+
+        /// <summary>
+        /// Idc Cliente
+        /// </summary>
         public string indicadorCliente { get; set; }
+
+        /// <summary>
+        /// Situação
+        /// </summary>
         public string indicadorSituacaoFilial { get; set; }
-        public string dataCadastro1 { get; set; }
+
+        /// <summary>
+        /// Data Cadastro
+        /// </summary>
+        public DateTime dataCadastro1 { get; set; }
+
+        /// <summary>
+        /// Usuário Atualização
+        /// </summary>
         public string usuarioAtualizacao1 { get; set; }
-        public string dataAtualizacao1 { get; set; }
-        public string dataSituacao { get; set; }
-        public float codigoEmpresa { get; set; }
-        public float codigoDependente { get; set; }
-        public float codigoOperador { get; set; }
-        public string dataInicialGerente { get; set; }
-        public float codigoCliente { get; set; }
-        public float codigoPorte { get; set; }
+
+        /// <summary>
+        /// Data Atualização
+        /// </summary>
+        public DateTime dataAtualizacao1 { get; set; }
+
+        /// <summary>
+        /// Data Situação
+        /// </summary>
+        public DateTime dataSituacao { get; set; }
+
+        /// <summary>
+        /// Gerente
+        /// </summary>
+        public int codigoEmpresa { get; set; }
+
+        /// <summary>
+        /// Gerente
+        /// </summary>
+        public int codigoDependente { get; set; }
+
+        /// <summary>
+        /// Gerente
+        /// </summary>
+        public int codigoOperador { get; set; }
+
+        /// <summary>
+        /// Data Início Gerente
+        /// </summary>
+        public DateTime dataInicialGerente { get; set; }
+
+        /// <summary>
+        /// Código Cliente
+        /// </summary>
+        public int codigoCliente { get; set; }
+
+        /// <summary>
+        /// Porte
+        /// </summary>
+        public int codigoPorte { get; set; }
+
+        /// <summary>
+        /// Quantidade Assinaturas
+        /// </summary>
         public int qtdAssinaturas { get; set; }
+
+        /// <summary>
+        /// Home Page
+        /// </summary>
         public string enderecoHomePage { get; set; }
+
+        /// <summary>
+        /// E-mail 1
+        /// </summary>
         public string email1 { get; set; }
+
+        /// <summary>
+        /// E-mail 2
+        /// </summary>
         public string email2 { get; set; }
+
+        /// <summary>
+        /// E-mail 3
+        /// </summary>
         public string email3 { get; set; }
+
+        /// <summary>
+        /// E-mail 4
+        /// </summary>
         public string email4 { get; set; }
+
+        /// <summary>
+        /// E-mail 5
+        /// </summary>
         public string email5 { get; set; }
+
+        /// <summary>
+        /// Isento IR
+        /// </summary>
         public string indicadorIsencaoIr { get; set; }
-        public float codigoEmpresaIndic { get; set; }
-        public float codigoOperIndic { get; set; }
+
+        /// <summary>
+        /// Indicado Por
+        /// </summary>
+        public int codigoEmpresaIndic { get; set; }
+
+        /// <summary>
+        /// Indicado Por
+        /// </summary>
+        public int codigoOperIndic { get; set; }
+
+        /// <summary>
+        /// Código Sistema Origem
+        /// </summary>
         public string codigoSistemaOrigem { get; set; }
+
+        /// <summary>
+        /// observacao
+        /// </summary>
         public string obs { get; set; }
+
+        /// <summary>
+        /// Cod. ISPB
+        /// </summary>
         public string codigoIspb { get; set; }
-        public float sequencialCnpjDuplicado { get; set; }
+
+        /// <summary>
+        /// Sequência CNPJ
+        /// </summary>
+        public int sequencialCnpjDuplicado { get; set; }
+
+        /// <summary>
+        /// Envio Carnê Agência
+        /// </summary>
         public string indicadorCorrespAgencia { get; set; }
-        public string dataInicioSfn { get; set; }
+
+        /// <summary>
+        /// Data SFN
+        /// </summary>
+        public DateTime dataInicioSfn { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string CpfConjugue { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string nomeConjugue { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorNaoResidente { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorRes2686 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int codigoNovaNacionalidade { get; set; }
-        public string dataSaídaPais { get; set; }
-        public float codigoNatureza { get; set; }
-        public float tipoImunidade { get; set; }
-        public string dataRegistroRbf { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataSaídaPais { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNatureza { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int tipoImunidade { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataRegistroRbf { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string numeroProcesso { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string numeroVara { get; set; }
-        public string dataInicio { get; set; }
-        public string dataFim { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataInicio { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataFim { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorSituacaoRegistro { get; set; }
-        public float codigoCnae2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoCnae2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorClienteFatca { get; set; }
-        public float codigoNacionalidade1 { get; set; }
-        public float codigoNacionalidade2 { get; set; }
-        public float codigoNacionalidade3 { get; set; }
-        public float codigoNacionalidade4 { get; set; }
-        public float codigoDomicilio1 { get; set; }
-        public float codigoDomicilio2 { get; set; }
-        public float codigoDomicilio3 { get; set; }
-        public float codigoDomicilio4 { get; set; }
-        public float sUnid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacionalidade1 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacionalidade2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacionalidade3 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacionalidade4 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoDomicilio1 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoDomicilio2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoDomicilio3 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoDomicilio4 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int sUnid { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string apelido1 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string apelido2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string apelido3 { get; set; }
+
+        /// <summary>
+        /// Optante Simples
+        /// </summary>
         public string indicadorOptanteSimples { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string CpfFormatado { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string situacaoBeneficiario { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorOperaContaPropria { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorTransmissaoProcurador { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string tipoDeclarado { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorClienteEstrangeiro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string tipoDocumentoEstrangeiro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string numeroDocumentoEstrangeiro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public int codigoJustificativa { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorAtivo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string pesjustificativa { get; set; }
-        public string CpfCnpj { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string cpfCnpj { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string nomeContato { get; set; }
-        public float codigoCargo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoCargo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorDeclaracaoFatca1 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorDeclaracaoFatca2 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorDomicilioExterno { get; set; }
-        public float numeroFuncionarios { get; set; }
-        public float codigoNacCapital { get; set; }
-        public float valorCapitalEstrangeiro { get; set; }
-        public float valorCapitalNacional { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int numeroFuncionarios { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoNacCapital { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int valorCapitalEstrangeiro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int valorCapitalNacional { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string tipoCapital { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoClasseEconomicaCetip { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoIdentificadorRacial { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoDdi { get; set; }
+
+        /// <summary>
+        /// NomeSocial
+        /// </summary>
         public string nomeSocialPessoa { get; set; }
+
+        /// <summary>
+        /// Isento Inscricao Estadual
+        /// </summary>
         public string indicadorIsencaoInscricaoEstadual { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoSubgrupoEmpresarial { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string nivelRiscoPld { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string observacaoPld { get; set; }
-        public float codigoGerente { get; set; }
+
+        /// <summary>
+        /// Gerente
+        /// </summary>
+        public int codigoGerente { get; set; }
+
+        /// <summary>
+        /// Indicador de cobrança de IOF Adicional 
+        /// </summary>
+        public string indicadorCobrancaIofAdicional { get; set; }
+
+        /// <summary>
+        /// Centro de Resultado 
+        /// </summary>
+        public int codigoCestroResultado { get; set; }
+
+        /// <summary>
+        /// CPF ou CNPJ Formatado 
+        /// </summary>
+        public string cpfCnpjFormatado { get; set; }
+
     }
 }
