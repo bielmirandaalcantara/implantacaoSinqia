@@ -10,21 +10,16 @@ namespace SQBI.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class PessoaController : ControllerBase
+    public class PessoaSimplificadaController : ControllerBase
     {
-        /// <summary>
-        /// Cadastro de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
-        /// </summary>
-        /// <param name="msg">MsgPessoaCompleto - Json com os dados de cadastro</param>
-        /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/pessoa")]
+        [Route("api/core/cadastros/pessoaSimplificada")]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
-        public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
+        public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
+            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 

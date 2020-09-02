@@ -18,25 +18,105 @@ namespace SQBI.CoreBank.API.Core.Models
 
     public class MsgRegistroreferencia
     {
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoPessoaTitular { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoFilialTitular { get; set; }
-        public float sequencial { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int sequencial { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string tipo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string observacao { get; set; }
-        public float numeroCartao { get; set; }
-        public float valorLimite { get; set; }
-        public string dataInicioEmprego { get; set; }
-        public string dataFinalEmprego { get; set; }
-        public string dataCadastro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int numeroCartao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int valorLimite { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataInicioEmprego { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataFinalEmprego { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataCadastro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string usuarioUltimaAtualizacao { get; set; }
-        public string dataAtualizacao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataAtualizacao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorSituacao { get; set; }
-        public string dataSituacao { get; set; }
-        public float codigoCartao { get; set; }
-        public float codigoSeguradora { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataSituacao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoCartao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int codigoSeguradora { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoPessoaReferencia { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoFilialReferencia { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string codigoPessoaSimplificada { get; set; }
-        public string dataVencimentoSeguroCartao { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime dataVencimentoSeguroCartao { get; set; }
+
     }
 }
