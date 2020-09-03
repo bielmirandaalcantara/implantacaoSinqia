@@ -24,7 +24,7 @@ namespace Sinqia.CoreBank.API.Core.Models
 
     public class MsgRegistroPessoaSimplificadaBody
     {
-        public MsgRegistroPessoaSimplificada RegistroPessoa { get; set; }
+        public MsgRegistroPessoaSimplificada RegistroPessoaSimplificada { get; set; }
     }
 
     public class MsgRegistroPessoaSimplificada
@@ -223,6 +223,11 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        public int CodAtividadeCbo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorClienteFatca { get; set; }
 
         /// <summary>
@@ -304,6 +309,11 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         public string numeroDocumentoEstrangeiro { get; set; }
+
+        /// <summary>
+        /// Possibilita o armazenamento de informações da renda de pessoas físicas. 
+        /// </summary>
+        public MsgRegistroVinculo[] RegistroVinculo { get; set; }
 
     }
 }
