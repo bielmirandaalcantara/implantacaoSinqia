@@ -213,6 +213,16 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        public string CodCbo { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CodAtividade { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string indicadorClienteFatca { get; set; }
 
         /// <summary>
@@ -294,21 +304,6 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         public string numeroDocumentoEstrangeiro { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string nomeSocial { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string nivelRiscoPld { get; set; }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public string observacaoPld { get; set; }
 
     }
 }
