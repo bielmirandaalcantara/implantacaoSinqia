@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -36,6 +37,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string codigo { get; set; }
 
         /// <summary>
@@ -101,16 +103,19 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public DateTime dataCadastramento { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao { get; set; }
 
         /// <summary>
@@ -191,6 +196,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
+        [Required]
         public string CpfCnpjSimplificado { get; set; }
 
         /// <summary>

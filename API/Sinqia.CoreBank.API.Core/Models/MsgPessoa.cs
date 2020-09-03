@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -34,21 +35,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código
         /// </summary>
+        [Required]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Nome
         /// </summary>
+        [Required]
         public string nomePessoa { get; set; }
 
         /// <summary>
         /// Abreviação
         /// </summary>
+        [Required]
         public string nomeAbvPessoa { get; set; }
 
         /// <summary>
         /// Setor Atividade
         /// </summary>
+        [Required]
         public string setorAtividade { get; set; }
 
         /// <summary>
@@ -94,21 +99,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
+        [Required]
         public DateTime dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
+        [Required]
         public string usuarioAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao { get; set; }
 
         /// <summary>
         /// Data Nascimento/Fundação
         /// </summary>
+        [Required]
         public DateTime dataFundacao { get; set; }
 
         /// <summary>
@@ -329,21 +338,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Filial
         /// </summary>
+        [Required]
         public string codigoFilial { get; set; }
 
         /// <summary>
         /// CPF/CNPJ (Base)
         /// </summary>
+        [Required]
         public string codigoCpfCnpjBase { get; set; }
 
         /// <summary>
         /// CPF/CNPJ (Filial)
         /// </summary>
+        [Required]
         public string codigoCpfCnpjFilial { get; set; }
 
         /// <summary>
         /// CPF/CNPJ (Dígito)
         /// </summary>
+        [Required]
         public string codigoCpfCnpjDigito { get; set; }
 
         /// <summary>
@@ -389,51 +402,61 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Situação
         /// </summary>
+        [Required]
         public string indicadorSituacaoFilial { get; set; }
 
         /// <summary>
         /// Data Cadastro
         /// </summary>
+        [Required]
         public DateTime dataCadastro1 { get; set; }
 
         /// <summary>
         /// Usuário Atualização
         /// </summary>
+        [Required]
         public string usuarioAtualizacao1 { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao1 { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
+        [Required]
         public DateTime dataSituacao { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
+        [Required]
         public int codigoEmpresa { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
+        [Required]
         public int codigoDependente { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
+        [Required]
         public int codigoOperador { get; set; }
 
         /// <summary>
         /// Data Início Gerente
         /// </summary>
+        [Required]
         public DateTime dataInicialGerente { get; set; }
 
         /// <summary>
         /// Código Cliente
         /// </summary>
+        [Required]
         public int codigoCliente { get; set; }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -35,21 +36,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
+        [Required]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
+        [Required]
         public string codigoFilial { get; set; }
 
         /// <summary>
         /// Código
         /// </summary>
+        [Required]
         public int codigoEndereco { get; set; }
 
         /// <summary>
         /// Tipo
         /// </summary>
+        [Required]
         public string tipoEndereco { get; set; }
 
         /// <summary>
@@ -60,6 +65,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Logradouro
         /// </summary>
+        [Required]
         public string nomeLogradouro { get; set; }
 
         /// <summary>
@@ -75,6 +81,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// CEP
         /// </summary>
+        [Required]
         public string Cep { get; set; }
 
         /// <summary>
@@ -200,6 +207,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Corresp.
         /// </summary>
+        [Required]
         public string indicadorCorrespondencia { get; set; }
 
         /// <summary>
@@ -215,26 +223,31 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
+        [Required]
         public DateTime dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
+        [Required]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
+        [Required]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
+        [Required]
         public DateTime dataSituacao { get; set; }
 
         /// <summary>

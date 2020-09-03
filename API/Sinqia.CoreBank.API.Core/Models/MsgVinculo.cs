@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sinqia.CoreBank.API.Core.Models
 {
@@ -33,31 +34,37 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
+        [Required]
         public string codigoPessoaJuridica { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
+        [Required]
         public string codigoFilialPessoaJuridica { get; set; }
 
         /// <summary>
         /// Código
         /// </summary>
+        [Required]
         public string codigoPessoaFisica { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
+        [Required]
         public string codigoFilialPessoaFisica { get; set; }
 
         /// <summary>
         /// Sequência
         /// </summary>
+        [Required]
         public int numeroSequencia { get; set; }
 
         /// <summary>
         /// Idc. Participação
         /// </summary>
+        [Required]
         public string indicadorParticipacao { get; set; }
 
         /// <summary>
@@ -83,26 +90,31 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
+        [Required]
         public DateTime dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
+        [Required]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
+        [Required]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
+        [Required]
         public DateTime dataSituacao { get; set; }
 
         /// <summary>
@@ -148,11 +160,13 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Pessoa
         /// </summary>
+        [Required]
         public string nomePessoa { get; set; }
 
         /// <summary>
         /// Tipo Pessoa
         /// </summary>
+        [Required]
         public string tipoPesoa { get; set; }
     }
 }

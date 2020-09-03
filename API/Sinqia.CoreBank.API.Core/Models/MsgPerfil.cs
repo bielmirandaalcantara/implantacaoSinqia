@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -33,11 +34,13 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
+        [Required]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Perfil
         /// </summary>
+        [Required]
         public string codigoPerfil { get; set; }
     }
 }

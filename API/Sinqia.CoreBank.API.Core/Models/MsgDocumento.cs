@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -34,61 +35,73 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Pessoa
         /// </summary>
+        [Required]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Nº Documento
         /// </summary>
+        [Required]
         public string numeroDocumento { get; set; }
 
         /// <summary>
         /// Data Expedição
         /// </summary>
+        [Required]
         public DateTime dataExpedicao { get; set; }
 
         /// <summary>
         /// Orgão Expedidor
         /// </summary>
+        [Required]
         public string orgaoExpedidor { get; set; }
 
         /// <summary>
         /// observacao
         /// </summary>
+        [Required]
         public string observacao { get; set; }
 
         /// <summary>
         /// Data Cadastro
         /// </summary>
+        [Required]
         public DateTime dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
+        [Required]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
+        [Required]
         public DateTime dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
+        [Required]
         public string IndicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
+        [Required]
         public DateTime dataSituacao { get; set; }
 
         /// <summary>
         /// Tipo Documento
         /// </summary>
+        [Required]
         public string tipoDocumento { get; set; }
 
         /// <summary>
         /// UF Expedição
         /// </summary>
+        [Required]
         public string ufExpedicao { get; set; }
 
         /// <summary>
