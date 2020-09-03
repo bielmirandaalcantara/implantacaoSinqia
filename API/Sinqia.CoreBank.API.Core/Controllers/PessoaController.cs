@@ -49,7 +49,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Alteração de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// Alteração de pessoa - Possibilita alteração dos dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
@@ -86,7 +86,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Exclusão de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// Exclusão de pessoa - Possibilita a exclusão de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
@@ -122,38 +122,44 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         }
 
-        /*
+        /// <summary>
+        /// Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// Obs.: Campo body equivalente a mensagem MsgRegistropessoaCompleto
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status201Created)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status500InternalServerError)]
         public ActionResult getPessoa([FromRoute] string codPessoa)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
-            MsgRetorno retorno;
+            MsgRetornoGet retorno;
+            MsgRegistropessoaCompleto msgRegistropessoaCompleto;
 
             try
             {
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
+                retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
-        }
-        */
+        }        
     }
 }

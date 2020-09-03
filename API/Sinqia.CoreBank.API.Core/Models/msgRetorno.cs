@@ -16,6 +16,14 @@ namespace Sinqia.CoreBank.API.Core.Models
         public MsgHeaderRetorno header { get; set; }
     }
 
+    public class MsgRetornoGet : MsgRetorno
+    {
+        /// <summary>
+        /// body da mensagem get
+        /// </summary>
+        public object body { get; set; }
+    }    
+
     public class MsgHeaderRetorno
     {
         /// <summary>
