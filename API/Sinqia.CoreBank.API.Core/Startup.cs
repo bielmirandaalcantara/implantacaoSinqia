@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Sinqia.CoreBank.API.Core
@@ -33,8 +34,19 @@ namespace Sinqia.CoreBank.API.Core
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
+                c.AddSecurityDefinition(
+                    "bearer",
+                    new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
+                    {
+                        Description ="JWT Authorization header utilizando Bearer schema",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer"
+                    });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+               
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,7 +67,7 @@ namespace Sinqia.CoreBank.API.Core
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração cadastro de pessoa");
-            });            
+            });;
         }
     }
 }
