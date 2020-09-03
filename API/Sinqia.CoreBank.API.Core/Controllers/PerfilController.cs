@@ -21,6 +21,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult postPerfil([FromRoute] string codPessoa, [FromBody] MsgPerfil msg)
@@ -58,6 +60,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil/{codPerfil}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult putPerfil([FromRoute] string codPessoa, [FromRoute] string codPerfil, [FromBody] MsgPerfil msg)
@@ -95,6 +99,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/perfil/{codPerfil}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult deletePerfil([FromRoute] string codPessoa, [FromRoute] string codPerfil)

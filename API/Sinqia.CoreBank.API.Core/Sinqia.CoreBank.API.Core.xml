@@ -584,7 +584,7 @@
         </member>
         <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa">
             <summary>
-            Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas - tb_pes
+            Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas. 
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoPessoa">

@@ -21,6 +21,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/referencia")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult postReferencia([FromRoute] string codPessoa,[FromBody] MsgReferencia msg)
@@ -58,6 +60,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codPessoaReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult putReferencia([FromRoute] string codPessoa, [FromRoute] string codPessoaReferencia, [FromBody] MsgReferencia msg)
@@ -95,6 +99,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codPessoaReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] string codPessoaReferencia)
