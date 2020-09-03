@@ -20,6 +20,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPost]
         [Route("api/core/cadastros/pessoa")]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
         public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
@@ -57,6 +59,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult putPessoa([FromRoute] string codPessoa, [FromBody] MsgPessoa msg)
@@ -94,6 +98,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult deletePessoa([FromRoute] string codPessoa)
@@ -131,6 +137,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpGet]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
         public ActionResult getPessoa([FromRoute] string codPessoa)

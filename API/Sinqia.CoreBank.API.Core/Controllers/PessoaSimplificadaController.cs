@@ -20,6 +20,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPost]
         [Route("api/core/cadastros/pessoaSimplificada")]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
         public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
@@ -57,6 +59,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult putPessoaSimplificada([FromRoute] string codPessoa, [FromBody] MsgPessoaSimplificada msg)
@@ -94,6 +98,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa)
@@ -131,6 +137,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpGet]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status500InternalServerError)]
         public ActionResult getPessoaSimplificada([FromRoute] string codPessoa)

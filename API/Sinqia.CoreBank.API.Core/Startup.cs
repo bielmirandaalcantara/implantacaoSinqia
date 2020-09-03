@@ -55,7 +55,7 @@ namespace Sinqia.CoreBank.API.Core
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração cadastro de pessoa");
-            });
+            });            
         }
     }
 }
