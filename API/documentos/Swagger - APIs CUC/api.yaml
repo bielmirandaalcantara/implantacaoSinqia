@@ -1,0 +1,3012 @@
+openapi: 3.0.1
+info:
+  title: Sinqia.CoreBank.API.Core
+  version: '1.0'
+paths:
+  '/api/core/cadastros/pessoa/{codPessoa}/documento':
+    post:
+      tags:
+        - Documento
+      summary: Cadastro de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/documento/{numeroDocumento}':
+    put:
+      tags:
+        - Documento
+      summary: Alteração de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: numeroDocumento
+          in: path
+          description: numero do documento sem mascara
+          required: true
+          schema:
+            type: string
+            description: numero do documento sem mascara
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgDocumento'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - Documento
+      summary: Exclusão de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: numeroDocumento
+          in: path
+          description: numero do documento sem mascara
+          required: true
+          schema:
+            type: string
+            description: numero do documento sem mascara
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/endereco':
+    post:
+      tags:
+        - Endereco
+      summary: Cadastro de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}':
+    put:
+      tags:
+        - Endereco
+      summary: Alteracação de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codEndereco
+          in: path
+          description: Código do endereço
+          required: true
+          schema:
+            type: string
+            description: Código do endereço
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgEndereco'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - Endereco
+      summary: Exclusão de dados de documentos de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codEndereco
+          in: path
+          description: Código do endereço
+          required: true
+          schema:
+            type: string
+            description: Código do endereço
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/perfil':
+    post:
+      tags:
+        - Perfil
+      summary: Vinculação de perfis para uma pessoa
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/perfil/{codPerfil}':
+    put:
+      tags:
+        - Perfil
+      summary: Alteração de perfis para uma pessoa
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codPerfil
+          in: path
+          description: Código do perfil
+          required: true
+          schema:
+            type: string
+            description: Código do perfil
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPerfil'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - Perfil
+      summary: Exclusão de perfis para uma pessoa
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codPerfil
+          in: path
+          description: Código do perfil
+          required: true
+          schema:
+            type: string
+            description: Código do perfil
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  /api/core/cadastros/pessoa:
+    post:
+      tags:
+        - Pessoa
+      summary: >-
+        Cadastro de pessoa - Possibilita o cadastramento de dados referentes às
+        informações mínimas necessárias para se cadastrar pessoas físicas e
+        jurídicas
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaCompleto'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaCompleto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaCompleto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaCompleto'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}':
+    put:
+      tags:
+        - Pessoa
+      summary: >-
+        Alteração de pessoa - Possibilita alteração dos dados referentes às
+        informações mínimas necessárias para se cadastrar pessoas físicas e
+        jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoa'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoa'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoa'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoa'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - Pessoa
+      summary: >-
+        Exclusão de pessoa - Possibilita a exclusão de dados referentes às
+        informações mínimas necessárias para se cadastrar pessoas físicas e
+        jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    get:
+      tags:
+        - Pessoa
+      summary: Consulta os dados de pessoa simplificada
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaCompletoTemplate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaCompletoTemplate'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaCompletoTemplate'
+  /api/core/cadastros/pessoaSimplificada:
+    post:
+      tags:
+        - PessoaSimplificada
+      summary: Armazena os dados de pessoa simplificada
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoaSimplificada/{codPessoa}':
+    put:
+      tags:
+        - PessoaSimplificada
+      summary: Alterar os dados de pessoa simplificada
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgPessoaSimplificada'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - PessoaSimplificada
+      summary: Excluir os dados de pessoa simplificada
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    get:
+      tags:
+        - PessoaSimplificada
+      summary: >-
+        Consulta de pessoa - Possibilita a consulta de dados referentes às
+        informações mínimas necessárias para se cadastrar pessoas físicas e
+        jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaSimplificadaTemplate'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaSimplificadaTemplate'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgPessoaSimplificadaTemplate'
+  '/api/core/cadastros/pessoa/{codPessoa}/referencia':
+    post:
+      tags:
+        - Referencia
+      summary: Cadastro de dados de referência de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+  '/api/core/cadastros/pessoa/{codPessoa}/referencia/{codPessoaReferencia}':
+    put:
+      tags:
+        - Referencia
+      summary: Alteração de dados de referência de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codPessoaReferencia
+          in: path
+          description: Código de referencia
+          required: true
+          schema:
+            type: string
+            description: Código de referencia
+            nullable: true
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/MsgReferencia'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+    delete:
+      tags:
+        - Referencia
+      summary: Exclusão de dados de referência de pessoas físicas e jurídicas
+      parameters:
+        - name: codPessoa
+          in: path
+          description: Código da pessoa
+          required: true
+          schema:
+            type: string
+            description: Código da pessoa
+            nullable: true
+        - name: codPessoaReferencia
+          in: path
+          description: Código de referencia
+          required: true
+          schema:
+            type: string
+            description: Código de referencia
+            nullable: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+        '500':
+          description: Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MsgRetorno'
+components:
+  schemas:
+    MsgHeader:
+      type: object
+      properties:
+        identificadorEnvio:
+          type: string
+          description: Identificador da mensagem para localização (caso exista)
+          nullable: true
+        dataHoraEnvio:
+          type: string
+          description: Data e hora que foi enviado a mensagem
+          format: date-time
+          nullable: true
+      additionalProperties: false
+      description: Classe responsável pelo header das mensagens
+    MsgRegistrodocumento:
+      type: object
+      properties:
+        codigoPessoa:
+          type: string
+          description: Pessoa
+          nullable: true
+        numeroDocumento:
+          type: string
+          description: Nº Documento
+          nullable: true
+        dataExpedicao:
+          type: string
+          description: Data Expedição
+          format: date-time
+        orgaoExpedidor:
+          type: string
+          description: Orgão Expedidor
+          nullable: true
+        observacao:
+          type: string
+          description: observacao
+          nullable: true
+        dataCadastro:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioUltimaAtualizacao:
+          type: string
+          description: Usuário Última Atualização
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: Data Atualização
+          format: date-time
+        IndicadorSituacao:
+          type: string
+          description: Situação
+          nullable: true
+        dataSituacao:
+          type: string
+          description: Data Situação
+          format: date-time
+        tipoDocumento:
+          type: string
+          description: Tipo Documento
+          nullable: true
+        ufExpedicao:
+          type: string
+          description: UF Expedição
+          nullable: true
+        documentoCheque:
+          type: string
+          description: Doc. Identif. Talão de Cheques
+          nullable: true
+        indicadorMicroEmpresa:
+          type: string
+          description: Idc. Micro Empresa
+          nullable: true
+        IndicadorComprovado:
+          type: string
+          description: Idc. Comprovado
+          nullable: true
+        tipoComprovacaoRenda:
+          type: integer
+          description: Tipo de Comprovação de Renda
+          format: int32
+        indicadorPreposto:
+          type: string
+          description: Idc. Preposto
+          nullable: true
+        dataVencimento:
+          type: string
+          description: Data Vencimento
+          format: date-time
+        codigoNacionalidade:
+          type: integer
+          description: ''
+          format: int32
+      additionalProperties: false
+      description: Armazena dados de endereços de pessoas físicas e jurídicas. - tb_doc
+    MsgRegistroDocumentoBody:
+      type: object
+      properties:
+        RegistroDocumento:
+          $ref: '#/components/schemas/MsgRegistrodocumento'
+      additionalProperties: false
+    MsgDocumento:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroDocumentoBody'
+      additionalProperties: false
+    MsgHeaderRetorno:
+      type: object
+      properties:
+        identificador:
+          type: string
+          description: Identificador da mensagem para localização (caso exista)
+          nullable: true
+        dataHoraEnvio:
+          type: string
+          description: Data e hora que foi enviado a mensagem
+          format: date-time
+        dataHoraRetorno:
+          type: string
+          description: Data e hora do retorno da mensagem
+          format: date-time
+        status:
+          type: string
+          description: OK - sucesso / ERRO - Com erro
+          nullable: true
+        erros:
+          type: array
+          items:
+            type: string
+          description: >-
+            Lista de erros na integração (nulo caso a integração ocorra com
+            sucesso)
+          nullable: true
+      additionalProperties: false
+    MsgRetorno:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeaderRetorno'
+      additionalProperties: false
+      description: Classe responsável pelas mensagens de retorno
+    MsgRegistroendereco:
+      type: object
+      properties:
+        codigoPessoa:
+          type: string
+          description: Código Pessoa
+          nullable: true
+        codigoFilial:
+          type: string
+          description: Filial
+          nullable: true
+        codigoEndereco:
+          type: integer
+          description: Código
+          format: int32
+        tipoEndereco:
+          type: string
+          description: Tipo
+          nullable: true
+        tipoLogradouro:
+          type: string
+          description: Logradouro
+          nullable: true
+        nomeLogradouro:
+          type: string
+          description: Logradouro
+          nullable: true
+        complementoLogradouro:
+          type: string
+          description: Complemento
+          nullable: true
+        nomeBairro:
+          type: string
+          description: Bairro
+          nullable: true
+        Cep:
+          type: string
+          description: CEP
+          nullable: true
+        codigoDddFone1:
+          type: string
+          description: Fone 1 (DDD)
+          nullable: true
+        codigoDddFone2:
+          type: string
+          description: Fone 2 (DDD)
+          nullable: true
+        codigoDddFone3:
+          type: string
+          description: Fone 3 (DDD)
+          nullable: true
+        codigoDddFone4:
+          type: string
+          description: Fone 4 (DDD)
+          nullable: true
+        numeroTelefone1:
+          type: string
+          description: Fone 1
+          nullable: true
+        numeroTelefone2:
+          type: string
+          description: Fone 2
+          nullable: true
+        numeroTelefone3:
+          type: string
+          description: Fone 3
+          nullable: true
+        numeroTelefone4:
+          type: string
+          description: Fone 4
+          nullable: true
+        numeroRamal1:
+          type: string
+          description: Ramal 1
+          nullable: true
+        numeroRamal2:
+          type: string
+          description: Ramal 2
+          nullable: true
+        numeroRamal3:
+          type: string
+          description: Ramal 3
+          nullable: true
+        numeroRamal4:
+          type: string
+          description: Ramal 4
+          nullable: true
+        situacaoTelefone1:
+          type: string
+          description: Situação (Fone 1)
+          nullable: true
+        situacaoTelefone2:
+          type: string
+          description: Situação (Fone 2)
+          nullable: true
+        situacaoTelefone3:
+          type: string
+          description: Situação (Fone 3)
+          nullable: true
+        situacaoTelefone4:
+          type: string
+          description: Situação (Fone 4)
+          nullable: true
+        codigoDddFax1:
+          type: string
+          description: Fax 1 (DDD)
+          nullable: true
+        codigoDddFax2:
+          type: string
+          description: Fax 2 (DDD)
+          nullable: true
+        codigoDddFax3:
+          type: string
+          description: Fax 3 (DDD)
+          nullable: true
+        numeroFax1:
+          type: string
+          description: Fax 1
+          nullable: true
+        numeroFax2:
+          type: string
+          description: Fax 2
+          nullable: true
+        numeroFax3:
+          type: string
+          description: Fax 3
+          nullable: true
+        email:
+          type: string
+          description: ''
+          nullable: true
+        indicadorSituacaoResidencia:
+          type: string
+          description: Situação Residência
+          nullable: true
+        indicadorCorrespondencia:
+          type: string
+          description: Corresp.
+          nullable: true
+        dataInicial:
+          type: string
+          description: Data Início
+          format: date-time
+        dataFinal:
+          type: string
+          description: Data Fim
+          format: date-time
+        dataCadastro:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioUltimaAtualizacao:
+          type: string
+          description: Usuário Última Atualização
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: Data Atualização
+          format: date-time
+        indicadorSituacao:
+          type: string
+          description: Situação
+          nullable: true
+        dataSituacao:
+          type: string
+          description: Data Situação
+          format: date-time
+        codigoMunicipio:
+          type: integer
+          description: Município
+          format: int32
+        descricaoMunicipio:
+          type: string
+          description: Município
+          nullable: true
+        numeroEndereco:
+          type: string
+          description: Número
+          nullable: true
+        indicadorEnvioCorrespondencia:
+          type: string
+          description: Envio de Correspondência
+          nullable: true
+        codigoMotivo:
+          type: string
+          description: Motivo
+          nullable: true
+        indicadorSituacaoRegistro:
+          type: string
+          description: Situação Registro
+          nullable: true
+        enderecoEstrangeiro:
+          type: string
+          description: Endereço Fora do País
+          nullable: true
+        codigoPais:
+          type: integer
+          description: País FATCA
+          format: int32
+      additionalProperties: false
+      description: Armazena dados de endereços de pessoas físicas e jurídicas - tb_end
+    MsgRegistroEnderecoBody:
+      type: object
+      properties:
+        RegistroEndereco:
+          $ref: '#/components/schemas/MsgRegistroendereco'
+      additionalProperties: false
+    MsgEndereco:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroEnderecoBody'
+      additionalProperties: false
+    MsgRegistroperfil:
+      type: object
+      properties:
+        codigoPessoa:
+          type: string
+          description: Código Pessoa
+          nullable: true
+        codigoPerfil:
+          type: string
+          description: Perfil
+          nullable: true
+      additionalProperties: false
+      description: Possibilita a vinculação de perfis para uma pessoa - tb_perfpes
+    MsgRegistroPerfilBody:
+      type: object
+      properties:
+        RegistroPerfil:
+          $ref: '#/components/schemas/MsgRegistroperfil'
+      additionalProperties: false
+    MsgPerfil:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPerfilBody'
+      additionalProperties: false
+    MsgRegistroreferencia:
+      type: object
+      properties:
+        codigoPessoaTitular:
+          type: string
+          description: ''
+          nullable: true
+        codigoFilialTitular:
+          type: string
+          description: ''
+          nullable: true
+        sequencial:
+          type: integer
+          description: ''
+          format: int32
+        tipo:
+          type: string
+          description: ''
+          nullable: true
+        observacao:
+          type: string
+          description: ''
+          nullable: true
+        numeroCartao:
+          type: number
+          description: ''
+          format: double
+        valorLimite:
+          type: number
+          description: ''
+          format: double
+        dataInicioEmprego:
+          type: string
+          description: ''
+          format: date-time
+        dataFinalEmprego:
+          type: string
+          description: ''
+          format: date-time
+        dataCadastro:
+          type: string
+          description: ''
+          format: date-time
+        usuarioUltimaAtualizacao:
+          type: string
+          description: ''
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: ''
+          format: date-time
+        indicadorSituacao:
+          type: string
+          description: ''
+          nullable: true
+        dataSituacao:
+          type: string
+          description: ''
+          format: date-time
+        codigoCartao:
+          type: integer
+          description: ''
+          format: int32
+        codigoSeguradora:
+          type: integer
+          description: ''
+          format: int32
+        codigoPessoaReferencia:
+          type: string
+          description: ''
+          nullable: true
+        codigoFilialReferencia:
+          type: string
+          description: ''
+          nullable: true
+        codigoPessoaSimplificada:
+          type: string
+          description: ''
+          nullable: true
+        dataVencimentoSeguroCartao:
+          type: string
+          description: ''
+          format: date-time
+      additionalProperties: false
+      description: >-
+        Armazena informações de referências para pessoas físicas e jurídicas. -
+        tb_ref
+    MsgRegistropessoaCompleto:
+      type: object
+      properties:
+        RegistroPerfil:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsgRegistroperfil'
+          description: inclusão de perfil
+          nullable: true
+        RegistroDocumento:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsgRegistrodocumento'
+          description: Inclusão de documentos
+          nullable: true
+        RegistroEndereco:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsgRegistroendereco'
+          description: Inclusão de endereços
+          nullable: true
+        RegistroReferencia:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsgRegistroreferencia'
+          description: Inclusão de referências da pessoa
+          nullable: true
+        codigoPessoa:
+          type: string
+          description: Código
+          nullable: true
+        nomePessoa:
+          type: string
+          description: Nome
+          nullable: true
+        nomeAbvPessoa:
+          type: string
+          description: Abreviação
+          nullable: true
+        setorAtividade:
+          type: string
+          description: Setor Atividade
+          nullable: true
+        descricaoProfissao:
+          type: string
+          description: Profissão
+          nullable: true
+        estadoCivil:
+          type: string
+          description: Estado Civil
+          nullable: true
+        regimeComunhao:
+          type: string
+          description: Regime Comunhão
+          nullable: true
+        sexoPessoa:
+          type: string
+          description: Sexo
+          nullable: true
+        grauInstrucao:
+          type: string
+          description: Grau de Instrução
+          nullable: true
+        nomePai:
+          type: string
+          description: Pai
+          nullable: true
+        nomeMae:
+          type: string
+          description: Mãe
+          nullable: true
+        qtdeDependentes:
+          type: integer
+          description: Dependentes
+          format: int32
+        dataCadastro:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioAtualizacao:
+          type: string
+          description: Usuário Última Atualização
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: Data Atualização
+          format: date-time
+        dataFundacao:
+          type: string
+          description: Data Nascimento/Fundação
+          format: date-time
+        codigoAtividade:
+          type: integer
+          description: Ativ. Class. Gerencial
+          format: int32
+        codigoGrupoEmpresarial:
+          type: integer
+          description: Grupo Empresarial
+          format: int32
+        codigoMunicipio:
+          type: number
+          description: Natural De
+          format: double
+        descricaoMunicipio:
+          type: string
+          description: Natural De
+          nullable: true
+        descricaoNacionalidade:
+          type: string
+          description: Nacionalidade
+          nullable: true
+        dataNaturalizacao:
+          type: string
+          description: Data Naturalização
+          format: date-time
+        codigoCbo:
+          type: string
+          description: Profissão Class. CBO
+          nullable: true
+        codigoSetor:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoSubsetor:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoRamo:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoRamoAtiv:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        indicadorConstituicao:
+          type: string
+          description: Constituição
+          nullable: true
+        nivelRisco:
+          type: string
+          description: Nível Risco
+          nullable: true
+        indicadorfuncionario:
+          type: string
+          description: Funcionário
+          nullable: true
+        codigoSegmento:
+          type: string
+          description: Segmento
+          nullable: true
+        codigoSubsegmento:
+          type: string
+          description: Sub Segmento
+          nullable: true
+        codigoClasse:
+          type: string
+          description: Classe
+          nullable: true
+        dataRenovacao:
+          type: string
+          description: Renovação
+          format: date-time
+        dataVencimento:
+          type: string
+          description: Vencimento
+          format: date-time
+        codigoTipo:
+          type: integer
+          description: Tipo
+          format: int32
+        codigoclassificacaoLegal:
+          type: integer
+          description: Classificação Legal
+          format: int32
+        indicadorEstrangeiro:
+          type: string
+          description: Estrangeiro
+          nullable: true
+        codigoDddContato:
+          type: string
+          description: Telefone Para Contato (DDD)
+          nullable: true
+        telefoneContato:
+          type: string
+          description: Telefone Para Contato
+          nullable: true
+        numeroRamalContato:
+          type: string
+          description: Ramal
+          nullable: true
+        indicadorConsRisco:
+          type: string
+          description: Idc. Cons. Risco
+          nullable: true
+        codigoCvm:
+          type: string
+          description: Classificação CVM
+          nullable: true
+        codigoAnbid:
+          type: string
+          description: Classificação ANBID
+          nullable: true
+        tipoPessoa:
+          type: string
+          description: Tipo Pessoa
+          nullable: true
+        codigoNacionalidade:
+          type: integer
+          description: ''
+          format: int32
+        indicadorSituacaoCadastral:
+          type: string
+          description: Situação Cadastral CPF
+          nullable: true
+        indicadorImpedidoOperar:
+          type: string
+          description: Impedido de Operar
+          nullable: true
+        indicadorCnpjCpfVerificado:
+          type: string
+          description: ''
+          nullable: true
+        dataConsulta:
+          type: string
+          description: Data Consulta
+          format: date-time
+        numeroProcuracao:
+          type: integer
+          description: Número Procuração
+          format: int32
+        nomeDivergente:
+          type: string
+          description: Nome Divergente
+          nullable: true
+        usuarioCadastro:
+          type: string
+          description: Usuário
+          nullable: true
+        codigoPisPasep:
+          type: integer
+          description: PIS/PASEP
+          format: int32
+        valorTotalBens:
+          type: number
+          description: ''
+          format: double
+        valorRendaMensal:
+          type: number
+          description: ''
+          format: double
+        indicadorPosuiRenda:
+          type: string
+          description: ''
+          nullable: true
+        pessoaLigada:
+          type: string
+          description: Pessoa Ligada
+          nullable: true
+        indicadorCobrancaIOf:
+          type: string
+          description: ''
+          nullable: true
+        codigoFilial:
+          type: string
+          description: Filial
+          nullable: true
+        codigoCpfCnpjBase:
+          type: string
+          description: CPF/CNPJ (Base)
+          nullable: true
+        codigoCpfCnpjFilial:
+          type: string
+          description: CPF/CNPJ (Filial)
+          nullable: true
+        codigoCpfCnpjDigito:
+          type: string
+          description: CPF/CNPJ (Dígito)
+          nullable: true
+        tipoPessoaFilial:
+          type: string
+          description: Tipo Pessoa
+          nullable: true
+        indicadorIsencaoCpf:
+          type: string
+          description: Isento CPF
+          nullable: true
+        CpfTitular:
+          type: string
+          description: Titularidade
+          nullable: true
+        inscricaoEstadualTitular:
+          type: string
+          description: Inscrição Estadual
+          nullable: true
+        inscricaoMunicipalTitular:
+          type: string
+          description: Inscrição Municipal
+          nullable: true
+        indicadorDependente:
+          type: string
+          description: Idc Dependente
+          nullable: true
+        indicadorFornecedor:
+          type: string
+          description: Idc Fornecedor
+          nullable: true
+        indicadorCliente:
+          type: string
+          description: Idc Cliente
+          nullable: true
+        indicadorSituacaoFilial:
+          type: string
+          description: Situação
+          nullable: true
+        dataCadastro1:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioAtualizacao1:
+          type: string
+          description: Usuário Atualização
+          nullable: true
+        dataAtualizacao1:
+          type: string
+          description: Data Atualização
+          format: date-time
+        dataSituacao:
+          type: string
+          description: Data Situação
+          format: date-time
+        codigoEmpresa:
+          type: integer
+          description: Gerente
+          format: int32
+        codigoDependente:
+          type: integer
+          description: Gerente
+          format: int32
+        codigoOperador:
+          type: integer
+          description: Gerente
+          format: int32
+        dataInicialGerente:
+          type: string
+          description: Data Início Gerente
+          format: date-time
+        codigoCliente:
+          type: integer
+          description: Código Cliente
+          format: int32
+        codigoPorte:
+          type: integer
+          description: Porte
+          format: int32
+        qtdAssinaturas:
+          type: integer
+          description: Quantidade Assinaturas
+          format: int32
+        enderecoHomePage:
+          type: string
+          description: Home Page
+          nullable: true
+        email1:
+          type: string
+          description: E-mail 1
+          nullable: true
+        email2:
+          type: string
+          description: E-mail 2
+          nullable: true
+        email3:
+          type: string
+          description: E-mail 3
+          nullable: true
+        email4:
+          type: string
+          description: E-mail 4
+          nullable: true
+        email5:
+          type: string
+          description: E-mail 5
+          nullable: true
+        indicadorIsencaoIr:
+          type: string
+          description: Isento IR
+          nullable: true
+        codigoEmpresaIndic:
+          type: integer
+          description: Indicado Por
+          format: int32
+        codigoOperIndic:
+          type: integer
+          description: Indicado Por
+          format: int32
+        codigoSistemaOrigem:
+          type: string
+          description: Código Sistema Origem
+          nullable: true
+        obs:
+          type: string
+          description: observacao
+          nullable: true
+        codigoIspb:
+          type: string
+          description: Cod. ISPB
+          nullable: true
+        sequencialCnpjDuplicado:
+          type: integer
+          description: Sequência CNPJ
+          format: int32
+        indicadorCorrespAgencia:
+          type: string
+          description: Envio Carnê Agência
+          nullable: true
+        dataInicioSfn:
+          type: string
+          description: Data SFN
+          format: date-time
+        indicadorNaoResidente:
+          type: string
+          description: ''
+          nullable: true
+        indicadorRes2686:
+          type: string
+          description: ''
+          nullable: true
+        codigoNovaNacionalidade:
+          type: integer
+          description: ''
+          format: int32
+        dataSaídaPais:
+          type: string
+          description: ''
+          format: date-time
+        tipoImunidade:
+          type: integer
+          description: ''
+          format: int32
+        dataRegistroRbf:
+          type: string
+          description: ''
+          format: date-time
+        numeroProcesso:
+          type: string
+          description: ''
+          nullable: true
+        numeroVara:
+          type: string
+          description: ''
+          nullable: true
+        dataInicio:
+          type: string
+          description: ''
+          format: date-time
+        dataFim:
+          type: string
+          description: ''
+          format: date-time
+        indicadorSituacaoRegistro:
+          type: string
+          description: ''
+          nullable: true
+        codigoCnae2:
+          type: integer
+          description: ''
+          format: int32
+        indicadorClienteFatca:
+          type: string
+          description: ''
+          nullable: true
+        codigoNacionalidade1:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade2:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade3:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade4:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio1:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio2:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio3:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio4:
+          type: integer
+          description: ''
+          format: int32
+        sUnid:
+          type: integer
+          description: ''
+          format: int32
+        apelido1:
+          type: string
+          description: ''
+          nullable: true
+        apelido2:
+          type: string
+          description: ''
+          nullable: true
+        apelido3:
+          type: string
+          description: ''
+          nullable: true
+        indicadorOptanteSimples:
+          type: string
+          description: Optante Simples
+          nullable: true
+        situacaoBeneficiario:
+          type: string
+          description: ''
+          nullable: true
+        indicadorOperaContaPropria:
+          type: string
+          description: ''
+          nullable: true
+        indicadorTransmissaoProcurador:
+          type: string
+          description: ''
+          nullable: true
+        tipoDeclarado:
+          type: string
+          description: ''
+          nullable: true
+        codigoJustificativa:
+          type: integer
+          description: ''
+          format: int32
+        indicadorAtivo:
+          type: string
+          description: ''
+          nullable: true
+        pesjustificativa:
+          type: string
+          description: ''
+          nullable: true
+        nomeContato:
+          type: string
+          description: ''
+          nullable: true
+        codigoCargo:
+          type: integer
+          description: ''
+          format: int32
+        indicadorDeclaracaoFatca1:
+          type: string
+          description: ''
+          nullable: true
+        indicadorDeclaracaoFatca2:
+          type: string
+          description: ''
+          nullable: true
+        indicadorDomicilioExterno:
+          type: string
+          description: ''
+          nullable: true
+        numeroFuncionarios:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacCapital:
+          type: integer
+          description: ''
+          format: int32
+        valorCapitalEstrangeiro:
+          type: number
+          description: ''
+          format: double
+        valorCapitalNacional:
+          type: number
+          description: ''
+          format: double
+        tipoCapital:
+          type: string
+          description: ''
+          nullable: true
+        codigoClasseEconomicaCetip:
+          type: integer
+          description: ''
+          format: int32
+        codigoIdentificadorRacial:
+          type: string
+          description: ''
+          nullable: true
+        codigoSubgrupoEmpresarial:
+          type: string
+          description: ''
+          nullable: true
+        nivelRiscoPld:
+          type: string
+          description: ''
+          nullable: true
+        observacaoPld:
+          type: string
+          description: ''
+          nullable: true
+        codigoGerente:
+          type: integer
+          description: Gerente
+          format: int32
+        indicadorCobrancaIofAdicional:
+          type: string
+          description: Indicador de cobrança de IOF Adicional
+          nullable: true
+        codigoCestroResultado:
+          type: integer
+          description: Centro de Resultado
+          format: int32
+        cpfCnpjFormatado:
+          type: string
+          description: CPF ou CNPJ Formatado
+          nullable: true
+      additionalProperties: false
+      description: >-
+        Possibilita o cadastramento de dados referentes às informações mínimas
+        necessárias para se cadastrar pessoas físicas e jurídicas - tb_pes
+    MsgRegistroPessoaCompletoBody:
+      type: object
+      properties:
+        RegistroPessoa:
+          $ref: '#/components/schemas/MsgRegistropessoaCompleto'
+      additionalProperties: false
+    MsgPessoaCompleto:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPessoaCompletoBody'
+      additionalProperties: false
+    MsgRegistropessoa:
+      type: object
+      properties:
+        codigoPessoa:
+          type: string
+          description: Código
+          nullable: true
+        nomePessoa:
+          type: string
+          description: Nome
+          nullable: true
+        nomeAbvPessoa:
+          type: string
+          description: Abreviação
+          nullable: true
+        setorAtividade:
+          type: string
+          description: Setor Atividade
+          nullable: true
+        descricaoProfissao:
+          type: string
+          description: Profissão
+          nullable: true
+        estadoCivil:
+          type: string
+          description: Estado Civil
+          nullable: true
+        regimeComunhao:
+          type: string
+          description: Regime Comunhão
+          nullable: true
+        sexoPessoa:
+          type: string
+          description: Sexo
+          nullable: true
+        grauInstrucao:
+          type: string
+          description: Grau de Instrução
+          nullable: true
+        nomePai:
+          type: string
+          description: Pai
+          nullable: true
+        nomeMae:
+          type: string
+          description: Mãe
+          nullable: true
+        qtdeDependentes:
+          type: integer
+          description: Dependentes
+          format: int32
+        dataCadastro:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioAtualizacao:
+          type: string
+          description: Usuário Última Atualização
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: Data Atualização
+          format: date-time
+        dataFundacao:
+          type: string
+          description: Data Nascimento/Fundação
+          format: date-time
+        codigoAtividade:
+          type: integer
+          description: Ativ. Class. Gerencial
+          format: int32
+        codigoGrupoEmpresarial:
+          type: integer
+          description: Grupo Empresarial
+          format: int32
+        codigoMunicipio:
+          type: number
+          description: Natural De
+          format: double
+        descricaoMunicipio:
+          type: string
+          description: Natural De
+          nullable: true
+        descricaoNacionalidade:
+          type: string
+          description: Nacionalidade
+          nullable: true
+        dataNaturalizacao:
+          type: string
+          description: Data Naturalização
+          format: date-time
+        codigoCbo:
+          type: string
+          description: Profissão Class. CBO
+          nullable: true
+        codigoSetor:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoSubsetor:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoRamo:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        codigoRamoAtiv:
+          type: integer
+          description: Ativ. Class. CNAE
+          format: int32
+        indicadorConstituicao:
+          type: string
+          description: Constituição
+          nullable: true
+        nivelRisco:
+          type: string
+          description: Nível Risco
+          nullable: true
+        indicadorfuncionario:
+          type: string
+          description: Funcionário
+          nullable: true
+        codigoSegmento:
+          type: string
+          description: Segmento
+          nullable: true
+        codigoSubsegmento:
+          type: string
+          description: Sub Segmento
+          nullable: true
+        codigoClasse:
+          type: string
+          description: Classe
+          nullable: true
+        dataRenovacao:
+          type: string
+          description: Renovação
+          format: date-time
+        dataVencimento:
+          type: string
+          description: Vencimento
+          format: date-time
+        codigoTipo:
+          type: integer
+          description: Tipo
+          format: int32
+        codigoclassificacaoLegal:
+          type: integer
+          description: Classificação Legal
+          format: int32
+        indicadorEstrangeiro:
+          type: string
+          description: Estrangeiro
+          nullable: true
+        codigoDddContato:
+          type: string
+          description: Telefone Para Contato (DDD)
+          nullable: true
+        telefoneContato:
+          type: string
+          description: Telefone Para Contato
+          nullable: true
+        numeroRamalContato:
+          type: string
+          description: Ramal
+          nullable: true
+        indicadorConsRisco:
+          type: string
+          description: Idc. Cons. Risco
+          nullable: true
+        codigoCvm:
+          type: string
+          description: Classificação CVM
+          nullable: true
+        codigoAnbid:
+          type: string
+          description: Classificação ANBID
+          nullable: true
+        tipoPessoa:
+          type: string
+          description: Tipo Pessoa
+          nullable: true
+        codigoNacionalidade:
+          type: integer
+          description: ''
+          format: int32
+        indicadorSituacaoCadastral:
+          type: string
+          description: Situação Cadastral CPF
+          nullable: true
+        indicadorImpedidoOperar:
+          type: string
+          description: Impedido de Operar
+          nullable: true
+        indicadorCnpjCpfVerificado:
+          type: string
+          description: ''
+          nullable: true
+        dataConsulta:
+          type: string
+          description: Data Consulta
+          format: date-time
+        numeroProcuracao:
+          type: integer
+          description: Número Procuração
+          format: int32
+        nomeDivergente:
+          type: string
+          description: Nome Divergente
+          nullable: true
+        usuarioCadastro:
+          type: string
+          description: Usuário
+          nullable: true
+        codigoPisPasep:
+          type: integer
+          description: PIS/PASEP
+          format: int32
+        valorTotalBens:
+          type: number
+          description: ''
+          format: double
+        valorRendaMensal:
+          type: number
+          description: ''
+          format: double
+        indicadorPosuiRenda:
+          type: string
+          description: ''
+          nullable: true
+        pessoaLigada:
+          type: string
+          description: Pessoa Ligada
+          nullable: true
+        indicadorCobrancaIOf:
+          type: string
+          description: ''
+          nullable: true
+        codigoFilial:
+          type: string
+          description: Filial
+          nullable: true
+        codigoCpfCnpjBase:
+          type: string
+          description: CPF/CNPJ (Base)
+          nullable: true
+        codigoCpfCnpjFilial:
+          type: string
+          description: CPF/CNPJ (Filial)
+          nullable: true
+        codigoCpfCnpjDigito:
+          type: string
+          description: CPF/CNPJ (Dígito)
+          nullable: true
+        tipoPessoaFilial:
+          type: string
+          description: Tipo Pessoa
+          nullable: true
+        indicadorIsencaoCpf:
+          type: string
+          description: Isento CPF
+          nullable: true
+        CpfTitular:
+          type: string
+          description: Titularidade
+          nullable: true
+        inscricaoEstadualTitular:
+          type: string
+          description: Inscrição Estadual
+          nullable: true
+        inscricaoMunicipalTitular:
+          type: string
+          description: Inscrição Municipal
+          nullable: true
+        indicadorDependente:
+          type: string
+          description: Idc Dependente
+          nullable: true
+        indicadorFornecedor:
+          type: string
+          description: Idc Fornecedor
+          nullable: true
+        indicadorCliente:
+          type: string
+          description: Idc Cliente
+          nullable: true
+        indicadorSituacaoFilial:
+          type: string
+          description: Situação
+          nullable: true
+        dataCadastro1:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioAtualizacao1:
+          type: string
+          description: Usuário Atualização
+          nullable: true
+        dataAtualizacao1:
+          type: string
+          description: Data Atualização
+          format: date-time
+        dataSituacao:
+          type: string
+          description: Data Situação
+          format: date-time
+        codigoEmpresa:
+          type: integer
+          description: Gerente
+          format: int32
+        codigoDependente:
+          type: integer
+          description: Gerente
+          format: int32
+        codigoOperador:
+          type: integer
+          description: Gerente
+          format: int32
+        dataInicialGerente:
+          type: string
+          description: Data Início Gerente
+          format: date-time
+        codigoCliente:
+          type: integer
+          description: Código Cliente
+          format: int32
+        codigoPorte:
+          type: integer
+          description: Porte
+          format: int32
+        qtdAssinaturas:
+          type: integer
+          description: Quantidade Assinaturas
+          format: int32
+        enderecoHomePage:
+          type: string
+          description: Home Page
+          nullable: true
+        email1:
+          type: string
+          description: E-mail 1
+          nullable: true
+        email2:
+          type: string
+          description: E-mail 2
+          nullable: true
+        email3:
+          type: string
+          description: E-mail 3
+          nullable: true
+        email4:
+          type: string
+          description: E-mail 4
+          nullable: true
+        email5:
+          type: string
+          description: E-mail 5
+          nullable: true
+        indicadorIsencaoIr:
+          type: string
+          description: Isento IR
+          nullable: true
+        codigoEmpresaIndic:
+          type: integer
+          description: Indicado Por
+          format: int32
+        codigoOperIndic:
+          type: integer
+          description: Indicado Por
+          format: int32
+        codigoSistemaOrigem:
+          type: string
+          description: Código Sistema Origem
+          nullable: true
+        obs:
+          type: string
+          description: observacao
+          nullable: true
+        codigoIspb:
+          type: string
+          description: Cod. ISPB
+          nullable: true
+        sequencialCnpjDuplicado:
+          type: integer
+          description: Sequência CNPJ
+          format: int32
+        indicadorCorrespAgencia:
+          type: string
+          description: Envio Carnê Agência
+          nullable: true
+        dataInicioSfn:
+          type: string
+          description: Data SFN
+          format: date-time
+        indicadorNaoResidente:
+          type: string
+          description: ''
+          nullable: true
+        indicadorRes2686:
+          type: string
+          description: ''
+          nullable: true
+        codigoNovaNacionalidade:
+          type: integer
+          description: ''
+          format: int32
+        dataSaídaPais:
+          type: string
+          description: ''
+          format: date-time
+        tipoImunidade:
+          type: integer
+          description: ''
+          format: int32
+        dataRegistroRbf:
+          type: string
+          description: ''
+          format: date-time
+        numeroProcesso:
+          type: string
+          description: ''
+          nullable: true
+        numeroVara:
+          type: string
+          description: ''
+          nullable: true
+        dataInicio:
+          type: string
+          description: ''
+          format: date-time
+        dataFim:
+          type: string
+          description: ''
+          format: date-time
+        indicadorSituacaoRegistro:
+          type: string
+          description: ''
+          nullable: true
+        codigoCnae2:
+          type: integer
+          description: ''
+          format: int32
+        indicadorClienteFatca:
+          type: string
+          description: ''
+          nullable: true
+        codigoNacionalidade1:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade2:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade3:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade4:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio1:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio2:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio3:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilio4:
+          type: integer
+          description: ''
+          format: int32
+        sUnid:
+          type: integer
+          description: ''
+          format: int32
+        apelido1:
+          type: string
+          description: ''
+          nullable: true
+        apelido2:
+          type: string
+          description: ''
+          nullable: true
+        apelido3:
+          type: string
+          description: ''
+          nullable: true
+        indicadorOptanteSimples:
+          type: string
+          description: Optante Simples
+          nullable: true
+        situacaoBeneficiario:
+          type: string
+          description: ''
+          nullable: true
+        indicadorOperaContaPropria:
+          type: string
+          description: ''
+          nullable: true
+        indicadorTransmissaoProcurador:
+          type: string
+          description: ''
+          nullable: true
+        tipoDeclarado:
+          type: string
+          description: ''
+          nullable: true
+        codigoJustificativa:
+          type: integer
+          description: ''
+          format: int32
+        indicadorAtivo:
+          type: string
+          description: ''
+          nullable: true
+        pesjustificativa:
+          type: string
+          description: ''
+          nullable: true
+        nomeContato:
+          type: string
+          description: ''
+          nullable: true
+        codigoCargo:
+          type: integer
+          description: ''
+          format: int32
+        indicadorDeclaracaoFatca1:
+          type: string
+          description: ''
+          nullable: true
+        indicadorDeclaracaoFatca2:
+          type: string
+          description: ''
+          nullable: true
+        indicadorDomicilioExterno:
+          type: string
+          description: ''
+          nullable: true
+        numeroFuncionarios:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacCapital:
+          type: integer
+          description: ''
+          format: int32
+        valorCapitalEstrangeiro:
+          type: number
+          description: ''
+          format: double
+        valorCapitalNacional:
+          type: number
+          description: ''
+          format: double
+        tipoCapital:
+          type: string
+          description: ''
+          nullable: true
+        codigoClasseEconomicaCetip:
+          type: integer
+          description: ''
+          format: int32
+        codigoIdentificadorRacial:
+          type: string
+          description: ''
+          nullable: true
+        codigoSubgrupoEmpresarial:
+          type: string
+          description: ''
+          nullable: true
+        nivelRiscoPld:
+          type: string
+          description: ''
+          nullable: true
+        observacaoPld:
+          type: string
+          description: ''
+          nullable: true
+        codigoGerente:
+          type: integer
+          description: Gerente
+          format: int32
+        indicadorCobrancaIofAdicional:
+          type: string
+          description: Indicador de cobrança de IOF Adicional
+          nullable: true
+        codigoCestroResultado:
+          type: integer
+          description: Centro de Resultado
+          format: int32
+        cpfCnpjFormatado:
+          type: string
+          description: CPF ou CNPJ Formatado
+          nullable: true
+      additionalProperties: false
+      description: >-
+        Possibilita o cadastramento de dados referentes às informações mínimas
+        necessárias para se cadastrar pessoas físicas e jurídicas - tb_pes
+    MsgRegistroPessoaBody:
+      type: object
+      properties:
+        RegistroPessoa:
+          $ref: '#/components/schemas/MsgRegistropessoa'
+      additionalProperties: false
+    MsgPessoa:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPessoaBody'
+      additionalProperties: false
+    MsgPessoaCompletoTemplate:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeaderRetorno'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPessoaBody'
+      additionalProperties: false
+    MsgRegistroVinculo:
+      type: object
+      properties:
+        codigoPessoaJuridica:
+          type: string
+          description: Código Pessoa
+          nullable: true
+        codigoFilialPessoaJuridica:
+          type: string
+          description: Filial
+          nullable: true
+        codigoPessoaFisica:
+          type: string
+          description: Código
+          nullable: true
+        codigoFilialPessoaFisica:
+          type: string
+          description: Filial
+          nullable: true
+        numeroSequencia:
+          type: integer
+          description: Sequência
+          format: int32
+        indicadorParticipacao:
+          type: string
+          description: Idc. Participação
+          nullable: true
+        percentualParticipacao:
+          type: number
+          description: Pct. Participação
+          format: double
+        dataPosse:
+          type: string
+          description: Data Início
+          format: date-time
+        tempoMandato:
+          type: string
+          description: ''
+          nullable: true
+        observacao:
+          type: string
+          description: observacao
+          nullable: true
+        dataCadastro:
+          type: string
+          description: Data Cadastro
+          format: date-time
+        usuarioUltimaAtualizacao:
+          type: string
+          description: Usuário Última Atualização
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: Data Atualização
+          format: date-time
+        indicadorSituacao:
+          type: string
+          description: Situação
+          nullable: true
+        dataSituacao:
+          type: string
+          description: Data Situação
+          format: date-time
+        codigoCargo:
+          type: integer
+          description: Função Cargo
+          format: int32
+        indicadorAssinaEmpresa:
+          type: string
+          description: Assina Pela Empresa
+          nullable: true
+        indicadorContato:
+          type: string
+          description: Contato
+          nullable: true
+        dataFim:
+          type: string
+          description: Data Fim
+          format: date-time
+        codigoVinculo:
+          type: string
+          description: Vínculo
+          nullable: true
+        dataVencimentoProcuracao:
+          type: string
+          description: Data Vencto. Procuração
+          format: date-time
+        tempoMandato1:
+          type: string
+          description: ''
+          format: date-time
+        dataFimMandato:
+          type: string
+          description: Data Fim
+          format: date-time
+        nomePessoa:
+          type: string
+          description: Pessoa
+          nullable: true
+        tipoPesoa:
+          type: string
+          description: Tipo Pessoa
+          nullable: true
+      additionalProperties: false
+      description: >-
+        Possibilita o armazenamento de informações da renda de pessoas físicas -
+        tb_fisjur
+    MsgRegistroPessoaSimplificada:
+      type: object
+      properties:
+        codigo:
+          type: string
+          description: ''
+          nullable: true
+        nome:
+          type: string
+          description: ''
+          nullable: true
+        codigoDddFone1:
+          type: string
+          description: ''
+          nullable: true
+        codigoDddFone2:
+          type: string
+          description: ''
+          nullable: true
+        numeroTelefone1:
+          type: string
+          description: ''
+          nullable: true
+        numeroTelefone2:
+          type: string
+          description: ''
+          nullable: true
+        numeroRamal1:
+          type: string
+          description: ''
+          nullable: true
+        numeroRamal2:
+          type: string
+          description: ''
+          nullable: true
+        situacaoTelefone1:
+          type: string
+          description: ''
+          nullable: true
+        situacaoTelefone2:
+          type: string
+          description: ''
+          nullable: true
+        dataNascimento:
+          type: string
+          description: ''
+          format: date-time
+        observacao:
+          type: string
+          description: ''
+          nullable: true
+        tipoReferencia:
+          type: string
+          description: ''
+          nullable: true
+        dataCadastramento:
+          type: string
+          description: ''
+          format: date-time
+        usuarioUltimaAtualizacao:
+          type: string
+          description: ''
+          nullable: true
+        dataAtualizacao:
+          type: string
+          description: ''
+          format: date-time
+        codigoMunicipio:
+          type: integer
+          description: ''
+          format: int32
+        descricaoMunicipio:
+          type: string
+          description: ''
+          nullable: true
+        tipoLogradouro:
+          type: string
+          description: ''
+          nullable: true
+        descricicaoLogradouro:
+          type: string
+          description: ''
+          nullable: true
+        numeroEndereco:
+          type: string
+          description: ''
+          nullable: true
+        complementoLogradouro:
+          type: string
+          description: ''
+          nullable: true
+        nomeBairro:
+          type: string
+          description: ''
+          nullable: true
+        tipoEndereco:
+          type: string
+          description: ''
+          nullable: true
+        uf:
+          type: string
+          description: ''
+          nullable: true
+        pais:
+          type: string
+          description: ''
+          nullable: true
+        numeroCep:
+          type: string
+          description: ''
+          nullable: true
+        estadoCivil:
+          type: string
+          description: ''
+          nullable: true
+        regimeComunhao:
+          type: string
+          description: ''
+          nullable: true
+        nomeConjugue:
+          type: string
+          description: ''
+          nullable: true
+        indicadorAvalista:
+          type: string
+          description: ''
+          nullable: true
+        CpfCnpjSimplificado:
+          type: string
+          description: ''
+          nullable: true
+        tipoPessoa:
+          type: string
+          description: ''
+          nullable: true
+        identificadorIsentoCpf:
+          type: string
+          description: ''
+          nullable: true
+        codigoSistemaOrigem:
+          type: string
+          description: ''
+          nullable: true
+        CpfConjugue:
+          type: string
+          description: ''
+          nullable: true
+        CodCbo:
+          type: string
+          description: ''
+          nullable: true
+        CodAtividade:
+          type: integer
+          description: ''
+          format: int32
+        CodAtividadeCbo:
+          type: integer
+          description: ''
+          format: int32
+        indicadorClienteFatca:
+          type: string
+          description: ''
+          nullable: true
+        numeroRg:
+          type: string
+          description: ''
+          nullable: true
+        numeroIdentificadorFiscal:
+          type: string
+          description: ''
+          nullable: true
+        codigoNacionalidade1:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade2:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade3:
+          type: integer
+          description: ''
+          format: int32
+        codigoNacionalidade4:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilioFiscal1:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilioFiscal2:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilioFiscal3:
+          type: integer
+          description: ''
+          format: int32
+        codigoDomicilioFiscal4:
+          type: integer
+          description: ''
+          format: int32
+        codigoDddCelular:
+          type: string
+          description: ''
+          nullable: true
+        numeroCelular:
+          type: string
+          description: ''
+          nullable: true
+        email:
+          type: string
+          description: ''
+          nullable: true
+        indicadorClienteEstrangeiro:
+          type: string
+          description: ''
+          nullable: true
+        tipoDocumentoEstrangeiro:
+          type: string
+          description: ''
+          nullable: true
+        numeroDocumentoEstrangeiro:
+          type: string
+          description: ''
+          nullable: true
+        RegistroVinculo:
+          type: array
+          items:
+            $ref: '#/components/schemas/MsgRegistroVinculo'
+          description: >-
+            Possibilita o armazenamento de informações da renda de pessoas
+            físicas.
+          nullable: true
+      additionalProperties: false
+      description: Armazena dados de pessoas simplificadas - tb_pes_simp
+    MsgRegistroPessoaSimplificadaBody:
+      type: object
+      properties:
+        RegistroPessoaSimplificada:
+          $ref: '#/components/schemas/MsgRegistroPessoaSimplificada'
+      additionalProperties: false
+    MsgPessoaSimplificada:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPessoaSimplificadaBody'
+      additionalProperties: false
+    MsgPessoaSimplificadaTemplate:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeaderRetorno'
+        body:
+          $ref: '#/components/schemas/MsgRegistroPessoaSimplificadaBody'
+      additionalProperties: false
+    MsgRegistroReferenciaBody:
+      type: object
+      properties:
+        RegistroPessoa:
+          $ref: '#/components/schemas/MsgRegistroreferencia'
+      additionalProperties: false
+    MsgReferencia:
+      type: object
+      properties:
+        header:
+          $ref: '#/components/schemas/MsgHeader'
+        body:
+          $ref: '#/components/schemas/MsgRegistroReferenciaBody'
+      additionalProperties: false
