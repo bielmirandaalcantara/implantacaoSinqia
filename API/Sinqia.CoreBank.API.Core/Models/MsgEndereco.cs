@@ -26,6 +26,10 @@ namespace Sinqia.CoreBank.API.Core.Models
     {
         public MsgRegistroendereco RegistroEndereco { get; set; }
     }
+
+    /// <summary>
+    /// Armazena dados de endereços de pessoas físicas e jurídicas - tb_end
+    /// </summary>
     public class MsgRegistroendereco
     {
         /// <summary>

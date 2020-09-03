@@ -25,6 +25,10 @@ namespace Sinqia.CoreBank.API.Core.Models
     {
         public MsgRegistrodocumento RegistroDocumento { get; set; }
     }
+
+    /// <summary>
+    /// Armazena dados de endereços de pessoas físicas e jurídicas. - tb_doc
+    /// </summary>
     public class MsgRegistrodocumento
     {
         /// <summary>

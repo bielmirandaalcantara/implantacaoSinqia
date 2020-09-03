@@ -26,6 +26,9 @@ namespace Sinqia.CoreBank.API.Core.Models
         public MsgRegistroreferencia RegistroPessoa { get; set; }
     }
 
+    /// <summary>
+    /// Armazena informações de referências para pessoas físicas e jurídicas. - tb_ref
+    /// </summary>
     public class MsgRegistroreferencia
     {
         /// <summary>

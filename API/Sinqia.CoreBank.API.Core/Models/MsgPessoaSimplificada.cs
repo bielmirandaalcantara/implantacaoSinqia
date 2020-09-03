@@ -27,6 +27,9 @@ namespace Sinqia.CoreBank.API.Core.Models
         public MsgRegistroPessoaSimplificada RegistroPessoaSimplificada { get; set; }
     }
 
+    /// <summary>
+    /// Armazena dados de pessoas simplificadas - tb_pes_simp
+    /// </summary>
     public class MsgRegistroPessoaSimplificada
     {
 

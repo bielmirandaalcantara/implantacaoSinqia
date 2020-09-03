@@ -24,6 +24,10 @@ namespace Sinqia.CoreBank.API.Core.Models
     {
         public MsgRegistroperfil RegistroPerfil { get; set; }
     }
+
+    /// <summary>
+    /// Possibilita a vinculação de perfis para uma pessoa - tb_perfpes
+    /// </summary>
     public class MsgRegistroperfil
     {
         /// <summary>

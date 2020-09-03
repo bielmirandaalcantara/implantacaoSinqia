@@ -26,7 +26,7 @@ namespace Sinqia.CoreBank.API.Core.Models
     }
 
     /// <summary>
-    /// Possibilita o armazenamento de informações da renda de pessoas físicas. 
+    /// Possibilita o armazenamento de informações da renda de pessoas físicas - tb_fisjur 
     /// </summary>
     public class MsgRegistroVinculo
     {

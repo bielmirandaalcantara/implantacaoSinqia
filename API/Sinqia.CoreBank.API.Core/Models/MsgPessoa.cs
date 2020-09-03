@@ -26,6 +26,9 @@ namespace Sinqia.CoreBank.API.Core.Models
         public MsgRegistropessoa RegistroPessoa { get; set; }
     }
 
+    /// <summary>
+    /// Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas - tb_pes
+    /// </summary>
     public class MsgRegistropessoa
     {
         /// <summary>
