@@ -51,5 +51,46 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
+        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros)
+        {
+            return AdaptarMsgRetornoGet(null, erros);
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(MsgRegistroPessoaSimplificada msgPessoaSimp, IList<string> erros)
+        {
+            MsgRetornoGet retorno = new MsgRetornoGet();
+            string identificador = string.Empty;
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? "ERRO" : "OK";
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+            retorno.header = header;
+
+            if (!erros.Any() && msgPessoaSimp != null)
+            {
+                retorno.body = msgPessoaSimp;
+            }
+            return retorno;
+        }
+
+        public MsgRegistroPessoaSimplificada AdaptarMensagem()
+        {
+            return new MsgRegistroPessoaSimplificada()
+            {
+                codigo = "123"
+                ,
+                nome = "Teste"
+                ,
+                dataAtualizacao = DateTime.Now
+                
+            };
+        }
+
     }
 }

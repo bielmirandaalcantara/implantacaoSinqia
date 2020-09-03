@@ -53,14 +53,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// Alteração de dados de documentos de pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codDoc">Código do dpcumento</param>
+        /// <param name="numeroDocumento">numero do documento sem mascara</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/documento/{codDoc}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/documento/{numeroDocumento}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult putDocumento([FromRoute] string codPessoa, [FromRoute] string codDoc, [FromBody] MsgDocumento msg)
+        public ActionResult putDocumento([FromRoute] string codPessoa, [FromRoute] string numeroDocumento, [FromBody] MsgDocumento msg)
         {
             AdaptadorDocumento adaptador = new AdaptadorDocumento();
             List<string> listaErros = new List<string>();
@@ -90,14 +90,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// Exclusão de dados de documentos de pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codDoc">Código do dpcumento</param>
+        /// /// <param name="numeroDocumento">numero do documento sem mascara</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/documento/{codDoc}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/documento/{numeroDocumento}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deleteDocumento([FromRoute] string codPessoa, [FromRoute] string codDoc)
+        public ActionResult deleteDocumento([FromRoute] string codPessoa, [FromRoute] string numeroDocumento)
         {
             AdaptadorDocumento adaptador = new AdaptadorDocumento();
             List<string> listaErros = new List<string>();

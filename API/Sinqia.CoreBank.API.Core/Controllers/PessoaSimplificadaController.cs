@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Sinqia.CoreBank.API.Core.Adaptadores;
 using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Templates;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
@@ -117,6 +118,45 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
                 listaErros.Add(ex.Message);
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
+        }
+
+        /// <summary>
+        /// Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpGet]
+        [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status500InternalServerError)]
+        public ActionResult getPessoaSimplificada([FromRoute] string codPessoa)
+        {
+            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
+            List<string> listaErros = new List<string>();
+            MsgRetornoGet retorno;
+            MsgRegistroPessoaSimplificada msgRegistropessoaCompleto;
+
+            try
+            {
+                msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
+                retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 

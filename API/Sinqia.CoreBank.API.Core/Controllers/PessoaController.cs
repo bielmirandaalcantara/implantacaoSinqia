@@ -5,6 +5,7 @@ using Sinqia.CoreBank.API.Core.Models;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
+using Sinqia.CoreBank.API.Core.Models.Templates;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -123,16 +124,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
-        /// Obs.: Campo body equivalente a mensagem MsgRegistropessoaCompleto
+        /// Consulta os dados de pessoa simplificada
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/pessoa/{codPessoa}")]
-        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgRetornoGet), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
         public ActionResult getPessoa([FromRoute] string codPessoa)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();

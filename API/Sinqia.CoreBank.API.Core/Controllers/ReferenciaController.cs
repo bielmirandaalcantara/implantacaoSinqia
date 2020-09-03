@@ -53,14 +53,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// Alteração de dados de referência de pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codReferencia">Código de referencia</param>
+        /// <param name="codPessoaReferencia">Código de referencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codReferencia}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codPessoaReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult putReferencia([FromRoute] string codPessoa, [FromRoute] string codReferencia, [FromBody] MsgReferencia msg)
+        public ActionResult putReferencia([FromRoute] string codPessoa, [FromRoute] string codPessoaReferencia, [FromBody] MsgReferencia msg)
         {
             AdaptadorReferencia adaptador = new AdaptadorReferencia();
             List<string> listaErros = new List<string>();
@@ -90,14 +90,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// Exclusão de dados de referência de pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codReferencia">Código de referencia</param>
+        /// <param name="codPessoaReferencia">Código de referencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codReferencia}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/referencia/{codPessoaReferencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] string codReferencia)
+        public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] string codPessoaReferencia)
         {
             AdaptadorReferencia adaptador = new AdaptadorReferencia();
             List<string> listaErros = new List<string>();
