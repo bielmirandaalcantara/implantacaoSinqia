@@ -168,6 +168,47 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
-        }        
+        }
+
+        /// <summary>
+        /// Consulta os dados de pessoa simplificada
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpGet]
+        [Route("api/core/cadastros/pessoa/{nome}/{cpf}")]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
+        public ActionResult getPessoaConsulta([FromRoute] string nome, [FromRoute] string cpf)
+        {
+            AdaptadorPessoa adaptador = new AdaptadorPessoa();
+            List<string> listaErros = new List<string>();
+            MsgRetornoGet retorno;
+            MsgRegistropessoaConsulta msgRegistropessoaConsulta;
+
+            try
+            {
+                msgRegistropessoaConsulta = adaptador.AdaptarMensagemConsulta();
+                retorno = adaptador.AdaptarMsgRetornoConsultaGet(msgRegistropessoaConsulta, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
+        }
     }
 }
