@@ -31,6 +31,10 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string identificador { get; set; }
         /// <summary>
+        /// Código da pessoa cadastrado no sistema (nulo caso seja retorno de um get com inumeros códigos ou ocorra alguma inconsistência)
+        /// </summary>
+        public string codigoPessoa { get; set; }
+        /// <summary>
         /// Data e hora que foi enviado a mensagem
         /// </summary>
         public DateTime dataHoraEnvio { get; set; }

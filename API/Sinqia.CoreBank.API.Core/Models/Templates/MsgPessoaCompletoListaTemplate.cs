@@ -6,7 +6,7 @@ using Sinqia.CoreBank.API.Core.Models;
 
 namespace Sinqia.CoreBank.API.Core.Models.Templates
 {
-    public class MsgPessoaCompletoTemplate
+    public class MsgPessoaCompletoListaTemplate
     {
         /// <summary>
         /// header da mensagem
@@ -18,7 +18,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Templates
         /// corpo da mensagem
         /// body será nulo ou vazio caso retornos http 400 e 500
         /// </summary>
-        public MsgRegistroPessoaCompletoBody body { get; set; }
+        public MsgRegistroPessoaCompletoBodyLista body { get; set; }
     }
 
    

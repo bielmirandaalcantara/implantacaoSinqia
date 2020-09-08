@@ -150,7 +150,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
+                msgRegistropessoaCompleto = adaptador.AdaptarMsgRegistropessoaCompleto();
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -171,28 +171,31 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Consulta os dados de pessoa simplificada
+        /// Consulta os dados de pessoa simplificada por nome e CPF
         /// </summary>
-        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="nome">Nome da pessa ou pessoas a serem consultadas</param>
+        /// <param name="cpf">Documento da pessoa a ser consultada</param>
+        /// <param name="pageSkip">Retornar consulta após x registros</param>
+        /// <param name="pageTake">Quantidade de registros a ser retornado nessa consulta</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/pessoa/{nome}/{cpf}")]
-        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoaConsulta([FromRoute] string nome, [FromRoute] string cpf)
+        [Route("api/core/cadastros/pessoa/")]
+        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status500InternalServerError)]
+        public ActionResult getPessoaLista([FromQuery] string nome, [FromQuery] string cpf, [FromQuery] int pageSkip, [FromQuery] int pageTake)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
-            MsgRegistropessoaConsulta msgRegistropessoaConsulta;
+            IList<MsgRegistropessoaCompleto> msgRegistropessoaConsulta;
 
             try
             {
-                msgRegistropessoaConsulta = adaptador.AdaptarMensagemConsulta();
-                retorno = adaptador.AdaptarMsgRetornoConsultaGet(msgRegistropessoaConsulta, listaErros);
+                msgRegistropessoaConsulta = adaptador.AdaptarMsgRegistropessoaCompletoLista();
+                retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaConsulta, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)

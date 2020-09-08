@@ -27,6 +27,10 @@ namespace Sinqia.CoreBank.API.Core.Models
         public MsgRegistropessoa RegistroPessoa { get; set; }
     }
 
+    public class MsgRegistroPessoaBodyLista
+    {
+        public MsgRegistropessoa[] RegistroPessoa { get; set; }
+    }
     /// <summary>
     /// Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas. 
     /// </summary>
@@ -338,7 +342,6 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Filial
         /// </summary>
-        [Required]
         public string codigoFilial { get; set; }
 
         /// <summary>
@@ -823,7 +826,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         public string observacaoPld { get; set; }
 
         /// <summary>
-        /// Gerente
+        /// 
         /// </summary>
         public int codigoGerente { get; set; }
 

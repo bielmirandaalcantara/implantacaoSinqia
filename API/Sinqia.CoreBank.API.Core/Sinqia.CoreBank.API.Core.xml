@@ -100,6 +100,16 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoaLista(System.String,System.String,System.Int32,System.Int32)">
+            <summary>
+            Consulta os dados de pessoa simplificada por nome e CPF
+            </summary>
+            <param name="nome">Nome da pessa ou pessoas a serem consultadas</param>
+            <param name="cpf">Documento da pessoa a ser consultada</param>
+            <param name="pageSkip">Retornar consulta após x registros</param>
+            <param name="pageTake">Quantidade de registros a ser retornado nessa consulta</param>
+            <returns>MsgRetorno</returns>
+        </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.postPessoaSimplificada(Sinqia.CoreBank.API.Core.Models.MsgPessoaSimplificada)">
             <summary>
             Armazena os dados de pessoa simplificada
@@ -1319,7 +1329,7 @@
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoGerente">
             <summary>
-            Gerente
+            
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorCobrancaIofAdicional">
@@ -1816,6 +1826,11 @@
             Identificador da mensagem para localização (caso exista)
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.codigoPessoa">
+            <summary>
+            Código da pessoa cadastrado no sistema (nulo caso seja retorno de um get com inumeros códigos ou ocorra alguma inconsistência)
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraEnvio">
             <summary>
             Data e hora que foi enviado a mensagem
@@ -1977,6 +1992,19 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.tipoPesoa">
             <summary>
             Tipo Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Templates.MsgPessoaCompletoListaTemplate.header">
+            <summary>
+            header da mensagem
+            erros será nulo em retornos http 200
+            identificador será nulo ou em branco caso seja uma requisição GET
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Templates.MsgPessoaCompletoListaTemplate.body">
+            <summary>
+            corpo da mensagem
+            body será nulo ou vazio caso retornos http 400 e 500
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Templates.MsgPessoaCompletoTemplate.header">

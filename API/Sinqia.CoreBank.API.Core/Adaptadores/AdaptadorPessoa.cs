@@ -33,31 +33,6 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public MsgRetorno AdaptarMsgRetorno(MsgPessoaConsulta msgPessoa, IList<string> erros)
-        {
-            MsgRetorno retorno = new MsgRetorno();
-            string identificador = string.Empty;
-            DateTime dataEnvio = DateTime.MinValue;
-            string status = erros.Any() ? "ERRO" : "OK";
-
-            if (msgPessoa.header != null)
-            {
-                identificador = msgPessoa.header.identificadorEnvio;
-                dataEnvio = msgPessoa.header.dataHoraEnvio.HasValue ? msgPessoa.header.dataHoraEnvio.Value : DateTime.Now;
-            }
-
-            var header = new MsgHeaderRetorno()
-            {
-                identificador = identificador,
-                dataHoraEnvio = dataEnvio,
-                dataHoraRetorno = DateTime.Now,
-                status = status
-            };
-
-            retorno.header = header;
-            return retorno;
-        }
-
         public MsgRetorno AdaptarMsgRetorno(MsgPessoaCompleto msgPessoa, IList<string> erros)
         {
             MsgRetorno retorno = new MsgRetorno();
@@ -107,7 +82,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return AdaptarMsgRetornoGet(null, erros);
         }
 
-        public MsgRetornoGet AdaptarMsgRetornoGet(MsgRegistropessoaCompleto msgPessoa, IList<string> erros)
+        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros) 
         {
             MsgRetornoGet retorno = new MsgRetornoGet();
             string identificador = string.Empty;
@@ -123,42 +98,13 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             };
             retorno.header = header;
 
-            if (!erros.Any() && msgPessoa != null)
-            {
-                retorno.body = msgPessoa;
-            }            
+            if (!erros.Any() && msg != null)
+                retorno.body = msg;
+
             return retorno;
         }
 
-        public MsgRetornoGet AdaptarMsgRetornoConsultaGet(IList<string> erros)
-        {
-            return AdaptarMsgRetornoConsultaGet(null, erros);
-        }
-
-        public MsgRetornoGet AdaptarMsgRetornoConsultaGet(MsgRegistropessoaConsulta msgPessoa, IList<string> erros)
-        {
-            MsgRetornoGet retorno = new MsgRetornoGet();
-            string identificador = string.Empty;
-            DateTime dataEnvio = DateTime.MinValue;
-            string status = erros.Any() ? "ERRO" : "OK";
-
-            var header = new MsgHeaderRetorno()
-            {
-                identificador = identificador,
-                dataHoraEnvio = dataEnvio,
-                dataHoraRetorno = DateTime.Now,
-                status = status
-            };
-            retorno.header = header;
-
-            if (!erros.Any() && msgPessoa != null)
-            {
-                retorno.body = msgPessoa;
-            }
-            return retorno;
-        }
-
-        public MsgRegistropessoaCompleto AdaptarMensagem()
+        public MsgRegistropessoaCompleto AdaptarMsgRegistropessoaCompleto()
         {
             return new MsgRegistropessoaCompleto()
             {
@@ -169,18 +115,26 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             };
         }
 
-        public MsgRegistropessoaConsulta AdaptarMensagemConsulta()
+        public IList<MsgRegistropessoaCompleto> AdaptarMsgRegistropessoaCompletoLista()
         {
-            return new MsgRegistropessoaConsulta()
+            List<MsgRegistropessoaCompleto> listaRegristros = new List<MsgRegistropessoaCompleto>();
+            listaRegristros.Add(new MsgRegistropessoaCompleto()
             {
                 nomePessoa = "Teste"
-                ,
-                dataAtualizacao = DateTime.Now
-                ,
-                dataInicio = DateTime.Now
-                ,
-                nomeMae = "Mãe do Teste"
-            };
+                ,dataAtualizacao = DateTime.Now
+                ,dataInicio = DateTime.Now
+                ,nomeMae = "Mãe do Teste"
+            });
+
+            listaRegristros.Add(new MsgRegistropessoaCompleto()
+            {
+                nomePessoa = "Teste 1"
+                ,dataAtualizacao = DateTime.Now
+                ,dataInicio = DateTime.Now
+                ,nomeMae = "Mãe do Teste 1"
+            });
+
+            return listaRegristros;
         }
     }
 }
