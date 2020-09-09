@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.API.Core.Models.Templates;
+using Sinqia.CoreBank.API.CUC.Autenticacao;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -26,6 +27,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
         public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
         {
+            CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
+            var ret = client.AutenticarAsync("att","att");
+            string token = ret.Result.Token;
+
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
