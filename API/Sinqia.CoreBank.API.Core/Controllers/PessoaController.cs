@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.API.Core.Models.Templates;
+using Sinqia.CoreBank.Services.CUC.Autenticacao;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -32,6 +33,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
+                var ret = client.AutenticarAsync("att", "att");
+                string token = ret.Result.Token;
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
