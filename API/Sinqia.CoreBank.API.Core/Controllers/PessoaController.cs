@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.API.Core.Models.Templates;
 using Sinqia.CoreBank.Services.CUC.Autenticacao;
 using Sinqia.CoreBank.Services.CUC.CadastroPessoa;
+using Sinqia.CoreBank.Services.CUC.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -15,6 +16,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaController : ControllerBase
     {
+        private Autenticacao _ServiceAutenticacao;
+        public Autenticacao ServiceAutenticacao { get
+            {
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new Autenticacao();
+                return _ServiceAutenticacao;
+            }
+        }
+
         /// <summary>
         /// Cadastro de pessoa - Possibilita o cadastramento de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
         /// </summary>

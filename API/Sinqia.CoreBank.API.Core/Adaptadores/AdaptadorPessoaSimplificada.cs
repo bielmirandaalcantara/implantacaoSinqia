@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -13,7 +14,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
-            string status = erros.Any() ? "ERRO" : "OK";
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             if (msgPessoa.header != null)
             {
@@ -37,7 +38,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
-            string status = erros.Any() ? "ERRO" : "OK";
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
             {
@@ -61,7 +62,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRetornoGet retorno = new MsgRetornoGet();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
-            string status = erros.Any() ? "ERRO" : "OK";
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
             {
