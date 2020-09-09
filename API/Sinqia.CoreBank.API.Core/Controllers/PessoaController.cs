@@ -7,6 +7,7 @@ using System.Net;
 using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.API.Core.Models.Templates;
 using Sinqia.CoreBank.Services.CUC.Autenticacao;
+using Sinqia.CoreBank.Services.CUC.CadastroPessoa;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -34,8 +35,23 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             try
             {
                 CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
-                var ret = client.AutenticarAsync("att", "att");
+                var ret = client.AutenticarAsync(msg.header.usuario, msg.header.senha);
                 string token = ret.Result.Token;
+
+                CucCluParametro parametrosLogin = new CucCluParametro();
+                parametrosLogin.Empresa = msg.header.empresa;
+                parametrosLogin.Dependencia = msg.header.dependencia;
+                parametrosLogin.Login = msg.header.usuario;
+                parametrosLogin.SiglaAplicacao = "BR";
+                parametrosLogin.Token = token;
+
+
+                CucCliCadastroPessoaClient clientPessoa = new CucCliCadastroPessoaClient();
+                var retPessoa = clientPessoa.AtualizarAsync(parametrosLogin, msg.ToString());
+                if (!string.IsNullOrEmpty(retPessoa.Result.Excecao.ToString()))
+                {
+                    listaErros.Add(retPessoa.Result.Excecao.ToString());
+                }
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);

@@ -18,5 +18,21 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data e hora que foi enviado a mensagem
         /// </summary>
         public DateTime? dataHoraEnvio { get; set; }
+        /// <summary>
+        /// Dependencia
+        /// </summary>
+        public int dependencia { get; set; }
+        /// <summary>
+        /// Empresa
+        /// </summary>
+        public int empresa { get; set; }
+        /// <summary>
+        /// Usuário do Sistema
+        /// </summary>
+        public string usuario { get; set; }
+        /// <summary>
+        /// Senha do Sistema
+        /// </summary>
+        public string senha { get; set; }
     }
 }
