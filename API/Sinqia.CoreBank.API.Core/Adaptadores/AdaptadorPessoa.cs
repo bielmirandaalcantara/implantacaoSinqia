@@ -592,8 +592,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorOptanteSimples))
                 registroPessoa.IDC_SIMP = msg.indicadorOptanteSimples;
 
-            //if (!string.IsNullOrWhiteSpace(msg.CpfFormatado))
-            //    registroPessoa.CGCCpf_FORMATADO = msg.CpfFormatado;
+            if (!string.IsNullOrWhiteSpace(msg.CpfFormatado))
+                registroPessoa.CGCCpf_FORMATADO = msg.CpfFormatado;
 
             if (!string.IsNullOrWhiteSpace(msg.situacaoBeneficiario))
                 registroPessoa.SIT_BEN = msg.situacaoBeneficiario;
@@ -664,14 +664,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoIdentificadorRacial))
                 registroPessoa.circod = msg.codigoIdentificadorRacial;
 
-           //if (!string.IsNullOrWhiteSpace(msg.codigoDdi))
-           //     registroPessoa.pescoDDdi = msg.codigoDdi;
+           if (!string.IsNullOrWhiteSpace(msg.codigoDdi))
+                registroPessoa.pescoDDdi = msg.codigoDdi;
 
-           //if (!string.IsNullOrWhiteSpace(msg.nomeSocialPessoa))
-           //     registroPessoa.nom_social_pessoa = msg.nomeSocialPessoa;
+           if (!string.IsNullOrWhiteSpace(msg.nomeSocialPessoa))
+                registroPessoa.nom_social_pessoa = msg.nomeSocialPessoa;
 
-           //if (!string.IsNullOrWhiteSpace(msg.indicadorIsencaoInscricaoEstadual))
-           //     registroPessoa.idc_isen_insc_estadual = msg.indicadorIsencaoInscricaoEstadual;
+           if (!string.IsNullOrWhiteSpace(msg.indicadorIsencaoInscricaoEstadual))
+                registroPessoa.idc_isen_insc_estadual = msg.indicadorIsencaoInscricaoEstadual;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoSubgrupoEmpresarial))
                 registroPessoa.sgecod = msg.codigoSubgrupoEmpresarial;

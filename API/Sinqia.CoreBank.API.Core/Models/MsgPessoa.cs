@@ -685,7 +685,10 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string indicadorOptanteSimples { get; set; }
 
-        //public string CpfFormatado { get; set; }
+        /// <summary>
+        /// CPF Formatado
+        /// </summary>
+        public string CpfFormatado { get; set; }
 
         /// <summary>
         /// 
@@ -794,22 +797,21 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string codigoIdentificadorRacial { get; set; }
 
-        //public string codigoDdi { get; set; }
+        /// <summary>
+        /// DDI
+        /// </summary>
+        public string codigoDdi { get; set; }
 
-        /*
         /// <summary>
         /// NomeSocial
         /// </summary>
         public string nomeSocialPessoa { get; set; }
-        */
-
-        /*
+        
         /// <summary>
         /// Isento Inscricao Estadual
         /// </summary>
         public string indicadorIsencaoInscricaoEstadual { get; set; }
-        */
-
+        
         /// <summary>
         /// 
         /// </summary>
