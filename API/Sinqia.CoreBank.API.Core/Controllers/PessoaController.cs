@@ -60,7 +60,23 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     x.Serialize(textWriter, dataSetPessoa);
                     stringXML = textWriter.ToString();
                 }
+
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+
+                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+
+                parm.empresa = 1;
+                parm.login = "att";
+                parm.sigla = "br";
+                parm.dependencia = 1;
+                parm.token = "UsrUYkr5I43+9YQEIsBmaC3e1a6ItzUUz+N74IlUFWaDr+ZINRCT0Q==.006DRLTKN";
+
+
+                var ret = clientPessoa.AtualizarPessoa(parm, stringXML);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                //retorno.header.codigoPessoa = ret.CodigoPessoa;
+                
 
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
