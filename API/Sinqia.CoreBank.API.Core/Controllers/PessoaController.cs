@@ -9,6 +9,9 @@ using Sinqia.CoreBank.API.Core.Models.Templates;
 using Sinqia.CoreBank.Services.CUC.Autenticacao;
 using Sinqia.CoreBank.Services.CUC.CadastroPessoa;
 using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -43,6 +46,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                /*
                 CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
                 var ret = client.AutenticarAsync(msg.header.usuario, msg.header.senha);
                 string token = ret.Result.Token;
@@ -60,6 +64,16 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (!string.IsNullOrEmpty(retPessoa.Result.Excecao.ToString()))
                 {
                     listaErros.Add(retPessoa.Result.Excecao.ToString());
+                }
+                */
+                string stringXML = string.Empty;
+                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg);
+                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    x.Serialize(textWriter, dataSetPessoa);
+                    stringXML =  textWriter.ToString();
                 }
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);

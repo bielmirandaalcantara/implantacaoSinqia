@@ -137,7 +137,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Natural De
         /// </summary>
-        public decimal codigoMunicipio { get; set; }
+        public int codigoMunicipio { get; set; }
 
         /// <summary>
         /// Natural De
