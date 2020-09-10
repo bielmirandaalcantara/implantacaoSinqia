@@ -46,12 +46,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                /*
                 CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
                 var ret = client.AutenticarAsync(msg.header.usuario, msg.header.senha);
                 string token = ret.Result.Token;
-
+                */
                 string stringXML = string.Empty;
-                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg);
+                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, listaErros);
                 XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
 
                 using (StringWriter textWriter = new StringWriter())

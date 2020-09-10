@@ -54,18 +54,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco[] msg)
+        public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco[] msg, IList<string> erros)
         {
-            List<DataSetPessoaRegistroEndereco> xmlEnderecos = new List<DataSetPessoaRegistroEndereco>();
+            List<DataSetPessoaRegistroEndereco> registroEnderecos = new List<DataSetPessoaRegistroEndereco>();
             foreach(var endereco in msg)
             {
-                xmlEnderecos.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(endereco));
+                registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(endereco, erros));
             }
 
-            return xmlEnderecos.ToArray();
+            return registroEnderecos.ToArray();
         }
 
-        public DataSetPessoaRegistroEndereco AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco msg)
+        public DataSetPessoaRegistroEndereco AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco msg, IList<string> erros)
         {
             DataSetPessoaRegistroEndereco registroEndereco = new DataSetPessoaRegistroEndereco();
 

@@ -20,6 +20,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
         }
 
+        private AdaptadorDocumento _AdaptadorDocumento;
+        public AdaptadorDocumento AdaptadorDocumento
+        {
+            get
+            {
+                if (_AdaptadorDocumento == null) _AdaptadorDocumento = new AdaptadorDocumento();
+                return _AdaptadorDocumento;
+            }
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgPessoa msgPessoa, IList<string> erros)
         {
             MsgRetorno retorno = new MsgRetorno();
@@ -149,7 +159,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return listaRegristros;
         }
 
-        public DataSetPessoa AdaptarMsgPessoaCompletoToDataSetPessoa(MsgPessoaCompleto msg)
+        public DataSetPessoa AdaptarMsgPessoaCompletoToDataSetPessoa(MsgPessoaCompleto msg, IList<string> erros)
         {
             if (msg.body == null)
                 throw new ApplicationException("Campo body obrigatório");
@@ -160,15 +170,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRegistropessoaCompleto registropessoa = msg.body.RegistroPessoa;
 
             DataSetPessoa xml = new DataSetPessoa();
-            xml.RegistroPessoa = AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa);
+            xml.RegistroPessoa = AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa, erros);
 
-            if(registropessoa.RegistroEndereco != null)
-                xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa.RegistroEndereco);
+            if(registropessoa.RegistroEndereco != null && registropessoa.RegistroEndereco.Any())
+                xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa.RegistroEndereco, erros);
+
+            if (registropessoa.RegistroDocumento != null && registropessoa.RegistroDocumento.Any())
+                xml.RegistroDocumento = AdaptadorDocumento.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(registropessoa.RegistroDocumento, erros);
 
             return xml;
         }
 
-        public DataSetPessoaRegistroPessoa AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistropessoa msg)
+        public DataSetPessoaRegistroPessoa AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistropessoa msg, IList<string> erros)
         {
             DataSetPessoaRegistroPessoa registroPessoa = new DataSetPessoaRegistroPessoa();
 
