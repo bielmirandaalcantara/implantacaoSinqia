@@ -46,26 +46,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                /*
                 CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
                 var ret = client.AutenticarAsync(msg.header.usuario, msg.header.senha);
                 string token = ret.Result.Token;
 
-                CucCluParametro parametrosLogin = new CucCluParametro();
-                parametrosLogin.Empresa = msg.header.empresa;
-                parametrosLogin.Dependencia = msg.header.dependencia;
-                parametrosLogin.Login = msg.header.usuario;
-                parametrosLogin.SiglaAplicacao = "BR";
-                parametrosLogin.Token = token;
-
-
-                CucCliCadastroPessoaClient clientPessoa = new CucCliCadastroPessoaClient();
-                var retPessoa = clientPessoa.AtualizarAsync(parametrosLogin, msg.ToString());
-                if (!string.IsNullOrEmpty(retPessoa.Result.Excecao.ToString()))
-                {
-                    listaErros.Add(retPessoa.Result.Excecao.ToString());
-                }
-                */
                 string stringXML = string.Empty;
                 var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg);
                 XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
@@ -73,10 +57,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 using (StringWriter textWriter = new StringWriter())
                 {
                     x.Serialize(textWriter, dataSetPessoa);
-                    stringXML =  textWriter.ToString();
+                    stringXML = textWriter.ToString();
                 }
-
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch(ApplicationException appEx)
