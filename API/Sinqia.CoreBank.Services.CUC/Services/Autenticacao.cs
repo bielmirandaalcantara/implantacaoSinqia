@@ -8,7 +8,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 {
     public class Autenticacao
     {
-        CucCliAutenticacaoClient _ServiceClient;
+        private CucCliAutenticacaoClient _ServiceClient;
         public CucCliAutenticacaoClient ServiceClient { get
             {
                 if (_ServiceClient == null) _ServiceClient = new CucCliAutenticacaoClient();
