@@ -30,9 +30,5 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Usuário do Sistema
         /// </summary>
         public string usuario { get; set; }
-        /// <summary>
-        /// Senha do Sistema
-        /// </summary>
-        public string senha { get; set; }
     }
 }
