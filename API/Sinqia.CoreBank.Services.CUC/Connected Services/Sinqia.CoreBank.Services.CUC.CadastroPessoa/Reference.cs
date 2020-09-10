@@ -112,7 +112,7 @@ namespace Sinqia.CoreBank.Services.CUC.CadastroPessoa
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.1")]
     [System.Runtime.Serialization.DataContractAttribute(Name="CucCluRetorno", Namespace="http://schemas.datacontract.org/2004/07/CucCpwCadastros.Estruturas")]
-    public partial class CucCluRetorno : object
+    public partial class CucCluRetorno : object //////////////////////////////////////////////
     {
         
         private string CodigoContaRelacionamentoField;

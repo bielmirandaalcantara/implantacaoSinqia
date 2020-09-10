@@ -20,7 +20,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
         }
 
         
-        public CucCluRetorno AtualizarPessoa(ParametroIntegracaoPessoa param, DataSetPessoa pessoa)
+        public RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, DataSetPessoa pessoa)
         {
             CucCluParametro parametrosLogin = new CucCluParametro();
             parametrosLogin.Empresa = param.empresa;
@@ -31,7 +31,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             var ret = ServiceClient.AtualizarAsync(parametrosLogin, pessoa.ToString());
 
-            CucCluRetorno retorno = new CucCluRetorno();
+            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
 
             retorno.CodigoFilial = ret.Result.CodigoFilial;
             retorno.CodigoPessoa = ret.Result.CodigoPessoa;
