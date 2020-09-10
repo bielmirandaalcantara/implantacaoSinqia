@@ -17,80 +17,12 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroDocumento")]
         public DataSetPessoaRegistroDocumento[] RegistroDocumento { get; set; }
-        /*
-              public DataSetPessoaRegistroPerfil registroPerfilField;
 
-              private DataSetPessoaRegistroEndereco registroEnderecoField;
+        [System.Xml.Serialization.XmlElementAttribute("RegistroPerfil")]
+        public DataSetPessoaRegistroPerfil[] RegistroPerfil { get; set; }
 
-              private DataSetPessoaRegistroDocumento registroDocumentoField;
-
-              private DataSetPessoaRegistroVinculo registroVinculoField;
-
-              /// <remarks/>
-              public DataSetPessoaRegistroPessoa RegistroPessoa
-              {
-                  get
-                  {
-                      return this.registroPessoaField;
-                  }
-                  set
-                  {
-                      this.registroPessoaField = value;
-                  }
-              }
-
-              /// <remarks/>
-              public DataSetPessoaRegistroPerfil RegistroPerfil
-              {
-                  get
-                  {
-                      return this.registroPerfilField;
-                  }
-                  set
-                  {
-                      this.registroPerfilField = value;
-                  }
-              }
-
-              /// <remarks/>
-              public DataSetPessoaRegistroEndereco RegistroEndereco
-              {
-                  get
-                  {
-                      return this.registroEnderecoField;
-                  }
-                  set
-                  {
-                      this.registroEnderecoField = value;
-                  }
-              }
-
-              /// <remarks/>
-              public DataSetPessoaRegistroDocumento RegistroDocumento
-              {
-                  get
-                  {
-                      return this.registroDocumentoField;
-                  }
-                  set
-                  {
-                      this.registroDocumentoField = value;
-                  }
-              }
-
-              /// <remarks/>
-              public DataSetPessoaRegistroVinculo RegistroVinculo
-              {
-                  get
-                  {
-                      return this.registroVinculoField;
-                  }
-                  set
-                  {
-                      this.registroVinculoField = value;
-                  }
-              }
-              */
+        [System.Xml.Serialization.XmlElementAttribute("RegistroReferencia")]
+        public DataSetPessoaRegistroReferencia[] RegistroReferencia { get; set; }
     }
 
     public class DataSetPessoaRegistroPessoa
@@ -335,5 +267,37 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string idc_preposto { get; set; }
         public DateTime dat_venc { get; set; }
         public int naccod { get; set; }
+    }
+
+    public class DataSetPessoaRegistroPerfil
+    {
+        public string cod_pessoa { get; set; }
+        public string cod_perfil { get; set; }
+
+    }
+
+    public class DataSetPessoaRegistroReferencia
+    {
+        public string cod_pessoa_tit { get; set; }
+        public string cod_fil_tit { get; set; }
+        public int seq_ref { get; set; }
+        public string tip_ref { get; set; }
+        public string obs_ref { get; set; }
+        public decimal num_cartao_ref { get; set; }
+        public decimal val_lim_ref { get; set; }
+        public DateTime dat_ini_emprego { get; set; }
+        public DateTime dat_fim_emprego { get; set; }
+        public DateTime dat_cad { get; set; }
+        public string usu_atu { get; set; }
+        public DateTime dat_atu { get; set; }
+        public string idc_sit { get; set; }
+        public DateTime dat_sit { get; set; }
+        public int cod_cartao { get; set; }
+        public int cod_segur { get; set; }
+        public string cod_pessoa_ref { get; set; }
+        public string cod_fil_ref { get; set; }
+        public string cod_simp { get; set; }
+        public DateTime dat_venc_seg_cartao { get; set; }
+
     }
 }

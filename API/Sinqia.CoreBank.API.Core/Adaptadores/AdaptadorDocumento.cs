@@ -57,9 +57,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
         public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento[] msg, IList<string> erros)
         {
             List<DataSetPessoaRegistroDocumento> registroDocumentos = new List<DataSetPessoaRegistroDocumento>();
-            foreach (var endereco in msg)
+            foreach (var documento in msg)
             {
-                registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(endereco, erros));
+                registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(documento, erros));
             }
 
             return registroDocumentos.ToArray();

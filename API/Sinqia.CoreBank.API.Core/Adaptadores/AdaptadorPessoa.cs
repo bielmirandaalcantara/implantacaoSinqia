@@ -30,6 +30,26 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
         }
 
+        private AdaptadorPerfil _AdaptadorPerfil;
+        public AdaptadorPerfil AdaptadorPerfil
+        {
+            get
+            {
+                if (_AdaptadorPerfil == null) _AdaptadorPerfil = new AdaptadorPerfil();
+                return _AdaptadorPerfil;
+            }
+        }
+
+        private AdaptadorReferencia _AdaptadorReferencia;
+        public AdaptadorReferencia AdaptadorReferencia
+        {
+            get
+            {
+                if (_AdaptadorReferencia == null) _AdaptadorReferencia = new AdaptadorReferencia();
+                return _AdaptadorReferencia;
+            }
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgPessoa msgPessoa, IList<string> erros)
         {
             MsgRetorno retorno = new MsgRetorno();
@@ -167,16 +187,22 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if(msg.body.RegistroPessoa == null)
                 throw new ApplicationException("Campo Registro pessoa obrigatório");
 
-            MsgRegistropessoaCompleto registropessoa = msg.body.RegistroPessoa;
+            MsgRegistropessoaCompleto registroPessoa = msg.body.RegistroPessoa;
 
             DataSetPessoa xml = new DataSetPessoa();
-            xml.RegistroPessoa = AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa, erros);
+            xml.RegistroPessoa = AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa, erros);
 
-            if(registropessoa.RegistroEndereco != null && registropessoa.RegistroEndereco.Any())
-                xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registropessoa.RegistroEndereco, erros);
+            if(registroPessoa.RegistroEndereco != null && registroPessoa.RegistroEndereco.Any())
+                xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa.RegistroEndereco, erros);
 
-            if (registropessoa.RegistroDocumento != null && registropessoa.RegistroDocumento.Any())
-                xml.RegistroDocumento = AdaptadorDocumento.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(registropessoa.RegistroDocumento, erros);
+            if (registroPessoa.RegistroDocumento != null && registroPessoa.RegistroDocumento.Any())
+                xml.RegistroDocumento = AdaptadorDocumento.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(registroPessoa.RegistroDocumento, erros);
+
+            if (registroPessoa.RegistroPerfil != null && registroPessoa.RegistroPerfil.Any())
+                xml.RegistroPerfil = AdaptadorPerfil.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(registroPessoa.RegistroPerfil, erros);
+
+            if (registroPessoa.RegistroReferencia != null && registroPessoa.RegistroReferencia.Any())
+                xml.RegistroReferencia = AdaptadorReferencia.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(registroPessoa.RegistroReferencia, erros);
 
             return xml;
         }

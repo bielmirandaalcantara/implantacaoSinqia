@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
+using Sinqia.CoreBank.Services.CUC.Models;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -52,5 +53,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             retorno.header = header;
             return retorno;
         }
-    }
+
+        public DataSetPessoaRegistroPerfil[] AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil[] msg, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroPerfil> registroPerfis = new List<DataSetPessoaRegistroPerfil>();
+            foreach (var perfil in msg)
+            {
+                registroPerfis.Add(AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(perfil, erros));
+            }
+
+            return registroPerfis.ToArray();
+        }
+
+        public DataSetPessoaRegistroPerfil AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil msg, IList<string> erros)
+        {
+            DataSetPessoaRegistroPerfil registroPerfil = new DataSetPessoaRegistroPerfil();
+
+            if (!string.IsNullOrWhiteSpace(msg.codigoPessoa))
+                registroPerfil.cod_pessoa = msg.codigoPessoa;
+
+            if (!string.IsNullOrWhiteSpace(msg.codigoPerfil))
+                registroPerfil.cod_perfil = msg.codigoPerfil;
+
+            return registroPerfil;
+        }
+     }
 }
