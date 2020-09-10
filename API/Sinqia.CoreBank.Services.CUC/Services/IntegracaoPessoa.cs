@@ -19,12 +19,32 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
         }
 
-        /*
+        
         public CucCluRetorno AtualizarPessoa(ParametroIntegracaoPessoa param, DataSetPessoa pessoa)
         {
+            CucCluParametro parametrosLogin = new CucCluParametro();
+            parametrosLogin.Empresa = param.empresa;
+            parametrosLogin.Dependencia = param.dependencia;
+            parametrosLogin.Login = param.login;
+            parametrosLogin.SiglaAplicacao = param.sigla;
+            parametrosLogin.Token = param.token;
 
-            ServiceClient.AtualizarAsync()
+            var ret = ServiceClient.AtualizarAsync(parametrosLogin, pessoa.ToString());
+
+            CucCluRetorno retorno = new CucCluRetorno();
+
+            retorno.CodigoFilial = ret.Result.CodigoFilial;
+            retorno.CodigoPessoa = ret.Result.CodigoPessoa;
+            retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
+            retorno.TipoPessoa = ret.Result.TipoPessoa;
+            retorno.Excecao = ret.Result.Excecao;
+            retorno.Xml = ret.Result.Xml;
+
+            return retorno;
+
+
+
         }
-        */
+        
     }
 }
