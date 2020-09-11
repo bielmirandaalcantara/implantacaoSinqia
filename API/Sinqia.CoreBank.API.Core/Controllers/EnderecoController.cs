@@ -5,7 +5,10 @@ using Sinqia.CoreBank.API.Core.Models;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -72,6 +75,41 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+
+                parm.empresa = msg.header.empresa;
+                parm.login = msg.header.usuario;
+                parm.sigla = "BR";
+                parm.dependencia = msg.header.dependencia;
+                parm.token = "";
+
+                var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
+
+                string xml = retcabecalho.Result.Xml;
+                var serializer = new XmlSerializer(typeof(DataSetPessoa));
+                DataSetPessoa dataSetPessoa;
+
+                using (TextReader reader = new StringReader(xml))
+                {
+                    dataSetPessoa = (DataSetPessoa)serializer.Deserialize(reader);
+                }
+
+                
+                string stringXML = string.Empty;
+                dataSetPessoa.RegistroEndereco = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(pessoaCompleto.body.RegistroPessoa.RegistroEndereco, listaErros);
+                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    x.Serialize(textWriter, dataSetPessoa);
+                    stringXML = textWriter.ToString();
+                }
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

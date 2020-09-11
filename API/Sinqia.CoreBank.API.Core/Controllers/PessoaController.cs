@@ -74,19 +74,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
-                parm.empresa = 1;
-                parm.login = "att";
-                parm.sigla = "br";
-                parm.dependencia = 1;
-                parm.token = "UsrUYkr5I43+9YQEIsBmaC3e1a6ItzUUz+N74IlUFWaDr+ZINRCT0Q==.006DRLTKN";
+                parm.empresa = msg.header.empresa;
+                parm.login = msg.header.usuario;
+                parm.sigla = "BR";
+                parm.dependencia = msg.header.dependencia;
+                parm.token = "";
 
-
-                var ret = clientPessoa.AtualizarPessoa(parm, stringXML);
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                //retorno.header.codigoPessoa = ret.CodigoPessoa;
-                
-
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch(ApplicationException appEx)
@@ -125,6 +121,27 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+
+                parm.empresa = msg.header.empresa;
+                parm.login = msg.header.usuario;
+                parm.sigla = "BR";
+                parm.dependencia = msg.header.dependencia;
+                parm.token = "";
+
+                string stringXML = string.Empty;
+                var dataSetPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, listaErros);
+                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    x.Serialize(textWriter, dataSetPessoa);
+                    stringXML = textWriter.ToString();
+                }
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
