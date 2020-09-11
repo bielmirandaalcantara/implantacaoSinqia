@@ -6,6 +6,7 @@ using Sinqia.CoreBank.API.Core.Models.Templates;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
+using Sinqia.CoreBank.Services.CUC.Models;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -32,6 +33,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                DataSetPessoa dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, listaErros);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -150,7 +153,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
+                msgRegistropessoaCompleto = new MsgRegistroPessoaSimplificada();
+                //msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

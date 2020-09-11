@@ -324,5 +324,32 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public MsgRegistroVinculo[] RegistroVinculo { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        public string nomeSocial { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string nivelRiscoPld { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string observacaoPld { get; set; }
+
+        /*
+        /// <summary>
+        /// Código Atividade 
+        /// </summary>
+        public string CodigoAtividadeCbo { get; set; }
+        */
+        /*
+        /// <summary>
+        /// 
+        /// </summary>
+        public int CodigoAtividade { get; set; }
+        */
     }
 }

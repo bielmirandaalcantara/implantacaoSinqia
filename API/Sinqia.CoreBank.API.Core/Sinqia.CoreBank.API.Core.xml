@@ -566,11 +566,6 @@
             Usuário do Sistema
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.senha">
-            <summary>
-            Senha do Sistema
-            </summary>
-        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgPerfil.header">
             <summary>
             header da mensagem
@@ -1337,6 +1332,21 @@
             
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoDdi">
+            <summary>
+            DDI
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.nomeSocialPessoa">
+            <summary>
+            NomeSocial
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.indicadorIsencaoInscricaoEstadual">
+            <summary>
+            Isento Inscricao Estadual
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistropessoa.codigoSubgrupoEmpresarial">
             <summary>
             
@@ -1713,6 +1723,21 @@
             Possibilita o armazenamento de informações da renda de pessoas físicas. 
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nomeSocial">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.nivelRiscoPld">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroPessoaSimplificada.observacaoPld">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgReferencia.header">
             <summary>
             header da mensagem
@@ -2017,6 +2042,61 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.tipoPesoa">
             <summary>
             Tipo Pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.indicadorEmiteDuplicata">
+            <summary>
+            Emite Duplicata
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.indicadorAssinaEndosso">
+            <summary>
+            Assina por Endosso
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.indicadorAssinaCessao">
+            <summary>
+            Assina Termo de Cessão
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.indicadorAssinaIsoladamente">
+            <summary>
+            Assina em Conjunto
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.codigoPessoaAssina1">
+            <summary>
+            Código
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.codigoPessoaAssina2">
+            <summary>
+            Código
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.codigoPessoaAssina3">
+            <summary>
+            Código
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.nomeAssina1">
+            <summary>
+            Assinante 1
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.nomeAssina2">
+            <summary>
+            Assinante 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.nomeAssina3">
+            <summary>
+            Assinante 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.emailVinculo">
+            <summary>
+            
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Templates.MsgPessoaCompletoListaTemplate.header">

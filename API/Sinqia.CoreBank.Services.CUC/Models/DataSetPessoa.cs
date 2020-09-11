@@ -23,6 +23,11 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroReferencia")]
         public DataSetPessoaRegistroReferencia[] RegistroReferencia { get; set; }
+
+        public DataSetPessoaRegistroPessoaSimplificada RegistroPessoaSimplificada { get; set; }
+
+        [System.Xml.Serialization.XmlElementAttribute("RegistroPessoaSimplificada")]
+        public DataSetPessoaRegistroVinculo[] RegistroVinculo { get; set; }
     }
 
     public class DataSetPessoaRegistroPessoa
@@ -299,5 +304,106 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string cod_simp { get; set; }
         public DateTime dat_venc_seg_cartao { get; set; }
 
+    }
+
+    public class DataSetPessoaRegistroPessoaSimplificada
+    {
+        public string cod_simp { get; set; }
+        public string nom_simp { get; set; }
+        public string ddd_fone_1_simp { get; set; }
+        public string ddd_fone_2_simp { get; set; }
+        public string fone_1_simp { get; set; }
+        public string fone_2_simp { get; set; }
+        public string ram_fone_1_simp { get; set; }
+        public string ram_fone_2_simp { get; set; }
+        public string sit_fone_1_simp { get; set; }
+        public string sit_fone_2_simp { get; set; }
+        public DateTime dat_nasc_simp { get; set; }
+        public string obs_simp { get; set; }
+        public string tip_simp { get; set; }
+        public DateTime dat_cad { get; set; }
+        public string usu_atu { get; set; }
+        public DateTime dat_atu { get; set; }
+        public int cod_mun_simp { get; set; }
+        public string des_mun_simp { get; set; }
+        public string tip_log_simp { get; set; }
+        public string des_log_simp { get; set; }
+        public string num_simp { get; set; }
+        public string cpl_end_simp { get; set; }
+        public string bai_end_simp { get; set; }
+        public string tip_end_simp { get; set; }
+        public string uf_end_simp { get; set; }
+        public string pais_simp { get; set; }
+        public string cep_simp { get; set; }
+        public string est_civ_simp { get; set; }
+        public string reg_com_simp { get; set; }
+        public string nom_conj_simp { get; set; }
+        public string idc_ava_simp { get; set; }
+        public string cpf_cnpj_simp { get; set; }
+        public string tip_pes_simp { get; set; }
+        public string idc_isen_cpf_cnpf_simp { get; set; }
+        public string pescodsisorigem { get; set; }
+        public string pescpfconj { get; set; }
+        public string idc_fatca { get; set; }
+        public string rg_simp { get; set; }
+        public string nif_simp { get; set; }
+        public int nac1_simp { get; set; }
+        public int nac2_simp { get; set; }
+        public int nac3_simp { get; set; }
+        public int nac4_simp { get; set; }
+        public int dom_fis1_simp { get; set; }
+        public int dom_fis2_simp { get; set; }
+        public int dom_fis3_simp { get; set; }
+        public int dom_fis4_simp { get; set; }
+        public string ddd_cel_simp { get; set; }
+        public string fone_cel_simp { get; set; }
+        public string email { get; set; }
+        public string idc_cli_est { get; set; }
+        public string tip_doc_est { get; set; }
+        public string num_doc_est { get; set; }
+        public string nom_social_simp { get; set; }
+        public string pld_pes { get; set; }
+        public string obs_pld { get; set; }
+
+    }
+    public class DataSetPessoaRegistroVinculo
+    {
+        public string cod_pessoa_jur { get; set; }
+        public string cod_fil_jur { get; set; }
+        public string cod_pessoa_fis { get; set; }
+        public string cod_fil_fis { get; set; }
+        public int seq_vinculo { get; set; }
+        public string idc_partcipacao { get; set; }
+        public decimal pct_participacao { get; set; }
+        public DateTime dat_posse { get; set; }
+        public string tmp_mandato { get; set; }
+        public string des_vinc_fisjur { get; set; }
+        public DateTime dat_cad { get; set; }
+        public string usu_atu { get; set; }
+        public DateTime dat_atu { get; set; }
+        public string idc_sit { get; set; }
+        public DateTime dat_sit { get; set; }
+        public int cod_cargo { get; set; }
+        public string idc_assina { get; set; }
+        public string idc_contato { get; set; }
+        public DateTime dat_fim { get; set; }
+        public string cod_vinculo { get; set; }
+        public DateTime dat_venc_proc { get; set; }
+        public DateTime tmp_mandato_1 { get; set; }
+        public DateTime dat_fim_mandato { get; set; }
+        public string nom_pessoa { get; set; }
+        public string cpf_cnpj_soc { get; set; }
+        public string tip_pes_soc { get; set; }
+        public string idc_emite_dupl { get; set; }
+        public string idc_assina_endosso { get; set; }
+        public string idc_assina_cessao { get; set; }
+        public string idc_assina_isoladamente { get; set; }
+        public string cod_pessoa_assina1 { get; set; }
+        public string cod_pessoa_assina2 { get; set; }
+        public string cod_pessoa_assina3 { get; set; }
+        public string nom_assina1 { get; set; }
+        public string nom_assina2 { get; set; }
+        public string nom_assina3 { get; set; }
+        public string fisjuremailvinculo { get; set; }
     }
 }

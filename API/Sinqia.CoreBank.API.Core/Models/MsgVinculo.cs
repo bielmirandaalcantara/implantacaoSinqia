@@ -23,7 +23,7 @@ namespace Sinqia.CoreBank.API.Core.Models
 
     public class MsgRegistroVinculoBody
     {
-        public MsgRegistroperfil RegistroVinculo { get; set; }
+        public MsgRegistroVinculo RegistroVinculo { get; set; }
     }
 
     /// <summary>
@@ -168,5 +168,60 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         [Required]
         public string tipoPesoa { get; set; }
+
+        /// <summary>
+        /// Emite Duplicata
+        /// </summary>
+        public string indicadorEmiteDuplicata { get; set; }
+
+        /// <summary>
+        /// Assina por Endosso
+        /// </summary>
+        public string indicadorAssinaEndosso { get; set; }
+
+        /// <summary>
+        /// Assina Termo de Cessão
+        /// </summary>
+        public string indicadorAssinaCessao { get; set; }
+
+        /// <summary>
+        /// Assina em Conjunto
+        /// </summary>
+        public string indicadorAssinaIsoladamente { get; set; }
+
+        /// <summary>
+        /// Código
+        /// </summary>
+        public string codigoPessoaAssina1 { get; set; }
+
+        /// <summary>
+        /// Código
+        /// </summary>
+        public string codigoPessoaAssina2 { get; set; }
+
+        /// <summary>
+        /// Código
+        /// </summary>
+        public string codigoPessoaAssina3 { get; set; }
+
+        /// <summary>
+        /// Assinante 1
+        /// </summary>
+        public string nomeAssina1 { get; set; }
+
+        /// <summary>
+        /// Assinante 2
+        /// </summary>
+        public string nomeAssina2 { get; set; }
+
+        /// <summary>
+        /// Assinante 3
+        /// </summary>
+        public string nomeAssina3 { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string emailVinculo { get; set; }
     }
 }
