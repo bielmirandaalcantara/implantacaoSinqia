@@ -121,7 +121,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
                 parm.empresa = msg.header.empresa;

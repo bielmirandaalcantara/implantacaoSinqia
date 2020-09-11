@@ -9,6 +9,8 @@ using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models;
 using System.Xml.Serialization;
 using System.IO;
+using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -16,6 +18,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class EnderecoController : ControllerBase
     {
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
+        public EnderecoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        {
+            configuracaoCUC = _configuracaoCUC;
+        }
+
         /// <summary>
         /// Cadastro de dados de documentos de pessoas físicas e jurídicas
         /// </summary>
@@ -75,7 +84,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
                 parm.empresa = msg.header.empresa;
