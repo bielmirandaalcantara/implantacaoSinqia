@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace Sinqia.CoreBank.API.Core
@@ -46,7 +47,10 @@ namespace Sinqia.CoreBank.API.Core
                     });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-               
+
+            //Service Settings 
+            services.Configure<ConfiguracaoBaseCUC>(Configuration.GetSection("ConfiguracaoBaseCUC"));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

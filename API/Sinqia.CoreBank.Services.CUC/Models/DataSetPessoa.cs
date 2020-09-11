@@ -26,7 +26,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         public DataSetPessoaRegistroPessoaSimplificada RegistroPessoaSimplificada { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("RegistroPessoaSimplificada")]
+        [System.Xml.Serialization.XmlElementAttribute("RegistroVinculo")]
         public DataSetPessoaRegistroVinculo[] RegistroVinculo { get; set; }
     }
 

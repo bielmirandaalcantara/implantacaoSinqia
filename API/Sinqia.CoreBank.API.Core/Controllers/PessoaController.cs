@@ -12,6 +12,8 @@ using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models;
 using System.Xml.Serialization;
 using System.IO;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -25,6 +27,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (_ServiceAutenticacao == null) _ServiceAutenticacao = new Autenticacao();
                 return _ServiceAutenticacao;
             }
+        }
+
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
+        public PessoaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        {
+            configuracaoCUC = _configuracaoCUC;
         }
 
         /// <summary>
@@ -61,7 +70,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     stringXML = textWriter.ToString();
                 }
 
-                IntegracaoPessoa clientPessoa = new IntegracaoPessoa();
+                IntegracaoPessoa clientPessoa = new IntegracaoPessoa(configuracaoCUC);
 
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 

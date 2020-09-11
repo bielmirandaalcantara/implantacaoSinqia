@@ -31,6 +31,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 status = status
             };
 
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
             retorno.header = header;
             return retorno;
         }
@@ -49,6 +54,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 dataHoraRetorno = DateTime.Now,
                 status = status
             };
+
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
 
             retorno.header = header;
             return retorno;
