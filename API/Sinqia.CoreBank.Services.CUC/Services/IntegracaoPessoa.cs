@@ -47,6 +47,31 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
 
         }
-        
+
+        public async Task<RetornoIntegracaoPessoa> SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
+        {
+            CucCluParametro parametrosLogin = new CucCluParametro();
+            parametrosLogin.Empresa = param.empresa;
+            parametrosLogin.Dependencia = param.dependencia;
+            parametrosLogin.Login = param.login;
+            parametrosLogin.SiglaAplicacao = param.sigla;
+            parametrosLogin.Token = param.token;
+
+            var ret = await ServiceClient.SelecionarCabecalhoAsync(parametrosLogin, cod_pessoa, cod_filial);
+            
+            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
+
+            //retorno.CodigoFilial = ret.Result.CodigoFilial;
+            //retorno.CodigoPessoa = ret.Result.CodigoPessoa;
+            //retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
+            //retorno.TipoPessoa = ret.Result.TipoPessoa;
+            //retorno.Excecao = ret.Result.Excecao;
+            //retorno.Xml = ret.Result.Xml;
+
+            return retorno;
+
+        }
+
+
     }
 }
