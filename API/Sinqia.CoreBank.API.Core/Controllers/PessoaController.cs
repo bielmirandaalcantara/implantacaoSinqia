@@ -6,8 +6,8 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.API.Core.Models.Templates;
-using Sinqia.CoreBank.Services.CUC.Autenticacao;
-using Sinqia.CoreBank.Services.CUC.CadastroPessoa;
+using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
+using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa;
 using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models;
 using System.Xml.Serialization;
@@ -21,10 +21,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaController : ControllerBase
     {
-        private Autenticacao _ServiceAutenticacao;
-        public Autenticacao ServiceAutenticacao { get
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        public AutenticacaoCUCService ServiceAutenticacao { get
             {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new Autenticacao();
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
                 return _ServiceAutenticacao;
             }
         }
@@ -70,7 +70,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     stringXML = textWriter.ToString();
                 }
 
-                IntegracaoPessoa clientPessoa = new IntegracaoPessoa(configuracaoCUC);
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
 
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
@@ -78,7 +78,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 parm.login = msg.header.usuario;
                 parm.sigla = "BR";
                 parm.dependencia = msg.header.dependencia;
-                parm.token = "";
+                parm.token = ServiceAutenticacao.GetToken("att","att");
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
 
@@ -121,7 +121,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                IntegracaoPessoa clientPessoa = new IntegracaoPessoa(configuracaoCUC);
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
                 parm.empresa = msg.header.empresa;

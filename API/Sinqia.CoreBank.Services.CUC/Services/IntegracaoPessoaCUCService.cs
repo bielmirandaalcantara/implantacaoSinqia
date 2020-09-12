@@ -4,14 +4,14 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.Services.CUC.CadastroPessoa;
+using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
-    public class IntegracaoPessoa
+    public class IntegracaoPessoaCUCService
     {
         private CucCliCadastroPessoaClient _ServiceClient;
         public CucCliCadastroPessoaClient ServiceClient
@@ -27,14 +27,13 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
 
-        public IntegracaoPessoa(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public IntegracaoPessoaCUCService(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
         {
             configuracaoCUC = _configuracaoCUC;
-            configuracaoURICUC = ConfiguracaoCUCServico.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, configuracaoCUC);
+            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, configuracaoCUC);
         }
 
-        
-        public async Task<RetornoIntegracaoPessoa> AtualizarPessoa(ParametroIntegracaoPessoa param, string xml)
+        private CucCluParametro GerarParametroCUC(ParametroIntegracaoPessoa param)
         {
             CucCluParametro parametrosLogin = new CucCluParametro();
             parametrosLogin.Empresa = param.empresa;
@@ -42,46 +41,34 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             parametrosLogin.Login = param.login;
             parametrosLogin.SiglaAplicacao = param.sigla;
             parametrosLogin.Token = param.token;
+
+            return parametrosLogin;
+        }
+
+        private RetornoIntegracaoPessoa GerarRetornoIntegracaoPessoa(CucCluRetorno paramRetorno)
+        {
+            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
+            retorno.CodigoFilial = paramRetorno.CodigoFilial;
+            retorno.CodigoPessoa = paramRetorno.CodigoPessoa;
+            retorno.CodigoContaRelacionamento = paramRetorno.CodigoContaRelacionamento;
+            retorno.TipoPessoa = paramRetorno.TipoPessoa;
+            retorno.Excecao = paramRetorno.Excecao;
+            retorno.Xml = paramRetorno.Xml;
+            return retorno;
+        }
+
+        public RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, string xml)
+        {
+            CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
+            var ret = client.Atualizar(parametrosLogin, xml);
 
-            //client.Endpoint.Address = eab.ToEndpointAddress();
-            //client.Endpoint.Binding.CloseTimeout = new TimeSpan(0, 2, 0);
-            //client.Endpoint.Binding.OpenTimeout = new TimeSpan(0, 2, 0);
-            //client.Endpoint.Binding.ReceiveTimeout = new TimeSpan(0, 10, 0);
-            //client.Endpoint.Binding.SendTimeout = new TimeSpan(0, 0, configuracaoURICUC.Timeout);
-
-            var ret = await client.AtualizarAsync(parametrosLogin, xml);
-
-            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
-
-            /*
-            CucCluParametro parametrosLogin = new CucCluParametro();
-            parametrosLogin.Empresa = param.empresa;
-            parametrosLogin.Dependencia = param.dependencia;
-            parametrosLogin.Login = param.login;
-            parametrosLogin.SiglaAplicacao = param.sigla;
-            parametrosLogin.Token = param.token;
-
-            ServiceClient.Endpoint.Address = new EndpointAddress(configuracaoURICUC.URI);
-
-            var ret = await ServiceClient.AtualizarAsync(parametrosLogin, xml);
-
-            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
-
-            //retorno.CodigoFilial = ret.Result.CodigoFilial;
-            //retorno.CodigoPessoa = ret.Result.CodigoPessoa;
-            //retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
-            //retorno.TipoPessoa = ret.Result.TipoPessoa;
-            //retorno.Excecao = ret.Result.Excecao;
-            //retorno.Xml = ret.Result.Xml;
-            */
+            RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
 
             return retorno;
-            
-
 
         }
 
@@ -95,7 +82,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             parametrosLogin.Token = param.token;
 
             var ret = await ServiceClient.SelecionarCabecalhoAsync(parametrosLogin, cod_pessoa, cod_filial);
-            
+
             RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
 
             //retorno.CodigoFilial = ret.Result.CodigoFilial;

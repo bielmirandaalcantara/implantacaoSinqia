@@ -12,7 +12,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         public string CodigoPessoa { get; set; }
 
-        public Sinqia.CoreBank.Services.CUC.CadastroPessoa.CucCluExcecao Excecao { get; set; }
+        public Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa.CucCluExcecao Excecao { get; set; }
 
         public string TipoPessoa { get; set; }
 

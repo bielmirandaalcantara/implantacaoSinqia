@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.ServiceModel;
 using System.Text;
-using Sinqia.CoreBank.Services.CUC.Autenticacao;
+using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
-    public class Autenticacao
+    public class AutenticacaoCUCService
     {
         private CucCliAutenticacaoClient _ServiceClient;
         public CucCliAutenticacaoClient ServiceClient { get
@@ -23,8 +23,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             try
             {
-                var retorno = ServiceClient.AutenticarAsync(login, senha);
-                CucCluRetornoAutenticacao dadosRetorno = retorno.Result;
+                CucCluRetornoAutenticacao dadosRetorno = ServiceClient.Autenticar(login, senha);
+  
                 token = dadosRetorno.Token;
 
                 return token;

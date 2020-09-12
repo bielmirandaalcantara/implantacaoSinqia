@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
-    public static class ConfiguracaoCUCServico
+    public static class ConfiguracaoCUCService
     {
         public static ConfiguracaoURICUC BuscarURI(string nomeURI, IOptions<ConfiguracaoBaseCUC> configuracaoCUC)
         {
