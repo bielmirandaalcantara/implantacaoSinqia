@@ -18,6 +18,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class EnderecoController : ControllerBase
     {
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        public AutenticacaoCUCService ServiceAutenticacao
+        {
+            get
+            {
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
+                return _ServiceAutenticacao;
+            }
+        }
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
 
         public EnderecoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
@@ -91,13 +100,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 parm.login = msg.header.usuario;
                 parm.sigla = "BR";
                 parm.dependencia = msg.header.dependencia;
-                parm.token = "";
+                parm.token = ServiceAutenticacao.GetToken("att", "att");
 
                 var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
 
-                string xml = retcabecalho.Result.Xml;
+                string xml = retcabecalho.Xml;
                 var serializer = new XmlSerializer(typeof(DataSetPessoa));
                 DataSetPessoa dataSetPessoa;
 
