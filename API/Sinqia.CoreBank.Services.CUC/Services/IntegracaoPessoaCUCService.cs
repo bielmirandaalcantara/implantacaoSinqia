@@ -84,23 +84,22 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         public RetornoIntegracaoPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
-            CucCluParametro parametrosLogin = new CucCluParametro();
-            parametrosLogin.Empresa = param.empresa;
-            parametrosLogin.Dependencia = param.dependencia;
-            parametrosLogin.Login = param.login;
-            parametrosLogin.SiglaAplicacao = param.sigla;
-            parametrosLogin.Token = param.token;
 
-            var ret = ServiceClient.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
+            CucCluParametro parametrosLogin = GerarParametroCUC(param);
+
+            EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
+            CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
+
+            var ret = client.SelecionarCabecalhoAsync(parametrosLogin, cod_pessoa, cod_filial);
 
             RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
 
-            //retorno.CodigoFilial = ret.Result.CodigoFilial;
-            //retorno.CodigoPessoa = ret.Result.CodigoPessoa;
-            //retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
-            //retorno.TipoPessoa = ret.Result.TipoPessoa;
-            //retorno.Excecao = ret.Result.Excecao;
-            //retorno.Xml = ret.Result.Xml;
+            retorno.CodigoFilial = ret.Result.CodigoFilial;
+            retorno.CodigoPessoa = ret.Result.CodigoPessoa;
+            retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
+            retorno.TipoPessoa = ret.Result.TipoPessoa;
+            retorno.Excecao = ret.Result.Excecao;
+            retorno.Xml = ret.Result.Xml;
 
             return retorno;
 
