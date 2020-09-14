@@ -64,15 +64,25 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
-            var ret = client.Atualizar(parametrosLogin, xml);
+            try
+            {
+                var ret = client.Atualizar(parametrosLogin, xml);
 
-            RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
-
-            return retorno;
-
+                RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
+                return retorno;
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
         }
 
-        public async Task<RetornoIntegracaoPessoa> SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
+        public RetornoIntegracaoPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
             CucCluParametro parametrosLogin = new CucCluParametro();
             parametrosLogin.Empresa = param.empresa;
@@ -81,7 +91,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             parametrosLogin.SiglaAplicacao = param.sigla;
             parametrosLogin.Token = param.token;
 
-            var ret = await ServiceClient.SelecionarCabecalhoAsync(parametrosLogin, cod_pessoa, cod_filial);
+            var ret = ServiceClient.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
 
             RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
 
