@@ -18,7 +18,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
         public AutenticacaoCUCService(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
         {
             configuracaoCUC = _configuracaoCUC;
-            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoaSimplificada, configuracaoCUC);
+            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.Autenticacao, configuracaoCUC);
         }
 
         public string GetToken(string login, string senha)

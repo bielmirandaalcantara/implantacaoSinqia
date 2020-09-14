@@ -24,7 +24,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         private AutenticacaoCUCService _ServiceAutenticacao;
         public AutenticacaoCUCService ServiceAutenticacao { get
             {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
                 return _ServiceAutenticacao;
             }
         }
@@ -77,12 +77,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
 
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch(ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
@@ -136,6 +138,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
