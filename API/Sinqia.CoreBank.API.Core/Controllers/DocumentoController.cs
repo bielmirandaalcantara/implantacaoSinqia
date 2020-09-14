@@ -5,7 +5,12 @@ using Sinqia.CoreBank.API.Core.Models;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Microsoft.Extensions.Options;
+using System.IO;
+using System.Xml.Serialization;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -13,6 +18,17 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class DocumentoController : ControllerBase
     {
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        public AutenticacaoCUCService ServiceAutenticacao
+        {
+            get
+            {
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
+                return _ServiceAutenticacao;
+            }
+        }
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
         /// <summary>
         /// Cadastro de dados de documentos de pessoas físicas e jurídicas
         /// </summary>
@@ -72,6 +88,42 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+
+                parm.empresa = msg.header.empresa;
+                parm.login = msg.header.usuario;
+                parm.sigla = "BR";
+                parm.dependencia = msg.header.dependencia;
+                parm.token = ServiceAutenticacao.GetToken("att", "att");
+
+                var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
+
+                pessoaCompleto.body.RegistroPessoa.RegistroDocumento[0] = msg.body.RegistroDocumento;
+
+                string xml = retcabecalho.Xml;
+                var serializer = new XmlSerializer(typeof(DataSetPessoa));
+                DataSetPessoa dataSetPessoa;
+
+                using (TextReader reader = new StringReader(xml))
+                {
+                    dataSetPessoa = (DataSetPessoa)serializer.Deserialize(reader);
+                }
+
+                string stringXML = string.Empty;
+                dataSetPessoa.RegistroDocumento = adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(pessoaCompleto.body.RegistroPessoa.RegistroDocumento, listaErros);
+                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+                using (StringWriter textWriter = new StringWriter())
+                {
+                    x.Serialize(textWriter, dataSetPessoa);
+                    stringXML = textWriter.ToString();
+                }
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

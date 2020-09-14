@@ -106,6 +106,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
 
+                pessoaCompleto.body.RegistroPessoa.RegistroEndereco[0] = msg.body.RegistroEndereco;
+
                 string xml = retcabecalho.Xml;
                 var serializer = new XmlSerializer(typeof(DataSetPessoa));
                 DataSetPessoa dataSetPessoa;
@@ -127,6 +129,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
