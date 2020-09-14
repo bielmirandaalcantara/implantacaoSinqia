@@ -36,25 +36,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoFilial { get; set; }
 
         /// <summary>
         /// Código
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoEndereco { get; set; }
 
         /// <summary>
         /// Tipo
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string tipoEndereco { get; set; }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Logradouro
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string nomeLogradouro { get; set; }
 
         /// <summary>
@@ -81,7 +81,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// CEP
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string Cep { get; set; }
 
         /// <summary>
@@ -207,7 +207,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Corresp.
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string indicadorCorrespondencia { get; set; }
 
         /// <summary>
@@ -223,31 +223,31 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
-        [Required]
+       [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>

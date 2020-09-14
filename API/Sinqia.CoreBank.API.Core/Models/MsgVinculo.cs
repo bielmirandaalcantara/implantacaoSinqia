@@ -34,37 +34,37 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoPessoaJuridica { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoFilialPessoaJuridica { get; set; }
 
         /// <summary>
         /// Código
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoPessoaFisica { get; set; }
 
         /// <summary>
         /// Filial
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoFilialPessoaFisica { get; set; }
 
         /// <summary>
         /// Sequência
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? numeroSequencia { get; set; }
 
         /// <summary>
         /// Idc. Participação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string indicadorParticipacao { get; set; }
 
         /// <summary>
@@ -90,31 +90,31 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>
@@ -160,13 +160,13 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Pessoa
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string nomePessoa { get; set; }
 
         /// <summary>
         /// Tipo Pessoa
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string tipoPesoa { get; set; }
 
         /// <summary>

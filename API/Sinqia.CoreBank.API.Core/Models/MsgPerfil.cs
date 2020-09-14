@@ -34,13 +34,13 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código Pessoa
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Perfil
         /// </summary>
-        [Required]
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string codigoPerfil { get; set; }
     }
 }

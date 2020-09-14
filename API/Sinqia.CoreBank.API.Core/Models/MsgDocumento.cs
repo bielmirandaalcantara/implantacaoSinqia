@@ -35,73 +35,73 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Pessoa
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Nº Documento
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string numeroDocumento { get; set; }
 
         /// <summary>
         /// Data Expedição
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataExpedicao { get; set; }
 
         /// <summary>
         /// Orgão Expedidor
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string orgaoExpedidor { get; set; }
 
         /// <summary>
         /// observacao
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string observacao { get; set; }
 
         /// <summary>
         /// Data Cadastro
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string IndicadorSituacao { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Tipo Documento
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string tipoDocumento { get; set; }
 
         /// <summary>
         /// UF Expedição
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string ufExpedicao { get; set; }
 
         /// <summary>

@@ -39,25 +39,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Código
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Nome
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string nomePessoa { get; set; }
 
         /// <summary>
         /// Abreviação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string nomeAbvPessoa { get; set; }
 
         /// <summary>
         /// Setor Atividade
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string setorAtividade { get; set; }
 
         /// <summary>
@@ -103,25 +103,25 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Cadastro
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioAtualizacao { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Data Nascimento/Fundação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataFundacao { get; set; }
 
         /// <summary>
@@ -347,19 +347,19 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// CPF/CNPJ (Base)
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoCpfCnpjBase { get; set; }
 
         /// <summary>
         /// CPF/CNPJ (Filial)
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoCpfCnpjFilial { get; set; }
 
         /// <summary>
         /// CPF/CNPJ (Dígito)
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoCpfCnpjDigito { get; set; }
 
         /// <summary>
@@ -405,61 +405,61 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string indicadorSituacaoFilial { get; set; }
 
         /// <summary>
         /// Data Cadastro
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastro1 { get; set; }
 
         /// <summary>
         /// Usuário Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioAtualizacao1 { get; set; }
 
         /// <summary>
         /// Data Atualização
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao1 { get; set; }
 
         /// <summary>
         /// Data Situação
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoDependente { get; set; }
 
         /// <summary>
         /// Gerente
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoOperador { get; set; }
 
         /// <summary>
         /// Data Início Gerente
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataInicialGerente { get; set; }
 
         /// <summary>
         /// Código Cliente
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoCliente { get; set; }
 
         /// <summary>

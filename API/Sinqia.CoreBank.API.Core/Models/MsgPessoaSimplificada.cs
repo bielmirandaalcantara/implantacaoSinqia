@@ -37,7 +37,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigo { get; set; }
 
         /// <summary>
@@ -103,19 +103,19 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataCadastramento { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
@@ -196,7 +196,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        [Required]
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string CpfCnpjSimplificado { get; set; }
 
         /// <summary>
