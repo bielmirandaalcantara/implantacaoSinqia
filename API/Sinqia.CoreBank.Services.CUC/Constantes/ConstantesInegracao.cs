@@ -10,6 +10,7 @@ namespace Sinqia.CoreBank.Services.CUC.Constantes
         {
             public const string Autenticacao = "AUTENTICACAO";
             public const string CadastroPessoa = "CADASTROPESSOA";
+            public const string CadastroPessoaSimplificada = "CADASTROPESSOASIMPLIFICADA";
         }
     }
 }

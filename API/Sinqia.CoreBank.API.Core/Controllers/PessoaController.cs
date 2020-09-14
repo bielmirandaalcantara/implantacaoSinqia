@@ -24,7 +24,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         private AutenticacaoCUCService _ServiceAutenticacao;
         public AutenticacaoCUCService ServiceAutenticacao { get
             {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
                 return _ServiceAutenticacao;
             }
         }
@@ -55,11 +55,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                /*
-                CucCliAutenticacaoClient client = new CucCliAutenticacaoClient();
-                var ret = client.AutenticarAsync(msg.header.usuario, msg.header.senha);
-                string token = ret.Result.Token;
-                */
                 string stringXML = string.Empty;
                 var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, listaErros);
                 XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
@@ -82,12 +77,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
 
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch(ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);

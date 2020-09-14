@@ -64,12 +64,22 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
-            var ret = client.Atualizar(parametrosLogin, xml);
+            try
+            {
+                var ret = client.Atualizar(parametrosLogin, xml);
 
-            RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
-
-            return retorno;
-
+                RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
+                return retorno;
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
         }
 
         public RetornoIntegracaoPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
@@ -80,21 +90,23 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
-            var ret = client.SelecionarCabecalhoAsync(parametrosLogin, cod_pessoa, cod_filial);
+            try
+            {
+                var ret = client.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
 
-            RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
+                RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
 
-            retorno.CodigoFilial = ret.Result.CodigoFilial;
-            retorno.CodigoPessoa = ret.Result.CodigoPessoa;
-            retorno.CodigoContaRelacionamento = ret.Result.CodigoContaRelacionamento;
-            retorno.TipoPessoa = ret.Result.TipoPessoa;
-            retorno.Excecao = ret.Result.Excecao;
-            retorno.Xml = ret.Result.Xml;
-
-            return retorno;
-
+                return retorno;
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
         }
-
-
     }
 }

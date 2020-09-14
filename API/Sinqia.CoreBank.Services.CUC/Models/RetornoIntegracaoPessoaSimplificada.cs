@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa;
+using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoaSimplificada;
 
 namespace Sinqia.CoreBank.Services.CUC.Models
 {
-    public class RetornoIntegracaoPessoa
+    public class RetornoIntegracaoPessoaSimplificada
     {
         public string CodigoContaRelacionamento { get; set; }
 
