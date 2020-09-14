@@ -23,7 +23,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             get
             {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService();
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
                 return _ServiceAutenticacao;
             }
         }

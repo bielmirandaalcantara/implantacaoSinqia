@@ -6,9 +6,9 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 {
     public class ParametroIntegracaoPessoa
     {
-        public int empresa { get; set; }
+        public int? empresa { get; set; }
 
-        public int dependencia { get; set; }
+        public int? dependencia { get; set; }
 
         public string login { get; set; }
 

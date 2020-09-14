@@ -18,9 +18,9 @@ namespace Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa
     public partial class CucCluParametro : object
     {
         
-        private int DependenciaField;
+        private int? DependenciaField;
         
-        private int EmpresaField;
+        private int? EmpresaField;
         
         private string IPField;
         
@@ -31,7 +31,7 @@ namespace Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa
         private string TokenField;
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Dependencia
+        public int? Dependencia
         {
             get
             {
@@ -44,7 +44,7 @@ namespace Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int Empresa
+        public int? Empresa
         {
             get
             {
