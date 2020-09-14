@@ -88,7 +88,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public DateTime dataNascimento { get; set; }
+        public DateTime? dataNascimento { get; set; }
 
         /// <summary>
         /// 
@@ -104,7 +104,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         [Required]
-        public DateTime dataCadastramento { get; set; }
+        public DateTime? dataCadastramento { get; set; }
 
         /// <summary>
         /// 
@@ -116,12 +116,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         [Required]
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoMunicipio { get; set; }
+        public int? codigoMunicipio { get; set; }
 
         /// <summary>
         /// 
@@ -227,12 +227,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int CodAtividade { get; set; }
+        public int? CodAtividade { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int CodAtividadeCbo { get; set; }
+        public int? CodAtividadeCbo { get; set; }
 
         /// <summary>
         /// 
@@ -252,42 +252,42 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int codigoNacionalidade1 { get; set; }
+        public int? codigoNacionalidade1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoNacionalidade2 { get; set; }
+        public int? codigoNacionalidade2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoNacionalidade3 { get; set; }
+        public int? codigoNacionalidade3 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoNacionalidade4 { get; set; }
+        public int? codigoNacionalidade4 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoDomicilioFiscal1 { get; set; }
+        public int? codigoDomicilioFiscal1 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoDomicilioFiscal2 { get; set; }
+        public int? codigoDomicilioFiscal2 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoDomicilioFiscal3 { get; set; }
+        public int? codigoDomicilioFiscal3 { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoDomicilioFiscal4 { get; set; }
+        public int? codigoDomicilioFiscal4 { get; set; }
 
         /// <summary>
         /// 
@@ -349,7 +349,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public int CodigoAtividade { get; set; }
+        public int? CodigoAtividade { get; set; }
         */
     }
 }

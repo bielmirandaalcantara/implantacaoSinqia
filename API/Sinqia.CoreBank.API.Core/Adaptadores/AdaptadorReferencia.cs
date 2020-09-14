@@ -85,8 +85,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoFilialTitular))
                 registroReferencia.cod_fil_tit = msg.codigoFilialTitular;
 
-            if (msg.sequencial > 0)
-                registroReferencia.seq_ref = msg.sequencial;
+            if (msg.sequencial != null && msg.sequencial.Value > 0)
+                registroReferencia.seq_ref = msg.sequencial.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.tipo))
                 registroReferencia.tip_ref = msg.tipo;
@@ -100,32 +100,32 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.valorLimite > 0)
                 registroReferencia.val_lim_ref = msg.valorLimite;
 
-            if (msg.dataInicioEmprego != DateTime.MinValue)
-                registroReferencia.dat_ini_emprego = msg.dataInicioEmprego;
+            if (msg.dataInicioEmprego != null && msg.dataInicioEmprego.Value != DateTime.MinValue)
+                registroReferencia.dat_ini_emprego = msg.dataInicioEmprego.Value;
 
-            if (msg.dataFinalEmprego != DateTime.MinValue)
-                registroReferencia.dat_fim_emprego = msg.dataFinalEmprego;
+            if (msg.dataFinalEmprego != null && msg.dataFinalEmprego.Value != DateTime.MinValue)
+                registroReferencia.dat_fim_emprego = msg.dataFinalEmprego.Value;
 
-            if (msg.dataCadastro != DateTime.MinValue)
-                registroReferencia.dat_cad = msg.dataCadastro;
+            if (msg.dataCadastro != null && msg.dataCadastro.Value != DateTime.MinValue)
+                registroReferencia.dat_cad = msg.dataCadastro.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioUltimaAtualizacao))
                 registroReferencia.usu_atu = msg.usuarioUltimaAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroReferencia.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null && msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroReferencia.dat_atu = msg.dataAtualizacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacao))
                 registroReferencia.idc_sit = msg.indicadorSituacao;
 
-            if (msg.dataSituacao != DateTime.MinValue)
-                registroReferencia.dat_sit = msg.dataSituacao;
+            if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
+                registroReferencia.dat_sit = msg.dataSituacao.Value;
 
-            if (msg.codigoCartao > 0)
-                registroReferencia.cod_cartao = msg.codigoCartao;
+            if (msg.codigoCartao != null && msg.codigoCartao.Value > 0)
+                registroReferencia.cod_cartao = msg.codigoCartao.Value;
 
-            if (msg.codigoSeguradora > 0)
-                registroReferencia.cod_segur = msg.codigoSeguradora;
+            if (msg.codigoSeguradora != null && msg.codigoSeguradora.Value > 0)
+                registroReferencia.cod_segur = msg.codigoSeguradora.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoaReferencia))
                 registroReferencia.cod_pessoa_ref = msg.codigoPessoaReferencia;
@@ -136,8 +136,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoaSimplificada))
                 registroReferencia.cod_simp = msg.codigoPessoaSimplificada;
 
-            if (msg.dataVencimentoSeguroCartao != DateTime.MinValue)
-                registroReferencia.dat_venc_seg_cartao = msg.dataVencimentoSeguroCartao;
+            if (msg.dataVencimentoSeguroCartao != null && msg.dataVencimentoSeguroCartao.Value != DateTime.MinValue)
+                registroReferencia.dat_venc_seg_cartao = msg.dataVencimentoSeguroCartao.Value;
 
             return registroReferencia;
         }

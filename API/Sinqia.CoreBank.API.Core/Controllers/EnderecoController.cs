@@ -96,10 +96,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
 
-                parm.empresa = msg.header.empresa;
+                parm.empresa = msg.header.empresa.Value;
                 parm.login = msg.header.usuario;
                 parm.sigla = "BR";
-                parm.dependencia = msg.header.dependencia;
+                parm.dependencia = msg.header.dependencia.Value;
                 parm.token = ServiceAutenticacao.GetToken("att", "att");
 
                 var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);

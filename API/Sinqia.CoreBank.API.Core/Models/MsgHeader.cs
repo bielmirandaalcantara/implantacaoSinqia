@@ -21,11 +21,11 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Dependencia
         /// </summary>
-        public int dependencia { get; set; }
+        public int? dependencia { get; set; }
         /// <summary>
         /// Empresa
         /// </summary>
-        public int empresa { get; set; }
+        public int? empresa { get; set; }
         /// <summary>
         /// Usuário do Sistema
         /// </summary>

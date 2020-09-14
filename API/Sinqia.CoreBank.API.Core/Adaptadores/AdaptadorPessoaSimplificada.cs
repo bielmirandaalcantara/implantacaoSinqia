@@ -154,8 +154,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.situacaoTelefone2))
                 registroPessoaSimplificada.sit_fone_2_simp = msg.situacaoTelefone2;
 
-            if (msg.dataNascimento != DateTime.MinValue)
-                registroPessoaSimplificada.dat_nasc_simp = msg.dataNascimento;
+            if (msg.dataNascimento != null && msg.dataNascimento.Value != DateTime.MinValue)
+                registroPessoaSimplificada.dat_nasc_simp = msg.dataNascimento.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.observacao))
                 registroPessoaSimplificada.obs_simp = msg.observacao;
@@ -163,17 +163,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.tipoReferencia))
                 registroPessoaSimplificada.tip_simp = msg.tipoReferencia;
 
-            if (msg.dataCadastramento != DateTime.MinValue)
-                registroPessoaSimplificada.dat_cad = msg.dataCadastramento;
+            if (msg.dataCadastramento != null &&  msg.dataCadastramento.Value != DateTime.MinValue)
+                registroPessoaSimplificada.dat_cad = msg.dataCadastramento.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioUltimaAtualizacao))
                 registroPessoaSimplificada.usu_atu = msg.usuarioUltimaAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroPessoaSimplificada.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null &&  msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroPessoaSimplificada.dat_atu = msg.dataAtualizacao.Value;
 
-            if (msg.codigoMunicipio > 0)
-                registroPessoaSimplificada.cod_mun_simp = msg.codigoMunicipio;
+            if (msg.codigoMunicipio != null &&  msg.codigoMunicipio.Value > 0)
+                registroPessoaSimplificada.cod_mun_simp = msg.codigoMunicipio.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.descricaoMunicipio))
                 registroPessoaSimplificada.des_mun_simp = msg.descricaoMunicipio;
@@ -241,29 +241,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.numeroIdentificadorFiscal))
                 registroPessoaSimplificada.nif_simp = msg.numeroIdentificadorFiscal;
 
-            if (msg.codigoNacionalidade1 > 0)
-                registroPessoaSimplificada.nac1_simp = msg.codigoNacionalidade1;
+            if (msg.codigoNacionalidade1 != null &&  msg.codigoNacionalidade1.Value > 0)
+                registroPessoaSimplificada.nac1_simp = msg.codigoNacionalidade1.Value;
 
-            if (msg.codigoNacionalidade2 > 0)
-                registroPessoaSimplificada.nac2_simp = msg.codigoNacionalidade2;
+            if (msg.codigoNacionalidade2 != null &&  msg.codigoNacionalidade2.Value > 0)
+                registroPessoaSimplificada.nac2_simp = msg.codigoNacionalidade2.Value;
 
-            if (msg.codigoNacionalidade3 > 0)
-                registroPessoaSimplificada.nac3_simp = msg.codigoNacionalidade3;
+            if (msg.codigoNacionalidade3 != null &&  msg.codigoNacionalidade3.Value > 0)
+                registroPessoaSimplificada.nac3_simp = msg.codigoNacionalidade3.Value;
 
-            if (msg.codigoNacionalidade4 > 0)
-                registroPessoaSimplificada.nac4_simp = msg.codigoNacionalidade4;
+            if (msg.codigoNacionalidade4 != null &&  msg.codigoNacionalidade4.Value > 0)
+                registroPessoaSimplificada.nac4_simp = msg.codigoNacionalidade4.Value;
 
-            if (msg.codigoDomicilioFiscal1 > 0)
-                registroPessoaSimplificada.dom_fis1_simp = msg.codigoDomicilioFiscal1;
+            if (msg.codigoDomicilioFiscal1 != null &&  msg.codigoDomicilioFiscal1.Value > 0)
+                registroPessoaSimplificada.dom_fis1_simp = msg.codigoDomicilioFiscal1.Value;
 
-            if (msg.codigoDomicilioFiscal2 > 0)
-                registroPessoaSimplificada.dom_fis2_simp = msg.codigoDomicilioFiscal2;
+            if (msg.codigoDomicilioFiscal2 != null &&  msg.codigoDomicilioFiscal2.Value > 0)
+                registroPessoaSimplificada.dom_fis2_simp = msg.codigoDomicilioFiscal2.Value;
 
-            if (msg.codigoDomicilioFiscal3 > 0)
-                registroPessoaSimplificada.dom_fis3_simp = msg.codigoDomicilioFiscal3;
+            if (msg.codigoDomicilioFiscal3 != null &&  msg.codigoDomicilioFiscal3.Value > 0)
+                registroPessoaSimplificada.dom_fis3_simp = msg.codigoDomicilioFiscal3.Value;
 
-            if (msg.codigoDomicilioFiscal4 > 0)
-                registroPessoaSimplificada.dom_fis4_simp = msg.codigoDomicilioFiscal4;
+            if (msg.codigoDomicilioFiscal4 != null &&  msg.codigoDomicilioFiscal4.Value > 0)
+                registroPessoaSimplificada.dom_fis4_simp = msg.codigoDomicilioFiscal4.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoDddCelular))
                 registroPessoaSimplificada.ddd_cel_simp = msg.codigoDddCelular;

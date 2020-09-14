@@ -49,7 +49,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Código
         /// </summary>
         [Required]
-        public int codigoEndereco { get; set; }
+        public int? codigoEndereco { get; set; }
 
         /// <summary>
         /// Tipo
@@ -213,18 +213,18 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Início
         /// </summary>
-        public DateTime dataInicial { get; set; }
+        public DateTime? dataInicial { get; set; }
 
         /// <summary>
         /// Data Fim
         /// </summary>
-        public DateTime dataFinal { get; set; }
+        public DateTime? dataFinal { get; set; }
 
         /// <summary>
         /// Data Cadastro
         /// </summary>
         [Required]
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
@@ -236,7 +236,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Atualização
         /// </summary>
         [Required]
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
@@ -248,12 +248,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Situação
         /// </summary>
         [Required]
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Município
         /// </summary>
-        public int codigoMunicipio { get; set; }
+        public int? codigoMunicipio { get; set; }
 
         /// <summary>
         /// Município
@@ -288,7 +288,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// País FATCA
         /// </summary>
-        public int codigoPais { get; set; }
+        public int? codigoPais { get; set; }
 
         /*
         /// <summary>
@@ -314,12 +314,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string descricaoMunicipioInternacional { get; set; }
+        public string descricaoMunicipioint?ernacional { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string descricaoEstadoInternacional { get; set; }
+        public string descricaoEstadoint?ernacional { get; set; }
         */
 
     }

@@ -191,7 +191,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
         public DataSetPessoa AdaptarMsgPessoaCompletoToDataSetPessoa(MsgPessoaCompleto msg, IList<string> erros)
         {
-            if (msg.body == null)
+            if(msg.body == null)
                 throw new ApplicationException("Campo body obrigatório");
 
             if(msg.body.RegistroPessoa == null)
@@ -254,29 +254,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.nomeMae))
                 registroPessoa.fil_materna = msg.nomeMae;
 
-            if (msg.qtdeDependentes > 0)
-                registroPessoa.num_dep = msg.qtdeDependentes;
+            if (msg.qtdeDependentes != null && msg.qtdeDependentes.Value > 0)
+                registroPessoa.num_dep = msg.qtdeDependentes.Value;
 
-            if (msg.dataCadastro != DateTime.MinValue)
-                registroPessoa.dat_cad = msg.dataCadastro;
+            if (msg.dataCadastro != null && msg.dataCadastro.Value != DateTime.MinValue)
+                registroPessoa.dat_cad = msg.dataCadastro.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioAtualizacao))
                 registroPessoa.usu_atu = msg.usuarioAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroPessoa.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null && msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroPessoa.dat_atu = msg.dataAtualizacao.Value;
 
-            if (msg.dataFundacao != DateTime.MinValue)
-                registroPessoa.dat_fundacao = msg.dataFundacao;
+            if (msg.dataFundacao != null && msg.dataFundacao.Value != DateTime.MinValue)
+                registroPessoa.dat_fundacao = msg.dataFundacao.Value;
 
-            if (msg.codigoAtividade > 0)
-                registroPessoa.cod_atividade = msg.codigoAtividade;
+            if (msg.codigoAtividade != null && msg.codigoAtividade.Value > 0)
+                registroPessoa.cod_atividade = msg.codigoAtividade.Value;
 
-            if (msg.codigoGrupoEmpresarial > 0)
-                registroPessoa.cod_grpemp = msg.codigoGrupoEmpresarial;
+            if (msg.codigoGrupoEmpresarial != null && msg.codigoGrupoEmpresarial.Value > 0)
+                registroPessoa.cod_grpemp = msg.codigoGrupoEmpresarial.Value;
 
-            if (msg.codigoMunicipio > 0)
-                registroPessoa.cod_municipio = msg.codigoMunicipio;
+            if (msg.codigoMunicipio != null && msg.codigoMunicipio.Value > 0)
+                registroPessoa.cod_municipio = msg.codigoMunicipio.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.descricaoMunicipio))
                 registroPessoa.des_municipio = msg.descricaoMunicipio;
@@ -284,23 +284,23 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.descricaoNacionalidade))
                 registroPessoa.des_nacionalidade = msg.descricaoNacionalidade;
 
-            if (msg.dataNaturalizacao != DateTime.MinValue)
-                registroPessoa.dat_naturalizacao = msg.dataNaturalizacao;
+            if (msg.dataNaturalizacao != null && msg.dataNaturalizacao.Value != DateTime.MinValue)
+                registroPessoa.dat_naturalizacao = msg.dataNaturalizacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCbo))
                 registroPessoa.cod_cbo = msg.codigoCbo;
 
-            if (msg.codigoSetor > 0)
-                registroPessoa.cod_setor = msg.codigoSetor;
+            if (msg.codigoSetor != null && msg.codigoSetor.Value > 0)
+                registroPessoa.cod_setor = msg.codigoSetor.Value;
 
-            if (msg.codigoSubsetor > 0)
-                registroPessoa.cod_subsetor = msg.codigoSubsetor;
+            if (msg.codigoSubsetor != null && msg.codigoSubsetor.Value > 0)
+                registroPessoa.cod_subsetor = msg.codigoSubsetor.Value;
 
-            if (msg.codigoRamo > 0)
-                registroPessoa.cod_ramo = msg.codigoRamo;
+            if (msg.codigoRamo != null && msg.codigoRamo.Value > 0)
+                registroPessoa.cod_ramo = msg.codigoRamo.Value;
 
-            if (msg.codigoRamoAtiv > 0)
-                registroPessoa.cod_ramo_ativ = msg.codigoRamoAtiv;
+            if (msg.codigoRamoAtiv != null && msg.codigoRamoAtiv.Value > 0)
+                registroPessoa.cod_ramo_ativ = msg.codigoRamoAtiv.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorConstituicao))
                 registroPessoa.idc_constituicao = msg.indicadorConstituicao;
@@ -320,17 +320,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoClasse))
                 registroPessoa.cod_classe = msg.codigoClasse;
 
-            if (msg.dataRenovacao != DateTime.MinValue)
-                registroPessoa.dat_ren_cad = msg.dataRenovacao;
+            if (msg.dataRenovacao != null && msg.dataRenovacao.Value != DateTime.MinValue)
+                registroPessoa.dat_ren_cad = msg.dataRenovacao.Value;
 
-            if (msg.dataVencimento != DateTime.MinValue)
-                registroPessoa.dat_ven_cad = msg.dataVencimento;
+            if (msg.dataVencimento != null && msg.dataVencimento.Value != DateTime.MinValue)
+                registroPessoa.dat_ven_cad = msg.dataVencimento.Value;
 
-            if (msg.codigoTipo > 0)
-                registroPessoa.cod_tip = msg.codigoTipo;
+            if (msg.codigoTipo != null && msg.codigoTipo.Value > 0)
+                registroPessoa.cod_tip = msg.codigoTipo.Value;
 
-            if (msg.codigoclassificacaoLegal > 0)
-                registroPessoa.cod_leg = msg.codigoclassificacaoLegal;
+            if (msg.codigoclassificacaoLegal != null && msg.codigoclassificacaoLegal.Value > 0)
+                registroPessoa.cod_leg = msg.codigoclassificacaoLegal.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorEstrangeiro))
                 registroPessoa.idc_estrang = msg.indicadorEstrangeiro;
@@ -356,8 +356,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.tipoPessoa))
                 registroPessoa.tip_pes = msg.tipoPessoa;
 
-            if (msg.codigoNacionalidade > 0)
-                registroPessoa.naccod = msg.codigoNacionalidade;
+            if (msg.codigoNacionalidade != null && msg.codigoNacionalidade.Value > 0)
+                registroPessoa.naccod = msg.codigoNacionalidade.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacaoCadastral))
                 registroPessoa.pessta = msg.indicadorSituacaoCadastral;
@@ -368,11 +368,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorCnpjCpfVerificado))
                 registroPessoa.pesidcpro = msg.indicadorCnpjCpfVerificado;
 
-            if (msg.dataConsulta != DateTime.MinValue)
-                registroPessoa.pesdatsta = msg.dataConsulta;
+            if (msg.dataConsulta != null && msg.dataConsulta.Value != DateTime.MinValue)
+                registroPessoa.pesdatsta = msg.dataConsulta.Value;
 
-            if (msg.numeroProcuracao > 0)
-                registroPessoa.rcfcodpro = msg.numeroProcuracao;
+            if (msg.numeroProcuracao != null && msg.numeroProcuracao.Value > 0)
+                registroPessoa.rcfcodpro = msg.numeroProcuracao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.nomeDivergente))
                 registroPessoa.pesstanom = msg.nomeDivergente;
@@ -380,14 +380,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.usuarioCadastro))
                 registroPessoa.pesidcusucad = msg.usuarioCadastro;
 
-            if (msg.codigoPisPasep > 0)
-                registroPessoa.pescodPisPasep = msg.codigoPisPasep;
+            if (msg.codigoPisPasep != null && msg.codigoPisPasep.Value > 0)
+                registroPessoa.pescodPisPasep = msg.codigoPisPasep.Value;
 
-            if (msg.valorTotalBens > 0)
-                registroPessoa.pestotvlrben = msg.valorTotalBens;
+            if (msg.valorTotalBens != null && msg.valorTotalBens.Value > 0)
+                registroPessoa.pestotvlrben = msg.valorTotalBens.Value;
 
-            if (msg.valorRendaMensal > 0)
-                registroPessoa.pesvalmedmen = msg.valorRendaMensal;
+            if (msg.valorRendaMensal != null && msg.valorRendaMensal.Value > 0)
+                registroPessoa.pesvalmedmen = msg.valorRendaMensal.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorPosuiRenda))
                 registroPessoa.pesidcposren = msg.indicadorPosuiRenda;
@@ -437,38 +437,38 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacaoFilial))
                 registroPessoa.idc_sit_fil = msg.indicadorSituacaoFilial;
 
-            if (msg.dataCadastro1 != DateTime.MinValue)
-                registroPessoa.dat_cad1 = msg.dataCadastro1;
+            if (msg.dataCadastro1 != null && msg.dataCadastro1.Value != DateTime.MinValue)
+                registroPessoa.dat_cad1 = msg.dataCadastro1.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioAtualizacao1))
                 registroPessoa.usu_atu1 = msg.usuarioAtualizacao1;
 
-            if (msg.dataAtualizacao1 != DateTime.MinValue)
-                registroPessoa.dat_atu1 = msg.dataAtualizacao1;
+            if (msg.dataAtualizacao1 != null && msg.dataAtualizacao1.Value != DateTime.MinValue)
+                registroPessoa.dat_atu1 = msg.dataAtualizacao1.Value;
 
-            if (msg.dataSituacao != DateTime.MinValue)
-                registroPessoa.dat_sit = msg.dataSituacao;
+            if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
+                registroPessoa.dat_sit = msg.dataSituacao.Value;
 
-            if (msg.codigoEmpresa > 0)
-                registroPessoa.cod_empresa = msg.codigoEmpresa;
+            if (msg.codigoEmpresa != null && msg.codigoEmpresa.Value > 0)
+                registroPessoa.cod_empresa = msg.codigoEmpresa.Value;
 
-            if (msg.codigoDependente > 0)
-                registroPessoa.cod_depend = msg.codigoDependente;
+            if (msg.codigoDependente != null && msg.codigoDependente.Value > 0)
+                registroPessoa.cod_depend = msg.codigoDependente.Value;
 
-            if (msg.codigoOperador > 0)
-                registroPessoa.cod_oper = msg.codigoOperador;
+            if (msg.codigoOperador != null && msg.codigoOperador.Value > 0)
+                registroPessoa.cod_oper = msg.codigoOperador.Value;
 
-            if (msg.dataInicialGerente != DateTime.MinValue)
-                registroPessoa.dat_ini_gerente = msg.dataInicialGerente;
+            if (msg.dataInicialGerente != null && msg.dataInicialGerente.Value != DateTime.MinValue)
+                registroPessoa.dat_ini_gerente = msg.dataInicialGerente.Value;
 
-            if (msg.codigoCliente > 0)
-                registroPessoa.cli_cod = msg.codigoCliente;
+            if (msg.codigoCliente != null && msg.codigoCliente.Value > 0)
+                registroPessoa.cli_cod = msg.codigoCliente.Value;
 
-            if (msg.codigoPorte > 0)
-                registroPessoa.cod_porte = msg.codigoPorte;
+            if (msg.codigoPorte != null && msg.codigoPorte.Value > 0)
+                registroPessoa.cod_porte = msg.codigoPorte.Value;
 
-            if (msg.qtdAssinaturas > 0)
-                registroPessoa.qtd_assinatura = msg.qtdAssinaturas;
+            if (msg.qtdAssinaturas != null && msg.qtdAssinaturas.Value > 0)
+                registroPessoa.qtd_assinatura = msg.qtdAssinaturas.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.enderecoHomePage))
                 registroPessoa.end_home_page = msg.enderecoHomePage;
@@ -491,11 +491,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorIsencaoIr))
                 registroPessoa.idc_isen_ir = msg.indicadorIsencaoIr;
 
-            if (msg.codigoEmpresaIndic > 0)
-                registroPessoa.cod_empresa_indic = msg.codigoEmpresaIndic;
+            if (msg.codigoEmpresaIndic != null && msg.codigoEmpresaIndic.Value > 0)
+                registroPessoa.cod_empresa_indic = msg.codigoEmpresaIndic.Value;
 
-            if (msg.codigoOperIndic > 0)
-                registroPessoa.cod_oper_indic = msg.codigoOperIndic;
+            if (msg.codigoOperIndic != null && msg.codigoOperIndic.Value > 0)
+                registroPessoa.cod_oper_indic = msg.codigoOperIndic.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoSistemaOrigem))
                 registroPessoa.cod_sist_origem = msg.codigoSistemaOrigem;
@@ -506,14 +506,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoIspb))
                 registroPessoa.cod_ispb = msg.codigoIspb;
 
-            if (msg.sequencialCnpjDuplicado > 0)
-                registroPessoa.seq_Cnpj = msg.sequencialCnpjDuplicado;
+            if (msg.sequencialCnpjDuplicado != null && msg.sequencialCnpjDuplicado.Value > 0)
+                registroPessoa.seq_Cnpj = msg.sequencialCnpjDuplicado.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorCorrespAgencia))
                 registroPessoa.idc_corresp_age = msg.indicadorCorrespAgencia;
 
-            if (msg.dataInicioSfn != DateTime.MinValue)
-                registroPessoa.fildatsfn = msg.dataInicioSfn;
+            if (msg.dataInicioSfn != null && msg.dataInicioSfn.Value != DateTime.MinValue)
+                registroPessoa.fildatsfn = msg.dataInicioSfn.Value;
 
             //if (!string.IsNullOrWhiteSpace(msg.CpfConjugue))
             //    registroPessoa.Cpf_conjuge = msg.CpfConjugue;
@@ -527,20 +527,20 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorRes2686))
                 registroPessoa.FILIDTRES2686 = msg.indicadorRes2686;
 
-            if (msg.codigoNovaNacionalidade > 0)
-                registroPessoa.FILCODNOVONAC = msg.codigoNovaNacionalidade;
+            if (msg.codigoNovaNacionalidade != null && msg.codigoNovaNacionalidade.Value > 0)
+                registroPessoa.FILCODNOVONAC = msg.codigoNovaNacionalidade.Value;
 
-            if (msg.dataSaídaPais != DateTime.MinValue)
-                registroPessoa.FILDATSAIDAPAIS = msg.dataSaídaPais;
+            if (msg.dataSaidaPais != null && msg.dataSaidaPais.Value != DateTime.MinValue)
+                registroPessoa.FILDATSAIDAPAIS = msg.dataSaidaPais.Value;
 
-            //if (msg.codigoNatureza > 0)
+            //if (msg.  != null && msg.codigoNatureza.Value > 0)
             //    registroPessoa.natcod = msg.codigoNatureza;
 
-            if (msg.tipoImunidade > 0)
-                registroPessoa.tip_imunidade = msg.tipoImunidade;
+            if (msg.tipoImunidade != null && msg.tipoImunidade.Value > 0)
+                registroPessoa.tip_imunidade = msg.tipoImunidade.Value;
 
-            if (msg.dataRegistroRbf != DateTime.MinValue)
-                registroPessoa.dat_reg_rbf = msg.dataRegistroRbf;
+            if (msg.dataRegistroRbf != null && msg.dataRegistroRbf.Value != DateTime.MinValue)
+                registroPessoa.dat_reg_rbf = msg.dataRegistroRbf.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.numeroProcesso))
                 registroPessoa.num_processo = msg.numeroProcesso;
@@ -548,47 +548,47 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.numeroVara))
                 registroPessoa.num_vara = msg.numeroVara;
 
-            if (msg.dataInicio != DateTime.MinValue)
-                registroPessoa.dat_inicio = msg.dataInicio;
+            if (msg.dataInicio != null && msg.dataInicio.Value != DateTime.MinValue)
+                registroPessoa.dat_inicio = msg.dataInicio.Value;
 
-            if (msg.dataFim != DateTime.MinValue)
-                registroPessoa.dat_fim = msg.dataFim;
+            if (msg.dataFim != null && msg.dataFim.Value != DateTime.MinValue)
+                registroPessoa.dat_fim = msg.dataFim.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacaoRegistro))
                 registroPessoa.STA_REGISTRO = msg.indicadorSituacaoRegistro;
 
-            if (msg.codigoCnae2 > 0)
-                registroPessoa.cnaseq = msg.codigoCnae2;
+            if (msg.codigoCnae2 != null && msg.codigoCnae2.Value > 0)
+                registroPessoa.cnaseq = msg.codigoCnae2.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorClienteFatca))
                 registroPessoa.pesidcFatca = msg.indicadorClienteFatca;
 
-            if (msg.codigoNacionalidade1 > 0)
-                registroPessoa.PESNACIONALIDADE1 = msg.codigoNacionalidade1;
+            if (msg.codigoNacionalidade1 != null && msg.codigoNacionalidade1.Value > 0)
+                registroPessoa.PESNACIONALIDADE1 = msg.codigoNacionalidade1.Value;
 
-            if (msg.codigoNacionalidade2 > 0)
-                registroPessoa.PESNACIONALIDADE2 = msg.codigoNacionalidade2;
+            if (msg.codigoNacionalidade2 != null && msg.codigoNacionalidade2.Value > 0)
+                registroPessoa.PESNACIONALIDADE2 = msg.codigoNacionalidade2.Value;
 
-            if (msg.codigoNacionalidade3 > 0)
-                registroPessoa.PESNACIONALIDADE3 = msg.codigoNacionalidade3;
+            if (msg.codigoNacionalidade3 != null && msg.codigoNacionalidade3.Value > 0)
+                registroPessoa.PESNACIONALIDADE3 = msg.codigoNacionalidade3.Value;
 
-            if (msg.codigoNacionalidade4 > 0)
-                registroPessoa.PESNACIONALIDADE4 = msg.codigoNacionalidade4;
+            if (msg.codigoNacionalidade4 != null && msg.codigoNacionalidade4.Value > 0)
+                registroPessoa.PESNACIONALIDADE4 = msg.codigoNacionalidade4.Value;
 
-            if (msg.codigoDomicilio1 > 0)
-                registroPessoa.PESDOMICILIO1 = msg.codigoDomicilio1;
+            if (msg.codigoDomicilio1 != null && msg.codigoDomicilio1.Value > 0)
+                registroPessoa.PESDOMICILIO1 = msg.codigoDomicilio1.Value;
 
-            if (msg.codigoDomicilio2 > 0)
-                registroPessoa.PESDOMICILIO2 = msg.codigoDomicilio2;
+            if (msg.codigoDomicilio2 != null && msg.codigoDomicilio2.Value > 0)
+                registroPessoa.PESDOMICILIO2 = msg.codigoDomicilio2.Value;
 
-            if (msg.codigoDomicilio3 > 0)
-                registroPessoa.PESDOMICILIO3 = msg.codigoDomicilio3;
+            if (msg.codigoDomicilio3 != null && msg.codigoDomicilio3.Value > 0)
+                registroPessoa.PESDOMICILIO3 = msg.codigoDomicilio3.Value;
 
-            if (msg.codigoDomicilio4 > 0)
-                registroPessoa.PESDOMICILIO4 = msg.codigoDomicilio4;
+            if (msg.codigoDomicilio4 != null && msg.codigoDomicilio4.Value > 0)
+                registroPessoa.PESDOMICILIO4 = msg.codigoDomicilio4.Value;
 
-            if (msg.sUnid > 0)
-                registroPessoa.SUNID = msg.sUnid;
+            if (msg.sUnid != null && msg.sUnid.Value > 0)
+                registroPessoa.SUNID = msg.sUnid.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.apelido1))
                 registroPessoa.APELIDO1 = msg.apelido1;
@@ -626,8 +626,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             //if (!string.IsNullOrWhiteSpace(msg.numeroDocumentoEstrangeiro))
             //    registroPessoa.num_doc_est = msg.numeroDocumentoEstrangeiro;
 
-            if (msg.codigoJustificativa > 0)
-                registroPessoa.juscod = msg.codigoJustificativa;
+            if (msg.codigoJustificativa != null && msg.codigoJustificativa.Value > 0)
+                registroPessoa.juscod = msg.codigoJustificativa.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorAtivo))
                 registroPessoa.pesidcativoprob = msg.indicadorAtivo;
@@ -641,8 +641,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.nomeContato))
                 registroPessoa.pesnomcontato = msg.nomeContato;
 
-            if (msg.codigoCargo > 0)
-                registroPessoa.pescodcargo = msg.codigoCargo;
+            if (msg.codigoCargo != null && msg.codigoCargo.Value > 0)
+                registroPessoa.pescodcargo = msg.codigoCargo.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorDeclaracaoFatca1))
                 registroPessoa.pesidcdeclarFatca1 = msg.indicadorDeclaracaoFatca1;
@@ -653,23 +653,23 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorDomicilioExterno))
                 registroPessoa.pesidcdomicilioext = msg.indicadorDomicilioExterno;
 
-            if (msg.numeroFuncionarios > 0)
-                registroPessoa.pesnumfuncionarios = msg.numeroFuncionarios;
+            if (msg.numeroFuncionarios != null && msg.numeroFuncionarios.Value > 0)
+                registroPessoa.pesnumfuncionarios = msg.numeroFuncionarios.Value;
 
-            if (msg.codigoNacCapital > 0)
-                registroPessoa.pescodnaccapital = msg.codigoNacCapital;
+            if (msg.codigoNacCapital != null && msg.codigoNacCapital.Value > 0)
+                registroPessoa.pescodnaccapital = msg.codigoNacCapital.Value;
 
-            if (msg.valorCapitalEstrangeiro > 0)
-                registroPessoa.pesvalcapitalestr = msg.valorCapitalEstrangeiro;
+            if (msg.valorCapitalEstrangeiro != null && msg.valorCapitalEstrangeiro.Value > 0)
+                registroPessoa.pesvalcapitalestr = msg.valorCapitalEstrangeiro.Value;
 
-            if (msg.valorCapitalNacional > 0)
-                registroPessoa.pesvalcapitalnac = msg.valorCapitalNacional;
+            if (msg.valorCapitalNacional != null && msg.valorCapitalNacional.Value > 0)
+                registroPessoa.pesvalcapitalnac = msg.valorCapitalNacional.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoCapital))
                 registroPessoa.pestipcapital = msg.tipoCapital;
 
-            if (msg.codigoClasseEconomicaCetip > 0)
-                registroPessoa.pescodatvcetip = msg.codigoClasseEconomicaCetip;
+            if (msg.codigoClasseEconomicaCetip != null && msg.codigoClasseEconomicaCetip.Value > 0)
+                registroPessoa.pescodatvcetip = msg.codigoClasseEconomicaCetip.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoIdentificadorRacial))
                 registroPessoa.circod = msg.codigoIdentificadorRacial;
@@ -692,14 +692,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.observacaoPld))
                 registroPessoa.obs_Pld = msg.observacaoPld;
 
-            if (msg.codigoGerente > 0)
-                registroPessoa.cod_oper_ger = msg.codigoGerente;
+            if (msg.codigoGerente != null && msg.codigoGerente.Value > 0)
+                registroPessoa.cod_oper_ger = msg.codigoGerente.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorCobrancaIofAdicional))
                 registroPessoa.pesidciofadic = msg.indicadorCobrancaIofAdicional;
 
-            if (msg.codigoCestroResultado > 0)
-                registroPessoa.fil_rescod = msg.codigoCestroResultado;
+            if (msg.codigoCestroResultado != null && msg.codigoCestroResultado.Value > 0)
+                registroPessoa.fil_rescod = msg.codigoCestroResultado.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.cpfCnpjFormatado))
                 registroPessoa.cgccpf_formatado = msg.cpfCnpjFormatado;

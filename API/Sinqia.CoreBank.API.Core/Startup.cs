@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
 
@@ -47,7 +48,10 @@ namespace Sinqia.CoreBank.API.Core
                     });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+            });
             //Service Settings 
             services.Configure<ConfiguracaoBaseCUC>(Configuration.GetSection("ConfiguracaoBaseCUC"));
 
@@ -71,7 +75,8 @@ namespace Sinqia.CoreBank.API.Core
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração cadastro de pessoa");
-            });;
+            });
+
         }
     }
 }

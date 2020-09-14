@@ -48,7 +48,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Expedição
         /// </summary>
         [Required]
-        public DateTime dataExpedicao { get; set; }
+        public DateTime? dataExpedicao { get; set; }
 
         /// <summary>
         /// Orgão Expedidor
@@ -66,7 +66,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Cadastro
         /// </summary>
         [Required]
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
@@ -78,7 +78,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Atualização
         /// </summary>
         [Required]
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
@@ -90,7 +90,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Situação
         /// </summary>
         [Required]
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Tipo Documento
@@ -122,7 +122,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Tipo de Comprovação de Renda
         /// </summary>
-        public int tipoComprovacaoRenda { get; set; }
+        public int? tipoComprovacaoRenda { get; set; }
 
         /// <summary>
         /// Idc. Preposto
@@ -132,12 +132,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Vencimento
         /// </summary>
-        public DateTime dataVencimento { get; set; }
+        public DateTime? dataVencimento { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoNacionalidade { get; set; }
+        public int? codigoNacionalidade { get; set; }
 
     }
 }

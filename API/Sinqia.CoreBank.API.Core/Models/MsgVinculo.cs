@@ -59,7 +59,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Sequência
         /// </summary>
         [Required]
-        public int numeroSequencia { get; set; }
+        public int? numeroSequencia { get; set; }
 
         /// <summary>
         /// Idc. Participação
@@ -75,7 +75,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Início
         /// </summary>
-        public DateTime dataPosse { get; set; }
+        public DateTime? dataPosse { get; set; }
 
         /// <summary>
         /// 
@@ -91,7 +91,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Cadastro
         /// </summary>
         [Required]
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Usuário Última Atualização
@@ -103,7 +103,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Atualização
         /// </summary>
         [Required]
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Situação
@@ -115,12 +115,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// Data Situação
         /// </summary>
         [Required]
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Função Cargo
         /// </summary>
-        public int codigoCargo { get; set; }
+        public int? codigoCargo { get; set; }
 
         /// <summary>
         /// Assina Pela Empresa
@@ -135,7 +135,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Fim
         /// </summary>
-        public DateTime dataFim { get; set; }
+        public DateTime? dataFim { get; set; }
 
         /// <summary>
         /// Vínculo
@@ -145,17 +145,17 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Vencto. Procuração
         /// </summary>
-        public DateTime dataVencimentoProcuracao { get; set; }
+        public DateTime? dataVencimentoProcuracao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime tempoMandato1 { get; set; }
+        public DateTime? tempoMandato1 { get; set; }
 
         /// <summary>
         /// Data Fim
         /// </summary>
-        public DateTime dataFimMandato { get; set; }
+        public DateTime? dataFimMandato { get; set; }
 
         /// <summary>
         /// Pessoa

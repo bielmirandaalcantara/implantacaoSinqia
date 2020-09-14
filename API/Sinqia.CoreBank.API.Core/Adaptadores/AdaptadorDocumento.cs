@@ -86,8 +86,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.numeroDocumento))
                 registroDocumento.num_doc = msg.numeroDocumento;
 
-            if (msg.dataExpedicao != DateTime.MinValue)
-                registroDocumento.dat_expedicao = msg.dataExpedicao;
+            if (msg.dataExpedicao != null && msg.dataExpedicao.Value != DateTime.MinValue)
+                registroDocumento.dat_expedicao = msg.dataExpedicao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.orgaoExpedidor))
                 registroDocumento.org_expedidor = msg.orgaoExpedidor;
@@ -95,20 +95,20 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.observacao))
                 registroDocumento.obs_doc = msg.observacao;
 
-            if (msg.dataCadastro != DateTime.MinValue)
-                registroDocumento.dat_cad = msg.dataCadastro;
+            if (msg.dataCadastro != null && msg.dataCadastro.Value != DateTime.MinValue)
+                registroDocumento.dat_cad = msg.dataCadastro.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioUltimaAtualizacao))
                 registroDocumento.usu_atu = msg.usuarioUltimaAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroDocumento.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null && msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroDocumento.dat_atu = msg.dataAtualizacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.IndicadorSituacao))
                 registroDocumento.idc_sit = msg.IndicadorSituacao;
 
-            if (msg.dataSituacao != DateTime.MinValue)
-                registroDocumento.dat_sit = msg.dataSituacao;
+            if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
+                registroDocumento.dat_sit = msg.dataSituacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoDocumento))
                 registroDocumento.tip_doc = msg.tipoDocumento;
@@ -125,17 +125,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.IndicadorComprovado))
                 registroDocumento.idc_comprovado = msg.IndicadorComprovado;
 
-            if (msg.tipoComprovacaoRenda > 0)
-                registroDocumento.crecod = msg.tipoComprovacaoRenda;
+            if (msg.tipoComprovacaoRenda != null && msg.tipoComprovacaoRenda.Value > 0)
+                registroDocumento.crecod = msg.tipoComprovacaoRenda.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorPreposto))
                 registroDocumento.idc_preposto = msg.indicadorPreposto;
 
-            if (msg.dataVencimento != DateTime.MinValue)
-                registroDocumento.dat_venc = msg.dataVencimento;
+            if (msg.dataVencimento != null && msg.dataVencimento.Value != DateTime.MinValue)
+                registroDocumento.dat_venc = msg.dataVencimento.Value;
 
-            if (msg.codigoNacionalidade > 0)
-                registroDocumento.naccod = msg.codigoNacionalidade;
+            if (msg.codigoNacionalidade != null && msg.codigoNacionalidade.Value > 0)
+                registroDocumento.naccod = msg.codigoNacionalidade.Value;
 
             return registroDocumento;
         }

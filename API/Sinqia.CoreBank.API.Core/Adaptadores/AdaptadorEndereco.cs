@@ -85,8 +85,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoFilial))
                 registroEndereco.cod_fil = msg.codigoFilial;
 
-            if (msg.codigoEndereco > 0)
-                registroEndereco.cod_end = msg.codigoEndereco;
+            if (msg.codigoEndereco != null && msg.codigoEndereco.Value > 0)
+                registroEndereco.cod_end = msg.codigoEndereco.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoEndereco))
                 registroEndereco.tip_end = msg.tipoEndereco;
@@ -181,29 +181,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorCorrespondencia))
                 registroEndereco.idc_corresp = msg.indicadorCorrespondencia;
 
-            if (msg.dataInicial != DateTime.MinValue)
-                registroEndereco.dat_ini_end = msg.dataInicial;
+            if (msg.dataInicial != null && msg.dataInicial.Value != DateTime.MinValue)
+                registroEndereco.dat_ini_end = msg.dataInicial.Value;
 
-            if (msg.dataFinal != DateTime.MinValue)
-                registroEndereco.dat_fim_end = msg.dataFinal;
+            if (msg.dataFinal != null && msg.dataFinal.Value != DateTime.MinValue)
+                registroEndereco.dat_fim_end = msg.dataFinal.Value;
 
-            if (msg.dataCadastro != DateTime.MinValue)
-                registroEndereco.dat_cad = msg.dataCadastro;
+            if (msg.dataCadastro != null && msg.dataCadastro.Value != DateTime.MinValue)
+                registroEndereco.dat_cad = msg.dataCadastro.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioUltimaAtualizacao))
                 registroEndereco.usu_atu = msg.usuarioUltimaAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroEndereco.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null && msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroEndereco.dat_atu = msg.dataAtualizacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacao))
                 registroEndereco.idc_sit = msg.indicadorSituacao;
 
-            if (msg.dataSituacao != DateTime.MinValue)
-                registroEndereco.dat_sit = msg.dataSituacao;
+            if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
+                registroEndereco.dat_sit = msg.dataSituacao.Value;
 
-            if (msg.codigoMunicipio > 0)
-                registroEndereco.cod_municipio = msg.codigoMunicipio;
+            if (msg.codigoMunicipio != null && msg.codigoMunicipio.Value > 0)
+                registroEndereco.cod_municipio = msg.codigoMunicipio.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.descricaoMunicipio))
                 registroEndereco.des_municipio = msg.descricaoMunicipio;
@@ -223,8 +223,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.enderecoEstrangeiro))
                 registroEndereco.endidcestrang = msg.enderecoEstrangeiro;
 
-            if (msg.codigoPais > 0)
-                registroEndereco.endcodpais = msg.codigoPais;
+            if (msg.codigoPais != null && msg.codigoPais.Value > 0)
+                registroEndereco.endcodpais = msg.codigoPais.Value;
 
             return registroEndereco;
         }

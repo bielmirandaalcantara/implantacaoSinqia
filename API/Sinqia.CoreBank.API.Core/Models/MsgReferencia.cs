@@ -48,7 +48,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         [Required]
-        public int sequencial { get; set; }
+        public int? sequencial { get; set; }
 
         /// <summary>
         /// 
@@ -74,18 +74,18 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public DateTime dataInicioEmprego { get; set; }
+        public DateTime? dataInicioEmprego { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public DateTime dataFinalEmprego { get; set; }
+        public DateTime? dataFinalEmprego { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
         [Required]
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// 
@@ -97,7 +97,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         [Required]
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// 
@@ -109,17 +109,17 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// 
         /// </summary>
         [Required]
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoCartao { get; set; }
+        public int? codigoCartao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public int codigoSeguradora { get; set; }
+        public int? codigoSeguradora { get; set; }
 
         /// <summary>
         /// 
@@ -139,7 +139,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public DateTime dataVencimentoSeguroCartao { get; set; }
+        public DateTime? dataVencimentoSeguroCartao { get; set; }
 
     }
 }

@@ -91,8 +91,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.codigoFilialPessoaFisica))
                 registroVinculo.cod_fil_fis = msg.codigoFilialPessoaFisica;
 
-            if (msg.numeroSequencia > 0)
-                registroVinculo.seq_vinculo = msg.numeroSequencia;
+            if (msg.numeroSequencia != null && msg.numeroSequencia.Value> 0)
+                registroVinculo.seq_vinculo = msg.numeroSequencia.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorParticipacao))
                 registroVinculo.idc_partcipacao = msg.indicadorParticipacao;
@@ -100,8 +100,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.percentualParticipacao > 0)
                 registroVinculo.pct_participacao = msg.percentualParticipacao;
 
-            if (msg.dataPosse != DateTime.MinValue)
-                registroVinculo.dat_posse = msg.dataPosse;
+            if (msg.dataPosse != null && msg.dataPosse.Value != DateTime.MinValue)
+                registroVinculo.dat_posse = msg.dataPosse.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.tempoMandato))
                 registroVinculo.tmp_mandato = msg.tempoMandato;
@@ -109,23 +109,23 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.observacao))
                 registroVinculo.des_vinc_fisjur = msg.observacao;
 
-            if (msg.dataCadastro != DateTime.MinValue)
-                registroVinculo.dat_cad = msg.dataCadastro;
+            if (msg.dataCadastro != null && msg.dataCadastro.Value != DateTime.MinValue)
+                registroVinculo.dat_cad = msg.dataCadastro.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.usuarioUltimaAtualizacao))
                 registroVinculo.usu_atu = msg.usuarioUltimaAtualizacao;
 
-            if (msg.dataAtualizacao != DateTime.MinValue)
-                registroVinculo.dat_atu = msg.dataAtualizacao;
+            if (msg.dataAtualizacao != null && msg.dataAtualizacao.Value != DateTime.MinValue)
+                registroVinculo.dat_atu = msg.dataAtualizacao.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorSituacao))
                 registroVinculo.idc_sit = msg.indicadorSituacao;
 
-            if (msg.dataSituacao != DateTime.MinValue)
-                registroVinculo.dat_sit = msg.dataSituacao;
+            if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
+                registroVinculo.dat_sit = msg.dataSituacao.Value;
 
-            if (msg.codigoCargo > 0)
-                registroVinculo.cod_cargo = msg.codigoCargo;
+            if (msg.codigoCargo != null && msg.codigoCargo.Value > 0)
+                registroVinculo.cod_cargo = msg.codigoCargo.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorAssinaEmpresa))
                 registroVinculo.idc_assina = msg.indicadorAssinaEmpresa;
@@ -133,20 +133,20 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorContato))
                 registroVinculo.idc_contato = msg.indicadorContato;
 
-            if (msg.dataFim != DateTime.MinValue)
-                registroVinculo.dat_fim = msg.dataFim;
+            if (msg.dataFim != null && msg.dataFim.Value != DateTime.MinValue)
+                registroVinculo.dat_fim = msg.dataFim.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoVinculo))
                 registroVinculo.cod_vinculo = msg.codigoVinculo;
 
-            if (msg.dataVencimentoProcuracao != DateTime.MinValue)
-                registroVinculo.dat_venc_proc = msg.dataVencimentoProcuracao;
+            if (registroVinculo.dat_venc_proc != null && msg.dataVencimentoProcuracao.Value != DateTime.MinValue)
+                registroVinculo.dat_venc_proc = msg.dataVencimentoProcuracao.Value;
 
-            if (msg.tempoMandato1 != DateTime.MinValue)
-                registroVinculo.tmp_mandato_1 = msg.tempoMandato1;
+            if (msg.tempoMandato1 != null && msg.tempoMandato1.Value != DateTime.MinValue)
+                registroVinculo.tmp_mandato_1 = msg.tempoMandato1.Value;
 
-            if (msg.dataFimMandato != DateTime.MinValue)
-                registroVinculo.dat_fim_mandato = msg.dataFimMandato;
+            if (msg.dataFimMandato != null && msg.dataFimMandato.Value != DateTime.MinValue)
+                registroVinculo.dat_fim_mandato = msg.dataFimMandato.Value;
 
             if (!string.IsNullOrWhiteSpace(msg.nomePessoa))
                 registroVinculo.nom_pessoa = msg.nomePessoa;
