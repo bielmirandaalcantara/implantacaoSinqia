@@ -64,21 +64,23 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia[] msg, IList<string> erros)
+        public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia[] msg, string statusLinha,IList<string> erros)
         {
             List<DataSetPessoaRegistroReferencia> registroReferencias = new List<DataSetPessoaRegistroReferencia>();
             foreach (var referencia in msg)
             {
-                registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(referencia, erros));
+                registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(referencia, statusLinha, erros));
             }
 
             return registroReferencias.ToArray();
         }
 
-        public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia msg, IList<string> erros)
+        public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia msg, string statusLinha, IList<string> erros)
         {
             DataSetPessoaRegistroReferencia registroReferencia = new DataSetPessoaRegistroReferencia();
-                       
+
+            registroReferencia.statuslinha = statusLinha;
+
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoaTitular))
                 registroReferencia.cod_pessoa_tit = msg.codigoPessoaTitular;
 
@@ -94,10 +96,10 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.observacao))
                 registroReferencia.obs_ref = msg.observacao;
 
-            if (msg.numeroCartao > 0)
+            if (msg.numeroCartao != null && msg.numeroCartao > 0)
                 registroReferencia.num_cartao_ref = msg.numeroCartao;
 
-            if (msg.valorLimite > 0)
+            if (msg.valorLimite != null && msg.valorLimite > 0)
                 registroReferencia.val_lim_ref = msg.valorLimite;
 
             if (msg.dataInicioEmprego != null && msg.dataInicioEmprego.Value != DateTime.MinValue)
@@ -140,6 +142,73 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroReferencia.dat_venc_seg_cartao = msg.dataVencimentoSeguroCartao.Value;
 
             return registroReferencia;
+        }
+
+        public MsgRegistroreferencia AdaptarDataSetPessoaRegistroReferencia(DataSetPessoaRegistroReferencia registroReferencia, IList<string> erros)
+        {
+            MsgRegistroreferencia msg = new MsgRegistroreferencia();
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.cod_pessoa_tit))
+                msg.codigoPessoaTitular = registroReferencia.cod_pessoa_tit;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.cod_fil_tit))
+                msg.codigoFilialTitular = registroReferencia.cod_fil_tit;
+
+            if (registroReferencia.seq_ref != null && registroReferencia.seq_ref.Value > 0)
+                msg.sequencial = registroReferencia.seq_ref;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.tip_ref))
+                msg.tipo = registroReferencia.tip_ref;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.obs_ref))
+                msg.observacao = registroReferencia.obs_ref;
+
+            if (registroReferencia.num_cartao_ref != null && registroReferencia.num_cartao_ref.Value > 0)
+                msg.numeroCartao = registroReferencia.num_cartao_ref;
+
+            if (registroReferencia.val_lim_ref != null && registroReferencia.val_lim_ref.Value > 0)
+                msg.valorLimite = registroReferencia.val_lim_ref;
+
+            if (registroReferencia.dat_ini_emprego != null && registroReferencia.dat_ini_emprego.Value != DateTime.MinValue)
+                msg.dataInicioEmprego = registroReferencia.dat_ini_emprego;
+
+            if (registroReferencia.dat_fim_emprego != null && registroReferencia.dat_fim_emprego.Value != DateTime.MinValue)
+                msg.dataFinalEmprego = registroReferencia.dat_fim_emprego;
+
+            if (registroReferencia.dat_cad != null && registroReferencia.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastro = registroReferencia.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.usu_atu))
+                msg.usuarioUltimaAtualizacao = registroReferencia.usu_atu;
+
+            if (registroReferencia.dat_atu != null && registroReferencia.dat_atu.Value != DateTime.MinValue)
+                msg.dataAtualizacao = registroReferencia.dat_atu;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.idc_sit))
+                msg.indicadorSituacao = registroReferencia.idc_sit;
+
+            if (registroReferencia.dat_sit != null && registroReferencia.dat_sit.Value != DateTime.MinValue)
+                msg.dataSituacao = registroReferencia.dat_sit;
+
+            if (registroReferencia.cod_cartao != null && registroReferencia.cod_cartao.Value > 0)
+                msg.codigoCartao = registroReferencia.cod_cartao;
+
+            if (registroReferencia.cod_segur != null && registroReferencia.cod_segur.Value > 0)
+                msg.codigoSeguradora = registroReferencia.cod_segur;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.cod_pessoa_ref))
+                msg.codigoPessoaReferencia = registroReferencia.cod_pessoa_ref;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.cod_fil_ref))
+                msg.codigoFilialReferencia = registroReferencia.cod_fil_ref;
+
+            if (!string.IsNullOrWhiteSpace(registroReferencia.cod_simp))
+                msg.codigoPessoaSimplificada = registroReferencia.cod_simp;
+
+            if (registroReferencia.dat_venc_seg_cartao != null && registroReferencia.dat_venc_seg_cartao.Value != DateTime.MinValue)
+                msg.dataVencimentoSeguroCartao = registroReferencia.dat_venc_seg_cartao;
+
+            return msg;
         }
     }
 }

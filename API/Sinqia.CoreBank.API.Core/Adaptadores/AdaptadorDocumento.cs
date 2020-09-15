@@ -64,21 +64,22 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento[] msg, IList<string> erros)
+        public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento[] msg, string statusLinha, IList<string> erros)
         {
             List<DataSetPessoaRegistroDocumento> registroDocumentos = new List<DataSetPessoaRegistroDocumento>();
             foreach (var documento in msg)
             {
-                registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(documento, erros));
+                registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(documento, statusLinha, erros));
             }
 
             return registroDocumentos.ToArray();
         }
 
-        public DataSetPessoaRegistroDocumento AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento msg, IList<string> erros)
+        public DataSetPessoaRegistroDocumento AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento msg, string statusLinha, IList<string> erros)
         {
             DataSetPessoaRegistroDocumento registroDocumento = new DataSetPessoaRegistroDocumento();
 
+            registroDocumento.statuslinha = statusLinha;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoa))
                 registroDocumento.cod_pessoa = msg.codigoPessoa;
@@ -140,5 +141,69 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroDocumento;
         }
 
-     }
+        public MsgRegistrodocumento AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(DataSetPessoaRegistroDocumento registroDocumento, IList<string> erros)
+        {
+            MsgRegistrodocumento msg = new MsgRegistrodocumento();
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.cod_pessoa))
+                msg.codigoPessoa = registroDocumento.cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.num_doc))
+                msg.numeroDocumento = registroDocumento.num_doc;
+
+            if (registroDocumento.dat_expedicao != null && registroDocumento.dat_expedicao.Value != DateTime.MinValue)
+                msg.dataExpedicao = registroDocumento.dat_expedicao;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.org_expedidor))
+                msg.orgaoExpedidor = registroDocumento.org_expedidor;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.obs_doc))
+                msg.observacao = registroDocumento.obs_doc;
+
+            if (registroDocumento.dat_cad != null && registroDocumento.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastro = registroDocumento.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.usu_atu))
+                msg.usuarioUltimaAtualizacao = registroDocumento.usu_atu;
+
+            if (registroDocumento.dat_atu != null && registroDocumento.dat_atu.Value != DateTime.MinValue)
+                msg.dataAtualizacao = registroDocumento.dat_atu;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.idc_sit))
+                msg.IndicadorSituacao = registroDocumento.idc_sit;
+
+            if (registroDocumento.dat_sit != null && registroDocumento.dat_sit.Value != DateTime.MinValue)
+                msg.dataSituacao = registroDocumento.dat_sit;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.tip_doc))
+                msg.tipoDocumento = registroDocumento.tip_doc;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.cod_federacao))
+                msg.ufExpedicao = registroDocumento.cod_federacao;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.idc_imp_cheque))
+                msg.documentoCheque = registroDocumento.idc_imp_cheque;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.idc_microemp))
+                msg.indicadorMicroEmpresa = registroDocumento.idc_microemp;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.idc_comprovado))
+                msg.IndicadorComprovado = registroDocumento.idc_comprovado;
+
+            if (registroDocumento.crecod != null && registroDocumento.crecod.Value > 0)
+                msg.tipoComprovacaoRenda = registroDocumento.crecod;
+
+            if (!string.IsNullOrWhiteSpace(registroDocumento.idc_preposto))
+                msg.indicadorPreposto = registroDocumento.idc_preposto;
+
+            if (registroDocumento.dat_venc != null && registroDocumento.dat_venc.Value != DateTime.MinValue)
+                msg.dataVencimento = registroDocumento.dat_venc;
+
+            if (registroDocumento.naccod != null && registroDocumento.naccod.Value > 0)
+                msg.codigoNacionalidade = registroDocumento.naccod;
+
+            return msg;
+        }
+
+    }
 }

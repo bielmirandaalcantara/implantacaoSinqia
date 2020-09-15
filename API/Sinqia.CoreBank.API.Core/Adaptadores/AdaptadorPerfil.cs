@@ -64,20 +64,22 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public DataSetPessoaRegistroPerfil[] AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil[] msg, IList<string> erros)
+        public DataSetPessoaRegistroPerfil[] AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil[] msg, string statusLinha, IList<string> erros)
         {
             List<DataSetPessoaRegistroPerfil> registroPerfis = new List<DataSetPessoaRegistroPerfil>();
             foreach (var perfil in msg)
             {
-                registroPerfis.Add(AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(perfil, erros));
+                registroPerfis.Add(AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(perfil, statusLinha, erros));
             }
 
             return registroPerfis.ToArray();
         }
 
-        public DataSetPessoaRegistroPerfil AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil msg, IList<string> erros)
+        public DataSetPessoaRegistroPerfil AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(MsgRegistroperfil msg, string statusLinha, IList<string> erros)
         {
             DataSetPessoaRegistroPerfil registroPerfil = new DataSetPessoaRegistroPerfil();
+
+            registroPerfil.statuslinha = statusLinha;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoa))
                 registroPerfil.cod_pessoa = msg.codigoPessoa;
@@ -87,5 +89,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             return registroPerfil;
         }
-     }
+
+        public MsgRegistroperfil AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(DataSetPessoaRegistroPerfil registroPerfil, IList<string> erros)
+        {
+            MsgRegistroperfil msg = new MsgRegistroperfil();
+
+            if (!string.IsNullOrWhiteSpace(registroPerfil.cod_pessoa))
+                msg.codigoPessoa = registroPerfil.cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(registroPerfil.cod_perfil))
+                msg.codigoPerfil = registroPerfil.cod_perfil;
+
+            return msg;
+        }
+    }
 }

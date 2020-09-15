@@ -32,6 +32,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroPessoa
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa { get; set; }
         public string nom_pessoa { get; set; }
         public string nom_abv_pessoa { get; set; }
@@ -199,6 +200,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroEndereco
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa { get; set; }
         public string cod_fil { get; set; }
         public int? cod_end { get; set; }
@@ -240,7 +242,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public DateTime? dat_atu { get; set; }
         public string idc_sit { get; set; }
         public DateTime? dat_sit { get; set; }
-        public decimal? cod_municipio { get; set; }
+        public int? cod_municipio { get; set; }
         public string des_municipio { get; set; }
         public string num_log_end { get; set; }
         public string idt_naocorresp { get; set; }
@@ -253,6 +255,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroDocumento
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa { get; set; }
         public string num_doc { get; set; }
         public DateTime? dat_expedicao { get; set; }
@@ -276,6 +279,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroPerfil
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa { get; set; }
         public string cod_perfil { get; set; }
 
@@ -283,6 +287,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroReferencia
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa_tit { get; set; }
         public string cod_fil_tit { get; set; }
         public int? seq_ref { get; set; }
@@ -308,6 +313,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
     public class DataSetPessoaRegistroPessoaSimplificada
     {
+        public string statuslinha { get; set; }
         public string cod_simp { get; set; }
         public string nom_simp { get; set; }
         public string ddd_fone_1_simp { get; set; }
@@ -368,6 +374,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
     }
     public class DataSetPessoaRegistroVinculo
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa_jur { get; set; }
         public string cod_fil_jur { get; set; }
         public string cod_pessoa_fis { get; set; }

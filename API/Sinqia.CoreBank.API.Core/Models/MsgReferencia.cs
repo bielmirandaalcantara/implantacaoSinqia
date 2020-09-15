@@ -64,12 +64,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public Decimal numeroCartao { get; set; }
+        public decimal? numeroCartao { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public decimal valorLimite { get; set; }
+        public decimal? valorLimite { get; set; }
 
         /// <summary>
         /// 

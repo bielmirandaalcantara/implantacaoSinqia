@@ -11,6 +11,7 @@ using System.Linq;
 using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -68,7 +69,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, listaErros);
+                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
@@ -130,6 +131,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
+
+                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);

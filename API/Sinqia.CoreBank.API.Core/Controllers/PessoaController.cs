@@ -15,6 +15,7 @@ using System.IO;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
 using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -69,7 +70,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, listaErros);
+                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
@@ -132,7 +133,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
-                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, listaErros);
+                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
                 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 

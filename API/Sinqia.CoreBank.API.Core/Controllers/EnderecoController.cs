@@ -12,6 +12,7 @@ using System.IO;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -73,7 +74,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
-                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, listaErros));
+                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
                 dataSetPessoa.RegistroEndereco = registros.ToArray();
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
@@ -139,7 +140,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
 
                 List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
-                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, listaErros));
+                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
                 dataSetPessoa.RegistroEndereco = registros.ToArray();
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);

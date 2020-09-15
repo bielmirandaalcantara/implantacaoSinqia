@@ -32,6 +32,11 @@ namespace Sinqia.CoreBank.API.Core.Models
     public class MsgRegistroVinculo
     {
         /// <summary>
+        /// I - Inclusão A - Atualização
+        /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
+        public string statusLinha { get; set; }
+        /// <summary>
         /// Código Pessoa
         /// </summary>
         [Required(ErrorMessage ="Campo obrigatório")]
@@ -70,7 +75,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Pct. Participação
         /// </summary>
-        public decimal percentualParticipacao { get; set; }
+        public decimal? percentualParticipacao { get; set; }
 
         /// <summary>
         /// Data Início

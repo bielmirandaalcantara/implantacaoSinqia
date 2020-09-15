@@ -10,6 +10,7 @@ using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -66,7 +67,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                     List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
-                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, listaErros));
+                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
                     dataSetPessoa.RegistroPerfil = registros.ToArray();
 
                     var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
@@ -127,7 +128,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                     List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
-                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, listaErros));
+                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
                     dataSetPessoa.RegistroPerfil = registros.ToArray();
 
                     var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);

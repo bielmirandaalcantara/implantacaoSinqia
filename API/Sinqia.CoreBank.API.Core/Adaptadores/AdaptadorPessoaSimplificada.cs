@@ -101,7 +101,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-        public DataSetPessoa AdaptarMsgPessoaSimplificadaToDataSetPessoa(MsgPessoaSimplificada msg, IList<string> erros)
+        public DataSetPessoa AdaptarMsgPessoaSimplificadaToDataSetPessoa(MsgPessoaSimplificada msg, string statusLinha, IList<string> erros)
         {
             if (msg.body == null)
                 throw new ApplicationException("Campo body obrigatório");
@@ -112,7 +112,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRegistroPessoaSimplificada registroPessoaSimplificada = msg.body.RegistroPessoaSimplificada;
 
             DataSetPessoa xml = new DataSetPessoa();
-            xml.RegistroPessoaSimplificada = AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(registroPessoaSimplificada, erros);
+            xml.RegistroPessoaSimplificada = AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(registroPessoaSimplificada, statusLinha, erros);
 
             if (registroPessoaSimplificada.RegistroVinculo != null && registroPessoaSimplificada.RegistroVinculo.Any())
                 xml.RegistroVinculo = AdaptadorVinculo.AdaptarMsgRegistroVinculoToDataSetPessoaRegistroVinculo(registroPessoaSimplificada.RegistroVinculo, erros);
@@ -120,9 +120,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return xml;
         }
 
-        public DataSetPessoaRegistroPessoaSimplificada AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(MsgRegistroPessoaSimplificada msg, IList<string> erros)
+        public DataSetPessoaRegistroPessoaSimplificada AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(MsgRegistroPessoaSimplificada msg, string statusLinha, IList<string> erros)
         {
             DataSetPessoaRegistroPessoaSimplificada registroPessoaSimplificada = new DataSetPessoaRegistroPessoaSimplificada();
+
+            registroPessoaSimplificada.statuslinha = statusLinha;
 
             if (!string.IsNullOrWhiteSpace(msg.codigo))
                 registroPessoaSimplificada.cod_simp = msg.codigo;
@@ -301,5 +303,185 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroPessoaSimplificada;
         }
 
+        public MsgRegistroPessoaSimplificada AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaRegistroPessoaSimplificada registroPessoaSimplificada, IList<string> erros)
+        {
+            MsgRegistroPessoaSimplificada msg = new MsgRegistroPessoaSimplificada();
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.cod_simp))
+                msg.codigo = registroPessoaSimplificada.cod_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.nom_simp))
+                msg.nome = registroPessoaSimplificada.nom_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.ddd_fone_1_simp))
+                msg.codigoDddFone1 = registroPessoaSimplificada.ddd_fone_1_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.ddd_fone_2_simp))
+                msg.codigoDddFone2 = registroPessoaSimplificada.ddd_fone_2_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.fone_1_simp))
+                msg.numeroTelefone1 = registroPessoaSimplificada.fone_1_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.fone_2_simp))
+                msg.numeroTelefone2 = registroPessoaSimplificada.fone_2_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.ram_fone_1_simp))
+                msg.numeroRamal1 = registroPessoaSimplificada.ram_fone_1_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.ram_fone_2_simp))
+                msg.numeroRamal2 = registroPessoaSimplificada.ram_fone_2_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.sit_fone_1_simp))
+                msg.situacaoTelefone1 = registroPessoaSimplificada.sit_fone_1_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.sit_fone_2_simp))
+                msg.situacaoTelefone2 = registroPessoaSimplificada.sit_fone_2_simp;
+
+            if (registroPessoaSimplificada.dat_nasc_simp != null && registroPessoaSimplificada.dat_nasc_simp.Value != DateTime.MinValue)
+                msg.dataNascimento = registroPessoaSimplificada.dat_nasc_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.obs_simp))
+                msg.observacao = registroPessoaSimplificada.obs_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.tip_simp))
+                msg.tipoReferencia = registroPessoaSimplificada.tip_simp;
+
+            if (registroPessoaSimplificada.dat_cad != null && registroPessoaSimplificada.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastramento = registroPessoaSimplificada.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.usu_atu))
+                msg.usuarioUltimaAtualizacao = registroPessoaSimplificada.usu_atu;
+
+            if (registroPessoaSimplificada.dat_atu != null && registroPessoaSimplificada.dat_atu.Value != DateTime.MinValue)
+                msg.dataAtualizacao = registroPessoaSimplificada.dat_atu;
+
+            if (registroPessoaSimplificada.cod_mun_simp != null && registroPessoaSimplificada.cod_mun_simp.Value > 0)
+                msg.codigoMunicipio = registroPessoaSimplificada.cod_mun_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.des_mun_simp))
+                msg.descricaoMunicipio = registroPessoaSimplificada.des_mun_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.tip_log_simp))
+                msg.tipoLogradouro = registroPessoaSimplificada.tip_log_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.des_log_simp))
+                msg.descricicaoLogradouro = registroPessoaSimplificada.des_log_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.num_simp))
+                msg.numeroEndereco = registroPessoaSimplificada.num_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.cpl_end_simp))
+                msg.complementoLogradouro = registroPessoaSimplificada.cpl_end_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.bai_end_simp))
+                msg.nomeBairro = registroPessoaSimplificada.bai_end_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.tip_end_simp))
+                msg.tipoEndereco = registroPessoaSimplificada.tip_end_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.uf_end_simp))
+                msg.uf = registroPessoaSimplificada.uf_end_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.pais_simp))
+                msg.pais = registroPessoaSimplificada.pais_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.cep_simp))
+                msg.numeroCep = registroPessoaSimplificada.cep_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.est_civ_simp))
+                msg.estadoCivil = registroPessoaSimplificada.est_civ_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.reg_com_simp))
+                msg.regimeComunhao = registroPessoaSimplificada.reg_com_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.nom_conj_simp))
+                msg.nomeConjugue = registroPessoaSimplificada.nom_conj_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.idc_ava_simp))
+                msg.indicadorAvalista = registroPessoaSimplificada.idc_ava_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.cpf_cnpj_simp))
+                msg.CpfCnpjSimplificado = registroPessoaSimplificada.cpf_cnpj_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.tip_pes_simp))
+                msg.tipoPessoa = registroPessoaSimplificada.tip_pes_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.idc_isen_cpf_cnpf_simp))
+                msg.identificadorIsentoCpf = registroPessoaSimplificada.idc_isen_cpf_cnpf_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.pescodsisorigem))
+                msg.codigoSistemaOrigem = registroPessoaSimplificada.pescodsisorigem;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.pescpfconj))
+                msg.CpfConjugue = registroPessoaSimplificada.pescpfconj;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.idc_fatca))
+                msg.indicadorClienteFatca = registroPessoaSimplificada.idc_fatca;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.rg_simp))
+                msg.numeroRg = registroPessoaSimplificada.rg_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.nif_simp))
+                msg.numeroIdentificadorFiscal = registroPessoaSimplificada.nif_simp;
+
+            if (registroPessoaSimplificada.nac1_simp != null && registroPessoaSimplificada.nac1_simp.Value > 0)
+                msg.codigoNacionalidade1 = registroPessoaSimplificada.nac1_simp;
+
+            if (registroPessoaSimplificada.nac2_simp != null && registroPessoaSimplificada.nac2_simp.Value > 0)
+                msg.codigoNacionalidade2 = registroPessoaSimplificada.nac2_simp;
+
+            if (registroPessoaSimplificada.nac3_simp != null && registroPessoaSimplificada.nac3_simp.Value > 0)
+                msg.codigoNacionalidade3 = registroPessoaSimplificada.nac3_simp;
+
+            if (registroPessoaSimplificada.nac4_simp != null && registroPessoaSimplificada.nac4_simp.Value > 0)
+                msg.codigoNacionalidade4 = registroPessoaSimplificada.nac4_simp;
+
+            if (registroPessoaSimplificada.dom_fis1_simp != null && registroPessoaSimplificada.dom_fis1_simp.Value > 0)
+                msg.codigoDomicilioFiscal1 = registroPessoaSimplificada.dom_fis1_simp;
+
+            if (registroPessoaSimplificada.dom_fis2_simp != null && registroPessoaSimplificada.dom_fis2_simp.Value > 0)
+                msg.codigoDomicilioFiscal2 = registroPessoaSimplificada.dom_fis2_simp;
+
+            if (registroPessoaSimplificada.dom_fis3_simp != null && registroPessoaSimplificada.dom_fis3_simp.Value > 0)
+                msg.codigoDomicilioFiscal3 = registroPessoaSimplificada.dom_fis3_simp;
+
+            if (registroPessoaSimplificada.dom_fis4_simp != null && registroPessoaSimplificada.dom_fis4_simp.Value > 0)
+                msg.codigoDomicilioFiscal4 = registroPessoaSimplificada.dom_fis4_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.ddd_cel_simp))
+                msg.codigoDddCelular = registroPessoaSimplificada.ddd_cel_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.fone_cel_simp))
+                msg.numeroCelular = registroPessoaSimplificada.fone_cel_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.email))
+                msg.email = registroPessoaSimplificada.email;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.idc_cli_est))
+                msg.indicadorClienteEstrangeiro = registroPessoaSimplificada.idc_cli_est;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.tip_doc_est))
+                msg.tipoDocumentoEstrangeiro = registroPessoaSimplificada.tip_doc_est;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.num_doc_est))
+                msg.numeroDocumentoEstrangeiro = registroPessoaSimplificada.num_doc_est;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.nom_social_simp))
+                msg.nomeSocial = registroPessoaSimplificada.nom_social_simp;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.pld_pes))
+                msg.nivelRiscoPld = registroPessoaSimplificada.pld_pes;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.obs_pld))
+                msg.observacaoPld = registroPessoaSimplificada.obs_pld;
+
+            //if (!string.IsNullOrWhiteSpace(registroPessoaSimplificada.cod_cbo))
+             //   msg.CodigoAtividadeCbo = registroPessoaSimplificada.cod_cbo;
+
+            //if (registroPessoaSimplificada.COD_ATIVIDADE != null && registroPessoaSimplificada.COD_ATIVIDADE.Value > 0)
+            //    msg.CodigoAtividade = registroPessoaSimplificada.COD_ATIVIDADE;
+
+            return msg;
+        }
     }
 }
