@@ -8,6 +8,8 @@ using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoaSimplificada;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
@@ -47,7 +49,31 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             return retorno;
         }
 
-        public RetornoIntegracaoPessoaSimplificada AtualizarPessoaSimplificada(ParametroIntegracaoPessoaSimplificada param, string xml)
+        public ParametroIntegracaoPessoaSimplificada CarregarParametrosCUCPessoaSimplificada(int empresa, int dependencia, string login, string sigla, string token)
+        {
+            ParametroIntegracaoPessoaSimplificada param = new ParametroIntegracaoPessoaSimplificada();
+            param.empresa = empresa;
+            param.login = login;
+            param.sigla = sigla;
+            param.dependencia = dependencia;
+            param.token = token;
+            return param;
+        }
+        public RetornoIntegracaoPessoaSimplificada AtualizarPessoaSimplificada(ParametroIntegracaoPessoaSimplificada param, DataSetPessoa dataSetPessoa)
+        {
+            string stringXML = string.Empty;
+            XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                x.Serialize(textWriter, dataSetPessoa);
+                stringXML = textWriter.ToString();
+            }
+
+            return AtualizarPessoaSimplificada(param, stringXML);
+        }
+
+        private RetornoIntegracaoPessoaSimplificada AtualizarPessoaSimplificada(ParametroIntegracaoPessoaSimplificada param, string xml)
         {
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 

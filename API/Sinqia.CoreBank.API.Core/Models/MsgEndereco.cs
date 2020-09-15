@@ -314,12 +314,12 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// 
         /// </summary>
-        public string descricaoMunicipioint?ernacional { get; set; }
+        public string descricaoMunicipiointernacional { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public string descricaoEstadoint?ernacional { get; set; }
+        public string descricaoEstadointernacional { get; set; }
         */
 
     }

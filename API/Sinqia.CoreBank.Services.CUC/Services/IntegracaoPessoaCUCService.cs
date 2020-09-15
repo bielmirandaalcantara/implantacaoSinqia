@@ -8,6 +8,8 @@ using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using System.Xml.Serialization;
+using System.IO;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
@@ -57,7 +59,32 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             return retorno;
         }
 
-        public RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, string xml)
+        public ParametroIntegracaoPessoa CarregarParametrosCUCPessoa(int empresa, int dependencia, string login, string sigla, string token)
+        {
+            ParametroIntegracaoPessoa param = new ParametroIntegracaoPessoa();
+            param.empresa = empresa;
+            param.login = login;
+            param.sigla = sigla;
+            param.dependencia = dependencia;
+            param.token = token;
+            return param;
+        }
+
+        public RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, DataSetPessoa dataSetPessoa)
+        {
+            string stringXML = string.Empty;
+            XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+            using (StringWriter textWriter = new StringWriter())
+            {
+                x.Serialize(textWriter, dataSetPessoa);
+                stringXML = textWriter.ToString();
+            }
+
+            return AtualizarPessoa(param, stringXML);
+        }
+
+        private RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, string xml)
         {
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
@@ -82,9 +109,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
         }
 
-        public RetornoIntegracaoPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
+        public DataSetPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
-
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
@@ -93,10 +119,20 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             try
             {
                 var ret = client.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
-
                 RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
 
-                return retorno;
+                if (string.IsNullOrWhiteSpace(ret.Xml))
+                    throw new ApplicationException("Dados não encontrados para a pessoa informada");
+
+                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+
+                XmlSerializer xml = new XmlSerializer(typeof(DataSetPessoa));
+
+                var valor_serealizado = new StringReader(ret.Xml);
+
+                DataSetPessoa dataSetPessoa = (DataSetPessoa)xml.Deserialize(valor_serealizado);
+
+                return dataSetPessoa;
             }
             catch (TimeoutException timeoutEx)
             {

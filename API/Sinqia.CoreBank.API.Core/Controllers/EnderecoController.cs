@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using System.Linq;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -54,6 +55,32 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
+                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, listaErros));
+                dataSetPessoa.RegistroEndereco = registros.ToArray();
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -93,42 +120,29 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
-                parm.empresa = msg.header.empresa.Value;
-                parm.login = msg.header.usuario;
-                parm.sigla = "BR";
-                parm.dependencia = msg.header.dependencia.Value;
-                parm.token = ServiceAutenticacao.GetToken("att", "att");
 
-                var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
+                registros.Add(adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, listaErros));
+                dataSetPessoa.RegistroEndereco = registros.ToArray();
 
-                MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
-
-                pessoaCompleto.body.RegistroPessoa.RegistroEndereco[0] = msg.body.RegistroEndereco;
-
-                string xml = retcabecalho.Xml;
-                var serializer = new XmlSerializer(typeof(DataSetPessoa));
-                DataSetPessoa dataSetPessoa;
-
-                using (TextReader reader = new StringReader(xml))
-                {
-                    dataSetPessoa = (DataSetPessoa)serializer.Deserialize(reader);
-                }
-
-                
-                string stringXML = string.Empty;
-                dataSetPessoa.RegistroEndereco = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(pessoaCompleto.body.RegistroPessoa.RegistroEndereco, listaErros);
-                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
-
-                using (StringWriter textWriter = new StringWriter())
-                {
-                    x.Serialize(textWriter, dataSetPessoa);
-                    stringXML = textWriter.ToString();
-                }
-
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");

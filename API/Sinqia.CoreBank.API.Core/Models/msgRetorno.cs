@@ -47,7 +47,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         public string status { get; set; }
         /// <summary>
-        /// Lista de erros na int?egração (nulo caso a int?egração ocorra com sucesso)
+        /// Lista de erros na integração (nulo caso a integração ocorra com sucesso)
         /// </summary>
         public string[] erros { get; set; }
     }

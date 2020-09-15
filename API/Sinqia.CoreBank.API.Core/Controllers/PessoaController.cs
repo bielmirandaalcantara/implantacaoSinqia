@@ -14,6 +14,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -55,27 +56,24 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                string stringXML = string.Empty;
-                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, listaErros);
-                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
 
-                using (StringWriter textWriter = new StringWriter())
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
                 {
-                    x.Serialize(textWriter, dataSetPessoa);
-                    stringXML = textWriter.ToString();
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, listaErros);
+
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-
-                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
-
-                parm.empresa = msg.header.empresa.Value;
-                parm.login = msg.header.usuario;
-                parm.sigla = "BR";
-                parm.dependencia = msg.header.dependencia.Value;
-                parm.token = ServiceAutenticacao.GetToken("att","att");
-
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
@@ -114,30 +112,29 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
+            DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
             {
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
 
-                parm.empresa = msg.header.empresa.Value;
-                parm.login = msg.header.usuario;
-                parm.sigla = "BR";
-                parm.dependencia = msg.header.dependencia.Value;
-                parm.token = "";
-
-                string stringXML = string.Empty;
-                var dataSetPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, listaErros);
-                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
-
-                using (StringWriter textWriter = new StringWriter())
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
                 {
-                    x.Serialize(textWriter, dataSetPessoa);
-                    stringXML = textWriter.ToString();
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, listaErros);
+                
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");

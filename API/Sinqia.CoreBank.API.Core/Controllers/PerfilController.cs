@@ -5,7 +5,11 @@ using Sinqia.CoreBank.API.Core.Models;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-
+using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Services.CUC.Services;
+using Microsoft.Extensions.Options;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -13,6 +17,22 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PerfilController : ControllerBase
     {
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        public AutenticacaoCUCService ServiceAutenticacao
+        {
+            get
+            {
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
+                return _ServiceAutenticacao;
+            }
+        }
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
+        public PerfilController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        {
+            configuracaoCUC = _configuracaoCUC;
+        }
+
         /// <summary>
         /// Vinculação de perfis para uma pessoa
         /// </summary>
@@ -33,6 +53,28 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    string token = ServiceAutenticacao.GetToken("att", "att");
+                    IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                    ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                    DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                    List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
+                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, listaErros));
+                    dataSetPessoa.RegistroPerfil = registros.ToArray();
+
+                    var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -72,6 +114,28 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    string token = ServiceAutenticacao.GetToken("att", "att");
+                    IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                    ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                    DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                    List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
+                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, listaErros));
+                    dataSetPessoa.RegistroPerfil = registros.ToArray();
+
+                    var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -111,6 +175,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

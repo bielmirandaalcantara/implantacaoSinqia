@@ -1898,7 +1898,7 @@
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.erros">
             <summary>
-            Lista de erros na int?egração (nulo caso a int?egração ocorra com sucesso)
+            Lista de erros na integração (nulo caso a integração ocorra com sucesso)
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgVinculo.header">

@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.Services.CUC.Models;
+using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Microsoft.Extensions.Options;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -14,6 +18,23 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaSimplificadaController : ControllerBase
     {
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        public AutenticacaoCUCService ServiceAutenticacao
+        {
+            get
+            {
+                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
+                return _ServiceAutenticacao;
+            }
+        }
+
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
+        public PessoaSimplificadaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        {
+            configuracaoCUC = _configuracaoCUC;
+        }
+
         /// <summary>
         /// Armazena os dados de pessoa simplificada
         /// </summary>
@@ -29,11 +50,32 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
+            DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
             {
-                DataSetPessoa dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, listaErros);
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, listaErros);
+
+                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+
+                var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
+
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -70,10 +112,27 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
+            DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -113,6 +172,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                //ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -153,9 +217,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                //ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+
                 msgRegistropessoaCompleto = new MsgRegistroPessoaSimplificada();
-                //msgRegistropessoaCompleto = adaptador.AdaptarMensagem();
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
+
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)

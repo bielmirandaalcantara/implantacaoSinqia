@@ -17,7 +17,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             DateTime dataEnvio = DateTime.MinValue;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
-            if (msgVinculo.header != null)
+            if (msgVinculo != null && msgVinculo.header != null)
             {
                 identificador = msgVinculo.header.identificadorEnvio;
                 dataEnvio = msgVinculo.header.dataHoraEnvio.HasValue ? msgVinculo.header.dataHoraEnvio.Value : DateTime.Now;

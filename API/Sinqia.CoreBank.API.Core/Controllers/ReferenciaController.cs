@@ -11,6 +11,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
+using System.Linq;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -29,6 +30,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+
+        public ReferenciaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        {
+            configuracaoCUC = _configuracaoCUC;
+        }
 
         /// <summary>
         /// Cadastro de dados de referência de pessoas físicas e jurídicas
@@ -50,6 +56,28 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                List<DataSetPessoaRegistroReferencia> registros = new List<DataSetPessoaRegistroReferencia>();
+                registros.Add(adaptador.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(msg.body.RegistroReferencia, listaErros));
+                dataSetPessoa.RegistroReferencia = registros.ToArray();
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -89,43 +117,28 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = new ParametroIntegracaoPessoa();
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
-                parm.empresa = msg.header.empresa;
-                parm.login = msg.header.usuario;
-                parm.sigla = "BR";
-                parm.dependencia = msg.header.dependencia;
-                parm.token = ServiceAutenticacao.GetToken("att", "att");
+                List<DataSetPessoaRegistroReferencia> registros = new List<DataSetPessoaRegistroReferencia>();
+                registros.Add(adaptador.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(msg.body.RegistroReferencia, listaErros));
+                dataSetPessoa.RegistroReferencia = registros.ToArray();
 
-                var retcabecalho = clientPessoa.SelecionarCabecalho(parm, codPessoa);
-
-                MsgPessoaCompleto pessoaCompleto = new MsgPessoaCompleto();
-
-                pessoaCompleto.body.RegistroPessoa.RegistroReferencia[0] = msg.body.RegistroReferencia;
-
-                string xml = retcabecalho.Xml;
-                var serializer = new XmlSerializer(typeof(DataSetPessoa));
-                DataSetPessoa dataSetPessoa;
-
-                using (TextReader reader = new StringReader(xml))
-                {
-                    dataSetPessoa = (DataSetPessoa)serializer.Deserialize(reader);
-                }
-
-
-                string stringXML = string.Empty;
-                dataSetPessoa.RegistroReferencia = adaptador.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(pessoaCompleto.body.RegistroPessoa.RegistroReferencia, listaErros);
-                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
-
-                using (StringWriter textWriter = new StringWriter())
-                {
-                    x.Serialize(textWriter, dataSetPessoa);
-                    stringXML = textWriter.ToString();
-                }
-
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, stringXML);
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
@@ -169,6 +182,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

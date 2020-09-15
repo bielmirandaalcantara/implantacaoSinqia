@@ -12,5 +12,12 @@ namespace Sinqia.CoreBank.Services.CUC.Constantes
             public const string CadastroPessoa = "CADASTROPESSOA";
             public const string CadastroPessoaSimplificada = "CADASTROPESSOASIMPLIFICADA";
         }
+
+        public static class StatusLinha
+        {
+            public const string Insercao = "I";
+            public const string Atualizacao = "A";
+            public const string Exclusao = "E";
+        }
     }
 }

@@ -16,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
+using Sinqia.CoreBank.API.Core.Configuration;
 
 namespace Sinqia.CoreBank.API.Core
 {
@@ -52,9 +53,12 @@ namespace Sinqia.CoreBank.API.Core
             {
                 options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
             });
-            //Service Settings 
             services.Configure<ConfiguracaoBaseCUC>(Configuration.GetSection("ConfiguracaoBaseCUC"));
-
+            services.Configure<ConfiguracaoBaseAPI>(Configuration.GetSection("ConfiguracaoBaseAPI"));
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true; // This is the setting
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
