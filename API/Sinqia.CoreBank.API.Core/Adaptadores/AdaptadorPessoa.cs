@@ -125,6 +125,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 status = status
             };
 
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
             retorno.header = header;
             return retorno;
         }
@@ -150,57 +155,26 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             };
             retorno.header = header;
 
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
             if (!erros.Any() && msg != null)
                 retorno.body = msg;
 
             return retorno;
         }
 
-        public MsgRegistropessoaCompleto AdaptarMsgRegistropessoaCompleto()
-        {
-            return new MsgRegistropessoaCompleto()
-            {
-                nomePessoa = "Teste"
-                ,dataAtualizacao = DateTime.Now
-                ,dataInicio = DateTime.Now
-                ,nomeMae = "Mãe do Teste"                
-            };
-        }
-
-        public IList<MsgRegistropessoaCompleto> AdaptarMsgRegistropessoaCompletoLista()
-        {
-            List<MsgRegistropessoaCompleto> listaRegristros = new List<MsgRegistropessoaCompleto>();
-            listaRegristros.Add(new MsgRegistropessoaCompleto()
-            {
-                nomePessoa = "Teste"
-                ,dataAtualizacao = DateTime.Now
-                ,dataInicio = DateTime.Now
-                ,nomeMae = "Mãe do Teste"
-            });
-
-            listaRegristros.Add(new MsgRegistropessoaCompleto()
-            {
-                nomePessoa = "Teste 1"
-                ,dataAtualizacao = DateTime.Now
-                ,dataInicio = DateTime.Now
-                ,nomeMae = "Mãe do Teste 1"
-            });
-
-            return listaRegristros;
-        }
-
         public DataSetPessoa AdaptarMsgPessoaCompletoToDataSetPessoa(MsgPessoaCompleto msg, string statusLinha, IList<string> erros)
         {
-            if(msg.body == null)
-                throw new ApplicationException("Campo body obrigatório");
-
-            if(msg.body.RegistroPessoa == null)
-                throw new ApplicationException("Campo Registro pessoa obrigatório");
-
             MsgRegistropessoaCompleto registroPessoa = msg.body.RegistroPessoa;
 
             DataSetPessoa xml = new DataSetPessoa();
-            xml.RegistroPessoa = AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa, statusLinha, erros);
+
+            xml.RegistroPessoa = new DataSetPessoaRegistroPessoa[] {
+                AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa, statusLinha, erros)
+            };
 
             if(registroPessoa.RegistroEndereco != null && registroPessoa.RegistroEndereco.Any())
                 xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa.RegistroEndereco, statusLinha, erros);
@@ -215,6 +189,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 xml.RegistroReferencia = AdaptadorReferencia.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(registroPessoa.RegistroReferencia, statusLinha, erros);
 
             return xml;
+        }
+
+        public DataSetPessoaRegistroPessoa[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistropessoa[] msg, string statusLinha, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroPessoa> registroPessoas = new List<DataSetPessoaRegistroPessoa>();
+            foreach (var pessoa in msg)
+            {
+                registroPessoas.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(pessoa, statusLinha, erros));
+            }
+
+            return registroPessoas.ToArray();
         }
 
         public DataSetPessoaRegistroPessoa AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistropessoa msg, string statusLinha, IList<string> erros)
@@ -709,9 +694,56 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroPessoa;
         }
 
-        public MsgRegistropessoa AdaptarDataSetPessoaToMsgRegistropessoaRegistroPessoa(DataSetPessoaRegistroPessoa registroPessoa, IList<string> erros)
+
+        public MsgRegistropessoaCompleto AdaptaDataSetPessoaToMsgPessoaCompleto(DataSetPessoa dataset, IList<string> erros)
         {
-            MsgRegistropessoa msg = new MsgRegistropessoa();
+            MsgRegistropessoaCompleto msg = new MsgRegistropessoaCompleto();
+
+            if(dataset.RegistroPessoa != null)
+                msg = AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(dataset.RegistroPessoa.First(), erros);
+
+            if (dataset.RegistroDocumento != null)
+                msg.RegistroDocumento = AdaptadorDocumento.AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(dataset.RegistroDocumento, erros);
+
+            if(dataset.RegistroEndereco != null)
+                msg.RegistroEndereco = AdaptadorEndereco.AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(dataset.RegistroEndereco, erros);
+
+            if(dataset.RegistroPerfil != null)
+                msg.RegistroPerfil = AdaptadorPerfil.AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(dataset.RegistroPerfil, erros);
+
+            if(dataset.RegistroReferencia != null)
+                msg.RegistroReferencia = AdaptadorReferencia.AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(dataset.RegistroReferencia, erros);
+
+            return msg;
+        }
+
+        public MsgRegistropessoa[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(DataSetPessoaRegistroPessoa[] dataset, IList<string> erros)
+        {
+            List<MsgRegistropessoa> registros = new List<MsgRegistropessoa>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
+        public MsgRegistropessoaCompleto[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(DataSetPessoaRegistroPessoa[] dataset, IList<string> erros)
+        {
+            List<MsgRegistropessoaCompleto> registros = new List<MsgRegistropessoaCompleto>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
+        public MsgRegistropessoaCompleto AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(DataSetPessoaRegistroPessoa registroPessoa, IList<string> erros)
+        {
+            MsgRegistropessoaCompleto msg = new MsgRegistropessoaCompleto();
 
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.cod_pessoa))
@@ -1196,6 +1228,48 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.cgccpf_formatado))
                 msg.cpfCnpjFormatado = registroPessoa.cgccpf_formatado;
+
+            return msg;
+        }
+        public MsgRegistropessoa[] AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(DataSetPessoaRegistroPessoaConsulta[] dataset, IList<string> erros)
+        {
+            List<MsgRegistropessoa> registros = new List<MsgRegistropessoa>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
+        public MsgRegistropessoa AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(DataSetPessoaRegistroPessoaConsulta registroPessoa, IList<string> erros)
+        {
+            MsgRegistropessoa msg = new MsgRegistropessoa();
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.CODIGO))
+                msg.codigoPessoa = registroPessoa.CODIGO;
+
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.NOME))
+                msg.nomePessoa = registroPessoa.NOME;
+
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.NOME_ABV))
+                msg.nomeAbvPessoa = registroPessoa.NOME_ABV;
+
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.SEXO))
+                msg.sexoPessoa = registroPessoa.SEXO;
+
+            if (registroPessoa.DATAFUNDACAO != null && registroPessoa.DATAFUNDACAO.Value != DateTime.MinValue)
+                msg.dataFundacao = registroPessoa.DATAFUNDACAO;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.TIPOPESSOA))
+                msg.tipoPessoa = registroPessoa.TIPOPESSOA;
+
+            if (!string.IsNullOrWhiteSpace(registroPessoa.ATIVIDADE))
+                msg.descricaoProfissao = registroPessoa.ATIVIDADE;
 
             return msg;
         }

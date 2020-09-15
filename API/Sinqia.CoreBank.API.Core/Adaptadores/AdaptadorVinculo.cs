@@ -184,6 +184,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroVinculo;
         }
 
+        public MsgRegistroVinculo[] AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(DataSetPessoaRegistroVinculo[] dataset, IList<string> erros)
+        {
+            List<MsgRegistroVinculo> registros = new List<MsgRegistroVinculo>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroVinculoToMsgRegistroVinculo(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
         public MsgRegistroVinculo AdaptarDataSetPessoaRegistroVinculoToMsgRegistroVinculo(DataSetPessoaRegistroVinculo registroVinculo, IList<string> erros)
         {
             MsgRegistroVinculo msg = new MsgRegistroVinculo();

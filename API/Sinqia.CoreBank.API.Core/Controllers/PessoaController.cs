@@ -77,7 +77,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
-                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -121,6 +121,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+                if (msg.body.RegistroPessoa == null) throw new ApplicationException("Mensagem inválida - chave RegistroPessoa não informada");
 
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
@@ -133,12 +134,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
                 ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
-                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroPessoa, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
+                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(new MsgRegistropessoa[] { msg.body.RegistroPessoa }, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
                 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
-                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -193,13 +194,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoaSimplificada = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoaSimplificada.CarregarParametrosCUCPessoa(empresa, dependencia, usuario, "BR", token);
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario, "BR", token);
 
-                RetornoIntegracaoPessoa retClient = clientPessoaSimplificada.ExcluirPessoa(parm, codPessoa);
+                RetornoIntegracaoPessoa retClient = clientPessoa.ExcluirPessoa(parm, codPessoa);
 
                 if (retClient.Excecao != null)
-                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retClient.Excecao.Mensagem}");
+                    throw new ApplicationException($"Retorno serviço CUC - {retClient.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -232,7 +233,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoa([FromRoute] string codPessoa)
+        public ActionResult getPessoa([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
@@ -241,7 +242,26 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                msgRegistropessoaCompleto = adaptador.AdaptarMsgRegistropessoaCompleto();
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if (empresa.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (dependencia.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if (string.IsNullOrWhiteSpace(usuario))
+                    throw new ApplicationException("Parâmetro usuario obrigatório");
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario, "BR", token);
+
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarPessoa(parm, codPessoa);
+
+                msgRegistropessoaCompleto = adaptador.AdaptaDataSetPessoaToMsgPessoaCompleto(dataSetPessoa, listaErros);
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -276,22 +296,32 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoaLista([FromQuery] string nome, [FromQuery] string cpf, [FromQuery] int pageSkip, [FromQuery] int pageTake)
+        public ActionResult getPessoaLista([FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario,[FromQuery] string nome, [FromQuery] string documento, [FromQuery] string pageSkip, [FromQuery] string pageTake)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
-            IList<MsgRegistropessoaCompleto> msgRegistropessoaConsulta;
+            IList<MsgRegistropessoa> msgRegistropessoaConsulta;
 
             try
             {
-                msgRegistropessoaConsulta = adaptador.AdaptarMsgRegistropessoaCompletoLista();
+                if (string.IsNullOrWhiteSpace(nome) && string.IsNullOrWhiteSpace(documento))
+                    throw new ApplicationException("Necessário nome ou documento para a busca");
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario, "BR", token);
+
+                DataSetPessoaConsulta dataSetPessoaConsulta = clientPessoa.RecuperarPessoas(parm, nome, documento, pageSkip, pageTake);
+
+                msgRegistropessoaConsulta = adaptador.AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(dataSetPessoaConsulta.RegistroPessoa, listaErros);
+
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaConsulta, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);

@@ -10,7 +10,8 @@ namespace Sinqia.CoreBank.Services.CUC.Models
     [System.Xml.Serialization.XmlRootAttribute(Namespace = "http://tempuri.org/DataSetPessoa.xsd", IsNullable = false)]
     public class DataSetPessoa
     {
-        public DataSetPessoaRegistroPessoa RegistroPessoa { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("RegistroPessoa")]
+        public DataSetPessoaRegistroPessoa[] RegistroPessoa { get; set; }
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroEndereco")]
         public DataSetPessoaRegistroEndereco[] RegistroEndereco { get; set; }
@@ -24,7 +25,8 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         [System.Xml.Serialization.XmlElementAttribute("RegistroReferencia")]
         public DataSetPessoaRegistroReferencia[] RegistroReferencia { get; set; }
 
-        public DataSetPessoaRegistroPessoaSimplificada RegistroPessoaSimplificada { get; set; }
+        [System.Xml.Serialization.XmlElementAttribute("RegistroPessoaSimplificada")]
+        public DataSetPessoaRegistroPessoaSimplificada[] RegistroPessoaSimplificada { get; set; }
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroVinculo")]
         public DataSetPessoaRegistroVinculo[] RegistroVinculo { get; set; }

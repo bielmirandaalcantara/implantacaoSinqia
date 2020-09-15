@@ -112,7 +112,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             MsgRegistroPessoaSimplificada registroPessoaSimplificada = msg.body.RegistroPessoaSimplificada;
 
             DataSetPessoa xml = new DataSetPessoa();
-            xml.RegistroPessoaSimplificada = AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(registroPessoaSimplificada, statusLinha, erros);
+            xml.RegistroPessoaSimplificada = new DataSetPessoaRegistroPessoaSimplificada[] {
+                AdaptarMsgRegistroPessoaSimplificadaToDataSetPessoaRegistroPessoaSimplificada(registroPessoaSimplificada, statusLinha, erros)
+            };
 
             if (registroPessoaSimplificada.RegistroVinculo != null && registroPessoaSimplificada.RegistroVinculo.Any())
                 xml.RegistroVinculo = AdaptadorVinculo.AdaptarMsgRegistroVinculoToDataSetPessoaRegistroVinculo(registroPessoaSimplificada.RegistroVinculo, erros);
@@ -301,6 +303,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             //    registroPessoaSimplificada.COD_ATIVIDADE = msg.CodigoAtividade;
 
             return registroPessoaSimplificada;
+        }
+
+        public MsgRegistroPessoaSimplificada[] AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaRegistroPessoaSimplificada[] dataset, IList<string> erros)
+        {
+            List<MsgRegistroPessoaSimplificada> registros = new List<MsgRegistroPessoaSimplificada>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(item, erros));
+            }
+
+            return registros.ToArray();
         }
 
         public MsgRegistroPessoaSimplificada AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaRegistroPessoaSimplificada registroPessoaSimplificada, IList<string> erros)

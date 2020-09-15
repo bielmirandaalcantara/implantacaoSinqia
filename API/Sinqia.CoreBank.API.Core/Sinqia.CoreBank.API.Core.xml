@@ -93,14 +93,14 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoa(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoa(System.String,System.Int32,System.Int32,System.String)">
             <summary>
             Consulta os dados de pessoa simplificada
             </summary>
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoaLista(System.String,System.String,System.Int32,System.Int32)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoaLista(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Consulta os dados de pessoa simplificada por nome e CPF
             </summary>

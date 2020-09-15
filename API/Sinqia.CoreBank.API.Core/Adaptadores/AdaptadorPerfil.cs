@@ -90,6 +90,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroPerfil;
         }
 
+        public MsgRegistroperfil[] AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(DataSetPessoaRegistroPerfil[] dataset, IList<string> erros)
+        {
+            List<MsgRegistroperfil> registros = new List<MsgRegistroperfil>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
         public MsgRegistroperfil AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(DataSetPessoaRegistroPerfil registroPerfil, IList<string> erros)
         {
             MsgRegistroperfil msg = new MsgRegistroperfil();

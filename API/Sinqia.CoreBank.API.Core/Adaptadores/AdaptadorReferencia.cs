@@ -144,7 +144,19 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroReferencia;
         }
 
-        public MsgRegistroreferencia AdaptarDataSetPessoaRegistroReferencia(DataSetPessoaRegistroReferencia registroReferencia, IList<string> erros)
+        public MsgRegistroreferencia[] AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(DataSetPessoaRegistroReferencia[] dataset, IList<string> erros)
+        {
+            List<MsgRegistroreferencia> registros = new List<MsgRegistroreferencia>();
+
+            foreach (var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
+        public MsgRegistroreferencia AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(DataSetPessoaRegistroReferencia registroReferencia, IList<string> erros)
         {
             MsgRegistroreferencia msg = new MsgRegistroreferencia();
 

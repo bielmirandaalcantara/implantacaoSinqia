@@ -141,6 +141,18 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroDocumento;
         }
 
+        public MsgRegistrodocumento[] AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(DataSetPessoaRegistroDocumento[] dataset, IList<string> erros)
+        {
+            List<MsgRegistrodocumento> registros = new List<MsgRegistrodocumento>();
+
+            foreach(var item in dataset)
+            {
+                registros.Add(AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(item, erros));
+            }
+
+            return registros.ToArray();
+        }
+
         public MsgRegistrodocumento AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(DataSetPessoaRegistroDocumento registroDocumento, IList<string> erros)
         {
             MsgRegistrodocumento msg = new MsgRegistrodocumento();
