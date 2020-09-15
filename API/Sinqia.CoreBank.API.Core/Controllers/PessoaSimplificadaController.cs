@@ -75,7 +75,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -130,8 +131,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+
+                var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
+
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retPessoa.Excecao.Mensagem}");
+
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -164,18 +171,35 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa)
+        public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
             try
-            {
+            {                
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if (empresa.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (dependencia.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if (string.IsNullOrWhiteSpace(usuario))
+                    throw new ApplicationException("Parâmetro usuario obrigatório");
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                //ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa, dependencia, usuario, "BR", token);
+
+                RetornoIntegracaoPessoaSimplificada retClient = clientPessoaSimplificada.ExcluirPessoaSimplificada(parm, codPessoa);
+
+                if (retClient.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retClient.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -208,7 +232,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoaSimplificada([FromRoute] string codPessoa)
+        public ActionResult getPessoaSimplificada([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
@@ -217,10 +241,22 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if(empresa.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if(dependencia.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if(string.IsNullOrWhiteSpace(usuario))
+                    throw new ApplicationException("Parâmetro usuario obrigatório");
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                //ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa,dependencia, usuario, "BR", token);
 
                 msgRegistropessoaCompleto = new MsgRegistroPessoaSimplificada();
                 retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
@@ -229,7 +265,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);

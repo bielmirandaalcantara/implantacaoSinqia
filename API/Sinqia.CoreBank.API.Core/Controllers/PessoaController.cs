@@ -170,7 +170,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deletePessoa([FromRoute] string codPessoa)
+        public ActionResult deletePessoa([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
@@ -178,6 +178,28 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if (empresa.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (dependencia.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if (string.IsNullOrWhiteSpace(usuario))
+                    throw new ApplicationException("Parâmetro usuario obrigatório");
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoaSimplificada = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoaSimplificada.CarregarParametrosCUCPessoa(empresa, dependencia, usuario, "BR", token);
+
+                RetornoIntegracaoPessoa retClient = clientPessoaSimplificada.ExcluirPessoa(parm, codPessoa);
+
+                if (retClient.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {retClient.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

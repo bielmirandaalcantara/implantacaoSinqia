@@ -121,18 +121,44 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 var ret = client.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
                 RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
 
-                if (string.IsNullOrWhiteSpace(ret.Xml))
+                if (retorno.Excecao != null)
+                    throw new ApplicationException($"Ocorreu erro no serviço CUC - {ret.Excecao.Mensagem}");
+
+                if (string.IsNullOrWhiteSpace(retorno.Xml))
                     throw new ApplicationException("Dados não encontrados para a pessoa informada");
+                
+                XmlSerializer xmlSerialize = new XmlSerializer(typeof(DataSetPessoa));
 
-                XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
+                var valor_serealizado = new StringReader(retorno.Xml);
 
-                XmlSerializer xml = new XmlSerializer(typeof(DataSetPessoa));
-
-                var valor_serealizado = new StringReader(ret.Xml);
-
-                DataSetPessoa dataSetPessoa = (DataSetPessoa)xml.Deserialize(valor_serealizado);
+                DataSetPessoa dataSetPessoa = (DataSetPessoa)xmlSerialize.Deserialize(valor_serealizado);
 
                 return dataSetPessoa;
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
+        }
+
+        public RetornoIntegracaoPessoa ExcluirPessoa(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
+        {
+            CucCluParametro parametrosLogin = GerarParametroCUC(param);
+
+            EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
+            CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
+
+            try
+            {
+                var ret = client.Excluir(parametrosLogin, cod_pessoa, cod_filial);
+                RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
+
+                return retorno;
             }
             catch (TimeoutException timeoutEx)
             {

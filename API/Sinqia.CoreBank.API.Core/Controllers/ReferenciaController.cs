@@ -148,7 +148,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);

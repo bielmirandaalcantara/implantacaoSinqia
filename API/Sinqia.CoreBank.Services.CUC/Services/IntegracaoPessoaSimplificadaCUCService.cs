@@ -37,7 +37,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             return parametrosLogin;
         }
 
-        private RetornoIntegracaoPessoaSimplificada GerarRetornoIntegracaoPessoa(CucCluRetorno paramRetorno)
+        private RetornoIntegracaoPessoaSimplificada GerarRetornoIntegracaoPessoaSimplificada(CucCluRetorno paramRetorno)
         {
             RetornoIntegracaoPessoaSimplificada retorno = new RetornoIntegracaoPessoaSimplificada();
             retorno.CodigoFilial = paramRetorno.CodigoFilial;
@@ -83,10 +83,35 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             {
                 var ret = client.Atualizar(parametrosLogin, xml);
 
-                RetornoIntegracaoPessoaSimplificada retorno = GerarRetornoIntegracaoPessoa(ret);
+                RetornoIntegracaoPessoaSimplificada retorno = GerarRetornoIntegracaoPessoaSimplificada(ret);
 
                 return retorno;
 
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
+        }
+
+        public RetornoIntegracaoPessoaSimplificada ExcluirPessoaSimplificada(ParametroIntegracaoPessoaSimplificada param, string cod_pessoa)
+        {
+            CucCluParametro parametrosLogin = GerarParametroCUC(param);
+
+            EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
+            CucCliCadastroPessoaSimplificadaClient client = new CucCliCadastroPessoaSimplificadaClient(CucCliCadastroPessoaSimplificadaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoaSimplificada, address);
+
+            try
+            {
+                var ret = client.Excluir(parametrosLogin, cod_pessoa);
+                RetornoIntegracaoPessoaSimplificada retorno = GerarRetornoIntegracaoPessoaSimplificada(ret);
+
+                return retorno;
             }
             catch (TimeoutException timeoutEx)
             {
