@@ -207,41 +207,5 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
             }
         }
-
-        public DataSetPessoaConsulta RecuperarPessoas(ParametroIntegracaoPessoa param, string nome, string documento, string pageSkip, string pageTake)
-        {
-            CucCluParametro parametrosLogin = GerarParametroCUC(param);
-
-            EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
-            CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
-
-            try
-            {
-                var ret = client.RecuperarPessoas(parametrosLogin, documento, nome, pageSkip, pageTake);
-                RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
-
-                if (retorno.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {ret.Excecao.Mensagem}");
-
-                if (string.IsNullOrWhiteSpace(retorno.Xml))
-                    throw new ApplicationException("Dados não encontrados para os parâmetros informados");
-
-                XmlSerializer xmlSerialize = new XmlSerializer(typeof(DataSetPessoaConsulta));
-
-                var valor_serealizado = new StringReader(retorno.Xml);
-                DataSetPessoaConsulta dataSetPessoa = (DataSetPessoaConsulta)xmlSerialize.Deserialize(valor_serealizado);
-
-                return dataSetPessoa;
-            }
-            catch (TimeoutException timeoutEx)
-            {
-                client.Abort();
-                throw new Exception("Tempo de conexão expirado", timeoutEx);
-            }
-            catch (EndpointNotFoundException endPointEx)
-            {
-                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
-            }
-        }
     }
 }

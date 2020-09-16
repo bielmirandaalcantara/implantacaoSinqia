@@ -1236,47 +1236,5 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             return msg;
         }
-        public MsgRegistropessoa[] AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(DataSetPessoaRegistroPessoaConsulta[] dataset, IList<string> erros)
-        {
-            List<MsgRegistropessoa> registros = new List<MsgRegistropessoa>();
-
-            foreach (var item in dataset)
-            {
-                registros.Add(AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(item, erros));
-            }
-
-            return registros.ToArray();
-        }
-
-        public MsgRegistropessoa AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(DataSetPessoaRegistroPessoaConsulta registroPessoa, IList<string> erros)
-        {
-            MsgRegistropessoa msg = new MsgRegistropessoa();
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.CODIGO))
-                msg.codigoPessoa = registroPessoa.CODIGO;
-
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.NOME))
-                msg.nomePessoa = registroPessoa.NOME;
-
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.NOME_ABV))
-                msg.nomeAbvPessoa = registroPessoa.NOME_ABV;
-
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.SEXO))
-                msg.sexoPessoa = registroPessoa.SEXO;
-
-            if (registroPessoa.DATAFUNDACAO != null && registroPessoa.DATAFUNDACAO.Value != DateTime.MinValue)
-                msg.dataFundacao = registroPessoa.DATAFUNDACAO;
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.TIPOPESSOA))
-                msg.tipoPessoa = registroPessoa.TIPOPESSOA;
-
-            if (!string.IsNullOrWhiteSpace(registroPessoa.ATIVIDADE))
-                msg.descricaoProfissao = registroPessoa.ATIVIDADE;
-
-            return msg;
-        }
     }
 }

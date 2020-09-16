@@ -86,14 +86,14 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.deletePessoa(System.String,System.Int32,System.Int32,System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.deletePessoa(System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão de pessoa - Possibilita a exclusão de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
             </summary>
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoa(System.String,System.Int32,System.Int32,System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoa(System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Consulta os dados de pessoa simplificada
             </summary>
@@ -101,19 +101,6 @@
             <param name="empresa">Empresa referente a consulta</param>
             <param name="dependencia">Dependência referente a consulta</param>
             <param name="usuario">usuário responsável pela consulta</param>
-            <returns>MsgRetorno</returns>
-        </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoaLista(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Consulta os dados de pessoa simplificada por nome e CPF
-            </summary>
-            <param name="empresa">Empresa referente a consulta</param>
-            <param name="dependencia">Dependência referente a consulta</param>
-            <param name="usuario">usuário responsável pela consulta</param>
-            <param name="nome">Nome da pessa ou pessoas a serem consultadas</param>
-            <param name="cpf">Documento da pessoa a ser consultada</param>
-            <param name="pageSkip">Retornar consulta após x registros</param>
-            <param name="pageTake">Quantidade de registros a ser retornado nessa consulta</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.postPessoaSimplificada(Sinqia.CoreBank.API.Core.Models.MsgPessoaSimplificada)">
@@ -129,14 +116,14 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.deletePessoaSimplificada(System.String,System.Int32,System.Int32,System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.deletePessoaSimplificada(System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Excluir os dados de pessoa simplificada
             </summary>
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.getPessoaSimplificada(System.String,System.Int32,System.Int32,System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaSimplificadaController.getPessoaSimplificada(System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
             </summary>

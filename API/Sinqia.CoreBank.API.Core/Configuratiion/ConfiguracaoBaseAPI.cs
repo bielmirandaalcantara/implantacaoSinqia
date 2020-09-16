@@ -7,6 +7,6 @@ namespace Sinqia.CoreBank.API.Core.Configuration
 {
     public class ConfiguracaoBaseAPI
     {
-        
+        public string ApiKeyBase { get; set; }
     }
 }

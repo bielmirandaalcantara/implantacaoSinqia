@@ -13,6 +13,7 @@ using Sinqia.CoreBank.Services.CUC.Models;
 using System.Xml.Serialization;
 using System.IO;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.API.Core.Configuration;
 using Microsoft.Extensions.Options;
 using System.Linq;
 using Sinqia.CoreBank.Services.CUC.Constantes;
@@ -32,9 +33,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
 
-        public PessoaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public PessoaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
+            configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
         }
 
@@ -172,7 +175,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deletePessoa([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
+        public ActionResult deletePessoa([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
@@ -183,19 +186,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
 
-                if (empresa.Equals(0))
+                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
                     throw new ApplicationException("Parâmetro empresa obrigatório");
 
-                if (dependencia.Equals(0))
+                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
                     throw new ApplicationException("Parâmetro dependencia obrigatório");
 
-                if (string.IsNullOrWhiteSpace(usuario))
+                if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario,  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, parametrosBase.usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
                 RetornoIntegracaoPessoa retClient = clientPessoa.ExcluirPessoa(parm, codPessoa);
 
@@ -236,7 +239,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaCompletoTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoa([FromRoute] string codPessoa, [FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario)
+        public ActionResult getPessoa([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
@@ -248,19 +251,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
 
-                if (empresa.Equals(0))
+                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
                     throw new ApplicationException("Parâmetro empresa obrigatório");
 
-                if (dependencia.Equals(0))
+                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
                     throw new ApplicationException("Parâmetro dependencia obrigatório");
 
-                if (string.IsNullOrWhiteSpace(usuario))
+                if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario,  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, parametrosBase.usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarPessoa(parm, codPessoa);
 
@@ -272,63 +275,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (ApplicationException appEx)
             {
 
-                listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
-                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
-            }
-            catch (Exception ex)
-            {
-                listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
-                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
-            }
-
-        }
-
-        /// <summary>
-        /// Consulta os dados de pessoa simplificada por nome e CPF
-        /// </summary>
-        /// <param name="empresa">Empresa referente a consulta</param>
-        /// <param name="dependencia">Dependência referente a consulta</param>
-        /// <param name="usuario">usuário responsável pela consulta</param>
-        /// <param name="nome">Nome da pessa ou pessoas a serem consultadas</param>
-        /// <param name="cpf">Documento da pessoa a ser consultada</param>
-        /// <param name="pageSkip">Retornar consulta após x registros</param>
-        /// <param name="pageTake">Quantidade de registros a ser retornado nessa consulta</param>
-        /// <returns>MsgRetorno</returns>
-        [HttpGet]
-        [Route("api/core/cadastros/pessoa/")]
-        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgPessoaCompletoListaTemplate), StatusCodes.Status500InternalServerError)]
-        public ActionResult getPessoaLista([FromQuery] int empresa, [FromQuery] int dependencia, [FromQuery] string usuario,[FromQuery] string nome, [FromQuery] string documento, [FromQuery] string pageSkip, [FromQuery] string pageTake)
-        {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
-            List<string> listaErros = new List<string>();
-            MsgRetornoGet retorno;
-            IList<MsgRegistropessoa> msgRegistropessoaConsulta;
-
-            try
-            {
-                if (string.IsNullOrWhiteSpace(nome) && string.IsNullOrWhiteSpace(documento))
-                    throw new ApplicationException("Necessário nome ou documento para a busca");
-
-                string token = ServiceAutenticacao.GetToken("att", "att");
-
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(empresa, dependencia, usuario,  configuracaoCUC.Value.SiglaSistema, token);
-
-                DataSetPessoaConsulta dataSetPessoaConsulta = clientPessoa.RecuperarPessoas(parm, nome, documento, pageSkip, pageTake);
-
-                msgRegistropessoaConsulta = adaptador.AdaptarDataSetPessoaRegistroPessoaConsultaToMsgRegistropessoa(dataSetPessoaConsulta.RegistroPessoa, listaErros);
-
-                retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaConsulta, listaErros);
-                return StatusCode((int)HttpStatusCode.OK, retorno);
-            }
-            catch (ApplicationException appEx)
-            {
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
