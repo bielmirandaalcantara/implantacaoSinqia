@@ -11,6 +11,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
     {
         public static ConfiguracaoURICUC BuscarURI(string nomeURI, IOptions<ConfiguracaoBaseCUC> configuracaoCUC)
         {
+            if(configuracaoCUC == null) throw new Exception("Configuração não aplicada para o serviço de integração - favor verificar o arquivo appSettings - ConfiguracaoBaseCUC");
+
             if (configuracaoCUC.Value == null) throw new Exception("Configuração não aplicada para o serviço de integração - favor verificar o arquivo appSettings - ConfiguracaoBaseCUC");
 
             var configURICUCs = configuracaoCUC.Value.ConfiguracaoURICUC;

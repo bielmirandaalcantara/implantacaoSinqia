@@ -38,14 +38,14 @@ namespace Sinqia.CoreBank.API.Core
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
                 c.AddSecurityDefinition(
-                    "bearer",
+                    "APIKey",
                     new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
                     {
-                        Description ="JWT Authorization header utilizando Bearer schema",
+                        Description ="Authorization header utilizando APIkey schema",
                         Name = "Authorization",
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
-                        Scheme = "Bearer"
+                        Scheme = "APIKey"
                     });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -78,7 +78,7 @@ namespace Sinqia.CoreBank.API.Core
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração cadastro de pessoa");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração - Pessoa");
             });
 
         }
