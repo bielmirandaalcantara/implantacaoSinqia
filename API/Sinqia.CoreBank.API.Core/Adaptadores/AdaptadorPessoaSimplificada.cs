@@ -78,7 +78,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return AdaptarMsgRetornoGet(null, erros);
         }
 
-        public MsgRetornoGet AdaptarMsgRetornoGet(MsgRegistroPessoaSimplificada msgPessoaSimp, IList<string> erros)
+        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros)
         {
             MsgRetornoGet retorno = new MsgRetornoGet();
             string identificador = string.Empty;
@@ -94,10 +94,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             };
             retorno.header = header;
 
-            if (!erros.Any() && msgPessoaSimp != null)
+            if (erros.Any())
             {
-                retorno.body = msgPessoaSimp;
+                header.erros = erros.ToArray();
             }
+
+            if (!erros.Any() && msg != null)
+                retorno.body = msg;
+
             return retorno;
         }
 
@@ -305,19 +309,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroPessoaSimplificada;
         }
 
-        public MsgRegistroPessoaSimplificada[] AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaRegistroPessoaSimplificada[] dataset, IList<string> erros)
+        public MsgRegistroPessoaSimplificada AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaSimplificadaPessoaSimplificada[] dataset, IList<string> erros)
         {
-            List<MsgRegistroPessoaSimplificada> registros = new List<MsgRegistroPessoaSimplificada>();
+            MsgRegistroPessoaSimplificada msg = new MsgRegistroPessoaSimplificada();
 
-            foreach (var item in dataset)
-            {
-                registros.Add(AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(item, erros));
-            }
+            if (dataset != null && dataset.Any())
+                msg = AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(dataset.First(), erros);
 
-            return registros.ToArray();
-        }
+            return msg;
+        } 
 
-        public MsgRegistroPessoaSimplificada AdaptarDataSetPessoaRegistroPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaRegistroPessoaSimplificada registroPessoaSimplificada, IList<string> erros)
+        public MsgRegistroPessoaSimplificada AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(DataSetPessoaSimplificadaPessoaSimplificada registroPessoaSimplificada, IList<string> erros)
         {
             MsgRegistroPessoaSimplificada msg = new MsgRegistroPessoaSimplificada();
 
