@@ -98,12 +98,18 @@
             Consulta os dados de pessoa simplificada
             </summary>
             <param name="codPessoa">Código da pessoa</param>
+            <param name="empresa">Empresa referente a consulta</param>
+            <param name="dependencia">Dependência referente a consulta</param>
+            <param name="usuario">usuário responsável pela consulta</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.PessoaController.getPessoaLista(System.Int32,System.Int32,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Consulta os dados de pessoa simplificada por nome e CPF
             </summary>
+            <param name="empresa">Empresa referente a consulta</param>
+            <param name="dependencia">Dependência referente a consulta</param>
+            <param name="usuario">usuário responsável pela consulta</param>
             <param name="nome">Nome da pessa ou pessoas a serem consultadas</param>
             <param name="cpf">Documento da pessoa a ser consultada</param>
             <param name="pageSkip">Retornar consulta após x registros</param>
@@ -135,6 +141,9 @@
             Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
             </summary>
             <param name="codPessoa">Código da pessoa</param>
+            <param name="empresa">Empresa referente a consulta</param>
+            <param name="dependencia">Dependência referente a consulta</param>
+            <param name="usuario">usuário responsável pela consulta</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.ReferenciaController.postReferencia(System.String,Sinqia.CoreBank.API.Core.Models.MsgReferencia)">

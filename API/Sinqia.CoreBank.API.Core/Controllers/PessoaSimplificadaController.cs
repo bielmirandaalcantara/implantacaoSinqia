@@ -72,7 +72,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
                 var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
@@ -135,7 +135,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, "BR", token);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
                 var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
@@ -197,7 +197,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa, dependencia, usuario, "BR", token);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa, dependencia, usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
                 RetornoIntegracaoPessoaSimplificada retClient = clientPessoaSimplificada.ExcluirPessoaSimplificada(parm, codPessoa);
 
@@ -227,6 +227,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="empresa">Empresa referente a consulta</param>
+        /// <param name="dependencia">Dependência referente a consulta</param>
+        /// <param name="usuario">usuário responsável pela consulta</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
@@ -240,7 +243,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
-            MsgRegistroPessoaSimplificada msgRegistropessoaCompleto;
+            MsgRegistroPessoaSimplificadaBody body = new MsgRegistroPessoaSimplificadaBody();
 
             try
             {
@@ -259,10 +262,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa,dependencia, usuario, "BR", token);
+                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(empresa,dependencia, usuario,  configuracaoCUC.Value.SiglaSistema, token);
 
-                msgRegistropessoaCompleto = new MsgRegistroPessoaSimplificada();
-                retorno = adaptador.AdaptarMsgRetornoGet(msgRegistropessoaCompleto, listaErros);
+                DataSetPessoaSimplificada dataSetPessoa = clientPessoaSimplificada.SelecionarPessoaSimplificada(parm, codPessoa);
+
+                body.RegistroPessoaSimplificada = adaptador.AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(dataSetPessoa.RegistroPessoaSimplificada, listaErros);
+                retorno = adaptador.AdaptarMsgRetornoGet(body, listaErros);
 
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }

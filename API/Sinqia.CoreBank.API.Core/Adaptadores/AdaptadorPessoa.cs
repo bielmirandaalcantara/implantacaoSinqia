@@ -699,19 +699,19 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
         {
             MsgRegistropessoaCompleto msg = new MsgRegistropessoaCompleto();
 
-            if(dataset.RegistroPessoa != null)
+            if(dataset.RegistroPessoa != null && dataset.RegistroPessoa.Any())
                 msg = AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(dataset.RegistroPessoa.First(), erros);
 
-            if (dataset.RegistroDocumento != null)
+            if (dataset.RegistroDocumento != null && dataset.RegistroDocumento.Any())
                 msg.RegistroDocumento = AdaptadorDocumento.AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(dataset.RegistroDocumento, erros);
 
-            if(dataset.RegistroEndereco != null)
+            if(dataset.RegistroEndereco != null && dataset.RegistroEndereco.Any())
                 msg.RegistroEndereco = AdaptadorEndereco.AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(dataset.RegistroEndereco, erros);
 
-            if(dataset.RegistroPerfil != null)
+            if(dataset.RegistroPerfil != null && dataset.RegistroPerfil.Any())
                 msg.RegistroPerfil = AdaptadorPerfil.AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(dataset.RegistroPerfil, erros);
 
-            if(dataset.RegistroReferencia != null)
+            if(dataset.RegistroReferencia != null && dataset.RegistroReferencia.Any())
                 msg.RegistroReferencia = AdaptadorReferencia.AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(dataset.RegistroReferencia, erros);
 
             return msg;
@@ -720,11 +720,13 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
         public MsgRegistropessoa[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(DataSetPessoaRegistroPessoa[] dataset, IList<string> erros)
         {
             List<MsgRegistropessoa> registros = new List<MsgRegistropessoa>();
-
-            foreach (var item in dataset)
+            if(dataset != null)
             {
-                registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
-            }
+                foreach (var item in dataset)
+                {
+                    registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
+                }
+            }          
 
             return registros.ToArray();
         }
@@ -733,10 +735,13 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
         {
             List<MsgRegistropessoaCompleto> registros = new List<MsgRegistropessoaCompleto>();
 
-            foreach (var item in dataset)
+            if (dataset != null)
             {
-                registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
-            }
+                foreach (var item in dataset)
+                {
+                    registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
+                }
+            }            
 
             return registros.ToArray();
         }
