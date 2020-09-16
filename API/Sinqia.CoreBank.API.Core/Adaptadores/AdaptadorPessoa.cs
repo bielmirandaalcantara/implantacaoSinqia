@@ -389,13 +389,13 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroPessoa.cod_fil = msg.codigoFilial;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCpfCnpjBase))
-                registroPessoa.bas_cgcCpf = msg.codigoCpfCnpjBase;
+                registroPessoa.bas_cgccpf = msg.codigoCpfCnpjBase;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCpfCnpjFilial))
                 registroPessoa.fil_cgcCpf = msg.codigoCpfCnpjFilial;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCpfCnpjDigito))
-                registroPessoa.dig_cgcCpf = msg.codigoCpfCnpjDigito;
+                registroPessoa.dig_cgccpf = msg.codigoCpfCnpjDigito;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoPessoaFilial))
                 registroPessoa.tip_fil = msg.tipoPessoaFilial;
@@ -931,14 +931,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(registroPessoa.cod_fil))
                 msg.codigoFilial = registroPessoa.cod_fil;
 
-            if (!string.IsNullOrWhiteSpace(registroPessoa.bas_cgcCpf))
-                msg.codigoCpfCnpjBase = registroPessoa.bas_cgcCpf;
+            if (!string.IsNullOrWhiteSpace(registroPessoa.bas_cgccpf))
+                msg.codigoCpfCnpjBase = registroPessoa.bas_cgccpf;
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.fil_cgcCpf))
                 msg.codigoCpfCnpjFilial = registroPessoa.fil_cgcCpf;
 
-            if (!string.IsNullOrWhiteSpace(registroPessoa.dig_cgcCpf))
-                msg.codigoCpfCnpjDigito = registroPessoa.dig_cgcCpf;
+            if (!string.IsNullOrWhiteSpace(registroPessoa.dig_cgccpf))
+                msg.codigoCpfCnpjDigito = registroPessoa.dig_cgccpf;
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.tip_fil))
                 msg.tipoPessoaFilial = registroPessoa.tip_fil;
