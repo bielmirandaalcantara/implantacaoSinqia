@@ -95,9 +95,9 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string pesidtlig { get; set; }
         public string pesidciof { get; set; }
         public string cod_fil { get; set; }
-        public string bas_cgcCpf { get; set; }
+        public string bas_cgccpf { get; set; }
         public string fil_cgcCpf { get; set; }
-        public string dig_cgcCpf { get; set; }
+        public string dig_cgccpf { get; set; }
         public string tip_fil { get; set; }
         public string idc_isen_cgccpf { get; set; }
         public string til_Cpf { get; set; }
@@ -211,7 +211,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string nom_log_end { get; set; }
         public string cpl_log_end { get; set; }
         public string bai_end { get; set; }
-        public string Cep_end { get; set; }
+        public string cep_end { get; set; }
         public string Ddd_fone_end { get; set; }
         public string Ddd_fone2_end { get; set; }
         public string Ddd_fone3_end { get; set; }
