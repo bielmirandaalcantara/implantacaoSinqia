@@ -106,7 +106,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroEndereco.bai_end = msg.nomeBairro;
 
             if (!string.IsNullOrWhiteSpace(msg.Cep))
-                registroEndereco.Cep_end = msg.Cep;
+                registroEndereco.cep_end = msg.Cep;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoDddFone1))
                 registroEndereco.Ddd_fone_end = msg.codigoDddFone1;
@@ -272,8 +272,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(registroEndereco.bai_end))
                 msg.nomeBairro = registroEndereco.bai_end;
 
-            if (!string.IsNullOrWhiteSpace(registroEndereco.Cep_end))
-                msg.Cep = registroEndereco.Cep_end;
+            if (!string.IsNullOrWhiteSpace(registroEndereco.cep_end))
+                msg.Cep = registroEndereco.cep_end;
 
             if (!string.IsNullOrWhiteSpace(registroEndereco.Ddd_fone_end))
                 msg.codigoDddFone1 = registroEndereco.Ddd_fone_end;
