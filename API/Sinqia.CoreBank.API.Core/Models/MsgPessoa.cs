@@ -352,7 +352,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// CPF/CNPJ (Filial)
         /// </summary>
-        [Required(ErrorMessage ="Campo obrigatório")]
+        //[Required(ErrorMessage ="Campo obrigatório")]
         public string codigoCpfCnpjFilial { get; set; }
 
         /// <summary>
@@ -452,7 +452,7 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// Data Início Gerente
         /// </summary>
-        [Required(ErrorMessage ="Campo obrigatório")]
+        //[Required(ErrorMessage ="Campo obrigatório")]
         public DateTime? dataInicialGerente { get; set; }
 
         /// <summary>

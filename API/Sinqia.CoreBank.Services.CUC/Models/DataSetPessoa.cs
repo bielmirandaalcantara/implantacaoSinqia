@@ -99,7 +99,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string fil_cgcCpf { get; set; }
         public string dig_cgcCpf { get; set; }
         public string tip_fil { get; set; }
-        public string idc_isen_cgcCpf { get; set; }
+        public string idc_isen_cgccpf { get; set; }
         public string til_Cpf { get; set; }
         public string ins_est { get; set; }
         public string ins_mun { get; set; }

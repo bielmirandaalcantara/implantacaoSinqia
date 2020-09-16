@@ -401,7 +401,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroPessoa.tip_fil = msg.tipoPessoaFilial;
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorIsencaoCpf))
-                registroPessoa.idc_isen_cgcCpf = msg.indicadorIsencaoCpf;
+                registroPessoa.idc_isen_cgccpf = msg.indicadorIsencaoCpf;
 
             if (!string.IsNullOrWhiteSpace(msg.CpfTitular))
                 registroPessoa.til_Cpf = msg.CpfTitular;
@@ -938,8 +938,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(registroPessoa.tip_fil))
                 msg.tipoPessoaFilial = registroPessoa.tip_fil;
 
-            if (!string.IsNullOrWhiteSpace(registroPessoa.idc_isen_cgcCpf))
-                msg.indicadorIsencaoCpf = registroPessoa.idc_isen_cgcCpf;
+            if (!string.IsNullOrWhiteSpace(registroPessoa.idc_isen_cgccpf))
+                msg.indicadorIsencaoCpf = registroPessoa.idc_isen_cgccpf;
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.til_Cpf))
                 msg.CpfTitular = registroPessoa.til_Cpf;
