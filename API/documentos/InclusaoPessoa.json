@@ -1,0 +1,77 @@
+{
+  "header": {
+    "identificadorEnvio": "123",
+    "dataHoraEnvio": "2020-09-14T20:30:20.747Z",
+    "dependencia": 1,
+    "empresa": 1,
+    "usuario": "123"
+  },
+  "body": {
+    "RegistroPessoa": {
+        "RegistroPerfil": [
+        {
+          "codigoPessoa": 998,
+          "codigoPerfil": "01"
+        }
+      ],
+          "RegistroEndereco": [
+        {
+          "codigoPessoa": 998,
+          "codigoFilial": "0000",
+          "codigoEndereco": 1234,
+          "tipoEndereco": "R",
+          "nomeLogradouro": "rua A",
+          "nomeBairro": "bairro a",
+          "Cep": "21457540",
+          "indicadorCorrespondencia": "S",
+          "dataCadastro": "2020-09-14T20:30:20.748Z",
+          "usuarioUltimaAtualizacao": "123",
+          "dataAtualizacao": "2020-09-14T20:30:20.748Z",
+          "indicadorSituacao": "A",
+          "dataSituacao": "2020-09-14T20:30:20.748Z"
+        }
+      ],
+      "RegistroReferencia": [
+        {
+          "codigoPessoaTitular": 998,
+          "codigoFilialTitular": "0000",
+          "sequencial": 1234567,
+          "tipo": "01",
+          "dataCadastro": "2020-09-14T20:30:20.748Z",
+          "usuarioUltimaAtualizacao": "123",
+          "dataAtualizacao": "2020-09-14T20:30:20.748Z",
+          "indicadorSituacao": "A",
+          "dataSituacao": "2020-09-14T20:30:20.748Z"
+        }
+      ],
+      "codigoPessoa": 998,
+      "nomePessoa": "Pessoa Teste2",
+      "nomeAbvPessoa": "Pessoa",
+      "setorAtividade": "S",
+      "dataCadastro": "2020-09-14T20:30:20.748Z",
+      "usuarioAtualizacao": "123",
+      "dataAtualizacao": "2020-09-14T20:30:20.748Z",
+      "dataFundacao": "2020-09-14T20:30:20.748Z",
+      "codigoFilial": "0000",
+      "codigoCpfCnpjBase": "421747030",
+      "codigoCpfCnpjDigito": "41",
+      "tipoPessoaFilial": "F",
+      "indicadorSituacaoFilial": "123",
+      "dataCadastro1": "2020-09-14T20:30:20.748Z",
+      "usuarioAtualizacao1": "string",
+      "dataAtualizacao1": "2020-09-14T20:30:20.748Z",
+      "dataSituacao": "2020-09-14T20:30:20.748Z",
+      "codigoEmpresa": 1,
+      "codigoDependente": 1,
+      "codigoOperador": 1,
+      "codigoCliente": 1,
+      "codigoAtividade": 9,
+      "codigoSegmento": "4",
+      "codigoSubsegmento": "10",
+      "indicadorIsencaoCpf": "N",
+      "nivelRisco": "01",
+      "dat_ini_gerente": "2020-09-14T20:30:20.748Z",
+      "codigoGerente": 1
+    }
+  }
+}
