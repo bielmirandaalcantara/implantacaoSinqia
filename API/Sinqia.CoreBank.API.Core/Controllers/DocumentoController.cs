@@ -13,6 +13,7 @@ using System.IO;
 using System.Xml.Serialization;
 using System.Linq;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.API.Core.Configuration;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -30,8 +31,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
 
-        public DocumentoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public DocumentoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoCUC = _configuracaoCUC;
         }
@@ -65,6 +67,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 {
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
                 }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
@@ -132,6 +141,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
@@ -186,6 +202,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);

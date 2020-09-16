@@ -1,8 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.API.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using Sinqia.CoreBank.API.Core.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -27,6 +30,20 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
 
             return listaErros;
+        }
+
+        public static bool ValidarApiKey(HttpRequest request, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        {
+            bool retorno = true;
+            if (configuracaoBaseAPI != null && !string.IsNullOrWhiteSpace(configuracaoBaseAPI.Value.ApiKeyBase))
+            {
+                if (!request.Headers.TryGetValue(ConstantesIntegracao.ApiKey, out var key))
+                    throw new ApplicationException("Necessária chave de autenticação");
+
+                return key.Equals(configuracaoBaseAPI.Value.ApiKeyBase);
+            }               
+
+            return retorno;
         }
     }
 }

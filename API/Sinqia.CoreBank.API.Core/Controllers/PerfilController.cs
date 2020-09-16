@@ -11,6 +11,7 @@ using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.API.Core.Configuration;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -28,8 +29,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
 
-        public PerfilController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public PerfilController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoCUC = _configuracaoCUC;
         }
@@ -60,21 +62,29 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
-                {
-                    string token = ServiceAutenticacao.GetToken("att", "att");
-                    IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                    ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
-                    DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
-
-                    List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
-                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
-                    dataSetPessoa.RegistroPerfil = registros.ToArray();
-
-                    var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
-
+                {   
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
+                registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
+                dataSetPessoa.RegistroPerfil = registros.ToArray();
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -120,22 +130,32 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
 
                 listaErros = Util.ValidarModel(ModelState);
-                if (listaErros.Any())
-                {
-                    string token = ServiceAutenticacao.GetToken("att", "att");
-                    IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                    ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
-                    DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
-
-                    List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
-                    registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
-                    dataSetPessoa.RegistroPerfil = registros.ToArray();
-
-                    var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
-
+                if (listaErros.Any())                {
+                    
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
+
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
+                registros.Add(adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(msg.body.RegistroPerfil, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
+                dataSetPessoa.RegistroPerfil = registros.ToArray();
+
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -176,6 +196,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);

@@ -71,6 +71,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
@@ -131,6 +138,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 {
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
                 }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
@@ -194,6 +208,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
+
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -259,6 +281,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 

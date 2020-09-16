@@ -41,11 +41,11 @@ namespace Sinqia.CoreBank.API.Core
                     "APIKey",
                     new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
                     {
-                        Description ="Authorization header utilizando APIkey schema",
+                        Description = "Authorization header utilizando ApiKey schema",
                         Name = "Authorization",
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
-                        Scheme = "APIKey"
+                        Scheme = "ApiKey"
                     });
             });
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

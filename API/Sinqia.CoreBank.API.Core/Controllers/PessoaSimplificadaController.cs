@@ -12,6 +12,7 @@ using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.API.Core.Configuration;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -31,7 +32,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
 
-        public PessoaSimplificadaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
+
+        public PessoaSimplificadaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoCUC = _configuracaoCUC;
         }
@@ -65,6 +68,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 {
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
                 }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
@@ -128,6 +139,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 {
                     retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
                 }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
@@ -194,6 +212,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
 
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
+
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
@@ -258,6 +284,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
                     throw new ApplicationException("Parâmetro usuario obrigatório");
+
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
+                {
+                    listaErros.Add("Acesso negado");
+                    retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
+                }
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
