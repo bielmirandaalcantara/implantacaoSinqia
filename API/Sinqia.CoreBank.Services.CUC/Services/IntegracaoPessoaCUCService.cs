@@ -119,6 +119,10 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             try
             {
                 var ret = client.SelecionarCabecalho(parametrosLogin, cod_pessoa, cod_filial);
+
+                if (ret.CodigoPessoa == null)
+                    throw new ApplicationException($"Retorno serviço CUC - Codigo da pessoa não encontrado");
+
                 RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
 
                 if (retorno.Excecao != null)
