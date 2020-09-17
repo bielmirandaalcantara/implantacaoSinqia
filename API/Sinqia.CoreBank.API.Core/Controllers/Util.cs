@@ -34,14 +34,16 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
         public static bool ValidarApiKey(HttpRequest request, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
-            bool retorno = true;
+            bool retorno = false;
             if (configuracaoBaseAPI != null && !string.IsNullOrWhiteSpace(configuracaoBaseAPI.Value.ApiKeyBase))
             {
-                if (!request.Headers.TryGetValue(ConstantesIntegracao.ApiKey, out var key))
-                    throw new ApplicationException("Necessária chave de autenticação");
-
-                return key.Equals(configuracaoBaseAPI.Value.ApiKeyBase);
-            }               
+                if (request.Headers.TryGetValue(ConstantesIntegracao.ApiKey, out var key))
+                    retorno = (key.Equals(configuracaoBaseAPI.Value.ApiKeyBase));
+                else
+                    retorno = false; //client não enviou chave               
+            }
+            else
+                retorno = true; //não foi adicionado uma chave para validação
 
             return retorno;
         }

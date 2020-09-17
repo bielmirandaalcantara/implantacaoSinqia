@@ -45,11 +45,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoaSimplificada")]
-        [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)] 
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
@@ -71,12 +71,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -117,10 +112,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult putPessoaSimplificada([FromRoute] string codPessoa, [FromBody] MsgPessoaSimplificada msg)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
@@ -141,12 +136,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -188,10 +178,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
@@ -213,12 +203,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     throw new ApplicationException("Parâmetro usuario obrigatório");
 
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -260,10 +245,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpGet]
         [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult getPessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
@@ -286,12 +271,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     throw new ApplicationException("Parâmetro usuario obrigatório");
 
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
