@@ -37,12 +37,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             bool retorno = false;
             if (configuracaoBaseAPI != null && !string.IsNullOrWhiteSpace(configuracaoBaseAPI.Value.ApiKeyBase))
             {
-                if (!request.Headers.TryGetValue(ConstantesIntegracao.ApiKey, out var key))
+                if (request.Headers.TryGetValue(ConstantesIntegracao.ApiKey, out var key))
                     retorno = (key.Equals(configuracaoBaseAPI.Value.ApiKeyBase));
                 else
                     retorno = false; //client não enviou chave               
             }
-            retorno = true; //não foi adicionado uma chave para validação
+            else
+                retorno = true; //não foi adicionado uma chave para validação
 
             return retorno;
         }
