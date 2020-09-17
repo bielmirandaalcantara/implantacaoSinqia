@@ -38,7 +38,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 identificador = identificador,
                 dataHoraEnvio = dataEnvio,
                 dataHoraRetorno = DateTime.Now,
-                status = status
+                status = status,
+                codigoPessoa = msgPessoa.body.RegistroPessoaSimplificada.codigo
             };
 
             if (erros.Any())
