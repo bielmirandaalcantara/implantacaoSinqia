@@ -47,10 +47,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult postEndereco([FromRoute] string codPessoa, [FromBody] MsgEndereco msg)
         {
             AdaptadorEndereco adaptador = new AdaptadorEndereco();
@@ -70,12 +70,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -119,10 +114,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult putEndereco([FromRoute] string codPessoa, [FromRoute] string codEndereco, [FromBody] MsgEndereco msg)
         {
             AdaptadorEndereco adaptador = new AdaptadorEndereco();
@@ -142,12 +137,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
@@ -192,10 +182,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult deleteEndereco([FromRoute] string codPessoa, [FromRoute] string codEndereco)
         {
             AdaptadorEndereco adaptador = new AdaptadorEndereco();
@@ -204,12 +194,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI))
-                {
-                    listaErros.Add("Acesso negado");
-                    retorno = adaptador.AdaptarMsgRetorno(listaErros);
-                    return StatusCode((int)HttpStatusCode.Unauthorized, retorno);
-                }
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
