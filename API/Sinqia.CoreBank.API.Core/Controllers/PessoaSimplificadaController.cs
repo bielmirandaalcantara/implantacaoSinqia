@@ -1,4 +1,5 @@
-﻿using System;
+﻿/*
+using System;
 using Microsoft.AspNetCore.Mvc;
 using Sinqia.CoreBank.API.Core.Adaptadores;
 using Sinqia.CoreBank.API.Core.Models;
@@ -330,3 +331,4 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
     }
 }
+*/
