@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sinqia.CoreBank.API.Core.Models
 {
-    public class MsgOutrosBancos
+    public class MsgNegocios
     {
         /// <summary>
         /// header da mensagem
@@ -19,18 +19,18 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// corpo da mensagem
         /// body será nulo ou vazio caso retornos http 400 e 500
         /// </summary>
-        public MsgRegistroOutrosBancosBody body { get; set; }
+        public MsgRegistroNegociosBody body { get; set; }
     }
 
-    public class MsgRegistroOutrosBancosBody
+    public class MsgRegistroNegociosBody
     {
-        public MsgRegistroOutrosBancos RegistroOutrosBancos { get; set; }
+        public MsgRegistroNegocios RegistroNegocios { get; set; }
     }
 
     /// <summary>
     /// Possibilita o armazenamento de informações referente às contas do cliente em outros bancos
     /// </summary>
-    public class MsgRegistroOutrosBancos
+    public class MsgRegistroNegocios
     {
         /// <summary>
         /// Código de pessoa 

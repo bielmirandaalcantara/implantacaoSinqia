@@ -8,9 +8,9 @@ using Sinqia.CoreBank.Services.CUC.Models;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
-    public class AdaptadorOutrosBancos
+    public class AdaptadorNegocios
     {
-        public MsgRetorno AdaptarMsgRetorno(MsgOutrosBancos msg, IList<string> erros)
+        public MsgRetorno AdaptarMsgRetorno(MsgNegocios msg, IList<string> erros)
         {
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
