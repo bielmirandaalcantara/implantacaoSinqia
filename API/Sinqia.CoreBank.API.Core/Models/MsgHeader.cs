@@ -30,10 +30,5 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// </summary>
         [Required(ErrorMessage ="Campo obrigatório")]
         public int? empresa { get; set; }
-        /// <summary>
-        /// Usuário do Sistema
-        /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
-        public string usuario { get; set; }
     }
 }

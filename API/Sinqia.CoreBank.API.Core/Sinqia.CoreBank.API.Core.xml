@@ -89,14 +89,6 @@
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.PerfilController.putPerfil(System.String,System.String,Sinqia.CoreBank.API.Core.Models.MsgPerfil)">
-            <summary>
-            Alteração de perfis para uma pessoa
-            </summary>
-            <param name="codPessoa">Código da pessoa</param>
-            <param name="codPerfil">Código do perfil</param>
-            <returns>MsgRetorno</returns>
-        </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.PerfilController.deletePerfil(System.String,System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão de perfis para uma pessoa
@@ -566,11 +558,6 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.empresa">
             <summary>
             Empresa
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.usuario">
-            <summary>
-            Usuário do Sistema
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgOutrosBancos.header">
@@ -1929,6 +1916,16 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroVinculo.emailVinculo">
             <summary>
             
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery.empresa">
+            <summary>
+            Disponibiliza o código da empresa para requisição do serviço
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery.dependencia">
+            <summary>
+            Disponibiliza o código da dependência para requisição do serviço. 
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Templates.MsgPessoaCompletoListaTemplate.header">

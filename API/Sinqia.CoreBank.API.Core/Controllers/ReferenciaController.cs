@@ -76,7 +76,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroReferencia> registros = new List<DataSetPessoaRegistroReferencia>();
@@ -147,7 +147,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroReferencia> registros = new List<DataSetPessoaRegistroReferencia>();
@@ -213,7 +213,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, parametrosBase.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 dataSetPessoa.RegistroReferencia = adaptador.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(codPessoa, codPessoaReferencia, dataSetPessoa.RegistroPessoa[0].cod_fil.ToString(), listaErros);

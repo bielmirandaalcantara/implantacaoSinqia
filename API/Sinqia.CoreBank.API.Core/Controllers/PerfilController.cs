@@ -73,7 +73,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
@@ -107,6 +107,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
+        /*
         /// <summary>
         /// Alteração de perfis para uma pessoa
         /// </summary>
@@ -145,7 +146,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
@@ -179,6 +180,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
         }
+        */
 
         /// <summary>
         /// Exclusão de perfis para uma pessoa
@@ -210,7 +212,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
                 IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, parametrosBase.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 dataSetPessoa.RegistroPerfil = adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfilExclusao(codPessoa, codPerfil, listaErros);
