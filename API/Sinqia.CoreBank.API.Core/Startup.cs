@@ -17,6 +17,7 @@ using Newtonsoft.Json;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Swashbuckle.AspNetCore.Swagger;
 using Sinqia.CoreBank.API.Core.Configuration;
+using Sinqia.CoreBank.API.Core.Logging;
 
 namespace Sinqia.CoreBank.API.Core
 {
@@ -62,7 +63,7 @@ namespace Sinqia.CoreBank.API.Core
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -79,8 +80,7 @@ namespace Sinqia.CoreBank.API.Core
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Integração - Pessoa");
-            });
-
+            });           
         }
     }
 }

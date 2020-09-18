@@ -1,22 +1,19 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Sinqia.CoreBank.API.Core.Adaptadores;
-using Sinqia.CoreBank.API.Core.Models;
-using System.Collections.Generic;
-using System.Net;
-using Microsoft.AspNetCore.Http;
-using Sinqia.CoreBank.API.Core.Models.Templates;
-using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
-using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa;
-using Sinqia.CoreBank.Services.CUC.Services;
-using Sinqia.CoreBank.Services.CUC.Models;
-using System.Xml.Serialization;
-using System.IO;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
-using Sinqia.CoreBank.API.Core.Configuration;
 using Microsoft.Extensions.Options;
-using System.Linq;
+using Sinqia.CoreBank.API.Core.Adaptadores;
+using Sinqia.CoreBank.API.Core.Configuration;
+using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Templates;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Services.CUC.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using Sinqia.CoreBank.API.Core.Logging;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -32,16 +29,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
-
-        private string _ApiKey;
-
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
+        public LogApi log;
+        
         public PessoaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
-            _ApiKey = "123";
+            log = new LogApi(configuracaoBaseAPI);
         }
 
         /// <summary>
@@ -90,12 +86,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
-            catch(ApplicationException appEx)
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
             {
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
-            }
+            }            
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
@@ -153,6 +156,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg,listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
@@ -217,6 +227,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
             catch (ApplicationException appEx)
             {
 
@@ -256,7 +273,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             MsgRegistroPessoaCompletoBody body = new MsgRegistroPessoaCompletoBody();
 
             try
-            {
+            {  
+
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
 
@@ -281,19 +299,34 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 body.RegistroPessoa = adaptador.AdaptaDataSetPessoaToMsgPessoaCompleto(dataSetPessoa, listaErros);
                 
                 retorno = adaptador.AdaptarMsgRetornoGet(body, listaErros);
+
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
+                log.Error(appEx);
 
                 listaErros.Add(appEx.Message);
                 retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
+                log.Error(ex);
+
                 listaErros.Add(ex.Message);
                 retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 

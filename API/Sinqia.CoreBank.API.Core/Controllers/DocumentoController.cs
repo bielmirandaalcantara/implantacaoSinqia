@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores;
 using Sinqia.CoreBank.API.Core.Configuration;
+using Sinqia.CoreBank.API.Core.Logging;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
@@ -28,8 +29,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 return _ServiceAutenticacao;
             }
         }
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
 
         public DocumentoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
@@ -86,6 +87,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg,listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
@@ -154,6 +162,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
             catch (ApplicationException appEx)
             {
 
@@ -196,6 +211,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {

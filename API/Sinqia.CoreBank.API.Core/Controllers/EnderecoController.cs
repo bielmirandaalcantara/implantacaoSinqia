@@ -14,6 +14,7 @@ using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using System.Linq;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.API.Core.Configuration;
+using Sinqia.CoreBank.API.Core.Logging;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -31,8 +32,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             }
         }
 
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI { get; set; }
+        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
+        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
 
         public EnderecoController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
@@ -89,6 +90,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
@@ -158,6 +166,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
             catch (ApplicationException appEx)
             {
 
@@ -200,6 +215,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
