@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -227,6 +228,32 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (msg.codigoPais != null && msg.codigoPais.Value > 0)
                 registroEndereco.endcodpais = msg.codigoPais.Value;
+
+            return registroEndereco;
+        }
+
+        public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(string cod_pessoa, int cod_endereco, string cod_filial, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroEndereco> registroEnderecos = new List<DataSetPessoaRegistroEndereco>();
+                registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(cod_pessoa, cod_endereco, cod_filial));
+
+            return registroEnderecos.ToArray();
+        }
+
+        public DataSetPessoaRegistroEndereco AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(string cod_pessoa, int cod_endereco, string cod_filial)
+        {
+            DataSetPessoaRegistroEndereco registroEndereco = new DataSetPessoaRegistroEndereco();
+
+            registroEndereco.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
+
+            if (!string.IsNullOrWhiteSpace(cod_pessoa))
+                registroEndereco.cod_pessoa = cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(cod_filial))
+                registroEndereco.cod_fil = cod_filial;
+
+            if (cod_endereco > 0)
+                registroEndereco.cod_end = cod_endereco;
 
             return registroEndereco;
         }

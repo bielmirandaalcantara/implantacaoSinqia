@@ -193,6 +193,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <param name="codEndereco">Código do endereço</param>
+        /// <param name="empresa">Empresa referente a consulta</param>
+        /// <param name="dependencia">Dependência referente a consulta</param>
+        /// <param name="usuario">usuário responsável pela consulta</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
@@ -201,7 +204,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteEndereco([FromRoute] string codPessoa, [FromRoute] string codEndereco)
+        public ActionResult deleteEndereco([FromRoute] string codPessoa, [FromRoute] int codEndereco, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorEndereco adaptador = new AdaptadorEndereco();
             List<string> listaErros = new List<string>();
@@ -212,6 +215,16 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, parametrosBase.usuario, configuracaoCUC.Value.SiglaSistema, token);
+                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                dataSetPessoa.RegistroEndereco = adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(codPessoa, codEndereco, dataSetPessoa.RegistroPessoa[0].cod_fil, listaErros);
+                
+                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);

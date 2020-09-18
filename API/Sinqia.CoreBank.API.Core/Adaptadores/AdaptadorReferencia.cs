@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -141,6 +142,31 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.dataVencimentoSeguroCartao != null && msg.dataVencimentoSeguroCartao.Value != DateTime.MinValue)
                 registroReferencia.dat_venc_seg_cartao = msg.dataVencimentoSeguroCartao.Value;
 
+            return registroReferencia;
+        }
+
+        public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, string codPessoaReferencia, string cod_filial, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroReferencia> registroReferencias = new List<DataSetPessoaRegistroReferencia>();
+                registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(cod_pessoa, codPessoaReferencia, cod_filial));
+
+            return registroReferencias.ToArray();
+        }
+
+        public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, string codPessoaReferencia, string cod_filial)
+        {
+            DataSetPessoaRegistroReferencia registroReferencia = new DataSetPessoaRegistroReferencia();
+
+            registroReferencia.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
+
+            if (!string.IsNullOrWhiteSpace(cod_pessoa))
+                registroReferencia.cod_pessoa_tit = cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(codPessoaReferencia))
+                registroReferencia.cod_pessoa_ref = codPessoaReferencia;
+
+            if (!string.IsNullOrWhiteSpace(cod_filial))
+                registroReferencia.cod_fil_tit = cod_filial;
             return registroReferencia;
         }
 
