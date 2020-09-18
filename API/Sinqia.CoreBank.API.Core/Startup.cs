@@ -43,7 +43,7 @@ namespace Sinqia.CoreBank.API.Core
                     new Microsoft.OpenApi.Models.OpenApiSecurityScheme()
                     {
                         Description = "Authorization header utilizando ApiKey schema",
-                        Name = "Authorization",
+                        Name = "ApiKey",
                         In = ParameterLocation.Header,
                         Type = SecuritySchemeType.ApiKey,
                         Scheme = "ApiKey"
