@@ -96,7 +96,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string pesidciof { get; set; }
         public string cod_fil { get; set; }
         public string bas_cgccpf { get; set; }
-        public string fil_cgcCpf { get; set; }
+        public string fil_cgccpf { get; set; }
         public string dig_cgccpf { get; set; }
         public string tip_fil { get; set; }
         public string idc_isen_cgccpf { get; set; }

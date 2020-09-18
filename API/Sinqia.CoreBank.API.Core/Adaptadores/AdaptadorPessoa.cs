@@ -393,7 +393,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroPessoa.bas_cgccpf = msg.codigoCpfCnpjBase;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCpfCnpjFilial))
-                registroPessoa.fil_cgcCpf = msg.codigoCpfCnpjFilial;
+                registroPessoa.fil_cgccpf = msg.codigoCpfCnpjFilial;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCpfCnpjDigito))
                 registroPessoa.dig_cgccpf = msg.codigoCpfCnpjDigito;
@@ -935,8 +935,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(registroPessoa.bas_cgccpf))
                 msg.codigoCpfCnpjBase = registroPessoa.bas_cgccpf;
 
-            if (!string.IsNullOrWhiteSpace(registroPessoa.fil_cgcCpf))
-                msg.codigoCpfCnpjFilial = registroPessoa.fil_cgcCpf;
+            if (!string.IsNullOrWhiteSpace(registroPessoa.fil_cgccpf))
+                msg.codigoCpfCnpjFilial = registroPessoa.fil_cgccpf;
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.dig_cgccpf))
                 msg.codigoCpfCnpjDigito = registroPessoa.dig_cgccpf;

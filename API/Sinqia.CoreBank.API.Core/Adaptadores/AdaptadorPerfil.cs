@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -86,6 +87,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!string.IsNullOrWhiteSpace(msg.codigoPerfil))
                 registroPerfil.cod_perfil = msg.codigoPerfil;
+
+            return registroPerfil;
+        }
+
+        public DataSetPessoaRegistroPerfil[] AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfilExclusao(string cod_pessoa, string codPerfil, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroPerfil> registroPerfis = new List<DataSetPessoaRegistroPerfil>();
+            registroPerfis.Add(AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfilExclusao(cod_pessoa, codPerfil));
+
+            return registroPerfis.ToArray();
+        }
+
+        public DataSetPessoaRegistroPerfil AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfilExclusao(string cod_pessoa, string codPerfil)
+        {
+            DataSetPessoaRegistroPerfil registroPerfil = new DataSetPessoaRegistroPerfil();
+
+            registroPerfil.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
+
+            if (!string.IsNullOrWhiteSpace(cod_pessoa))
+                registroPerfil.cod_pessoa = cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(codPerfil))
+                registroPerfil.cod_perfil = codPerfil;
 
             return registroPerfil;
         }

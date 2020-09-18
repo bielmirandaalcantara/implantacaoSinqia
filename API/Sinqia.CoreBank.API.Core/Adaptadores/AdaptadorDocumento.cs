@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -137,6 +138,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (msg.codigoNacionalidade != null && msg.codigoNacionalidade.Value > 0)
                 registroDocumento.naccod = msg.codigoNacionalidade.Value;
+
+            return registroDocumento;
+        }
+
+        public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(string cod_pessoa, string documento, IList<string> erros)
+        {
+            List<DataSetPessoaRegistroDocumento> registroDocumentos = new List<DataSetPessoaRegistroDocumento>();
+             registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(cod_pessoa, documento));
+
+            return registroDocumentos.ToArray();
+        }
+
+        public DataSetPessoaRegistroDocumento AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(string cod_pessoa, string documento)
+        {
+            DataSetPessoaRegistroDocumento registroDocumento = new DataSetPessoaRegistroDocumento();
+
+            registroDocumento.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
+
+            if (!string.IsNullOrWhiteSpace(cod_pessoa))
+                registroDocumento.cod_pessoa = cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(documento))
+                registroDocumento.num_doc = documento;
 
             return registroDocumento;
         }
