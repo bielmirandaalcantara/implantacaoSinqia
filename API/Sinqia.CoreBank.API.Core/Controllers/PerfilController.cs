@@ -81,6 +81,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 dataSetPessoa.RegistroPerfil = registros.ToArray();
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
