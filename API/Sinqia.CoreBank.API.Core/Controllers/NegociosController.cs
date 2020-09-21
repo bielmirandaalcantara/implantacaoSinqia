@@ -220,7 +220,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 ParametroIntegracaoPessoa parm = clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
                 DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
 
-                dataSetNegocios.RegistroNegocioOutrosBancos = adaptador.AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(codPessoa, sequencial, dataSetNegocios.RegistroNegocioOutrosBancos[0].cod_fil, listaErros);
+                dataSetNegocios.RegistroNegocioOutrosBancos = adaptador.AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(codPessoa, sequencial, dataSetNegocios.RegistroNegocioOutrosBancos[0].cod_fil, listaErros);
 
                 var retNegocios = clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
 
@@ -253,7 +253,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         }
 
         /// <summary>
-        /// Consulta os dados de pessoa simplificada
+        /// Consulta os dados do cliente em outros bancos
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
         /// <param name="empresa">Empresa referente a consulta</param>

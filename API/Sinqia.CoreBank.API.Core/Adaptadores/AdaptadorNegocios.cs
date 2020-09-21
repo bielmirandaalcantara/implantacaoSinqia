@@ -147,15 +147,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
         }
 
 
-        public DataSetNegocioRegistroOutrosBancos[] AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(string cod_pessoa, int sequencial, string cod_filial, IList<string> erros)
+        public DataSetNegocioRegistroOutrosBancos[] AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(string cod_pessoa, int sequencial, string cod_filial, IList<string> erros)
         {
             List<DataSetNegocioRegistroOutrosBancos> registroEnderecos = new List<DataSetNegocioRegistroOutrosBancos>();
-            registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(cod_pessoa, sequencial, cod_filial));
+            registroEnderecos.Add(AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(cod_pessoa, sequencial, cod_filial));
 
             return registroEnderecos.ToArray();
         }
 
-        public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(string cod_pessoa, int sequencial, string cod_filial)
+        public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(string cod_pessoa, int sequencial, string cod_filial)
         {
             DataSetNegocioRegistroOutrosBancos registroNegocios = new DataSetNegocioRegistroOutrosBancos();
 
