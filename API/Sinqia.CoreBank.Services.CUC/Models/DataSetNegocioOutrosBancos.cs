@@ -24,6 +24,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
     public class DataSetNegocioRegistroOutrosBancos
     {
+        public string statuslinha { get; set; }
         public string cod_pessoa { get; set; }
         public string cod_fil { get; set; }
         public int? seq_negbco { get; set; }

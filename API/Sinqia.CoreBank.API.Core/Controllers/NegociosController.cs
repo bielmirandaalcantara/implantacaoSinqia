@@ -146,22 +146,22 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-                /*
+                
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario,  configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                IntegracaoNegociosCUCService clientNegocio = new IntegracaoNegociosCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientNegocio.CarregarParametrosCUCNegocios(msg.header.empresa.Value, msg.header.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
+                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
 
-                List<DataSetPessoaRegistroDocumento> registros = new List<DataSetPessoaRegistroDocumento>();
-                registros.Add(adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(msg.body.RegistroDocumento, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
-                dataSetPessoa.RegistroDocumento = registros.ToArray();
+                List<DataSetNegocioRegistroOutrosBancos> registros = new List<DataSetNegocioRegistroOutrosBancos>();
+                registros.Add(adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocios, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
+                dataSetNegocios.RegistroNegocioOutrosBancos = registros.ToArray();
 
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                var retNegocios = clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
 
-                if (retPessoa.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
-               */
+                if (retNegocios.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -211,9 +211,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             try
             {
+
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
                 string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoNegociosCUCService clientNegocio = new IntegracaoNegociosCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
+                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
+
+                dataSetNegocios.RegistroNegocioOutrosBancos = adaptador.AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(codPessoa, sequencial, dataSetNegocios.RegistroNegocioOutrosBancos[0].cod_fil, listaErros);
+
+                var retNegocios = clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
+
+                if (retNegocios.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -238,6 +250,83 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
+        }
+
+        /// <summary>
+        /// Consulta os dados de pessoa simplificada
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="empresa">Empresa referente a consulta</param>
+        /// <param name="dependencia">Dependência referente a consulta</param>
+        /// <param name="usuario">usuário responsável pela consulta</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpGet]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/negocios")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult getNegocio([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
+        {
+            AdaptadorNegocios adaptador = new AdaptadorNegocios();
+            List<string> listaErros = new List<string>();
+            MsgRetornoGet retorno;
+            MsgRegistroNegociosBody body = new MsgRegistroNegociosBody();
+
+            try
+            {
+
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+
+                string token = ServiceAutenticacao.GetToken("att", "att");
+
+                IntegracaoNegociosCUCService clientNegocio = new IntegracaoNegociosCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
+
+                DataSetNegocioOutrosBancos dataSetNegocio = clientNegocio.SelecionarNegocios(parm, codPessoa);
+                body.RegistroNegocios = adaptador.AdaptaDataSetNegocioToMsgNegocio(dataSetNegocio, listaErros);
+
+                retorno = adaptador.AdaptarMsgRetornoGet(body, listaErros);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+                //log.Error(appEx);
+
+                listaErros.Add(appEx.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                //log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                //log.Error(ex);
+
+                listaErros.Add(ex.Message);
+                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+
+                //log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
         }
 
     }

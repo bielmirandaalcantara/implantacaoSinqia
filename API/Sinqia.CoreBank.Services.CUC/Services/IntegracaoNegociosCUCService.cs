@@ -110,5 +110,42 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             return retorno;
         }
 
+        public DataSetNegocioOutrosBancos SelecionarNegocios(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
+        {
+            CucCluParametro parametrosLogin = GerarParametroCUC(param);
+
+            EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
+            CucClwCadastroNegocioOutrosBancosClient client = new CucClwCadastroNegocioOutrosBancosClient(CucClwCadastroNegocioOutrosBancosClient.EndpointConfiguration.BasicHttpBinding_ICucClwCadastroNegocioOutrosBancos, address);
+
+            try
+            {
+                var ret = client.Selecionar(parametrosLogin, cod_pessoa, cod_filial);
+                RetornoIntegracaoNegocios retorno = GerarRetornoIntegracaoNegocios(ret);
+
+                if (retorno.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {ret.Excecao.Mensagem}");
+
+                if (string.IsNullOrWhiteSpace(retorno.Xml))
+                    throw new ApplicationException("Dados não encontrados para os parâmetros informados");
+
+                XmlSerializer xmlSerialize = new XmlSerializer(typeof(DataSetPessoa));
+
+                var valor_serealizado = new StringReader(retorno.Xml);
+
+                DataSetNegocioOutrosBancos dataSetNegocios = (DataSetNegocioOutrosBancos)xmlSerialize.Deserialize(valor_serealizado);
+
+                return dataSetNegocios;
+            }
+            catch (TimeoutException timeoutEx)
+            {
+                client.Abort();
+                throw new Exception("Tempo de conexão expirado", timeoutEx);
+            }
+            catch (EndpointNotFoundException endPointEx)
+            {
+                throw new Exception("Caminho do serviço não disponível ou inválido", endPointEx);
+            }
+        }
+
     }
 }

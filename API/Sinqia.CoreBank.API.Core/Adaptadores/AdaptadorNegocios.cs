@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
@@ -64,23 +65,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return retorno;
         }
 
-
-        //public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco[] msg, string statusLinha, IList<string> erros)
-        //{
-        //    List<DataSetPessoaRegistroEndereco> registroEnderecos = new List<DataSetPessoaRegistroEndereco>();
-        //    foreach (var endereco in msg)
-        //    {
-        //        registroEnderecos.Add(AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(endereco, statusLinha, erros));
-        //    }
-
-        //    return registroEnderecos.ToArray();
-        //}
-
         public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(MsgRegistroNegocios msg, string statusLinha, IList<string> erros)
         {
             DataSetNegocioRegistroOutrosBancos registroNegocios = new DataSetNegocioRegistroOutrosBancos();
 
-            //registroNegocios.statuslinha = statusLinha;
+            registroNegocios.statuslinha = statusLinha;
 
             if (!string.IsNullOrWhiteSpace(msg.codigoPessoa))
                 registroNegocios.cod_pessoa = msg.codigoPessoa;
@@ -155,6 +144,155 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registroNegocios.NEGSTACONTAPADRAO = msg.indicadorContaPadrao;
 
             return registroNegocios;
+        }
+
+
+        public DataSetNegocioRegistroOutrosBancos[] AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(string cod_pessoa, int sequencial, string cod_filial, IList<string> erros)
+        {
+            List<DataSetNegocioRegistroOutrosBancos> registroEnderecos = new List<DataSetNegocioRegistroOutrosBancos>();
+            registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(cod_pessoa, sequencial, cod_filial));
+
+            return registroEnderecos.ToArray();
+        }
+
+        public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistropessoaToDataSetNegocioRegistroPessoaExclusao(string cod_pessoa, int sequencial, string cod_filial)
+        {
+            DataSetNegocioRegistroOutrosBancos registroNegocios = new DataSetNegocioRegistroOutrosBancos();
+
+            registroNegocios.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
+
+            if (!string.IsNullOrWhiteSpace(cod_pessoa))
+                registroNegocios.cod_pessoa = cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(cod_filial))
+                registroNegocios.cod_fil = cod_filial;
+
+            if (sequencial > 0)
+                registroNegocios.seq_negbco = sequencial;
+
+            return registroNegocios;
+        }
+
+        public MsgRegistroNegocios AdaptaDataSetNegocioToMsgNegocio(DataSetNegocioOutrosBancos dataset, IList<string> erros)
+        {
+            MsgRegistroNegocios msg = new MsgRegistroNegocios();
+
+            if (dataset.RegistroNegocioOutrosBancos != null && dataset.RegistroNegocioOutrosBancos.Any())
+                msg = AdaptarDataSetNegociosRegistroNegociosToMsgNegocios(dataset.RegistroNegocioOutrosBancos.First(), erros);
+
+            return msg;
+        }
+
+        public MsgRegistroNegocios AdaptarDataSetNegociosRegistroNegociosToMsgNegocios(DataSetNegocioRegistroOutrosBancos registroNegocio, IList<string> erros)
+        {
+            MsgRegistroNegocios msg = new MsgRegistroNegocios();
+
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.cod_pessoa))
+                msg.codigoPessoa = registroNegocio.cod_pessoa;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.cod_fil))
+                msg.codigoFilial = registroNegocio.cod_fil;
+
+            if (registroNegocio.seq_negbco != null && registroNegocio.seq_negbco.Value > 0)
+                msg.sequencial = registroNegocio.seq_negbco;
+
+            if (registroNegocio.cod_age_negbco != null && registroNegocio.cod_age_negbco.Value > 0)
+                msg.codigoAgencia = registroNegocio.cod_age_negbco;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.num_negbco))
+                msg.numeroConta = registroNegocio.num_negbco;
+
+            if (registroNegocio.val_limite_negbco != null && registroNegocio.val_limite_negbco.Value > 0)
+                msg.valorLimite = registroNegocio.val_limite_negbco;
+
+            if (registroNegocio.val_dev_negbco != null && registroNegocio.val_dev_negbco.Value > 0)
+                msg.valdoDevedor = registroNegocio.val_dev_negbco;
+
+            if (registroNegocio.dat_ini_negbco != null && registroNegocio.dat_ini_negbco.Value != DateTime.MinValue)
+                msg.dataInicio = registroNegocio.dat_ini_negbco;
+
+            if (registroNegocio.dat_fim_negbco != null && registroNegocio.dat_fim_negbco.Value != DateTime.MinValue)
+                msg.dataFim = registroNegocio.dat_fim_negbco;
+
+            if (registroNegocio.dat_cad != null && registroNegocio.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastro = registroNegocio.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.usu_atu))
+                msg.usuarioUltimaAtualizacao = registroNegocio.usu_atu;
+
+            if (registroNegocio.dat_atu != null && registroNegocio.dat_atu.Value != DateTime.MinValue)
+                msg.dataAtualizacao = registroNegocio.dat_atu;
+
+            if (registroNegocio.dat_sit != null && registroNegocio.dat_sit.Value != DateTime.MinValue)
+                msg.dataSituacao = registroNegocio.dat_sit;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.idc_sit))
+                msg.identificadorSituacao = registroNegocio.idc_sit;
+
+            if (registroNegocio.cod_empresa != null && registroNegocio.cod_empresa.Value > 0)
+                msg.codigoEmpresa = registroNegocio.cod_empresa;
+
+            if (registroNegocio.cod_prodbco != null && registroNegocio.cod_prodbco.Value > 0)
+                msg.codigoProdutoBancario = registroNegocio.cod_prodbco;
+
+            if (registroNegocio.cod_bco != null && registroNegocio.cod_bco.Value > 0)
+                msg.codigoBanco = registroNegocio.cod_bco;
+
+            if (registroNegocio.cod_bco_negbco != null && registroNegocio.cod_bco_negbco.Value > 0)
+                msg.codigoBancoNegocio = registroNegocio.cod_bco_negbco;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.COD_CTA_RESGATE))
+                msg.contaCreditoResgate = registroNegocio.COD_CTA_RESGATE;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.STA_REGISTRO))
+                msg.SituacaoRegistro = registroNegocio.STA_REGISTRO;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.NEGIDCBCO))
+                msg.IndicadorBancoOuInstPagamento = registroNegocio.NEGIDCBCO;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.NEGCODISPB))
+                msg.codigoIspb = registroNegocio.NEGCODISPB;
+
+            if (registroNegocio.IPGCOD != null && registroNegocio.IPGCOD.Value > 0)
+                msg.codigoInstPagamento = registroNegocio.IPGCOD;
+
+            if (!string.IsNullOrWhiteSpace(registroNegocio.NEGSTACONTAPADRAO))
+                msg.indicadorContaPadrao = registroNegocio.NEGSTACONTAPADRAO;
+
+            return msg;
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros)
+        {
+            MsgRetornoGet retorno = new MsgRetornoGet();
+            string identificador = string.Empty;
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+            retorno.header = header;
+
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
+            if (!erros.Any() && msg != null)
+                retorno.body = msg;
+
+            return retorno;
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros)
+        {
+            return AdaptarMsgRetornoGet(null, erros);
         }
 
     }
