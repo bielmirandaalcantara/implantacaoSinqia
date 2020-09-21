@@ -56,14 +56,14 @@
             <param name="usuario">usuário responsável pela consulta</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.OutrosBancosController.postOutrosBancos(System.String,Sinqia.CoreBank.API.Core.Models.MsgOutrosBancos)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.NegociosController.postNegocios(System.String,Sinqia.CoreBank.API.Core.Models.MsgNegocios)">
             <summary>
             cadastro das contas do cliente em outros bancos
             </summary>
             <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.OutrosBancosController.putOutrosBancos(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.MsgOutrosBancos)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.NegociosController.putNegocios(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.MsgNegocios)">
             <summary>
             Alteração das contas do cliente em outros bancos
             </summary>
@@ -71,7 +71,7 @@
             <param name="sequencial">numero do sequencial da conta</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.OutrosBancosController.deleteOutrosBancos(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.NegociosController.deleteNegocios(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão das contas do cliente em outros bancos
             </summary>
@@ -560,140 +560,140 @@
             Empresa
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgOutrosBancos.header">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgNegocios.header">
             <summary>
             header da mensagem
             erros será nulo em retornos http 200
             identificador será nulo ou em branco caso seja uma requisição GET
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgOutrosBancos.body">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgNegocios.body">
             <summary>
             corpo da mensagem
             body será nulo ou vazio caso retornos http 400 e 500
             </summary>
         </member>
-        <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos">
+        <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios">
             <summary>
             Possibilita o armazenamento de informações referente às contas do cliente em outros bancos
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoPessoa">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoPessoa">
             <summary>
             Código de pessoa 
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoFilial">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoFilial">
             <summary>
             Código de filial
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.sequencial">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.sequencial">
             <summary>
             Sequencial negócio
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoAgencia">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoAgencia">
             <summary>
             Código da agência
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.numeroConta">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.numeroConta">
             <summary>
             Número da conta
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.valorLimite">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.valorLimite">
             <summary>
             Valor do limite
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.valdoDevedor">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.valdoDevedor">
             <summary>
             Saldo devedor
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.dataInicio">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.dataInicio">
             <summary>
             Data de inicio da operação
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.dataFim">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.dataFim">
             <summary>
             Data de fim da operação
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.dataCadastro">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.dataCadastro">
             <summary>
             Data de cadastramento
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.usuarioUltimaAtualizacao">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.usuarioUltimaAtualizacao">
             <summary>
             Último usuário de atualização
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.dataAtualizacao">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.dataAtualizacao">
             <summary>
             Data da última atualização
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.dataSituacao">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.dataSituacao">
             <summary>
             Data da situação
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.identificadorSituacao">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.identificadorSituacao">
             <summary>
             Identificador de situação
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoEmpresa">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoEmpresa">
             <summary>
             Código Empresa 
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoProdutoBancario">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoProdutoBancario">
             <summary>
             Código do produto bancário
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoBanco">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoBanco">
             <summary>
             Código do Banco
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoBancoNegocio">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoBancoNegocio">
             <summary>
             Código do banco do negócio 
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.contaCreditoResgate">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.contaCreditoResgate">
             <summary>
             Conta de Crédito para Resgate
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.SituacaoRegistro">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.SituacaoRegistro">
             <summary>
             Situação do Registro
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.IndicadorBancoOuInstPagamento">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.IndicadorBancoOuInstPagamento">
             <summary>
             Indica se é Banco ou Instituição de Pagamento
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoIspb">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoIspb">
             <summary>
             Código ISPB do banco
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.codigoInstPagamento">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.codigoInstPagamento">
             <summary>
             Código de Instituição de Pagamento
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroOutrosBancos.indicadorContaPadrao">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRegistroNegocios.indicadorContaPadrao">
             <summary>
             Indica se é Conta Padrão ou não - S - sim / N - não
             </summary>

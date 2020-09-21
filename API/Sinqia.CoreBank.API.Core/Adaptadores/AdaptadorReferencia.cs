@@ -145,7 +145,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroReferencia;
         }
 
-        public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, string codPessoaReferencia, string cod_filial, IList<string> erros)
+        public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, int codPessoaReferencia, string cod_filial, IList<string> erros)
         {
             List<DataSetPessoaRegistroReferencia> registroReferencias = new List<DataSetPessoaRegistroReferencia>();
                 registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(cod_pessoa, codPessoaReferencia, cod_filial));
@@ -153,7 +153,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             return registroReferencias.ToArray();
         }
 
-        public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, string codPessoaReferencia, string cod_filial)
+        public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, int codPessoaReferencia, string cod_filial)
         {
             DataSetPessoaRegistroReferencia registroReferencia = new DataSetPessoaRegistroReferencia();
 
@@ -162,8 +162,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(cod_pessoa))
                 registroReferencia.cod_pessoa_tit = cod_pessoa;
 
-            if (!string.IsNullOrWhiteSpace(codPessoaReferencia))
-                registroReferencia.cod_pessoa_ref = codPessoaReferencia;
+            if (codPessoaReferencia != null && codPessoaReferencia > 0)
+                registroReferencia.seq_ref = codPessoaReferencia;
 
             if (!string.IsNullOrWhiteSpace(cod_filial))
                 registroReferencia.cod_fil_tit = cod_filial;

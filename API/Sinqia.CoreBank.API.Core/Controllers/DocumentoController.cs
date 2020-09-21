@@ -225,9 +225,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 retorno = adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
-
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
-                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {

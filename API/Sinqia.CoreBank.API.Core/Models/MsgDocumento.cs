@@ -59,7 +59,6 @@ namespace Sinqia.CoreBank.API.Core.Models
         /// <summary>
         /// observacao
         /// </summary>
-        [Required(ErrorMessage ="Campo obrigatório")]
         public string observacao { get; set; }
 
         /// <summary>

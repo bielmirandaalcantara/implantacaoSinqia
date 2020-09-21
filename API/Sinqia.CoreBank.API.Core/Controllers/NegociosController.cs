@@ -18,7 +18,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    public class OutrosBancosController : ControllerBase
+    public class NegociosController : ControllerBase
     {
         private AutenticacaoCUCService _ServiceAutenticacao;
         public AutenticacaoCUCService ServiceAutenticacao
@@ -32,7 +32,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
 
-        public OutrosBancosController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
+        public NegociosController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoCUC = _configuracaoCUC;
         }
@@ -43,15 +43,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/outrosbancos")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/negocios")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postOutrosBancos([FromRoute] string codPessoa, [FromBody] MsgOutrosBancos msg)
+        public ActionResult postNegocios([FromRoute] string codPessoa, [FromBody] MsgNegocios msg)
         {
-            AdaptadorOutrosBancos adaptador = new AdaptadorOutrosBancos();
+            AdaptadorNegocios adaptador = new AdaptadorNegocios();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
@@ -119,15 +119,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// <param name="sequencial">numero do sequencial da conta</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/outrosbancos/{sequencial}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/negocios/{sequencial}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult putOutrosBancos([FromRoute] string codPessoa, [FromRoute] int sequencial, [FromBody] MsgOutrosBancos msg)
+        public ActionResult putNegocios([FromRoute] string codPessoa, [FromRoute] int sequencial, [FromBody] MsgNegocios msg)
         {
-            AdaptadorOutrosBancos adaptador = new AdaptadorOutrosBancos();
+            AdaptadorNegocios adaptador = new AdaptadorNegocios();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
@@ -196,15 +196,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         /// <param name="usuario">usuário responsável pela consulta</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/outrosbancos/{sequencial}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/negocios/{sequencial}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteOutrosBancos([FromRoute] string codPessoa, [FromRoute] int sequencial, [FromQuery] ParametroBaseQuery parametrosBase)
+        public ActionResult deleteNegocios([FromRoute] string codPessoa, [FromRoute] int sequencial, [FromQuery] ParametroBaseQuery parametrosBase)
         {
-            AdaptadorOutrosBancos adaptador = new AdaptadorOutrosBancos();
+            AdaptadorNegocios adaptador = new AdaptadorNegocios();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 

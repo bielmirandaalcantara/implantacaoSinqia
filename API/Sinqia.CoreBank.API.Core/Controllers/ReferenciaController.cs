@@ -85,6 +85,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
+
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
@@ -199,7 +202,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] string codPessoaReferencia, [FromQuery] ParametroBaseQuery parametrosBase)
+        public ActionResult deleteReferencia([FromRoute] string codPessoa, [FromRoute] int codPessoaReferencia, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             AdaptadorReferencia adaptador = new AdaptadorReferencia();
             List<string> listaErros = new List<string>();
