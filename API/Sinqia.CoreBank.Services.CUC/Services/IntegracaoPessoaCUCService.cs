@@ -10,6 +10,7 @@ using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using System.Xml.Serialization;
 using System.IO;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
@@ -25,18 +26,19 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
         }
 
-        public ConfiguracaoURICUC configuracaoURICUC { get; set; }
+        private IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
+        private LogService _log;
 
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-
-        public IntegracaoPessoaCUCService(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public IntegracaoPessoaCUCService(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, LogService log)
         {
-            configuracaoCUC = _configuracaoCUC;
-            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, configuracaoCUC);
+            _configuracaoCUC = configuracaoCUC;
+            _log = log;
         }
 
         private CucCluParametro GerarParametroCUC(ParametroIntegracaoPessoa param)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = new CucCluParametro();
             parametrosLogin.Empresa = param.empresa;
             parametrosLogin.Dependencia = param.dependencia;
@@ -44,11 +46,15 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             parametrosLogin.SiglaAplicacao = param.sigla;
             parametrosLogin.Token = param.token;
 
+            _log.TraceMethodEnd();
+
             return parametrosLogin;
         }
 
         private RetornoIntegracaoPessoa GerarRetornoIntegracaoPessoa(CucCluRetorno paramRetorno)
         {
+            _log.TraceMethodStart();
+
             RetornoIntegracaoPessoa retorno = new RetornoIntegracaoPessoa();
             retorno.CodigoFilial = paramRetorno.CodigoFilial;
             retorno.CodigoPessoa = paramRetorno.CodigoPessoa;
@@ -56,22 +62,32 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             retorno.TipoPessoa = paramRetorno.TipoPessoa;
             retorno.Excecao = paramRetorno.Excecao;
             retorno.Xml = paramRetorno.Xml;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public ParametroIntegracaoPessoa CarregarParametrosCUCPessoa(int empresa, int dependencia, string login, string sigla, string token)
         {
+            _log.TraceMethodStart();
+
             ParametroIntegracaoPessoa param = new ParametroIntegracaoPessoa();
             param.empresa = empresa;
             param.login = login;
             param.sigla = sigla;
             param.dependencia = dependencia;
             param.token = token;
+
+            _log.TraceMethodEnd();
+
             return param;
         }
 
         public RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, DataSetPessoa dataSetPessoa)
         {
+            _log.TraceMethodStart();
+
             string stringXML = string.Empty;
             XmlSerializer x = new XmlSerializer(typeof(DataSetPessoa));
 
@@ -81,13 +97,18 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 stringXML = textWriter.ToString();
             }
 
+            _log.TraceMethodEnd();
+
             return AtualizarPessoa(param, stringXML);
         }
 
         private RetornoIntegracaoPessoa AtualizarPessoa(ParametroIntegracaoPessoa param, string xml)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
@@ -96,6 +117,9 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 var ret = client.Atualizar(parametrosLogin, xml);
 
                 RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
+
+                _log.TraceMethodEnd();
+
                 return retorno;
             }
             catch (TimeoutException timeoutEx)
@@ -111,8 +135,11 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         public DataSetPessoa SelecionarCabecalho(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
@@ -137,6 +164,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 if (dataSetPessoa.RegistroPessoa[0].cod_pessoa == null)
                     throw new ApplicationException($"Retorno serviço CUC - Codigo da pessoa não encontrado");
 
+                _log.TraceMethodEnd();
+
                 return dataSetPessoa;
             }
             catch (TimeoutException timeoutEx)
@@ -152,8 +181,11 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         public RetornoIntegracaoPessoa ExcluirPessoa(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
@@ -161,6 +193,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             {
                 var ret = client.Excluir(parametrosLogin, cod_pessoa, cod_filial);
                 RetornoIntegracaoPessoa retorno = GerarRetornoIntegracaoPessoa(ret);
+
+                _log.TraceMethodEnd();
 
                 return retorno;
             }
@@ -177,8 +211,11 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         public DataSetPessoa SelecionarPessoa(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroPessoa, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliCadastroPessoaClient client = new CucCliCadastroPessoaClient(CucCliCadastroPessoaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoa, address);
 
@@ -198,6 +235,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 var valor_serealizado = new StringReader(retorno.Xml);
 
                 DataSetPessoa dataSetPessoa = (DataSetPessoa)xmlSerialize.Deserialize(valor_serealizado);
+
+                _log.TraceMethodEnd();
 
                 return dataSetPessoa;
             }

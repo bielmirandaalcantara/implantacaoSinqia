@@ -20,6 +20,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
+    <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
     <ProjectReference Include="..\Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj" />
   </ItemGroup>
 

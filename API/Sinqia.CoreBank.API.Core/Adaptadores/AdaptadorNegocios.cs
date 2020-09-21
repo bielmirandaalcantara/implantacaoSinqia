@@ -5,11 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorNegocios
     {
+        private LogService _log;
+        public AdaptadorNegocios(LogService log)
+        {
+            _log = log;
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgNegocios msg, IList<string> erros)
         {
             MsgRetorno retorno = new MsgRetorno();

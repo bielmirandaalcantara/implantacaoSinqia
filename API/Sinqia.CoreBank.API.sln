@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.API.Core", "Sinqia.CoreBank.API.Core\Sinqia.CoreBank.API.Core.csproj", "{809A4697-5698-427C-948F-82811040E632}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Services.CUC", "Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj", "{EC2B253B-1B4E-4036-9EC7-887A615EB9F1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Services.CUC", "Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj", "{EC2B253B-1B4E-4036-9EC7-887A615EB9F1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

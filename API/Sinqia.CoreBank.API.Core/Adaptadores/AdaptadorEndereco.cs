@@ -6,13 +6,21 @@ using System.Web;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorEndereco
     {
+        private LogService _log;
+        public AdaptadorEndereco(LogService log)
+        {
+            _log = log;
+        }
         public MsgRetorno AdaptarMsgRetorno(MsgEndereco MsgEndereco, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -38,11 +46,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -62,22 +75,31 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco[] msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroEndereco> registroEnderecos = new List<DataSetPessoaRegistroEndereco>();
             foreach(var endereco in msg)
             {
                 registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(endereco, statusLinha, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registroEnderecos.ToArray();
         }
 
         public DataSetPessoaRegistroEndereco AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistroendereco msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroEndereco registroEndereco = new DataSetPessoaRegistroEndereco();
 
             registroEndereco.statuslinha = statusLinha;
@@ -229,19 +251,27 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.codigoPais != null && msg.codigoPais.Value > 0)
                 registroEndereco.endcodpais = msg.codigoPais.Value;
 
+            _log.TraceMethodEnd();
+
             return registroEndereco;
         }
 
         public DataSetPessoaRegistroEndereco[] AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(string cod_pessoa, int cod_endereco, string cod_filial, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroEndereco> registroEnderecos = new List<DataSetPessoaRegistroEndereco>();
                 registroEnderecos.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(cod_pessoa, cod_endereco, cod_filial));
+
+            _log.TraceMethodEnd();
 
             return registroEnderecos.ToArray();
         }
 
         public DataSetPessoaRegistroEndereco AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(string cod_pessoa, int cod_endereco, string cod_filial)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroEndereco registroEndereco = new DataSetPessoaRegistroEndereco();
 
             registroEndereco.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
@@ -255,11 +285,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (cod_endereco > 0)
                 registroEndereco.cod_end = cod_endereco;
 
+            _log.TraceMethodEnd();
+
             return registroEndereco;
         }
 
         public MsgRegistroendereco[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(DataSetPessoaRegistroEndereco[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistroendereco> registros = new List<MsgRegistroendereco>();
 
             foreach (var item in dataset)
@@ -267,11 +301,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(item, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registros.ToArray();
         }
 
         public MsgRegistroendereco AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(DataSetPessoaRegistroEndereco registroEndereco, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistroendereco msg = new MsgRegistroendereco();
 
 
@@ -439,6 +477,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             //if (!string.IsNullOrWhiteSpace(registroEndereco.des_est_int))
             //    msg.descricaoEstadoInternacional = registroEndereco.des_est_int;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

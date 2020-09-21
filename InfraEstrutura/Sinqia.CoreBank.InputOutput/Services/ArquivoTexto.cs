@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
-namespace Sinqia.CoreBank.API.Core.InputOutput
+namespace Sinqia.CoreBank.InputOutput.Services
 {
     public class ArquivoTexto
     {

@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1231
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.API.Core", "API\Sinqia.CoreBank.API.Core\Sinqia.CoreBank.API.Core.csproj", "{CFB0F792-6791-4BC0-B5B3-630E60C5A999}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Services.CUC", "API\Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj", "{1B56C704-AED3-4E6C-A344-F78342A23816}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Logging", "InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj", "{3FACFC7C-87E2-4162-A97C-A6EECF9F5D45}"
+	ProjectSection(ProjectDependencies) = postProject
+		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F} = {445FF436-FC4F-47B1-96AD-A9D0514ECA9F}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.InputOutput", "InfraEstrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj", "{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFB0F792-6791-4BC0-B5B3-630E60C5A999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFB0F792-6791-4BC0-B5B3-630E60C5A999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFB0F792-6791-4BC0-B5B3-630E60C5A999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFB0F792-6791-4BC0-B5B3-630E60C5A999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1B56C704-AED3-4E6C-A344-F78342A23816}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1B56C704-AED3-4E6C-A344-F78342A23816}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1B56C704-AED3-4E6C-A344-F78342A23816}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1B56C704-AED3-4E6C-A344-F78342A23816}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FACFC7C-87E2-4162-A97C-A6EECF9F5D45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FACFC7C-87E2-4162-A97C-A6EECF9F5D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FACFC7C-87E2-4162-A97C-A6EECF9F5D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FACFC7C-87E2-4162-A97C-A6EECF9F5D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F71A16CA-0FAC-4945-9CCE-7025CC7ECB98}
+	EndGlobalSection
+EndGlobal

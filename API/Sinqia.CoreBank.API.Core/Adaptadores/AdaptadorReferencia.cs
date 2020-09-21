@@ -6,13 +6,21 @@ using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorReferencia
     {
+        private LogService _log;
+        public AdaptadorReferencia(LogService log)
+        {
+            _log = log;
+        }
         public MsgRetorno AdaptarMsgRetorno(MsgReferencia msgReferencia, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -38,11 +46,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -62,22 +75,31 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia[] msg, string statusLinha,IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroReferencia> registroReferencias = new List<DataSetPessoaRegistroReferencia>();
             foreach (var referencia in msg)
             {
                 registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(referencia, statusLinha, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registroReferencias.ToArray();
         }
 
         public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(MsgRegistroreferencia msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroReferencia registroReferencia = new DataSetPessoaRegistroReferencia();
 
             registroReferencia.statuslinha = statusLinha;
@@ -142,19 +164,27 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.dataVencimentoSeguroCartao != null && msg.dataVencimentoSeguroCartao.Value != DateTime.MinValue)
                 registroReferencia.dat_venc_seg_cartao = msg.dataVencimentoSeguroCartao.Value;
 
+            _log.TraceMethodEnd();
+
             return registroReferencia;
         }
 
         public DataSetPessoaRegistroReferencia[] AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, int codPessoaReferencia, string cod_filial, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroReferencia> registroReferencias = new List<DataSetPessoaRegistroReferencia>();
                 registroReferencias.Add(AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(cod_pessoa, codPessoaReferencia, cod_filial));
+
+            _log.TraceMethodEnd();
 
             return registroReferencias.ToArray();
         }
 
         public DataSetPessoaRegistroReferencia AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferenciaExclusao(string cod_pessoa, int codPessoaReferencia, string cod_filial)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroReferencia registroReferencia = new DataSetPessoaRegistroReferencia();
 
             registroReferencia.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
@@ -167,11 +197,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!string.IsNullOrWhiteSpace(cod_filial))
                 registroReferencia.cod_fil_tit = cod_filial;
+
+            _log.TraceMethodEnd();
+
             return registroReferencia;
         }
 
         public MsgRegistroreferencia[] AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(DataSetPessoaRegistroReferencia[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistroreferencia> registros = new List<MsgRegistroreferencia>();
 
             foreach (var item in dataset)
@@ -179,11 +214,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registros.Add(AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(item, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registros.ToArray();
         }
 
         public MsgRegistroreferencia AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(DataSetPessoaRegistroReferencia registroReferencia, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistroreferencia msg = new MsgRegistroreferencia();
 
             if (!string.IsNullOrWhiteSpace(registroReferencia.cod_pessoa_tit))
@@ -245,6 +284,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (registroReferencia.dat_venc_seg_cartao != null && registroReferencia.dat_venc_seg_cartao.Value != DateTime.MinValue)
                 msg.dataVencimentoSeguroCartao = registroReferencia.dat_venc_seg_cartao;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

@@ -15,9 +15,7 @@ using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
-using Swashbuckle.AspNetCore.Swagger;
 using Sinqia.CoreBank.API.Core.Configuration;
-using Sinqia.CoreBank.API.Core.Logging;
 
 namespace Sinqia.CoreBank.API.Core
 {

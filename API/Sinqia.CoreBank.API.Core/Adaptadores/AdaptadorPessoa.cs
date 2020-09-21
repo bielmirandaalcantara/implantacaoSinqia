@@ -5,53 +5,35 @@ using System.Web;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorPessoa
     {
-        private AdaptadorEndereco _AdaptadorEndereco;
-        public AdaptadorEndereco AdaptadorEndereco
-        {
-            get
-            {
-                if (_AdaptadorEndereco == null) _AdaptadorEndereco = new AdaptadorEndereco();
-                return _AdaptadorEndereco;
-            }
-        }
+        private AdaptadorEndereco _AdaptadorEndereco;       
 
-        private AdaptadorDocumento _AdaptadorDocumento;
-        public AdaptadorDocumento AdaptadorDocumento
-        {
-            get
-            {
-                if (_AdaptadorDocumento == null) _AdaptadorDocumento = new AdaptadorDocumento();
-                return _AdaptadorDocumento;
-            }
-        }
+        private AdaptadorDocumento _AdaptadorDocumento;        
 
-        private AdaptadorPerfil _AdaptadorPerfil;
-        public AdaptadorPerfil AdaptadorPerfil
-        {
-            get
-            {
-                if (_AdaptadorPerfil == null) _AdaptadorPerfil = new AdaptadorPerfil();
-                return _AdaptadorPerfil;
-            }
-        }
+        private AdaptadorPerfil _AdaptadorPerfil; 
 
-        private AdaptadorReferencia _AdaptadorReferencia;
-        public AdaptadorReferencia AdaptadorReferencia
+        private AdaptadorReferencia _AdaptadorReferencia; 
+
+        private LogService _log;
+
+        public AdaptadorPessoa(LogService log)
         {
-            get
-            {
-                if (_AdaptadorReferencia == null) _AdaptadorReferencia = new AdaptadorReferencia();
-                return _AdaptadorReferencia;
-            }
+            _log = log;
+            _AdaptadorDocumento = new AdaptadorDocumento(_log);
+            _AdaptadorEndereco = new AdaptadorEndereco(_log);
+            _AdaptadorPerfil = new AdaptadorPerfil(_log);
+            _AdaptadorReferencia = new AdaptadorReferencia(_log);
         }
 
         public MsgRetorno AdaptarMsgRetorno(MsgPessoa msgPessoa, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -77,11 +59,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(MsgPessoaCompleto msgPessoa, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -108,11 +95,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -132,6 +124,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
@@ -142,6 +137,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
         public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros) 
         {
+            _log.TraceMethodStart();
+
             MsgRetornoGet retorno = new MsgRetornoGet();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -164,11 +161,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!erros.Any() && msg != null)
                 retorno.body = msg;
 
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetPessoa AdaptarMsgPessoaCompletoToDataSetPessoa(MsgPessoaCompleto msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistropessoaCompleto registroPessoa = msg.body.RegistroPessoa;
 
             DataSetPessoa xml = new DataSetPessoa();
@@ -178,33 +179,41 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             };
 
             if(registroPessoa.RegistroEndereco != null && registroPessoa.RegistroEndereco.Any())
-                xml.RegistroEndereco = AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa.RegistroEndereco, statusLinha, erros);
+                xml.RegistroEndereco = _AdaptadorEndereco.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(registroPessoa.RegistroEndereco, statusLinha, erros);
 
             if (registroPessoa.RegistroDocumento != null && registroPessoa.RegistroDocumento.Any())
-                xml.RegistroDocumento = AdaptadorDocumento.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(registroPessoa.RegistroDocumento, statusLinha, erros);
+                xml.RegistroDocumento = _AdaptadorDocumento.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(registroPessoa.RegistroDocumento, statusLinha, erros);
 
             if (registroPessoa.RegistroPerfil != null && registroPessoa.RegistroPerfil.Any())
-                xml.RegistroPerfil = AdaptadorPerfil.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(registroPessoa.RegistroPerfil, statusLinha, erros);
+                xml.RegistroPerfil = _AdaptadorPerfil.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfil(registroPessoa.RegistroPerfil, statusLinha, erros);
 
             if (registroPessoa.RegistroReferencia != null && registroPessoa.RegistroReferencia.Any())
-                xml.RegistroReferencia = AdaptadorReferencia.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(registroPessoa.RegistroReferencia, statusLinha, erros);
+                xml.RegistroReferencia = _AdaptadorReferencia.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(registroPessoa.RegistroReferencia, statusLinha, erros);
+
+            _log.TraceMethodEnd();
 
             return xml;
         }
 
         public DataSetPessoaRegistroPessoa[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistropessoa[] msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroPessoa> registroPessoas = new List<DataSetPessoaRegistroPessoa>();
             foreach (var pessoa in msg)
             {
                 registroPessoas.Add(AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(pessoa, statusLinha, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registroPessoas.ToArray();
         }
 
         public DataSetPessoaRegistroPessoa AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(MsgRegistropessoa msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroPessoa registroPessoa = new DataSetPessoaRegistroPessoa();
 
             registroPessoa.statuslinha = statusLinha;
@@ -692,34 +701,42 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.cpfCnpjFormatado))
                 registroPessoa.cgccpf_formatado = msg.cpfCnpjFormatado;
 
+            _log.TraceMethodEnd();
+
             return registroPessoa;
         }
 
 
         public MsgRegistropessoaCompleto AdaptaDataSetPessoaToMsgPessoaCompleto(DataSetPessoa dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistropessoaCompleto msg = new MsgRegistropessoaCompleto();
 
             if(dataset.RegistroPessoa != null && dataset.RegistroPessoa.Any())
                 msg = AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(dataset.RegistroPessoa.First(), erros);
 
             if (dataset.RegistroDocumento != null && dataset.RegistroDocumento.Any())
-                msg.RegistroDocumento = AdaptadorDocumento.AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(dataset.RegistroDocumento, erros);
+                msg.RegistroDocumento = _AdaptadorDocumento.AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(dataset.RegistroDocumento, erros);
 
             if(dataset.RegistroEndereco != null && dataset.RegistroEndereco.Any())
-                msg.RegistroEndereco = AdaptadorEndereco.AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(dataset.RegistroEndereco, erros);
+                msg.RegistroEndereco = _AdaptadorEndereco.AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(dataset.RegistroEndereco, erros);
 
             if(dataset.RegistroPerfil != null && dataset.RegistroPerfil.Any())
-                msg.RegistroPerfil = AdaptadorPerfil.AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(dataset.RegistroPerfil, erros);
+                msg.RegistroPerfil = _AdaptadorPerfil.AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(dataset.RegistroPerfil, erros);
 
             if(dataset.RegistroReferencia != null && dataset.RegistroReferencia.Any())
-                msg.RegistroReferencia = AdaptadorReferencia.AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(dataset.RegistroReferencia, erros);
+                msg.RegistroReferencia = _AdaptadorReferencia.AdaptarDataSetPessoaRegistroReferenciaToMsgRegistroreferencia(dataset.RegistroReferencia, erros);
+
+            _log.TraceMethodEnd();
 
             return msg;
         }
 
         public MsgRegistropessoa[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoa(DataSetPessoaRegistroPessoa[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistropessoa> registros = new List<MsgRegistropessoa>();
             if(dataset != null)
             {
@@ -727,13 +744,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 {
                     registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
                 }
-            }          
+            }
+
+            _log.TraceMethodEnd();
 
             return registros.ToArray();
         }
 
         public MsgRegistropessoaCompleto[] AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(DataSetPessoaRegistroPessoa[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistropessoaCompleto> registros = new List<MsgRegistropessoaCompleto>();
 
             if (dataset != null)
@@ -742,13 +763,17 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 {
                     registros.Add(AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(item, erros));
                 }
-            }            
+            }
+
+            _log.TraceMethodEnd();
 
             return registros.ToArray();
         }
 
         public MsgRegistropessoaCompleto AdaptarDataSetPessoaRegistroPessoaToMsgRegistropessoaCompleto(DataSetPessoaRegistroPessoa registroPessoa, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistropessoaCompleto msg = new MsgRegistropessoaCompleto();
 
 
@@ -1234,6 +1259,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!string.IsNullOrWhiteSpace(registroPessoa.cgccpf_formatado))
                 msg.cpfCnpjFormatado = registroPessoa.cgccpf_formatado;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

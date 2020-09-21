@@ -148,7 +148,7 @@
             <param name="codPessoaReferencia">Código de referencia</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.ReferenciaController.deleteReferencia(System.String,System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.ReferenciaController.deleteReferencia(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão de dados de referência de pessoas físicas e jurídicas
             </summary>

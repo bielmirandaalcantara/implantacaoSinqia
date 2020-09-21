@@ -14,7 +14,7 @@ using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.API.Core.Configuration;
-using Sinqia.CoreBank.API.Core.Logging;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -22,23 +22,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaSimplificadaController : ControllerBase
     {
+        private IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
+        private IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
+        private LogService _log;
+        private AdaptadorPessoaSimplificada _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
-        public AutenticacaoCUCService ServiceAutenticacao
-        {
-            get
-            {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
-                return _ServiceAutenticacao;
-            }
-        }
-
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
-
-        public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
+        private IntegracaoPessoaCUCService _clientPessoaSimplificada;
 
         public PessoaSimplificadaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
+            configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
+            _log = new LogService(configuracaoBaseAPI.Value.Log ?? null);
+            _adaptador = new AdaptadorPessoaSimplificada(_log);
+            _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC, _log);
+            _clientPessoaSimplificada = new IntegracaoPessoaCUCService(configuracaoCUC, _log);
         }
 
         /// <summary>
@@ -54,7 +52,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
         {
-            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
@@ -68,32 +65,31 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
+                dataSetPessoa = _adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
-                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
+                var retPessoa = _clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
@@ -101,13 +97,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);                
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);                
                 return StatusCode((int)HttpStatusCode.InternalServerError,retorno);
             }
 
@@ -127,7 +123,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult putPessoaSimplificada([FromRoute] string codPessoa, [FromBody] MsgPessoaSimplificada msg)
         {
-            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
@@ -141,32 +136,31 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                dataSetPessoa = adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
+                dataSetPessoa = _adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
 
-                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                var retPessoa = clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
+                var retPessoa = _clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
 
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
@@ -174,13 +168,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
@@ -200,7 +194,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
-            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
@@ -221,23 +214,22 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                RetornoIntegracaoPessoaSimplificada retClient = clientPessoaSimplificada.ExcluirPessoaSimplificada(parm, codPessoa);
+                RetornoIntegracaoPessoaSimplificada retClient = _clientPessoaSimplificada.ExcluirPessoaSimplificada(parm, codPessoa);
 
                 if (retClient.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retClient.Excecao.Mensagem}");
 
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
@@ -245,13 +237,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
@@ -274,7 +266,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult getPessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
-            AdaptadorPessoaSimplificada adaptador = new AdaptadorPessoaSimplificada();
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
             MsgRegistroPessoaSimplificadaBody body = new MsgRegistroPessoaSimplificadaBody();
@@ -290,41 +281,37 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
                     throw new ApplicationException("Parâmetro dependencia obrigatório");
 
-                if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
-                    throw new ApplicationException("Parâmetro usuario obrigatório");
-
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaSimplificadaCUCService clientPessoaSimplificada = new IntegracaoPessoaSimplificadaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoaSimplificada parm = clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                DataSetPessoaSimplificada dataSetPessoa = clientPessoaSimplificada.SelecionarPessoaSimplificada(parm, codPessoa);
+                DataSetPessoaSimplificada dataSetPessoa = _clientPessoaSimplificada.SelecionarPessoaSimplificada(parm, codPessoa);
 
-                body.RegistroPessoaSimplificada = adaptador.AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(dataSetPessoa.RegistroPessoaSimplificada, listaErros);
-                retorno = adaptador.AdaptarMsgRetornoGet(body, listaErros);
+                body.RegistroPessoaSimplificada = _adaptador.AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(dataSetPessoa.RegistroPessoaSimplificada, listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros);
 
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
 
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 

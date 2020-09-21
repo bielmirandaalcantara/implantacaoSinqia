@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using Sinqia.CoreBank.API.Core.Logging;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -21,23 +21,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PessoaController : ControllerBase
     {
-        private AutenticacaoCUCService _ServiceAutenticacao;
-        public AutenticacaoCUCService ServiceAutenticacao { get
-            {
-                if (_ServiceAutenticacao == null) _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC);
-                return _ServiceAutenticacao;
-            }
-        }
-
         public IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
-        public LogApi log;
-        
+        public LogService _log;
+        private AdaptadorPessoa _adaptador;
+        private AutenticacaoCUCService _ServiceAutenticacao;
+        private IntegracaoPessoaCUCService _clientPessoa;
+
         public PessoaController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
         {
             configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
-            log = new LogApi(configuracaoBaseAPI);
+            _log = new LogService(configuracaoBaseAPI.Value.Log ?? null);
+            _adaptador = new AdaptadorPessoa(_log);
+            _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC,_log);
+            _clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC, _log);
         }
 
         /// <summary>
@@ -53,12 +51,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
+            
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
             try
             {
+                _log.TraceMethodStart();
+
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
@@ -66,43 +66,51 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    
+                    _log.TraceMethodEnd();
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                var dataSetPessoa = adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
+                var dataSetPessoa = _adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
-
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }            
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);                
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError,retorno);
             }
 
@@ -122,13 +130,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult putPessoa([FromRoute] string codPessoa, [FromBody] MsgPessoa msg)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
             {
+                _log.TraceMethodStart();
+
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
@@ -137,44 +146,50 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
-                    retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                    _log.TraceMethodEnd();
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
-
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
-                dataSetPessoa.RegistroPessoa = adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(new MsgRegistropessoa[] { msg.body.RegistroPessoa }, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
+                string token = _ServiceAutenticacao.GetToken("att", "att");
                 
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                dataSetPessoa.RegistroPessoa = _adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(new MsgRegistropessoa[] { msg.body.RegistroPessoa }, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
+                
+                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg,listaErros);
-
+                retorno = _adaptador.AdaptarMsgRetorno(msg,listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
@@ -197,12 +212,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult deletePessoa([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
             try
             {
+                _log.TraceMethodStart();
+
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
 
@@ -214,40 +230,44 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                RetornoIntegracaoPessoa retClient = clientPessoa.ExcluirPessoa(parm, codPessoa);
+                RetornoIntegracaoPessoa retClient = _clientPessoa.ExcluirPessoa(parm, codPessoa);
 
                 if (retClient.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retClient.Excecao.Mensagem}");
 
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
-
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
-
         }
 
         /// <summary>
@@ -267,13 +287,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public ActionResult getPessoa([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
-            AdaptadorPessoa adaptador = new AdaptadorPessoa();
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
             MsgRegistroPessoaCompletoBody body = new MsgRegistroPessoaCompletoBody();
 
             try
-            {  
+            {
+                _log.TraceMethodStart();
 
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
@@ -286,44 +306,41 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
 
-                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarPessoa(parm, codPessoa);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarPessoa(parm, codPessoa);
 
-                body.RegistroPessoa = adaptador.AdaptaDataSetPessoaToMsgPessoaCompleto(dataSetPessoa, listaErros);
+                body.RegistroPessoa = _adaptador.AdaptaDataSetPessoaToMsgPessoaCompleto(dataSetPessoa, listaErros);
                 
-                retorno = adaptador.AdaptarMsgRetornoGet(body, listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros);
 
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
-
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-                log.Error(appEx);
-
                 listaErros.Add(appEx.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
 
-                log.TraceMethodEnd();
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
-                log.Error(ex);
-
                 listaErros.Add(ex.Message);
-                retorno = adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
 
-                log.TraceMethodEnd();
+                _log.Error(ex);
+                _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 

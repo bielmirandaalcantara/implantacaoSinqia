@@ -5,13 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorVinculo
     {
+        private LogService _log;
+        public AdaptadorVinculo(LogService log)
+        {
+            _log = log;
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgVinculo msgVinculo, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -37,11 +46,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -61,22 +75,31 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+            
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetPessoaRegistroVinculo[] AdaptarMsgRegistroVinculoToDataSetPessoaRegistroVinculo(MsgRegistroVinculo[] msg, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroVinculo> registroVinculos = new List<DataSetPessoaRegistroVinculo>();
             foreach (var vinculo in msg)
             {
                 registroVinculos.Add(AdaptarMsgRegistroVinculoToDataSetPessoaRegistroVinculo(vinculo, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registroVinculos.ToArray();
         }
 
         public DataSetPessoaRegistroVinculo AdaptarMsgRegistroVinculoToDataSetPessoaRegistroVinculo(MsgRegistroVinculo msg,IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroVinculo registroVinculo = new DataSetPessoaRegistroVinculo();
 
             if (!string.IsNullOrWhiteSpace(msg.statusLinha))
@@ -181,11 +204,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.emailVinculo))
                 registroVinculo.fisjuremailvinculo = msg.emailVinculo;
 
+            _log.TraceMethodEnd();
+
             return registroVinculo;
         }
 
         public MsgRegistroVinculo[] AdaptarDataSetPessoaRegistroPerfilToMsgRegistroperfil(DataSetPessoaRegistroVinculo[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistroVinculo> registros = new List<MsgRegistroVinculo>();
 
             foreach (var item in dataset)
@@ -193,11 +220,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registros.Add(AdaptarDataSetPessoaRegistroVinculoToMsgRegistroVinculo(item, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registros.ToArray();
         }
 
         public MsgRegistroVinculo AdaptarDataSetPessoaRegistroVinculoToMsgRegistroVinculo(DataSetPessoaRegistroVinculo registroVinculo, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistroVinculo msg = new MsgRegistroVinculo();
 
             if (!string.IsNullOrWhiteSpace(registroVinculo.cod_pessoa_jur))
@@ -319,6 +350,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!string.IsNullOrWhiteSpace(registroVinculo.fisjuremailvinculo))
                 msg.emailVinculo = registroVinculo.fisjuremailvinculo;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores;
 using Sinqia.CoreBank.API.Core.Configuration;
-using Sinqia.CoreBank.API.Core.Logging;
+using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;

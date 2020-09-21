@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.Text;
 using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
@@ -11,20 +12,22 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 {
     public class AutenticacaoCUCService
     {
-        public ConfiguracaoURICUC configuracaoURICUC { get; set; }
+        private IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
+        private LogService _log;
 
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-
-        public AutenticacaoCUCService(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public AutenticacaoCUCService(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, LogService log)
         {
-            configuracaoCUC = _configuracaoCUC;
-            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.Autenticacao, configuracaoCUC);
+            _configuracaoCUC = configuracaoCUC;
+            _log = log;
         }
 
         public string GetToken(string login, string senha)
         {
+            _log.TraceMethodStart();
+
             string token = string.Empty;
-            
+
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.Autenticacao, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucCliAutenticacaoClient client = new CucCliAutenticacaoClient(CucCliAutenticacaoClient.EndpointConfiguration.BasicHttpBinding_ICucCliAutenticacao, address);
 
@@ -32,6 +35,9 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             {
                 CucCluRetornoAutenticacao dadosRetorno = client.Autenticar(login, senha);
                 token = dadosRetorno.Token;
+
+                _log.TraceMethodEnd();
+
                 return token;
             }
             catch (TimeoutException timeoutEx)

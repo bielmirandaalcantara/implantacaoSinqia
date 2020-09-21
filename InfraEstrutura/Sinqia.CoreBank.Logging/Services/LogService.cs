@@ -1,32 +1,28 @@
-﻿using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.API.Core.Configuration;
+﻿using Sinqia.CoreBank.InputOutput.Services;
+using Sinqia.CoreBank.Logging.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Sinqia.CoreBank.API.Core.InputOutput;
-using System.Text;
 using System.Diagnostics;
+using System.Text;
 
-namespace Sinqia.CoreBank.API.Core.Logging
+namespace Sinqia.CoreBank.Logging.Services
 {
-    public class LogApi
+    public class LogService
     {       
         private const string textoInformation = "Info";
         private const string textoError = "Erro";
         private const string textoTrace = "Trace";
         private const string formatoData = "dd-MM-yyyy HH:mm:ss";
 
-        private IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
+        private ConfiguracaoLog _configLog;
         private string caminho;
         private string nomeArquivo;
         private bool traceHabilitado = false;
         private bool logHabilitado = false;
         private bool gerarPastaNaoEncontrada = false;
 
-        public LogApi(IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
+        public LogService(ConfiguracaoLog configLog)
         {
-            configuracaoBaseAPI = _configuracaoBaseAPI;
+            _configLog = configLog;
             BuscarConfiguracoesGlobais();
         }
 
@@ -63,6 +59,23 @@ namespace Sinqia.CoreBank.API.Core.Logging
             {
                 throw new LogErrorException(ex.Message, ex);
             }            
+        }
+
+        public void Trace(string mensagem)
+        {
+            try
+            {
+                if (traceHabilitado)
+                {
+                    string textoCompleto = $" {DateTime.Now.ToString(formatoData)} - {textoInformation} - {mensagem}";
+                    GravarTextoArquivo(textoCompleto);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new LogErrorException(ex.Message, ex);
+            }
         }
 
         public void TraceMethodEnd()
@@ -110,10 +123,11 @@ namespace Sinqia.CoreBank.API.Core.Logging
                 {
                     StringBuilder textoCompleto = new StringBuilder();
                     textoCompleto.AppendLine($" {DateTime.Now.ToString(formatoData)} - {textoError} - {mensagem}");
-                    textoCompleto.AppendLine($"Exception ------------------------");
+                    textoCompleto.AppendLine($"Exception -----------------------------------------------------------------------------");
                     textoCompleto.AppendLine(erro.Message);
-                    textoCompleto.AppendLine($"StacTrace-------------------------");
+                    textoCompleto.AppendLine($"StacTrace------------------------------------------------------------------------------");
                     textoCompleto.AppendLine(erro.StackTrace);
+                    textoCompleto.AppendLine($"---------------------------------------------------------------------------------------");
 
                     GravarTextoArquivo(textoCompleto.ToString());
                 }                
@@ -131,10 +145,11 @@ namespace Sinqia.CoreBank.API.Core.Logging
                 if (logHabilitado)
                 {
                     StringBuilder textoCompleto = new StringBuilder();
-                    textoCompleto.AppendLine($"Exception ------------------------");
+                    textoCompleto.AppendLine($"Exception -----------------------------------------------------------------------------");
                     textoCompleto.AppendLine(erro.Message);
-                    textoCompleto.AppendLine($"StacTrace-------------------------");
+                    textoCompleto.AppendLine($"StacTrace------------------------------------------------------------------------------");
                     textoCompleto.AppendLine(erro.StackTrace);
+                    textoCompleto.AppendLine($"---------------------------------------------------------------------------------------");
 
                     GravarTextoArquivo(textoCompleto.ToString());
                 }                
@@ -147,21 +162,19 @@ namespace Sinqia.CoreBank.API.Core.Logging
 
         private void BuscarConfiguracoesGlobais()
         {
-            if (configuracaoBaseAPI == null) throw new Exception("Configuração não encontrada - ConfiguracaoBaseAPI");
-            if(configuracaoBaseAPI.Value.LogApi == null) throw new Exception("Configuração não encontrada - ConfiguracaoBaseAPI");
-            ConfiguracaoLogAPI configApi = configuracaoBaseAPI.Value.LogApi;
+            if (_configLog == null) throw new Exception("Configuração não encontrada - ConfiguracaoLog");
 
-            caminho = configApi.CaminhoArquivo;
-            nomeArquivo = configApi.NomeArquivo;
+            caminho = _configLog.CaminhoArquivo;
+            nomeArquivo = _configLog.NomeArquivo;
 
-            if(!string.IsNullOrWhiteSpace(configApi.HabilitarTrace))
-                traceHabilitado = configApi.HabilitarTrace.ToUpper().Equals("TRUE");
+            if(!string.IsNullOrWhiteSpace(_configLog.HabilitarTrace))
+                traceHabilitado = _configLog.HabilitarTrace.ToUpper().Equals("TRUE");
             
-            if (!string.IsNullOrWhiteSpace(configApi.HabilitarLog))
-                logHabilitado = configApi.HabilitarLog.ToUpper().Equals("TRUE");
+            if (!string.IsNullOrWhiteSpace(_configLog.HabilitarLog))
+                logHabilitado = _configLog.HabilitarLog.ToUpper().Equals("TRUE");
 
-            if (!string.IsNullOrWhiteSpace(configApi.GerarPastaNaoEncontrada))
-                gerarPastaNaoEncontrada = configApi.GerarPastaNaoEncontrada.ToUpper().Equals("TRUE");           
+            if (!string.IsNullOrWhiteSpace(_configLog.GerarPastaNaoEncontrada))
+                gerarPastaNaoEncontrada = _configLog.GerarPastaNaoEncontrada.ToUpper().Equals("TRUE");           
         }
 
         private void GravarTextoArquivo(string textoCompleto)

@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorDocumento
     {
+        private LogService _log;
+        public AdaptadorDocumento(LogService log)
+        {
+            _log = log;
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgDocumento msgDocumento, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -38,11 +47,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -62,22 +76,31 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento[] msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroDocumento> registroDocumentos = new List<DataSetPessoaRegistroDocumento>();
             foreach (var documento in msg)
             {
                 registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(documento, statusLinha, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registroDocumentos.ToArray();
         }
 
         public DataSetPessoaRegistroDocumento AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(MsgRegistrodocumento msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroDocumento registroDocumento = new DataSetPessoaRegistroDocumento();
 
             registroDocumento.statuslinha = statusLinha;
@@ -139,19 +162,27 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (msg.codigoNacionalidade != null && msg.codigoNacionalidade.Value > 0)
                 registroDocumento.naccod = msg.codigoNacionalidade.Value;
 
+            _log.TraceMethodEnd();
+
             return registroDocumento;
         }
 
         public DataSetPessoaRegistroDocumento[] AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(string cod_pessoa, string documento, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetPessoaRegistroDocumento> registroDocumentos = new List<DataSetPessoaRegistroDocumento>();
              registroDocumentos.Add(AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(cod_pessoa, documento));
+
+            _log.TraceMethodEnd();
 
             return registroDocumentos.ToArray();
         }
 
         public DataSetPessoaRegistroDocumento AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(string cod_pessoa, string documento)
         {
+            _log.TraceMethodStart();
+
             DataSetPessoaRegistroDocumento registroDocumento = new DataSetPessoaRegistroDocumento();
 
             registroDocumento.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
@@ -162,11 +193,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(documento))
                 registroDocumento.num_doc = documento;
 
+            _log.TraceMethodEnd();
+
             return registroDocumento;
         }
 
         public MsgRegistrodocumento[] AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(DataSetPessoaRegistroDocumento[] dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<MsgRegistrodocumento> registros = new List<MsgRegistrodocumento>();
 
             foreach(var item in dataset)
@@ -174,11 +209,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
                 registros.Add(AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(item, erros));
             }
 
+            _log.TraceMethodEnd();
+
             return registros.ToArray();
         }
 
         public MsgRegistrodocumento AdaptarDataSetPessoaRegistroDocumentoToMsgRegistrodocumento(DataSetPessoaRegistroDocumento registroDocumento, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistrodocumento msg = new MsgRegistrodocumento();
 
             if (!string.IsNullOrWhiteSpace(registroDocumento.cod_pessoa))
@@ -237,6 +276,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (registroDocumento.naccod != null && registroDocumento.naccod.Value > 0)
                 msg.codigoNacionalidade = registroDocumento.naccod;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }
