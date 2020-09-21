@@ -74,11 +74,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
 
                 var dataSetPessoa = _adaptador.AdaptarMsgPessoaCompletoToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico,  configuracaoCUC.Value.SiglaSistema, token);
                 var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
@@ -153,9 +153,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken("att", "att");
-                
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
+
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico,  configuracaoCUC.Value.SiglaSistema, token);
                 dataSetPessoa.RegistroPessoa = _adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(new MsgRegistropessoa[] { msg.body.RegistroPessoa }, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
                 
                 var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
@@ -230,9 +230,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico,  configuracaoCUC.Value.SiglaSistema, token);
 
                 RetornoIntegracaoPessoa retClient = _clientPessoa.ExcluirPessoa(parm, codPessoa);
 
@@ -306,9 +306,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken("att", "att");
+                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, "att",  configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico,  configuracaoCUC.Value.SiglaSistema, token);
 
                 DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarPessoa(parm, codPessoa);
 

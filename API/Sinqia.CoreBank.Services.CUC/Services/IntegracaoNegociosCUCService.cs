@@ -9,6 +9,7 @@ using System.Xml.Serialization;
 using System.IO;
 using Microsoft.Extensions.Options;
 using System.ServiceModel;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
 {
@@ -25,29 +26,35 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
         }
 
-        public ConfiguracaoURICUC configuracaoURICUC { get; set; }
+        private IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
+        private LogService _log;
 
-        public IOptions<ConfiguracaoBaseCUC> configuracaoCUC { get; set; }
-
-        public IntegracaoNegociosCUCService(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC)
+        public IntegracaoNegociosCUCService(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, LogService log)
         {
-            configuracaoCUC = _configuracaoCUC;
-            configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroNegocios, configuracaoCUC);
+            _configuracaoCUC = configuracaoCUC;
+            _log = log;
         }
 
         public ParametroIntegracaoPessoa CarregarParametrosCUCNegocios(int empresa, int dependencia, string login, string sigla, string token)
         {
+            _log.TraceMethodStart();
+
             ParametroIntegracaoPessoa param = new ParametroIntegracaoPessoa();
             param.empresa = empresa;
             param.login = login;
             param.sigla = sigla;
             param.dependencia = dependencia;
             param.token = token;
+
+            _log.TraceMethodEnd();
+
             return param;
         }
 
         public RetornoIntegracaoNegocios AtualizarNegocios(ParametroIntegracaoPessoa param, DataSetNegocioOutrosBancos dataSetNegocios)
         {
+            _log.TraceMethodStart();
+
             string stringXML = string.Empty;
             XmlSerializer x = new XmlSerializer(typeof(DataSetNegocioOutrosBancos));
 
@@ -57,13 +64,18 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 stringXML = textWriter.ToString();
             }
 
+            _log.TraceMethodEnd();
+
             return AtualizarNegocios(param, stringXML);
         }
 
         private RetornoIntegracaoNegocios AtualizarNegocios(ParametroIntegracaoPessoa param, string xml)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroNegocios, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucClwCadastroNegocioOutrosBancosClient client = new CucClwCadastroNegocioOutrosBancosClient(CucClwCadastroNegocioOutrosBancosClient.EndpointConfiguration.BasicHttpBinding_ICucClwCadastroNegocioOutrosBancos, address);
 
@@ -72,6 +84,9 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 var ret = client.Atualizar(parametrosLogin, xml);
 
                 RetornoIntegracaoNegocios retorno = GerarRetornoIntegracaoNegocios(ret);
+
+                _log.TraceMethodEnd();
+
                 return retorno;
             }
             catch (TimeoutException timeoutEx)
@@ -88,6 +103,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
         private CucCluParametro GerarParametroCUC(ParametroIntegracaoPessoa param)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = new CucCluParametro();
             parametrosLogin.Empresa = param.empresa;
             parametrosLogin.Dependencia = param.dependencia;
@@ -95,11 +112,15 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             parametrosLogin.SiglaAplicacao = param.sigla;
             parametrosLogin.Token = param.token;
 
+            _log.TraceMethodEnd();
+
             return parametrosLogin;
         }
 
         private RetornoIntegracaoNegocios GerarRetornoIntegracaoNegocios(CucCluRetorno paramRetorno)
         {
+            _log.TraceMethodStart();
+
             RetornoIntegracaoNegocios retorno = new RetornoIntegracaoNegocios();
             retorno.CodigoFilial = paramRetorno.CodigoFilial;
             retorno.CodigoPessoa = paramRetorno.CodigoPessoa;
@@ -107,13 +128,19 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             retorno.TipoPessoa = paramRetorno.TipoPessoa;
             retorno.Excecao = paramRetorno.Excecao;
             retorno.Xml = paramRetorno.Xml;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetNegocioOutrosBancos SelecionarNegocios(ParametroIntegracaoPessoa param, string cod_pessoa, string cod_filial = null)
         {
+            _log.TraceMethodStart();
+
             CucCluParametro parametrosLogin = GerarParametroCUC(param);
 
+            ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.CadastroNegocios, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
             CucClwCadastroNegocioOutrosBancosClient client = new CucClwCadastroNegocioOutrosBancosClient(CucClwCadastroNegocioOutrosBancosClient.EndpointConfiguration.BasicHttpBinding_ICucClwCadastroNegocioOutrosBancos, address);
 
@@ -133,6 +160,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 var valor_serealizado = new StringReader(retorno.Xml);
 
                 DataSetNegocioOutrosBancos dataSetNegocios = (DataSetNegocioOutrosBancos)xmlSerialize.Deserialize(valor_serealizado);
+
+                _log.TraceMethodEnd();
 
                 return dataSetNegocios;
             }

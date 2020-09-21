@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Services.CUC.Constantes;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Adaptadores
 {
     public class AdaptadorNegocios
     {
+        private LogService _log;
+        public AdaptadorNegocios(LogService log)
+        {
+            _log = log;
+        }
+
         public MsgRetorno AdaptarMsgRetorno(MsgNegocios msg, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -38,11 +47,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -62,11 +76,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             }
 
             retorno.header = header;
+
+            _log.TraceMethodEnd();
+
             return retorno;
         }
 
         public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(MsgRegistroNegocios msg, string statusLinha, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             DataSetNegocioRegistroOutrosBancos registroNegocios = new DataSetNegocioRegistroOutrosBancos();
 
             registroNegocios.statuslinha = statusLinha;
@@ -143,20 +162,28 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(msg.indicadorContaPadrao))
                 registroNegocios.NEGSTACONTAPADRAO = msg.indicadorContaPadrao;
 
+            _log.TraceMethodEnd();
+
             return registroNegocios;
         }
 
 
         public DataSetNegocioRegistroOutrosBancos[] AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(string cod_pessoa, int sequencial, string cod_filial, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             List<DataSetNegocioRegistroOutrosBancos> registroEnderecos = new List<DataSetNegocioRegistroOutrosBancos>();
             registroEnderecos.Add(AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(cod_pessoa, sequencial, cod_filial));
+
+            _log.TraceMethodEnd();
 
             return registroEnderecos.ToArray();
         }
 
         public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(string cod_pessoa, int sequencial, string cod_filial)
         {
+            _log.TraceMethodStart();
+
             DataSetNegocioRegistroOutrosBancos registroNegocios = new DataSetNegocioRegistroOutrosBancos();
 
             registroNegocios.statuslinha = ConstantesInegracao.StatusLinhaCUC.Exclusao;
@@ -170,21 +197,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (sequencial > 0)
                 registroNegocios.seq_negbco = sequencial;
 
+            _log.TraceMethodEnd();
+
             return registroNegocios;
         }
 
         public MsgRegistroNegocios AdaptaDataSetNegocioToMsgNegocio(DataSetNegocioOutrosBancos dataset, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistroNegocios msg = new MsgRegistroNegocios();
 
             if (dataset.RegistroNegocioOutrosBancos != null && dataset.RegistroNegocioOutrosBancos.Any())
                 msg = AdaptarDataSetNegociosRegistroNegociosToMsgNegocios(dataset.RegistroNegocioOutrosBancos.First(), erros);
+
+            _log.TraceMethodEnd();
 
             return msg;
         }
 
         public MsgRegistroNegocios AdaptarDataSetNegociosRegistroNegociosToMsgNegocios(DataSetNegocioRegistroOutrosBancos registroNegocio, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRegistroNegocios msg = new MsgRegistroNegocios();
 
 
@@ -260,11 +295,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
             if (!string.IsNullOrWhiteSpace(registroNegocio.NEGSTACONTAPADRAO))
                 msg.indicadorContaPadrao = registroNegocio.NEGSTACONTAPADRAO;
 
+            _log.TraceMethodEnd();
+
             return msg;
         }
 
         public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros)
         {
+            _log.TraceMethodStart();
+
             MsgRetornoGet retorno = new MsgRetornoGet();
             string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
@@ -286,6 +325,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             if (!erros.Any() && msg != null)
                 retorno.body = msg;
+
+            _log.TraceMethodEnd();
 
             return retorno;
         }
