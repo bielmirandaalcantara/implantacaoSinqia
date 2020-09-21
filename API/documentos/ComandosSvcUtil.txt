@@ -1,5 +1,12 @@
+dotnet tool install --global dotnet-svcutil --version 2.0.1
+
+
 dotnet-svcutil http://attbhzs021.att.com.br:83/PROD/Sites/FIN/CUCWCF/CucClwAutenticacao.svc -syn -n "*,Sinqia.CoreBank.Services.CUC.WCF.Autenticacao"
 dotnet-svcutil http://attbhzs021.att.com.br:83/PROD/Sites/FIN/CUCWCF/CucClwCadastroPessoa.svc -syn -n "*,Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoa"
 dotnet-svcutil http://attbhzs021.att.com.br:83/PROD/Sites/FIN/CUCWCF/CucClwCadastroPessoaSimplificada.svc -syn -n "*,Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoaSimplificada"
+dotnet-svcutil http://attbhzs021.att.com.br:83/PROD/Sites/FIN/CUCWCF/CucClwCadastroNegocioOutrosBancos.svc -syn -n "*,Sinqia.CoreBank.Services.CUC.WCF.Negocios"
+
+
+
 
 

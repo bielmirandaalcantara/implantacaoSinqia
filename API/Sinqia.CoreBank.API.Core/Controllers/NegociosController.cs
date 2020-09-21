@@ -1,18 +1,20 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores;
+using Sinqia.CoreBank.API.Core.Models;
+using System.Collections.Generic;
+using System.Net;
+using Microsoft.AspNetCore.Http;
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models;
+using System.Xml.Serialization;
+using System.IO;
+using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Logging;
-using Sinqia.CoreBank.API.Core.Models;
-using Sinqia.CoreBank.Services.CUC.Constantes;
-using Sinqia.CoreBank.Services.CUC.Models;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
-using Sinqia.CoreBank.Services.CUC.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -70,22 +72,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                /*
+                
                 string token = ServiceAutenticacao.GetToken("att", "att");
 
-                IntegracaoPessoaCUCService clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC);
-                ParametroIntegracaoPessoa parm = clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, msg.header.usuario, configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                IntegracaoNegociosCUCService clientNegocio = new IntegracaoNegociosCUCService(configuracaoCUC);
+                ParametroIntegracaoPessoa parm = clientNegocio.CarregarParametrosCUCNegocios(msg.header.empresa.Value, msg.header.dependencia.Value, "att", configuracaoCUC.Value.SiglaSistema, token);
+                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
 
-                List<DataSetPessoaRegistroDocumento> registros = new List<DataSetPessoaRegistroDocumento>();
-                registros.Add(adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumento(msg.body.RegistroDocumento, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
-                dataSetPessoa.RegistroDocumento = registros.ToArray();
+                List<DataSetNegocioRegistroOutrosBancos> registros = new List<DataSetNegocioRegistroOutrosBancos>();
+                registros.Add(adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocios, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
+                dataSetNegocios.RegistroNegocioOutrosBancos = registros.ToArray();
 
-                var retPessoa = clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                var retNegocios = clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
 
-                if (retPessoa.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
-                */
+                if (retNegocios.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
 
                 retorno = adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.OK, retorno);
