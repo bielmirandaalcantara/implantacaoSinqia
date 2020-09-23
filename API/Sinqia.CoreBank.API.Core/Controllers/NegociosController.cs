@@ -241,7 +241,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 ParametroIntegracaoPessoa parm = _clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
                 DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
 
-                dataSetNegocios.RegistroNegocioOutrosBancos = _adaptador.AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(codPessoa, sequencial, dataSetNegocios.RegistroNegocioOutrosBancos[0].cod_fil, listaErros);
+                IntegracaoPessoaCUCService _clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC, _log);
+
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
+
+                dataSetNegocios.RegistroNegocioOutrosBancos = _adaptador.AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(codPessoa, sequencial, dataSetPessoa.RegistroPessoa[0].cod_fil, listaErros);
 
                 var retNegocios = _clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
 
