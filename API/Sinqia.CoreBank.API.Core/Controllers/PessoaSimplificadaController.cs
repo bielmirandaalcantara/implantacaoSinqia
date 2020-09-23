@@ -34,9 +34,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
             _log = new LogService(configuracaoBaseAPI.Value.Log ?? null);
+            _configuracaoCUC.Value.AcessoCUC = Util.DescriptografarUsuarioServico(_configuracaoCUC.Value.AcessoCUC);
             _adaptador = new AdaptadorPessoaSimplificada(_log);
             _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC, _log);
-            _clientPessoaSimplificada = new IntegracaoPessoaCUCService(configuracaoCUC, _log);
+            _clientPessoaSimplificada = new IntegracaoPessoaCUCService(configuracaoCUC, _log);            
         }
 
         /// <summary>
