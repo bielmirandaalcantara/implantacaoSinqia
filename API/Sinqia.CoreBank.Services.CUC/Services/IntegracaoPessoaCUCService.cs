@@ -99,6 +99,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             _log.TraceMethodEnd();
 
+            _log.Trace("XML Gerado: " + stringXML);
+
             return AtualizarPessoa(param, stringXML);
         }
 
