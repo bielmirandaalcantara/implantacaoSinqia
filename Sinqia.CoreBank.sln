@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.28307.1231
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.API.Core", "API\Sinqia.CoreBank.API.Core\Sinqia.CoreBank.API.Core.csproj", "{CFB0F792-6791-4BC0-B5B3-630E60C5A999}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7834A962-4FEE-4906-9C06-63DD759E9225} = {7834A962-4FEE-4906-9C06-63DD759E9225}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Services.CUC", "API\Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj", "{1B56C704-AED3-4E6C-A344-F78342A23816}"
 EndProject
@@ -12,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Logging", "
 		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F} = {445FF436-FC4F-47B1-96AD-A9D0514ECA9F}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.InputOutput", "Infraestrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj", "{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.InputOutput", "Infraestrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj", "{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Criptografia", "Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj", "{7834A962-4FEE-4906-9C06-63DD759E9225}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,6 +41,10 @@ Global
 		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7834A962-4FEE-4906-9C06-63DD759E9225}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7834A962-4FEE-4906-9C06-63DD759E9225}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7834A962-4FEE-4906-9C06-63DD759E9225}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7834A962-4FEE-4906-9C06-63DD759E9225}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

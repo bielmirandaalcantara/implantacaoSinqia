@@ -6,6 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sinqia.CoreBank.API.Core.Constantes;
+using Sinqia.CoreBank.Criptografia.Services;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -46,6 +48,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = true; //não foi adicionado uma chave para validação
 
             return retorno;
+        }
+        
+        public static ConfiguracaoAcessoCUC DescriptografarUsuarioServico(ConfiguracaoAcessoCUC _configUser)
+        {
+            if (_configUser != null)
+            {
+                CriptografiaServices criptografia = new CriptografiaServices();
+                criptografia.Key = _configUser.chaveServico;
+                string senhaServico = criptografia.Decrypt(_configUser.passServico);
+                _configUser.passServico = senhaServico;
+            }
+
+            return _configUser;
         }
     }
 }

@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using Sinqia.CoreBank.Logging.Services;
+using Sinqia.CoreBank.Criptografia.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -33,9 +34,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             configuracaoBaseAPI = _configuracaoBaseAPI;
             configuracaoCUC = _configuracaoCUC;
             _log = new LogService(configuracaoBaseAPI.Value.Log ?? null);
+            _configuracaoCUC.Value.AcessoCUC = Util.DescriptografarUsuarioServico(_configuracaoCUC.Value.AcessoCUC);
             _adaptador = new AdaptadorPessoa(_log);
             _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC,_log);
-            _clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC, _log);
+            _clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC, _log);           
+            
         }
 
         /// <summary>
@@ -50,8 +53,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult postPessoa([FromBody] MsgPessoaCompleto msg)
-        {
-            
+        {            
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 

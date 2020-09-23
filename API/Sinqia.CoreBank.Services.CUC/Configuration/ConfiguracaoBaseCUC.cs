@@ -23,5 +23,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models.Configuration
     {
         public string userServico { get; set; }
         public string passServico { get; set; }
+
+        public string chaveServico { get; set; }
     }
 }
