@@ -155,7 +155,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 if (string.IsNullOrWhiteSpace(retorno.Xml))
                     throw new ApplicationException("Dados não encontrados para os parâmetros informados");
 
-                XmlSerializer xmlSerialize = new XmlSerializer(typeof(DataSetPessoa));
+                XmlSerializer xmlSerialize = new XmlSerializer(typeof(DataSetNegocioOutrosBancos));
 
                 var valor_serealizado = new StringReader(retorno.Xml);
 
