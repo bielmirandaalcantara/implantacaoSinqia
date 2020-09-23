@@ -52,15 +52,16 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         
         public static ConfiguracaoAcessoCUC DescriptografarUsuarioServico(ConfiguracaoAcessoCUC _configUser)
         {
+            ConfiguracaoAcessoCUC configUserDescript = new ConfiguracaoAcessoCUC();
             if (_configUser != null)
             {
                 CriptografiaServices criptografia = new CriptografiaServices();
                 criptografia.Key = _configUser.chaveServico;
-                string senhaServico = criptografia.Decrypt(_configUser.passServico);
-                _configUser.passServico = senhaServico;
+                configUserDescript.passServico = criptografia.Decrypt(_configUser.passServico);
+                configUserDescript.userServico = _configUser.userServico;
             }
 
-            return _configUser;
+            return configUserDescript;
         }
     }
 }
