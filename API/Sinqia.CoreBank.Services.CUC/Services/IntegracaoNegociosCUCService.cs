@@ -56,11 +56,13 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             _log.TraceMethodStart();
 
             string stringXML = string.Empty;
+            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+            ns.Add("", "");
             XmlSerializer x = new XmlSerializer(typeof(DataSetNegocioOutrosBancos));
 
             using (StringWriter textWriter = new StringWriter())
             {
-                x.Serialize(textWriter, dataSetNegocios);
+                x.Serialize(textWriter, dataSetNegocios, ns);
                 stringXML = textWriter.ToString();
             }
 
