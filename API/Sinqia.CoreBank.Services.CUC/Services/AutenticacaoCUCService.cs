@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ServiceModel;
 using System.Text;
 using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.Criptografia.Services;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
@@ -21,11 +22,21 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             _log = log;
         }
 
-        public string GetToken(string login, string senha)
+        public string GetToken(ConfiguracaoAcessoCUC configuracaoAcessoCUC)
         {
             _log.TraceMethodStart();
 
+            if (configuracaoAcessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
+            if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.userServico)) throw new ApplicationException("usuario do serviço deve ser parametrizada");
+            if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.passServico)) throw new ApplicationException("Senha do serviço deve ser parametrizada");
+            if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.chaveServico)) throw new ApplicationException("Chave de criptografia do serviço deve ser parametrizada");
+
             string token = string.Empty;
+            string login = configuracaoAcessoCUC.userServico;
+            string senha = configuracaoAcessoCUC.passServico;
+            string chave = configuracaoAcessoCUC.chaveServico;
+
+            senha = DescriptografarSenhaServico(senha, chave);
 
             ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.Autenticacao, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
@@ -53,6 +64,19 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             {
                 throw;
             }
+        }
+
+        private string DescriptografarSenhaServico(string senha, string chave)
+        {
+            _log.TraceMethodStart();
+
+            string senhaDescriptografada = string.Empty;
+            CriptografiaServices criptografia = new CriptografiaServices();
+            criptografia.Key = chave;
+            senhaDescriptografada = criptografia.Decrypt(senha);
+
+            _log.TraceMethodEnd();
+            return senhaDescriptografada;
         }
     }
 }

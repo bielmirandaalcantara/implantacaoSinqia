@@ -49,18 +49,5 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
             return retorno;
         }
-        
-        public static ConfiguracaoAcessoCUC DescriptografarUsuarioServico(ConfiguracaoAcessoCUC _configUser)
-        {
-            if (_configUser != null)
-            {
-                CriptografiaServices criptografia = new CriptografiaServices();
-                criptografia.Key = _configUser.chaveServico;
-                string senhaServico = criptografia.Decrypt(_configUser.passServico);
-                _configUser.passServico = senhaServico;
-            }
-
-            return _configUser;
-        }
     }
 }

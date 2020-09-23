@@ -36,6 +36,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
+    <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
   </ItemGroup>
 
 </Project>

@@ -20,22 +20,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers
     [Produces("application/json")]
     public class PerfilController : ControllerBase
     {
-        private IOptions<ConfiguracaoBaseCUC> configuracaoCUC;
-        private IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI;
+        private IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
+        private IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         private LogService _log;
         private AdaptadorPerfil _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
         private IntegracaoPessoaCUCService _clientPessoa;
 
-        public PerfilController(IOptions<ConfiguracaoBaseCUC> _configuracaoCUC, IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI)
+        public PerfilController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
-            configuracaoBaseAPI = _configuracaoBaseAPI;
-            configuracaoCUC = _configuracaoCUC;
-            _log = new LogService(configuracaoBaseAPI.Value.Log ?? null);
-            _configuracaoCUC.Value.AcessoCUC = Util.DescriptografarUsuarioServico(_configuracaoCUC.Value.AcessoCUC);
+            _configuracaoBaseAPI = configuracaoBaseAPI;
+            _configuracaoCUC = configuracaoCUC;
+            _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorPerfil(_log);
-            _ServiceAutenticacao = new AutenticacaoCUCService(configuracaoCUC, _log);
-            _clientPessoa = new IntegracaoPessoaCUCService(configuracaoCUC, _log);            
+            _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _clientPessoa = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);            
         }
 
         /// <summary>
@@ -72,11 +71,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
+                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
+                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
+                string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
@@ -157,11 +158,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
+                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
+                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
+                string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroPerfil> registros = new List<DataSetPessoaRegistroPerfil>();
@@ -230,11 +233,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
                 _log.TraceMethodStart();
 
-                if (!Util.ValidarApiKey(Request, configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                string token = _ServiceAutenticacao.GetToken(configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.AcessoCUC.passServico);
+                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
+                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
+                string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, configuracaoCUC.Value.AcessoCUC.userServico, configuracaoCUC.Value.SiglaSistema, token);
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 dataSetPessoa.RegistroPerfil = _adaptador.AdaptarMsgRegistroperfilToDataSetPessoaRegistroPerfilExclusao(codPessoa, codPerfil, listaErros);
