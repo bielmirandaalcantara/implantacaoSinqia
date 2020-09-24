@@ -64,6 +64,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
 
+                if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
+                    msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
+
+                _log.Information($"Iniciando o processamento da mensagem [post] com o identificador {msg.header.identificadorEnvio}");
+                _log.SetIdentificador(msg.header.identificadorEnvio);
+
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
@@ -146,6 +152,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
                 if (msg.body.RegistroPessoa == null) throw new ApplicationException("Mensagem inválida - chave RegistroPessoa não informada");
 
+                if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
+                    msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
+
+                _log.Information($"Iniciando o processamento da mensagem [put] com o identificador {msg.header.identificadorEnvio}");
+                _log.SetIdentificador(msg.header.identificadorEnvio);
+
                 listaErros = Util.ValidarModel(ModelState);
                 if (listaErros.Any())
                 {
@@ -219,10 +231,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
+            string identificador = string.Empty;
 
             try
             {
                 _log.TraceMethodStart();
+                identificador = Util.GerarIdentificadorUnico();
+                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
+                _log.SetIdentificador(identificador);
 
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
@@ -246,7 +262,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (retClient.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retClient.Excecao.Mensagem}");
 
-                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -254,13 +270,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
                 listaErros.Add(appEx.Message);
-                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
@@ -269,7 +285,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = _adaptador.AdaptarMsgRetorno(listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
@@ -296,11 +312,16 @@ namespace Sinqia.CoreBank.API.Core.Controllers
         {
             List<string> listaErros = new List<string>();
             MsgRetornoGet retorno;
+            string identificador = string.Empty;
             MsgRegistroPessoaCompletoBody body = new MsgRegistroPessoaCompletoBody();
 
             try
             {
                 _log.TraceMethodStart();
+
+                identificador = Util.GerarIdentificadorUnico();
+                _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
+                _log.SetIdentificador(identificador);
 
                 if (string.IsNullOrWhiteSpace(codPessoa))
                     throw new ApplicationException("Parâmetro codPessoa obrigatório");
@@ -323,7 +344,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
 
                 body.RegistroPessoa = _adaptador.AdaptaDataSetPessoaToMsgPessoaCompleto(dataSetPessoa, listaErros);
                 
-                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
 
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
@@ -331,13 +352,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
                 listaErros.Add(appEx.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
@@ -346,7 +367,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();

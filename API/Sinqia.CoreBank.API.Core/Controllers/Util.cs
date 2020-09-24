@@ -8,6 +8,7 @@ using System.Linq;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Criptografia.Services;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.API.Core.Models;
 
 namespace Sinqia.CoreBank.API.Core.Controllers
 {
@@ -48,6 +49,11 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = true; //não foi adicionado uma chave para validação
 
             return retorno;
+        }
+
+        public static string GerarIdentificadorUnico()
+        {            
+            return Guid.NewGuid().ToString();
         }
     }
 }

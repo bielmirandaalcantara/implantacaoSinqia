@@ -51,13 +51,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             return retorno;
         }
-
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
+        {
+            return AdaptarMsgRetorno(erros, string.Empty);
+        }
+        public MsgRetorno AdaptarMsgRetorno(IList<string> erros, string identificador)
         {
             _log.TraceMethodStart();
 
             MsgRetorno retorno = new MsgRetorno();
-            string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 

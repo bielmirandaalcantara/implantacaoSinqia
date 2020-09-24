@@ -32,7 +32,7 @@
 //                identificador = msgPessoa.header.identificadorEnvio;
 //                dataEnvio = msgPessoa.header.dataHoraEnvio.HasValue ? msgPessoa.header.dataHoraEnvio.Value : DateTime.Now;
 //            }
-            
+
 //            var header = new MsgHeaderRetorno()
 //            {
 //                identificador = identificador,
@@ -50,10 +50,15 @@
 //            retorno.header = header;
 //            return retorno;
 //        }
+
 //        public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
 //        {
+//            return AdaptarMsgRetorno(erros, string.Empty);
+//        }
+
+//        public MsgRetorno AdaptarMsgRetorno(IList<string> erros, string identificador)
+//        {
 //            MsgRetorno retorno = new MsgRetorno();
-//            string identificador = string.Empty;
 //            DateTime dataEnvio = DateTime.MinValue;
 //            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
@@ -76,13 +81,17 @@
 
 //        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros)
 //        {
-//            return AdaptarMsgRetornoGet(null, erros);
+//            return AdaptarMsgRetornoGet(null, erros, string.Empty);
 //        }
 
-//        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros)
+//        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros, string identificador)
+//        {
+//            return AdaptarMsgRetornoGet(null, erros, identificador);
+//        }
+
+//        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros, string identificador)
 //        {
 //            MsgRetornoGet retorno = new MsgRetornoGet();
-//            string identificador = string.Empty;
 //            DateTime dataEnvio = DateTime.MinValue;
 //            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 

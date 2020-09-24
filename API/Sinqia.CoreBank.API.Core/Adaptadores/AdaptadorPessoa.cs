@@ -100,13 +100,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
             return retorno;
         }
-
         public MsgRetorno AdaptarMsgRetorno(IList<string> erros)
+        {
+            return AdaptarMsgRetorno(erros, string.Empty);
+        }
+        public MsgRetorno AdaptarMsgRetorno(IList<string> erros, string identificador)
         {
             _log.TraceMethodStart();
 
             MsgRetorno retorno = new MsgRetorno();
-            string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
@@ -132,15 +134,19 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores
 
         public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros)
         {
-            return AdaptarMsgRetornoGet(null, erros);
+            return AdaptarMsgRetornoGet(null, erros, string.Empty);
         }
 
-        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros) 
+        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros, string identificador)
+        {
+            return AdaptarMsgRetornoGet(null, erros, identificador);
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros, string identificador) 
         {
             _log.TraceMethodStart();
 
             MsgRetornoGet retorno = new MsgRetornoGet();
-            string identificador = string.Empty;
             DateTime dataEnvio = DateTime.MinValue;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
