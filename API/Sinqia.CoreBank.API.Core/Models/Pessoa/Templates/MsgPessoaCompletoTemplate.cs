@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Pessoa;
 
-namespace Sinqia.CoreBank.API.Core.Models.Templates
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa.Templates
 {
-    public class MsgPessoaCompletoListaTemplate
+    public class MsgPessoaCompletoTemplate
     {
         /// <summary>
         /// header da mensagem
@@ -18,7 +19,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Templates
         /// corpo da mensagem
         /// body será nulo ou vazio caso retornos http 400 e 500
         /// </summary>
-        public MsgRegistroPessoaCompletoBodyLista body { get; set; }
+        public MsgRegistroPessoaCompletoBody body { get; set; }
     }
 
    

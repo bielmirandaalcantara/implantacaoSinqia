@@ -3,8 +3,9 @@
 //using System.Linq;
 //using System.Threading.Tasks;
 //using Sinqia.CoreBank.API.Core.Models;
+//using Sinqia.CoreBank.API.Core.Models.Pessoa;
 
-//namespace Sinqia.CoreBank.API.Core.Models.Templates
+//namespace Sinqia.CoreBank.API.Core.Models.Pessoa.Templates
 //{
 
 //    public class MsgPessoaSimplificadaTemplate

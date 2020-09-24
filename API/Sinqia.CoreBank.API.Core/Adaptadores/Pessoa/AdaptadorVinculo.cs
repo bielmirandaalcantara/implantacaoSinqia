@@ -1,4 +1,5 @@
 ﻿using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Pessoa;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
 using Sinqia.CoreBank.Logging.Services;
 
-namespace Sinqia.CoreBank.API.Core.Adaptadores
+namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
 {
     public class AdaptadorVinculo
     {

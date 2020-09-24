@@ -1,7 +1,8 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using Sinqia.CoreBank.API.Core.Adaptadores;
+using Sinqia.CoreBank.API.Core.Adaptadores.Pessoa;
 using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Pessoa;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +17,7 @@ using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.Logging.Services;
 
-namespace Sinqia.CoreBank.API.Core.Controllers
+namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
 {
     [ApiController]
     [Produces("application/json")]

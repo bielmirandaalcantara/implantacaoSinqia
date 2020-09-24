@@ -3,10 +3,11 @@
 //using System.Linq;
 //using System.Web;
 //using Sinqia.CoreBank.API.Core.Models;
+//using Sinqia.CoreBank.API.Core.Models.Pessoa;
 //using Sinqia.CoreBank.API.Core.Constantes;
 //using Sinqia.CoreBank.Services.CUC.Models;
 
-//namespace Sinqia.CoreBank.API.Core.Adaptadores
+//namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
 //{
 //    public class AdaptadorPessoaSimplificada
 //    {

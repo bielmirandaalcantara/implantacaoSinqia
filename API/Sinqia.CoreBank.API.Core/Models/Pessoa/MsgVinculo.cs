@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 
-namespace Sinqia.CoreBank.API.Core.Models
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     public class MsgVinculo
     {

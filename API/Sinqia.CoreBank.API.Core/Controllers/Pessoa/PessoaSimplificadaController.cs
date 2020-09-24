@@ -1,59 +1,60 @@
-﻿using System;
+﻿/*
+using System;
 using Microsoft.AspNetCore.Mvc;
-using Sinqia.CoreBank.API.Core.Adaptadores;
+using Sinqia.CoreBank.API.Core.Adaptadores.Pessoa;
 using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Pessoa;
+using Sinqia.CoreBank.API.Core.Models.Pessoa.Templates;
 using System.Collections.Generic;
 using System.Net;
 using Microsoft.AspNetCore.Http;
-using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.Services.CUC.Models;
-using System.Xml.Serialization;
-using System.IO;
-using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using System.Linq;
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.Logging.Services;
 
-namespace Sinqia.CoreBank.API.Core.Controllers
+namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
 {
     [ApiController]
     [Produces("application/json")]
-    public class EnderecoController : ControllerBase
+    public class PessoaSimplificadaController : ControllerBase
     {
-        public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
-        public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
-        public LogService _log;
-        private AdaptadorEndereco _adaptador;
+        private IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
+        private IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
+        private LogService _log;
+        private AdaptadorPessoaSimplificada _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
-        private IntegracaoPessoaCUCService _clientPessoa;
+        private IntegracaoPessoaCUCService _clientPessoaSimplificada;
 
-        public EnderecoController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public PessoaSimplificadaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
-            _adaptador = new AdaptadorEndereco(_log);
+            _adaptador = new AdaptadorPessoaSimplificada(_log);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
-            _clientPessoa = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);            
+            _clientPessoaSimplificada = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);            
         }
 
         /// <summary>
-        /// Cadastro de dados de documentos de pessoas físicas e jurídicas
+        /// Armazena os dados de pessoa simplificada
         /// </summary>
-        /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/endereco")]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [Route("api/core/cadastros/pessoaSimplificada")]
+        [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status200OK)] 
+        [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno),StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postEndereco([FromRoute] string codPessoa, [FromBody] MsgEndereco msg)
+        public ActionResult postPessoaSimplificada([FromBody] MsgPessoaSimplificada msg)
         {
             List<string> listaErros = new List<string>();
+            DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
@@ -79,20 +80,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                dataSetPessoa = _adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros);
 
-                List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
-                registros.Add(_adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
-                dataSetPessoa.RegistroEndereco = registros.ToArray();
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
 
-                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                var retPessoa = _clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
@@ -100,6 +99,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
+
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
@@ -122,30 +122,31 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
-                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);     
 
-                _log.Error(ex);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+                _log.Error(appEx);
+                _log.TraceMethodEnd();           
+                return StatusCode((int)HttpStatusCode.InternalServerError,retorno);
             }
+
         }
 
         /// <summary>
-        /// Alteracação de dados de documentos de pessoas físicas e jurídicas
+        /// Alterar os dados de pessoa simplificada
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codEndereco">Código do endereço</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
+        [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult putEndereco([FromRoute] string codPessoa, [FromRoute] string codEndereco, [FromBody] MsgEndereco msg)
+        public ActionResult putPessoaSimplificada([FromRoute] string codPessoa, [FromBody] MsgPessoaSimplificada msg)
         {
             List<string> listaErros = new List<string>();
+            DataSetPessoa dataSetPessoa = new DataSetPessoa();
             MsgRetorno retorno;
 
             try
@@ -155,7 +156,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
-
+                
                 if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
                     msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
 
@@ -172,27 +173,25 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 }
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
+                
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                dataSetPessoa = _adaptador.AdaptarMsgPessoaSimplificadaToDataSetPessoa(msg, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros);
 
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
 
-                List<DataSetPessoaRegistroEndereco> registros = new List<DataSetPessoaRegistroEndereco>();
-                registros.Add(_adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoa(msg.body.RegistroEndereco, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
-                dataSetPessoa.RegistroEndereco = registros.ToArray();
-
-                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
+                var retPessoa = _clientPessoaSimplificada.AtualizarPessoaSimplificada(parm, dataSetPessoa);
 
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
+
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
+
                 return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
@@ -217,56 +216,64 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros.Add(ex.Message);
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
-                _log.Error(ex);
+                _log.Error(appEx);
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
+
         }
 
         /// <summary>
-        /// Exclusão de dados de documentos de pessoas físicas e jurídicas
+        /// Excluir os dados de pessoa simplificada
         /// </summary>
         /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="codEndereco">Código do endereço</param>
-        /// <param name="empresa">Empresa referente a consulta</param>
-        /// <param name="dependencia">Dependência referente a consulta</param>
-        /// <param name="usuario">usuário responsável pela consulta</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/endereco/{codEndereco}")]
+        [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteEndereco([FromRoute] string codPessoa, [FromRoute] int codEndereco, [FromQuery] ParametroBaseQuery parametrosBase)
+        public ActionResult deletePessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
             string identificador = string.Empty;
 
             try
-            {
+            {                
                 _log.TraceMethodStart();
 
                 identificador = Util.GerarIdentificadorUnico();
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
 
+                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+                if (string.IsNullOrWhiteSpace(parametrosBase.usuario))
+                    throw new ApplicationException("Parâmetro usuario obrigatório");
+
+
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, _configuracaoCUC.Value.AcessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
 
-                dataSetPessoa.RegistroEndereco = _adaptador.AdaptarMsgRegistropessoaToDataSetPessoaRegistroPessoaExclusao(codPessoa, codEndereco, dataSetPessoa.RegistroPessoa[0].cod_fil, listaErros);
-                
-                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
-                if (retPessoa.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
+                RetornoIntegracaoPessoaSimplificada retClient = _clientPessoaSimplificada.ExcluirPessoaSimplificada(parm, codPessoa);
+
+                if (retClient.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retClient.Excecao.Mensagem}");
 
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
@@ -277,6 +284,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers
             {
                 listaErros.Add(LogEx.Message);
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
@@ -294,10 +302,96 @@ namespace Sinqia.CoreBank.API.Core.Controllers
                 listaErros.Add(ex.Message);
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
-                _log.Error(ex);
+                _log.Error(appEx);
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
+
+        }
+
+        /// <summary>
+        /// Consulta de pessoa - Possibilita a consulta de dados referentes às informações mínimas necessárias para se cadastrar pessoas físicas e jurídicas
+        /// </summary>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="empresa">Empresa referente a consulta</param>
+        /// <param name="dependencia">Dependência referente a consulta</param>
+        /// <param name="usuario">usuário responsável pela consulta</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpGet]
+        [Route("api/core/cadastros/pessoaSimplificada/{codPessoa}")]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgPessoaSimplificadaTemplate), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult getPessoaSimplificada([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
+        {
+            List<string> listaErros = new List<string>();
+            MsgRetornoGet retorno;
+            string identificador = string.Empty;
+            MsgRegistroPessoaSimplificadaBody body = new MsgRegistroPessoaSimplificadaBody();
+
+            try
+            {
+                _log.TraceMethodStart();
+
+                identificador = Util.GerarIdentificadorUnico();
+                _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
+                _log.SetIdentificador(identificador);
+
+                if (string.IsNullOrWhiteSpace(codPessoa))
+                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
+
+                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro empresa obrigatório");
+
+                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
+                    throw new ApplicationException("Parâmetro dependencia obrigatório");
+
+
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+                
+                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
+                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
+                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+
+                ParametroIntegracaoPessoaSimplificada parm = _clientPessoaSimplificada.CarregarParametrosCUCPessoaSimplificada(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico,  _configuracaoCUC.Value.SiglaSistema, token);
+
+                DataSetPessoaSimplificada dataSetPessoa = _clientPessoaSimplificada.SelecionarPessoaSimplificada(parm, codPessoa);
+
+                body.RegistroPessoaSimplificada = _adaptador.AdaptarDataSetPessoaSimplificadaPessoaSimplificadaToMsgRegistroPessoaSimplificada(dataSetPessoa.RegistroPessoaSimplificada, listaErros);
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
+
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+                listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
         }
     }
 }
+*/

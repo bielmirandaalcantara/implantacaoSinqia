@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Sinqia.CoreBank.API.Core.Models
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     public class MsgPessoaCompleto
     {

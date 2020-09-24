@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sinqia.CoreBank.API.Core.Models
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     public class MsgNegocios
     {
@@ -28,7 +28,7 @@ namespace Sinqia.CoreBank.API.Core.Models
     }
 
     /// <summary>
-    /// Possibilita o armazenamento de informações referente às contas do cliente em outros bancos
+    /// Possibilita o armazenamento de informações referente as contas do cliente em outros bancos
     /// </summary>
     public class MsgRegistroNegocios
     {
