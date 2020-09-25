@@ -6,7 +6,7 @@ using System.Web;
 
 namespace Sinqia.CoreBank.API.Core.Models.Corporativo
 {
-    public class MsgMsgOperadorDependencia
+    public class MsgOperadorDependencia
     {
         /// <summary>
         /// header da mensagem
