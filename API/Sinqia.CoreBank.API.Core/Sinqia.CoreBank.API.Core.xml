@@ -7,113 +7,113 @@
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.postDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
             <summary>
             Cadastro de dependencia
-            <param name="codDependencia">Código da dependencia</param>
             </summary>
+            <param name="codDependencia">Código da dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.putDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
             <summary>
             Alteração de dados de dependencia
-            <param name="codDependencia">Código da dependencia</param>
             </summary>
+            <param name="codDependencia">Código da dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.deleteDependencia(System.String)">
             <summary>
             Exclusão de dados de dependencia
-            <param name="codDependencia">Código da dependencia</param>
             </summary>
+            <param name="codDependencia">Código da dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.getDependencia(System.String)">
             <summary>
             Exclusão de dados de dependencia
-            <param name="codDependencia">Código da dependencia</param>
             </summary>
+            <param name="codDependencia">Código da dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.postOperador(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
             <summary>
             Cadastro de Operador
-            <param name="codOperador">Código do operador</param>
             </summary>
+            <param name="codOperador">Código do operador</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.putOperador(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
             <summary>
             Alteração de dados de Operador
-            <param name="codOperador">Código do operador</param>
             </summary>
+            <param name="codOperador">Código do operador</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.deleteOperador(System.String)">
             <summary>
             Exclusão de dados de Operador
-            <param name="codOperador">Código do operador</param>codOperador
             </summary>
+            <param name="codOperador">Código do operador</param>codOperador
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.getOperador(System.String)">
             <summary>
             Exclusão de dados de Operador
-            <param name="codOperador">Código do operador</param>
             </summary>
+            <param name="codOperador">Código do operador</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
             <summary>
             Cadastro de Operador dependencia
-            <param name="codOperadorDependencia">Código do Operador dependencia</param>
             </summary>
+            <param name="codOperadorDependencia">Código do Operador dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.putOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
             <summary>
             Alteração de dados do operador dependencia
-            <param name="codOperadorDependencia">Código do operador dependencia</param>
             </summary>
+            <param name="codOperadorDependencia">Código do operador dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.String)">
             <summary>
             Exclusão de dados de operador dependencia
-            <param name="codOperadorDependencia">Código do operador dependencia</param>
             </summary>
+            <param name="codOperadorDependencia">Código do operador dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.String)">
             <summary>
             Exclusão de dados de OperadorDependencia
-            <param name="codOperadorDependencia">Código da OperadorDependencia</param>
             </summary>
+            <param name="codOperadorDependencia">Código da OperadorDependencia</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.postProdutoBancario(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
             <summary>
             Cadastro de produto bancario
-            <param name="codProdutoBancario">Código do produto bancario</param>
             </summary>
+            <param name="codProdutoBancario">Código do produto bancario</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.putProdutoBancario(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
             <summary>
             Alteração de dados de produto bancario
-            <param name="codProdutoBancario">Código do produto bancario</param>
             </summary>
+            <param name="codProdutoBancario">Código do produto bancario</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.deleteProdutoBancario(System.String)">
             <summary>
             Exclusão de dados de produto bancario
-            <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
             </summary>
+            <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.getProdutoBancario(System.String)">
             <summary>
             Exclusão de dados de produto bancario
-            <param name="codProdutoBancario">Código do produto bancario</param>
             </summary>
+            <param name="codProdutoBancario">Código do produto bancario</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.DocumentoController.postDocumento(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgDocumento)">
