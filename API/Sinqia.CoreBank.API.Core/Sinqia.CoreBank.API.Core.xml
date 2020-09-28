@@ -4,6 +4,118 @@
         <name>Sinqia.CoreBank.API.Core</name>
     </assembly>
     <members>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.postDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
+            <summary>
+            Cadastro de dependencia
+            <param name="codDependencia">Código da dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.putDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
+            <summary>
+            Alteração de dados de dependencia
+            <param name="codDependencia">Código da dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.deleteDependencia(System.String)">
+            <summary>
+            Exclusão de dados de dependencia
+            <param name="codDependencia">Código da dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.getDependencia(System.String)">
+            <summary>
+            Exclusão de dados de dependencia
+            <param name="codDependencia">Código da dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.postOperador(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
+            <summary>
+            Cadastro de Operador
+            <param name="codOperador">Código do operador</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.putOperador(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
+            <summary>
+            Alteração de dados de Operador
+            <param name="codOperador">Código do operador</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.deleteOperador(System.String)">
+            <summary>
+            Exclusão de dados de Operador
+            <param name="codOperador">Código do operador</param>codOperador
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.getOperador(System.String)">
+            <summary>
+            Exclusão de dados de Operador
+            <param name="codOperador">Código do operador</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
+            <summary>
+            Cadastro de Operador dependencia
+            <param name="codOperadorDependencia">Código do Operador dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.putOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
+            <summary>
+            Alteração de dados do operador dependencia
+            <param name="codOperadorDependencia">Código do operador dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.String)">
+            <summary>
+            Exclusão de dados de operador dependencia
+            <param name="codOperadorDependencia">Código do operador dependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.String)">
+            <summary>
+            Exclusão de dados de OperadorDependencia
+            <param name="codOperadorDependencia">Código da OperadorDependencia</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.postProdutoBancario(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
+            <summary>
+            Cadastro de produto bancario
+            <param name="codProdutoBancario">Código do produto bancario</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.putProdutoBancario(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
+            <summary>
+            Alteração de dados de produto bancario
+            <param name="codProdutoBancario">Código do produto bancario</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.deleteProdutoBancario(System.String)">
+            <summary>
+            Exclusão de dados de produto bancario
+            <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.getProdutoBancario(System.String)">
+            <summary>
+            Exclusão de dados de produto bancario
+            <param name="codProdutoBancario">Código do produto bancario</param>
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.DocumentoController.postDocumento(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgDocumento)">
             <summary>
             Cadastro de dados de documentos de pessoas físicas e jurídicas
@@ -379,14 +491,14 @@
             Indica se o gerente deve receber email de clientes com cadastro vencido
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgMsgOperadorDependencia.header">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia.header">
             <summary>
             header da mensagem
             erros será nulo em retornos http 200
             identificador será nulo ou em branco caso seja uma requisição GET
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgMsgOperadorDependencia.body">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia.body">
             <summary>
             corpo da mensagem
             body será nulo ou vazio caso retornos http 400 e 500
@@ -483,6 +595,58 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroProdutoBancario.descricaoProdutoCARM">
             <summary>
             Descrição Produto CARM
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgDependenciaTemplate.header">
+            <summary>
+            header da mensagem
+            erros será nulo em retornos http 200
+            identificador será nulo ou em branco caso seja uma requisição GET
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgDependenciaTemplate.body">
+            <summary>
+            corpo da mensagem
+            body será nulo ou vazio caso retornos http 400 e 500
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgOperadorDependenciaTemplate.header">
+            <summary>
+            header da mensagem
+            erros será nulo em retornos http 200
+            identificador será nulo ou em branco caso seja uma requisição GET
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgOperadorDependenciaTemplate.body">
+            <summary>
+            corpo da mensagem
+            body será nulo ou vazio caso retornos http 400 e 500
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgOperadorTemplate.header">
+            <summary>
+            header da mensagem
+            erros será nulo em retornos http 200
+            identificador será nulo ou em branco caso seja uma requisição GET
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgOperadorTemplate.body">
+            <summary>
+            corpo da mensagem
+            body será nulo ou vazio caso retornos http 400 e 500
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgProdutoBancarioTemplate.header">
+            <summary>
+            header da mensagem
+            erros será nulo em retornos http 200
+            identificador será nulo ou em branco caso seja uma requisição GET
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.Templates.MsgProdutoBancarioTemplate.body">
+            <summary>
+            corpo da mensagem
+            body será nulo ou vazio caso retornos http 400 e 500
             </summary>
         </member>
         <member name="T:Sinqia.CoreBank.API.Core.Models.MsgHeader">

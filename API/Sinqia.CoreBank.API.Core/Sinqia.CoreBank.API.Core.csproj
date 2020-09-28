@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>D:\_sourceCode\GitHub\CoreBank\APIsIntegracao\implantacaoSinqia\API\Sinqia.CoreBank.API.Core\Sinqia.CoreBank.API.Core.xml</DocumentationFile>
+    <DocumentationFile>Sinqia.CoreBank.API.Core.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -24,6 +24,12 @@
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
     <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
     <ProjectReference Include="..\Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sinqia.CoreBank.API.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
