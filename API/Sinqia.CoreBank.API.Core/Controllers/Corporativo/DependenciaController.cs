@@ -35,8 +35,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Cadastro de dependencia
-        /// <param name="codDependencia">Código da dependencia</param>
         /// </summary>
+        /// <param name="codDependencia">Código da dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -101,8 +101,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Alteração de dados de dependencia
-        /// <param name="codDependencia">Código da dependencia</param>
         /// </summary>
+        /// <param name="codDependencia">Código da dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -169,8 +169,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de dependencia
-        /// <param name="codDependencia">Código da dependencia</param>
         /// </summary>
+        /// <param name="codDependencia">Código da dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -232,8 +232,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de dependencia
-        /// <param name="codDependencia">Código da dependencia</param>
         /// </summary>
+        /// <param name="codDependencia">Código da dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]

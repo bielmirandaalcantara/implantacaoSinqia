@@ -34,8 +34,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
         /// <summary>
         /// Cadastro de Operador
-        /// <param name="codOperador">Código do operador</param>
         /// </summary>
+        /// <param name="codOperador">Código do operador</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
@@ -100,8 +100,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Alteração de dados de Operador
-        /// <param name="codOperador">Código do operador</param>
         /// </summary>
+        /// <param name="codOperador">Código do operador</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
@@ -168,8 +168,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de Operador
-        /// <param name="codOperador">Código do operador</param>codOperador
         /// </summary>
+        /// <param name="codOperador">Código do operador</param>codOperador
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
@@ -231,8 +231,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de Operador
-        /// <param name="codOperador">Código do operador</param>
         /// </summary>
+        /// <param name="codOperador">Código do operador</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/operador/{codOperador}")]

@@ -32,8 +32,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
         /// <summary>
         /// Cadastro de produto bancario
-        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// </summary>
+        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
@@ -98,8 +98,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Alteração de dados de produto bancario
-        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// </summary>
+        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
@@ -166,8 +166,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de produto bancario
-        /// <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
         /// </summary>
+        /// <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
@@ -229,8 +229,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de produto bancario
-        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// </summary>
+        /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
