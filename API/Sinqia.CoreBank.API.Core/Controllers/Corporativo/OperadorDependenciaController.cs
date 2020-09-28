@@ -34,8 +34,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
         /// <summary>
         /// Cadastro de Operador dependencia
-        /// <param name="codOperadorDependencia">Código do Operador dependencia</param>
         /// </summary>
+        /// <param name="codOperadorDependencia">Código do Operador dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
@@ -100,8 +100,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Alteração de dados do operador dependencia
-        /// <param name="codOperadorDependencia">Código do operador dependencia</param>
         /// </summary>
+        /// <param name="codOperadorDependencia">Código do operador dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
@@ -168,8 +168,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de operador dependencia
-        /// <param name="codOperadorDependencia">Código do operador dependencia</param>
         /// </summary>
+        /// <param name="codOperadorDependencia">Código do operador dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
@@ -231,8 +231,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
         /// <summary>
         /// Exclusão de dados de OperadorDependencia
-        /// <param name="codOperadorDependencia">Código da OperadorDependencia</param>
         /// </summary>
+        /// <param name="codOperadorDependencia">Código da OperadorDependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
