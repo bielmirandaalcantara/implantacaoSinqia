@@ -17,7 +17,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Logging", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.InputOutput", "Infraestrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj", "{445FF436-FC4F-47B1-96AD-A9D0514ECA9F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Criptografia", "Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj", "{7834A962-4FEE-4906-9C06-63DD759E9225}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Criptografia", "Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj", "{7834A962-4FEE-4906-9C06-63DD759E9225}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Persistencia", "Infraestrutura\Sinqia.CoreBank.Persistencia\Sinqia.CoreBank.Persistencia.csproj", "{BD9C362C-82F5-43CF-B2E4-0B1CAC33B87D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Dominio.Corporativo", "Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj", "{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +49,14 @@ Global
 		{7834A962-4FEE-4906-9C06-63DD759E9225}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7834A962-4FEE-4906-9C06-63DD759E9225}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7834A962-4FEE-4906-9C06-63DD759E9225}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD9C362C-82F5-43CF-B2E4-0B1CAC33B87D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD9C362C-82F5-43CF-B2E4-0B1CAC33B87D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD9C362C-82F5-43CF-B2E4-0B1CAC33B87D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD9C362C-82F5-43CF-B2E4-0B1CAC33B87D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
