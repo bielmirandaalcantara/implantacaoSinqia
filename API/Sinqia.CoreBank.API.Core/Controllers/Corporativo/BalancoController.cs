@@ -18,14 +18,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
     [ApiController]
     [Produces("application/json")]
-    public class GrupoEmpresarialController : ControllerBase
+    public class BalancoController : ControllerBase
     {
         public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AutenticacaoCUCService _ServiceAutenticacao;
 
-        public GrupoEmpresarialController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public BalancoController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
@@ -34,18 +34,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Cadastro de grupo empresarial
+        /// Cadastro de Balanço
         /// </summary>
-        /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+        /// <param name="codBalanco">Código de Balanço</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/Balanco/{codBalanco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postGrupoEmpresarial([FromRoute] string codGrupoEmpresarial, [FromBody] MsgGrupoEmpresarial msg)
+        public ActionResult postBalanco([FromRoute] string codBalanco, [FromBody] MsgBalanco msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
@@ -100,18 +100,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Alteração de dados de grupo empresarial
+        /// Alteração de dados de Balanço
         /// </summary>
-        /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+        /// <param name="codBalanco">Código de Balanço</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/Balanco/{codBalanco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult putGrupoEmpresarial([FromRoute] string codGrupoEmpresarial, [FromBody] MsgGrupoEmpresarial msg)
+        public ActionResult putBalanco([FromRoute] string codBalanco, [FromBody] MsgBalanco msg)
         {
 
             List<string> listaErros = new List<string>();
@@ -168,18 +168,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Exclusão de dados de grupo empresarial
+        /// Exclusão de dados de Balanço
         /// </summary>
-        /// <param name="codGrupoEmpresarial">Código da grupo wmpresarial</param>
+        /// <param name="codBalanco">Código de Balanço</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/Balanco/{codBalanco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteGrupoEmpresarial([FromRoute] string codGrupoEmpresarial)
+        public ActionResult deleteBalanco([FromRoute] string codBalanco)
         {
 
             List<string> listaErros = new List<string>();
@@ -231,18 +231,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Exclusão de dados de grupo empresarial
+        /// Exclusão de dados de Balanço
         /// </summary>
-        /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+        /// <param name="codBalanco">Código de Balanço</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
-        [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status500InternalServerError)]
+        [Route("api/core/cadastros/corporativo/Balanco/{codBalanco}")]
+        [ProducesResponseType(typeof(MsgBalancoTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgBalancoTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgBalancoTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getGrupoEmpresarial([FromRoute] string codGrupoEmpresarial)
+        public ActionResult getBalanco([FromRoute] string codBalanco)
         {
 
             List<string> listaErros = new List<string>();
@@ -257,8 +257,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (string.IsNullOrWhiteSpace(codGrupoEmpresarial))
-                    throw new ApplicationException("Parâmetro codGrupoEmpresarial obrigatório");
+                if (string.IsNullOrWhiteSpace(codBalanco))
+                    throw new ApplicationException("Parâmetro codBalanco obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
