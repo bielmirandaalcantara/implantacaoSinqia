@@ -33,6 +33,9 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroDocumento")]
         public DataSetPessoaRegistroBalanco[] RegistroBalanco { get; set; }
+
+        [System.Xml.Serialization.XmlElementAttribute("RegistroDocumento")]
+        public DataSetPessoaRegistroRendas[] RegistroRendas { get; set; }
     }
 
     public class DataSetPessoaRegistroPessoa
@@ -436,6 +439,45 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string cod_ind { get; set; }
         public string cod_detalhe { get; set; }
         public decimal? val_analisado { get; set; }
+
+
+    }
+
+    public class DataSetPessoaRegistroRendas
+    {
+        public string statuslinha { get; set; }
+        public string cod_pessoa { get; set; }
+        public int? num_renda { get; set; }
+        public decimal? val_renda { get; set; }
+        public string nom_empreg { get; set; }
+        public string crg_empreg { get; set; }
+        public string tip_log_empreg { get; set; }
+        public string end_empreg { get; set; }
+        public string cpl_log_empreg { get; set; }
+        public string bai_empreg { get; set; }
+        public string cep_empreg { get; set; }
+        public string per_renda { get; set; }
+        public DateTime? dat_vld_renda { get; set; }
+        public string obs_renda { get; set; }
+        public DateTime? dat_cad { get; set; }
+        public DateTime? dat_atu { get; set; }
+        public string usu_atu { get; set; }
+        public string idc_sit { get; set; }
+        public DateTime? dat_sit { get; set; }
+        public int? tip_renda { get; set; }
+        public int? cod_municipio { get; set; }
+        public string cod_ind { get; set; }
+        public string num_log_empreg { get; set; }
+        public DateTime? dat_admissao { get; set; }
+        public DateTime? dat_demissao { get; set; }
+        public string ddd_empreg { get; set; }
+        public string tel_empreg { get; set; }
+        public string ram_empreg { get; set; }
+        public string cod_cnpj { get; set; }
+        public string tip_emp { get; set; }
+        public string renidtrencon { get; set; }
+        public string renidtemp { get; set; }
+
 
 
     }

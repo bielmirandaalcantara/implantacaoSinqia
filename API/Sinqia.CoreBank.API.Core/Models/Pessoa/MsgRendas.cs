@@ -36,12 +36,12 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Número da renda
         /// </summary>
-        public int numeroRenda { get; set; }
+        public int? numeroRenda { get; set; }
 
         /// <summary>
         /// Valor dos rendimentos
         /// </summary>
-        public decimal valRenda { get; set; }
+        public decimal? valRenda { get; set; }
 
         /// <summary>
         /// Nome do empregador
@@ -86,7 +86,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Data validade da renda
         /// </summary>
-        public DateTime dataValidadeRenda { get; set; }
+        public DateTime? dataValidadeRenda { get; set; }
 
         /// <summary>
         /// Observação da renda
@@ -96,12 +96,12 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Data de cadastramento
         /// </summary>
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Data de atualização
         /// </summary>
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Código do usuário da atualização
@@ -116,17 +116,17 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Data da situação
         /// </summary>
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Tipo de renda
         /// </summary>
-        public int tipoRenda { get; set; }
+        public int? tipoRenda { get; set; }
 
         /// <summary>
         /// Código do município
         /// </summary>
-        public int codigoMunicipio { get; set; }
+        public int? codigoMunicipio { get; set; }
 
         /// <summary>
         /// Código do Índice
@@ -141,12 +141,12 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Data de admissão
         /// </summary>
-        public DateTime dataAdmissao { get; set; }
+        public DateTime? dataAdmissao { get; set; }
 
         /// <summary>
         /// Data de demissão
         /// </summary>
-        public DateTime dataDemissao { get; set; }
+        public DateTime? dataDemissao { get; set; }
 
         /// <summary>
         /// DDD empregador

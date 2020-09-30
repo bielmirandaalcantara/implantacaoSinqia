@@ -352,7 +352,7 @@
             <param name="numeroRenda">Código da renda</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.RendasController.deleteRendas(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.RendasController.deleteRendas(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão de dados de Rendas
             </summary>
