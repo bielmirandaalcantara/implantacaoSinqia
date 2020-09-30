@@ -266,7 +266,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
 
                 dataSetPessoa.RegistroDocumento = _adaptador.AdaptarMsgRegistrodocumentoToDataSetPessoaRegistroDocumentoExclusao(codPessoa, numeroDocumento, listaErros);
 
-
                 var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
                 if (retPessoa.Excecao != null)
                     throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");

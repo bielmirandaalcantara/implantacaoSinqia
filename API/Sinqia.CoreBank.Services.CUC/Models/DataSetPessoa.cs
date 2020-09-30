@@ -30,6 +30,9 @@ namespace Sinqia.CoreBank.Services.CUC.Models
 
         [System.Xml.Serialization.XmlElementAttribute("RegistroVinculo")]
         public DataSetPessoaRegistroVinculo[] RegistroVinculo { get; set; }
+
+        [System.Xml.Serialization.XmlElementAttribute("RegistroDocumento")]
+        public DataSetPessoaRegistroBalanco[] RegistroBalanco { get; set; }
     }
 
     public class DataSetPessoaRegistroPessoa
@@ -414,5 +417,26 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         public string nom_assina2 { get; set; }
         public string nom_assina3 { get; set; }
         public string fisjuremailvinculo { get; set; }
+    }
+
+    public class DataSetPessoaRegistroBalanco
+    {
+        public string statuslinha { get; set; }
+        public string cod_pessoa { get; set; }
+        public DateTime? ano_balanco { get; set; }
+        public int? seq_balanco { get; set; }
+        public DateTime? dat_ini_balanco { get; set; }
+        public DateTime? dat_fim_balanco { get; set; }
+        public string des_balanco { get; set; }
+        public DateTime? dat_cad { get; set; }
+        public string usu_atu { get; set; }
+        public DateTime? dat_atu { get; set; }
+        public string idc_sit { get; set; }
+        public DateTime? dat_sit { get; set; }
+        public string cod_ind { get; set; }
+        public string cod_detalhe { get; set; }
+        public decimal? val_analisado { get; set; }
+
+
     }
 }

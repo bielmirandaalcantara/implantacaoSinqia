@@ -5,6 +5,8 @@ using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
+using Sinqia.CoreBank.API.Core.Models.Pessoa;
+using Sinqia.CoreBank.API.Core.Models.Pessoa.Templates;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
@@ -14,7 +16,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
+namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
 {
     [ApiController]
     [Produces("application/json")]
@@ -39,7 +41,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="numeroRenda">Código da renda</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/Rendas/{numeroRenda}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/rendas")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -105,7 +107,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="numeroRenda">Código da renda</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/corporativo/Rendas/{numeroRenda}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/rendas/{numeroRenda}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -173,7 +175,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="numeroRenda">Número da Renda</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/Rendas/{numeroRenda}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/rendas/{numeroRenda}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -193,72 +195,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 identificador = Util.GerarIdentificadorUnico();
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
-
-                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
-                _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
-            }
-            catch (LogErrorException LogEx)
-            {
-                listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-            catch (ApplicationException appEx)
-            {
-
-                listaErros.Add(appEx.Message);
-
-                _log.Error(appEx);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            catch (Exception ex)
-            {
-                listaErros.Add(ex.Message);
-
-                _log.Error(ex);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
-        }
-
-        /// <summary>
-        /// Exclusão de dados de Rendas
-        /// </summary>
-        /// <param name="numeroRenda">Número da Renda</param>
-        /// <returns>MsgRetorno</returns>
-        [HttpGet]
-        [Route("api/core/cadastros/corporativo/Rendas/{numeroRenda}")]
-        [ProducesResponseType(typeof(MsgRendasTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRendasTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRendasTemplate), StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getRendas([FromRoute] string numeroRenda)
-        {
-
-            List<string> listaErros = new List<string>();
-            MsgRetorno retorno;
-            string identificador = string.Empty;
-
-            try
-            {
-                _log.TraceMethodStart();
-
-                identificador = Util.GerarIdentificadorUnico();
-                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
-                _log.SetIdentificador(identificador);
-
-                if (string.IsNullOrWhiteSpace(numeroRenda))
-                    throw new ApplicationException("Parâmetro numeroRenda obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 

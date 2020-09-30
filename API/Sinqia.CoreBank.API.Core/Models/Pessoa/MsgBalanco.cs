@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sinqia.CoreBank.API.Core.Models.Corporativo
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     public class MsgBalanco
     {
@@ -23,16 +23,30 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
 
     public class MsgRegistroBalanco
     {
+        /// <summary>
+        /// Código Pessoa
+        /// </summary>
+        public string codigoPessoa { get; set; }
+
+        /// <summary>
+        /// Ano Balanço
+        /// </summary>
+        public DateTime? anoBalanco { get; set; }
+
+        /// <summary>
+        /// Sequencial Balanço
+        /// </summary>
+        public int? sequencialBalanco { get; set; }
 
         /// <summary>
         /// Data início Balanço
         /// </summary>
-        public DateTime dataInicioBalanco { get; set; }
+        public DateTime? dataInicioBalanco { get; set; }
 
         /// <summary>
         /// Data fim Balanço
         /// </summary>
-        public DateTime dataFimBalanco { get; set; }
+        public DateTime? dataFimBalanco { get; set; }
 
         /// <summary>
         /// Descrição Balanço
@@ -42,7 +56,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de cadastramento
         /// </summary>
-        public DateTime dataCadastro { get; set; }
+        public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Código do usuário da atualização
@@ -52,7 +66,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de atualização
         /// </summary>
-        public DateTime dataAtualizacao { get; set; }
+        public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Indicador de situação
@@ -62,7 +76,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data da situação
         /// </summary>
-        public DateTime dataSituacao { get; set; }
+        public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Código do Índice
@@ -77,7 +91,8 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Valor Analisado
         /// </summary>
-        public decimal valorAnalisado { get; set; }
+        public decimal? valorAnalisado { get; set; }
+
 
     }
 
