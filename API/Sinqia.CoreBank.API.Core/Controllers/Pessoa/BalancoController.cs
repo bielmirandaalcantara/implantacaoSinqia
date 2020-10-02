@@ -45,7 +45,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Cadastro de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/balanco")]
@@ -137,7 +137,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Alteração de dados de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="seqBalanco">Código do balanco</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/balanco/{codBalanco}")]
@@ -234,7 +235,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Exclusão de dados de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="seqBalanco">Código do balanco</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/balanco/{seqBalanco}")]

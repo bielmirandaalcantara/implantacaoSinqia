@@ -34,7 +34,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
         [System.Xml.Serialization.XmlElementAttribute("RegistroBalanco")]
         public DataSetPessoaRegistroBalanco[] RegistroBalanco { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("RegistroRendas")]
+        [System.Xml.Serialization.XmlElementAttribute("RegistroRenda")]
         public DataSetPessoaRegistroRendas[] RegistroRendas { get; set; }
     }
 
