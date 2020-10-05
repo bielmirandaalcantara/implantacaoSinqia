@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.Common" Version="4.3.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj" />
+    <ProjectReference Include="..\Sinqia.CoreBank.Dao.Core\Sinqia.CoreBank.Dao.Core.csproj" />
+  </ItemGroup>
+
+</Project>

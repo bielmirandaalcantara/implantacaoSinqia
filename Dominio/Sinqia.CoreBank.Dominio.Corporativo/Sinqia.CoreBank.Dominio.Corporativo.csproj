@@ -4,4 +4,12 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.0.35" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dao\Sinqia.CoreBank.Dao.Core\Sinqia.CoreBank.Dao.Core.csproj" />
+  </ItemGroup>
+
 </Project>
