@@ -138,19 +138,19 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             return registroBalanco;
         }
 
-        public DataSetPessoaRegistroBalanco[] AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(string cod_pessoa, string Balanco, IList<string> erros)
+        public DataSetPessoaRegistroBalanco[] AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(string cod_pessoa, int seqBalanco, IList<string> erros, ParametroBalancoQuery parametrosBase)
         {
             _log.TraceMethodStart();
 
             List<DataSetPessoaRegistroBalanco> registroBalancos = new List<DataSetPessoaRegistroBalanco>();
-            registroBalancos.Add(AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(cod_pessoa, Balanco));
+            registroBalancos.Add(AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(cod_pessoa, seqBalanco, parametrosBase));
 
             _log.TraceMethodEnd();
 
             return registroBalancos.ToArray();
         }
 
-        public DataSetPessoaRegistroBalanco AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(string cod_pessoa, string Balanco)
+        public DataSetPessoaRegistroBalanco AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(string cod_pessoa, int seqBalanco, ParametroBalancoQuery parametrosBase)
         {
             _log.TraceMethodStart();
 
@@ -161,8 +161,14 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             if (!string.IsNullOrWhiteSpace(cod_pessoa))
                 registroBalanco.cod_pessoa = cod_pessoa;
 
-            if (!string.IsNullOrWhiteSpace(Balanco))
-                registroBalanco.cod_detalhe = Balanco;
+            if (seqBalanco > 0)
+                registroBalanco.seq_balanco = seqBalanco;
+
+            if (!string.IsNullOrWhiteSpace(parametrosBase.detalhe))
+                registroBalanco.cod_detalhe = parametrosBase.detalhe;
+
+            if (parametrosBase.ano != null && parametrosBase.ano.Value != DateTime.MinValue)
+                registroBalanco.ano_balanco = parametrosBase.ano;
 
             _log.TraceMethodEnd();
 

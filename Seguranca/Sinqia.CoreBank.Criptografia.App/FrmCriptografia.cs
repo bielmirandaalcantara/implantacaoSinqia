@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Sinqia.CoreBank.Criptografia.App
@@ -47,6 +40,28 @@ namespace Sinqia.CoreBank.Criptografia.App
             }
 
             return true;
+        }
+
+        private void salvarChave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Microsoft.Win32.RegistryKey key;
+                key = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Sinqia.CoreBank.Registro");
+                var KeyChave = key.CreateSubKey("chaveIntegrador");
+                KeyChave.SetValue("Chave", txtChave.Text);
+                KeyChave.Close();
+                key.Close();
+                MessageBox.Show("Chave gravada com Sucesso!");
+            }
+            catch (UnauthorizedAccessException erro)
+            {
+                MessageBox.Show("Não tem permissão de acesso: " + erro.Message);
+            }
+            catch (Exception erro)
+            {
+                MessageBox.Show("Erro no gravação da chave do serviço: " + erro.Message);
+            }
         }
     }
 }

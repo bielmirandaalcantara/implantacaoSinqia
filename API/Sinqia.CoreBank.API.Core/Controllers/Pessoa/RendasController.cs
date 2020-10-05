@@ -45,7 +45,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Cadastro da renda
         /// </summary>
-        /// <param name="numeroRenda">Código da renda</param>
+        /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/rendas")]
@@ -54,7 +54,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postRendas([FromRoute] string numeroRenda, [FromBody] MsgRendas msg)
+        public ActionResult postRendas([FromRoute] string codPessoa, [FromBody] MsgRendas msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
@@ -89,7 +89,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
                 ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, numeroRenda);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroRendas> registros = new List<DataSetPessoaRegistroRendas>();
                 registros.Add(_adaptador.AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendas(msg.body.RegistroRendas, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
@@ -136,7 +136,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Alteração de dados da renda
         /// </summary>
-        /// <param name="numeroRenda">Código da renda</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="numeroRenda">Número da renda</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/rendas/{numeroRenda}")]
@@ -145,7 +146,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult putRendas([FromRoute] string numeroRenda, [FromBody] MsgRendas msg)
+        public ActionResult putRendas([FromRoute] string codPessoa, [FromBody] MsgRendas msg)
         {
 
             List<string> listaErros = new List<string>();
@@ -185,7 +186,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
                 ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, numeroRenda);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroRendas> registros = new List<DataSetPessoaRegistroRendas>();
                 registros.Add(_adaptador.AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendas(msg.body.RegistroRendas, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
@@ -236,7 +237,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Exclusão de dados de Rendas
         /// </summary>
-        /// <param name="numeroRenda">Número da Renda</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="numeroRenda">Número da renda</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/pessoa/{codPessoa}/rendas/{numeroRenda}")]

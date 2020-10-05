@@ -45,7 +45,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Cadastro de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/pessoa/{codPessoa}/balanco")]
@@ -54,7 +54,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postBalanco([FromRoute] string codBalanco, [FromBody] MsgBalanco msg)
+        public ActionResult postBalanco([FromRoute] string codPessoa, [FromBody] MsgBalanco msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
@@ -89,7 +89,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
                 ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codBalanco);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroBalanco> registros = new List<DataSetPessoaRegistroBalanco>();
                 registros.Add(_adaptador.AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalanco(msg.body.RegistroBalanco, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
@@ -137,7 +137,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Alteração de dados de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="seqBalanco">Código do balanco</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
         [Route("api/core/cadastros/pessoa/{codPessoa}/balanco/{codBalanco}")]
@@ -146,7 +147,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult putBalanco([FromRoute] string codBalanco, [FromBody] MsgBalanco msg)
+        public ActionResult putBalanco([FromRoute] string codPessoa, [FromRoute] string codBalanco, [FromBody] MsgBalanco msg)
         {
 
             List<string> listaErros = new List<string>();
@@ -183,7 +184,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
                 ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codBalanco);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetPessoaRegistroBalanco> registros = new List<DataSetPessoaRegistroBalanco>();
                 registros.Add(_adaptador.AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalanco(msg.body.RegistroBalanco, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
@@ -234,16 +235,17 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         /// <summary>
         /// Exclusão de dados de Balanço
         /// </summary>
-        /// <param name="codBalanco">Código de Balanço</param>
+        /// <param name="codPessoa">Código da pessoa</param>
+        /// <param name="seqBalanco">Código do balanco</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/balanco/{codBalanco}")]
+        [Route("api/core/cadastros/pessoa/{codPessoa}/balanco/{seqBalanco}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteBalanco([FromRoute] string codPessoa, [FromRoute] string codBalanco, [FromQuery] ParametroBaseQuery parametrosBase)
+        public ActionResult deleteBalanco([FromRoute] string codPessoa, [FromRoute] int seqBalanco, [FromQuery] ParametroBalancoQuery parametrosBase)
         {
 
             List<string> listaErros = new List<string>();
@@ -265,9 +267,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
                 ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codBalanco);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
-                dataSetPessoa.RegistroBalanco = _adaptador.AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(codPessoa, codBalanco, listaErros);
+                dataSetPessoa.RegistroBalanco = _adaptador.AdaptarMsgRegistroBalancoToDataSetPessoaRegistroBalancoExclusao(codPessoa, seqBalanco, listaErros, parametrosBase);
 
                 var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
                 if (retPessoa.Excecao != null)

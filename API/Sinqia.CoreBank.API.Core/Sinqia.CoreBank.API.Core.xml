@@ -148,21 +148,23 @@
             <summary>
             Cadastro de Balanço
             </summary>
-            <param name="codBalanco">Código de Balanço</param>
+            <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.BalancoController.putBalanco(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgBalanco)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.BalancoController.putBalanco(System.String,System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgBalanco)">
             <summary>
             Alteração de dados de Balanço
             </summary>
-            <param name="codBalanco">Código de Balanço</param>
+            <param name="codPessoa">Código da pessoa</param>
+            <param name="seqBalanco">Código do balanco</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.BalancoController.deleteBalanco(System.String,System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.BalancoController.deleteBalanco(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBalancoQuery)">
             <summary>
             Exclusão de dados de Balanço
             </summary>
-            <param name="codBalanco">Código de Balanço</param>
+            <param name="codPessoa">Código da pessoa</param>
+            <param name="seqBalanco">Código do balanco</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.DocumentoController.postDocumento(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgDocumento)">
@@ -342,21 +344,23 @@
             <summary>
             Cadastro da renda
             </summary>
-            <param name="numeroRenda">Código da renda</param>
+            <param name="codPessoa">Código da pessoa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.RendasController.putRendas(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgRendas)">
             <summary>
             Alteração de dados da renda
             </summary>
-            <param name="numeroRenda">Código da renda</param>
+            <param name="codPessoa">Código da pessoa</param>
+            <param name="numeroRenda">Número da renda</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.RendasController.deleteRendas(System.String,System.Int32,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
             <summary>
             Exclusão de dados de Rendas
             </summary>
-            <param name="numeroRenda">Número da Renda</param>
+            <param name="codPessoa">Código da pessoa</param>
+            <param name="numeroRenda">Número da renda</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia.header">
@@ -851,6 +855,16 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.erros">
             <summary>
             Lista de erros na integração (nulo caso a integração ocorra com sucesso)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBalancoQuery.detalhe">
+            <summary>
+            Disponibiliza o código de detalhe para requisição do serviço
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBalancoQuery.ano">
+            <summary>
+            Disponibiliza o ano do balanço para requisição do serviço
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery.empresa">

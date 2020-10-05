@@ -40,6 +40,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.panel3 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel3.SuspendLayout();
@@ -47,10 +48,10 @@
             // 
             // btnCriptografar
             // 
-            this.btnCriptografar.Location = new System.Drawing.Point(8, 147);
+            this.btnCriptografar.Location = new System.Drawing.Point(261, 147);
             this.btnCriptografar.Margin = new System.Windows.Forms.Padding(4);
             this.btnCriptografar.Name = "btnCriptografar";
-            this.btnCriptografar.Size = new System.Drawing.Size(487, 48);
+            this.btnCriptografar.Size = new System.Drawing.Size(198, 48);
             this.btnCriptografar.TabIndex = 0;
             this.btnCriptografar.Text = "Criptografar";
             this.btnCriptografar.UseVisualStyleBackColor = true;
@@ -151,6 +152,7 @@
             // panel3
             // 
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel3.Controls.Add(this.button1);
             this.panel3.Controls.Add(this.txtTexto);
             this.panel3.Controls.Add(this.btnCriptografar);
             this.panel3.Controls.Add(this.txtTextoCripto);
@@ -159,6 +161,17 @@
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(506, 205);
             this.panel3.TabIndex = 9;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(36, 147);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(198, 48);
+            this.button1.TabIndex = 5;
+            this.button1.Text = "Salvar Chave";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.salvarChave_Click);
             // 
             // FrmCriptografia
             // 
@@ -201,6 +214,7 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.Button button1;
     }
 }
 

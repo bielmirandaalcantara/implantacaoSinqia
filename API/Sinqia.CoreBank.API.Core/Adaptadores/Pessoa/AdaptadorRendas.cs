@@ -54,19 +54,19 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             return retorno;
         }
 
-        public DataSetPessoaRegistroRendas[] AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(string cod_pessoa, int num_rendas, IList<string> erros)
+        public DataSetPessoaRegistroRendas[] AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(string cod_pessoa, int numeroRendas, IList<string> erros)
         {
             _log.TraceMethodStart();
 
             List<DataSetPessoaRegistroRendas> registroRendass = new List<DataSetPessoaRegistroRendas>();
-            registroRendass.Add(AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(cod_pessoa, num_rendas));
+            registroRendass.Add(AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(cod_pessoa, numeroRendas));
 
             _log.TraceMethodEnd();
 
             return registroRendass.ToArray();
         }
 
-        public DataSetPessoaRegistroRendas AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(string cod_pessoa, int num_rendas)
+        public DataSetPessoaRegistroRendas AdaptarMsgRegistroRendasToDataSetPessoaRegistroRendasExclusao(string cod_pessoa, int numeroRendas)
         {
             _log.TraceMethodStart();
 
@@ -77,8 +77,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             if (!string.IsNullOrWhiteSpace(cod_pessoa))
                 registroRendas.cod_pessoa = cod_pessoa;
 
-            if (num_rendas > 0)
-                registroRendas.num_renda = num_rendas;
+            if (numeroRendas > 0)
+                registroRendas.num_renda = numeroRendas;
 
             _log.TraceMethodEnd();
 

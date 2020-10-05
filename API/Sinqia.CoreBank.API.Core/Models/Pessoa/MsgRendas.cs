@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -31,16 +32,19 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Código da Pessoa
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string codigoPessoa { get; set; }
 
         /// <summary>
         /// Número da renda
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? numeroRenda { get; set; }
 
         /// <summary>
         /// Valor dos rendimentos
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public decimal? valRenda { get; set; }
 
         /// <summary>
@@ -81,6 +85,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Periodicidade da renda
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string periodicidadeRenda { get; set; }
 
         /// <summary>
@@ -96,31 +101,37 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Data de cadastramento
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Data de atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Código do usuário da atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string codigoUsuarioAtualizacao { get; set; }
 
         /// <summary>
         /// Indicador situação
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Data da situação
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// Tipo de renda
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? tipoRenda { get; set; }
 
         /// <summary>
