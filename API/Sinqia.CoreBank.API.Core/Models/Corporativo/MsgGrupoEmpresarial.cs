@@ -47,25 +47,5 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código Dependência Sisbacen
         /// </summary>
         public int codigoDependenciaSisbacen { get; set; }
-
-        /// <summary>
-        /// Código CRK
-        /// </summary>
-        public string codigoCRK { get; set; }
-
-        /// <summary>
-        /// Identifica se a empresa líder é brasileira
-        /// </summary>
-        public string identificaEmpresaLiderBrasileira { get; set; }
-
-        /// <summary>
-        /// CNPJ da empresa líder
-        /// </summary>
-        public string cnpjEmpresaLider { get; set; }
-
-        /// <summary>
-        /// Código da Nascionalidade
-        /// </summary>
-        public int codigoNascionalidade { get; set; }
     }
 }

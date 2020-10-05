@@ -15,10 +15,13 @@ namespace Sinqia.CoreBank.Dao.Corporativo.Services
             _dataBaseConfig = dataBaseConfig;
         }
         /*
-        public static IDao BuscarDaoCorporativo()
+        public IDao BuscarDaoCorporativo<T>() where T : new()
         {
+            if (string.IsNullOrWhiteSpace(_dataBaseConfig.BancoUtilizado)) throw new Exception("Chave necessária no arquivo de configuração - BancoUtilizado");
 
+            
         }
         */
+        
     }
 }
