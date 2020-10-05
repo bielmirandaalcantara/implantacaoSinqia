@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
 using Microsoft.Extensions.Options;
+using Microsoft.Win32;
 using Sinqia.CoreBank.Criptografia.Services;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
@@ -34,7 +33,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             string token = string.Empty;
             string login = configuracaoAcessoCUC.userServico;
             string senha = configuracaoAcessoCUC.passServico;
-            string chave = configuracaoAcessoCUC.chaveServico;
+            string chave = BuscarChaveServico();
 
             senha = DescriptografarSenhaServico(senha, chave);
 
@@ -77,6 +76,27 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             _log.TraceMethodEnd();
             return senhaDescriptografada;
+        }
+
+        private string BuscarChaveServico()
+        {
+            try
+            {
+                // cria uma referêcnia para a chave de registro Software
+                RegistryKey rk = Registry.CurrentUser.OpenSubKey("Sinqia.CoreBank.Registro", true);
+                // realiza a leitura do registro
+                var chave = rk.OpenSubKey("chaveIntegrador", true).GetValue("Chave").ToString();
+                return chave;
+            }
+            catch (UnauthorizedAccessException erro)
+            {
+                throw new Exception("Não tem permissão de acesso: " + erro.Message);
+            }
+            catch (Exception erro)
+            {
+                throw new Exception("Erroao buscar a chave do serviço", erro);
+            }
+            
         }
     }
 }
