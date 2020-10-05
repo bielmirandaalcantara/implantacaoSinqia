@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sinqia.CoreBank.Dao.Corporativo.Constantes
+namespace Sinqia.CoreBank.Dao.Core.Constantes
 {
     public static class ConstantesDao
     {

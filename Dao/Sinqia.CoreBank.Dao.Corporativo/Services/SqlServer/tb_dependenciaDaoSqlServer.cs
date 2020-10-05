@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace Sinqia.CoreBank.Dao.Corporativo.Services.SqlServer
 {
-    public class tb_dependenciaDaoSqlServer : IDao<tb_dependencia>
+    internal class tb_dependenciaDaoSqlServer : IDao<tb_dependencia>
     {
         private const string _banco = "SQLSERVER";
         private SqlConnection _connection;        

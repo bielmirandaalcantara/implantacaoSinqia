@@ -382,6 +382,261 @@
             São consideradas Dependências da Empresa as suas Agências, Escritórios, Postos de Serviços, Filiais, etc - TB_DEPENDENCIA
             </summary>
         </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.codigoEmpresa">
+            <summary>
+            Código Empresa Sisbacen
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.codigoDependência">
+            <summary>
+            Código Dependência Sisbacen
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.codigoMunicipio">
+            <summary>
+            Código do Município
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nomeAbreviado">
+            <summary>
+            Nome abreviado da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nomeCompleto">
+            <summary>
+            Nome completo da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.cgcBase">
+            <summary>
+            CGC base da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.cgcFilial">
+            <summary>
+            CGC Filial da dependecia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.cgccDigito">
+            <summary>
+            CGC Digito da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.tipoLogradouro">
+            <summary>
+            Tipo de logradouro da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.logradouro">
+            <summary>
+            Logradouro da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.complementoLogradouro">
+            <summary>
+            Complemento logradouro da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.descricaoBairro">
+            <summary>
+            Bairro da dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.cep">
+            <summary>
+            CEP da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddTelefone">
+            <summary>
+            DDD telefone
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddTelefone2">
+            <summary>
+            DDD telefone 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddTelefone3">
+            <summary>
+            DDD telefone 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddTelefone4">
+            <summary>
+            DDD telefone 4
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroTelefone">
+            <summary>
+            Telefone da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroTelefone2">
+            <summary>
+            Telefone 2 da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroTelefone3">
+            <summary>
+            Telefone 3 da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroTelefone4">
+            <summary>
+            Telefone 4 da dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroRamal">
+            <summary>
+            Ramal Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroRamal2">
+            <summary>
+            Ramal 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroRamal3">
+            <summary>
+            Ramal 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroRamal4">
+            <summary>
+            Ramal 4
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddFax">
+            <summary>
+            DDD Fax Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddFax2">
+            <summary>
+            DDD Fax 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dddFax3">
+            <summary>
+            DDD Fax 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroFax">
+            <summary>
+            Fax Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroFax2">
+            <summary>
+            Fax 2
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.numeroFax3">
+            <summary>
+            Fax 3
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.email">
+            <summary>
+            Email da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.inscricaoEstadual">
+            <summary>
+            Inscrição estadual da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.inscricaoMunicipal">
+            <summary>
+            Inscrição municipal da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico">
+            <summary>
+            Nível hierárquico Superior
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico1">
+            <summary>
+            Nivel 1 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico2">
+            <summary>
+            Nivel 2 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico3">
+            <summary>
+            Nivel 3 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico4">
+            <summary>
+            Nivel 4 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico5">
+            <summary>
+            Nivel 5 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico6">
+            <summary>
+            Nivel 6 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico7">
+            <summary>
+            Nivel 7 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico8">
+            <summary>
+            Nivel 8 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico9">
+            <summary>
+            Nivel 9 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.nivelHierarquico10">
+            <summary>
+            Nivel 10 Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dataInicioOperacao">
+            <summary>
+            Início de operação da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dataFimOperacao">
+            <summary>
+            Fim de operação da Dependência
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dataCadastro">
+            <summary>
+            Data de cadastramento
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.usuarioUltimaAtualizacao">
+            <summary>
+            Código do usuário da atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.dataAtualizacao">
+            <summary>
+            Data de atualização
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.indicadorSituacao">
+            <summary>
+            Indicador de Situação
+            </summary>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.tipoDependencia">
             <summary>
             Tipo de Dependência
