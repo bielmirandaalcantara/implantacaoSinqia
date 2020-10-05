@@ -67,24 +67,5 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// </summary>
         public string tipoProduto { get; set; }
 
-        /// <summary>
-        /// Indicador de BDV
-        /// </summary>
-        public string indicadorBdv { get; set; }
-
-        /// <summary>
-        /// Cross Product Netting
-        /// </summary>
-        public string indicadorCpn { get; set; }
-
-        /// <summary>
-        /// Código Produto CARM
-        /// </summary>
-        public int? codigoProdutoCARM { get; set; }
-
-        /// <summary>
-        /// Descrição Produto CARM
-        /// </summary>
-        public string descricaoProdutoCARM { get; set; }
     }
 }

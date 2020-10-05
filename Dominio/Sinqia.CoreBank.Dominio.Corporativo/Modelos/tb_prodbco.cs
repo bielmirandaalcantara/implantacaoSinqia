@@ -13,9 +13,11 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
         public int? cod_grproduto { get; set; }
         public string idc_replica { get; set; }
         public string tip_produto { get; set; }
+        /*
         public string idc_bdv { get; set; }
         public string IDC_CPN { get; set; }
         public int? COD_PRODCARM { get; set; }
         public string DES_PRODCARM { get; set; }
+        */
     }
 }

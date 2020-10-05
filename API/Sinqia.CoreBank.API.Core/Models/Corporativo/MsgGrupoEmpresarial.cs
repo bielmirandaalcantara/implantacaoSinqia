@@ -26,7 +26,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código do Grupo Empresarial
         /// </summary>
-        public int codigoGrupoEmpresarial { get; set; }
+        public int? codigoGrupoEmpresarial { get; set; }
 
         /// <summary>
         /// Nome abreviado do Grupo Empresarial
@@ -41,11 +41,11 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código Empresa Sisbacen
         /// </summary>
-        public int codigoEmpresaSisbacen { get; set; }
+        public int? codigoEmpresaSisbacen { get; set; }
 
         /// <summary>
         /// Código Dependência Sisbacen
         /// </summary>
-        public int codigoDependenciaSisbacen { get; set; }
+        public int? codigoDependenciaSisbacen { get; set; }
     }
 }
