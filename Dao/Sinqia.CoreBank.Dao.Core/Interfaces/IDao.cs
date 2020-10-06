@@ -5,13 +5,8 @@ using System.Text;
 
 namespace Sinqia.CoreBank.Dao.Core.Interfaces
 {
-    public interface IDao<T>
+    public interface IDao<T> : IDaoRead<T>
     {
-        DataTable ObterDataTable(T entidade, IDbTransaction trans = null);
-        DataTable ObterDataTable(T entidade, string where, IDbTransaction trans = null);
-        IEnumerable<T> Obter(T entidade, IDbTransaction trans = null);
-        IEnumerable<T> Obter(T entidade, string where, IDbTransaction trans = null);
-
         T Inserir(T entidade, IDbTransaction trans);
         void InserirLote(IEnumerable<T> entidade, IDbTransaction trans = null);
 

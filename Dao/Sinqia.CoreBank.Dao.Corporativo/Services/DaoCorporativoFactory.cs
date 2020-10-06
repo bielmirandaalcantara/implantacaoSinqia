@@ -32,7 +32,28 @@ namespace Sinqia.CoreBank.Dao.Corporativo.Services
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
             {
+                throw new NotImplementedException();
+            }
+            else
+                throw new Exception("Chave não reconhecida no arquivo de configuração - BancoUtilizado");
 
+            return null;
+        }
+
+        public IDaoRead<T> BuscarDaoCorporativoLeitura<T>() where T : new()
+        {
+            if (string.IsNullOrWhiteSpace(_dataBaseConfig.BancoUtilizado)) throw new Exception("Chave necessária no arquivo de configuração - BancoUtilizado");
+            string bancoReferencia = _dataBaseConfig.BancoUtilizado;
+
+            if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.SQLSERVER))
+            {
+                if (typeof(T) == typeof(tb_dependencia))
+                    return (IDaoRead<T>)new tb_dependenciaDaoSqlServer(_dataBaseConfig);
+
+            }
+            else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
+            {
+                throw new NotImplementedException();
             }
             else
                 throw new Exception("Chave não reconhecida no arquivo de configuração - BancoUtilizado");
