@@ -21,12 +21,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Criptografi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Dominio.Corporativo", "Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj", "{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Dao.Corporativo", "Dao\Sinqia.CoreBank.Dao.Corporativo\Sinqia.CoreBank.Dao.Corporativo.csproj", "{F0609185-091B-4B2F-9CE7-E22E9DE80D38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.DAO.Corporativo", "DAO\Sinqia.CoreBank.DAO.Corporativo\Sinqia.CoreBank.DAO.Corporativo.csproj", "{F0609185-091B-4B2F-9CE7-E22E9DE80D38}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9} = {6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Dao.Core", "Dao\Sinqia.CoreBank.Dao.Core\Sinqia.CoreBank.Dao.Core.csproj", "{3C52B8C9-CF9E-4552-87D8-EFE67F19B742}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.DAO.Core", "DAO\Sinqia.CoreBank.DAO.Core\Sinqia.CoreBank.DAO.Core.csproj", "{3C52B8C9-CF9E-4552-87D8-EFE67F19B742}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
