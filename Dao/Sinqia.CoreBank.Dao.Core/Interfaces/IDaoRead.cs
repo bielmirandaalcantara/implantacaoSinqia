@@ -7,9 +7,9 @@ namespace Sinqia.CoreBank.Dao.Core.Interfaces
 {
     public interface IDaoRead<T>
     {
-        DataTable ObterDataTable(T entidade, IDbTransaction trans = null);
-        DataTable ObterDataTable(T entidade, string where, IDbTransaction trans = null);
-        IEnumerable<T> Obter(T entidade, IDbTransaction trans = null);
-        IEnumerable<T> Obter(T entidade, string where, IDbTransaction trans = null);
+        DataTable ObterDataTable(IDbTransaction trans = null);
+        DataTable ObterDataTable(string where, IDbTransaction trans = null);
+        IEnumerable<T> Obter(IDbTransaction trans = null);
+        IEnumerable<T> Obter(string where, IDbTransaction trans = null);
     }
 }

@@ -47,22 +47,22 @@ namespace Sinqia.CoreBank.Dao.Corporativo.Services.SqlServer
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tb_dependencia> Obter(tb_dependencia entidade, IDbTransaction trans = null)
+        public IEnumerable<tb_dependencia> Obter(IDbTransaction trans = null)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tb_dependencia> Obter(tb_dependencia entidade, string where, IDbTransaction trans = null)
+        public IEnumerable<tb_dependencia> Obter(string where, IDbTransaction trans = null)
         {
             throw new NotImplementedException();
         }
 
-        public DataTable ObterDataTable(tb_dependencia entidade, IDbTransaction trans = null)
+        public DataTable ObterDataTable(IDbTransaction trans = null)
         {
             throw new NotImplementedException();
         }
 
-        public DataTable ObterDataTable(tb_dependencia entidade, string where, IDbTransaction trans = null)
+        public DataTable ObterDataTable(string where, IDbTransaction trans = null)
         {
             throw new NotImplementedException();
         }
