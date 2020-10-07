@@ -1,10 +1,10 @@
-﻿using Sinqia.CoreBank.Dao.Core.Configuration;
+﻿using Sinqia.CoreBank.DAO.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Sinqia.CoreBank.Dao.Core.Services
+namespace Sinqia.CoreBank.DAO.Core.Services
 {
     public class ConfiguracaoService
     {

@@ -12,14 +12,14 @@ using Dapper;
 
 namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
 {
-    internal class tb_dependenciaDaoSqlServer : IDao<tb_dependencia>
+    public class tb_grpempDaoSqlServer : IDao<tb_grpemp>
     {
         private const string _banco = "SQLSERVER";
         private SqlConnection _connection;
         private IDbTransaction _trans;
         private bool _conexaoExterna = false;
 
-        public tb_dependenciaDaoSqlServer(ConfiguracaoBaseDataBase dataBaseConfig, IDaoTransacao transacao = null)
+        public tb_grpempDaoSqlServer(ConfiguracaoBaseDataBase dataBaseConfig, IDaoTransacao transacao = null)
         {
             PreencherConexao(dataBaseConfig, transacao);
         }
@@ -31,7 +31,7 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
                 _conexaoExterna = true;
                 _connection = (SqlConnection)transacao.GetConnection();
                 _trans = transacao.GetTransaction();
-                
+
             }
             else
             {
@@ -40,58 +40,44 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
-        public void Atualizar(tb_dependencia entidade)
+        public void Atualizar(tb_grpemp entidade)
         {
             throw new NotImplementedException();
         }
 
-        public void Atualizar(tb_dependencia entidade, string where)
+        public void Atualizar(tb_grpemp entidade, string where)
         {
             throw new NotImplementedException();
         }
 
-        public void Atualizar(tb_dependencia entidade, string[] campos, string where)
+        public void Atualizar(tb_grpemp entidade, string[] campos, string where)
         {
             throw new NotImplementedException();
         }
 
-        public tb_dependencia Inserir(tb_dependencia entidade)
+        public tb_grpemp Inserir(tb_grpemp entidade)
+        {
+            string query = "insert into tb_grpemp (cod_grpemp, abv_grpemp, des_grpemp, cod_empresa, cod_depend) values (@cod_grpemp, @abv_grpemp, @des_grpemp, @cod_empresa, @cod_depend)";
+
+            if(_trans != null)
+                 _connection.Execute(query, entidade,_trans);
+            else
+                _connection.Execute(query, entidade);
+
+            return entidade;
+        }
+
+        public void InserirLote(IEnumerable<tb_grpemp> entidade)
         {
             throw new NotImplementedException();
         }
 
-        public void InserirLote(IEnumerable<tb_dependencia> entidade)
+        public IEnumerable<tb_grpemp> Obter()
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<tb_dependencia> Obter()
-        {
-            if (!_conexaoExterna) _connection.Open();
-
-            try
-            {
-                IEnumerable<tb_dependencia> dependencia;
-
-                if(_trans != null)
-                    dependencia = _connection.Query<tb_dependencia>("Select * from tb_dependencia", null, _trans);
-                else
-                    dependencia = _connection.Query<tb_dependencia>("Select * from tb_dependencia");
-
-                return dependencia;
-            }
-            finally
-            {
-                if (!_conexaoExterna)
-                {
-                    if (_connection.State != ConnectionState.Closed)
-                        _connection.Close();
-                }
-
-            }
-        }
-
-        public IEnumerable<tb_dependencia> Obter(string where)
+        public IEnumerable<tb_grpemp> Obter(string where)
         {
             throw new NotImplementedException();
         }
@@ -106,12 +92,12 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             throw new NotImplementedException();
         }
 
-        public void remover(tb_dependencia entidade)
+        public void remover(tb_grpemp entidade)
         {
             throw new NotImplementedException();
         }
 
-        public void remover(tb_dependencia entidade, string where)
+        public void remover(tb_grpemp entidade, string where)
         {
             throw new NotImplementedException();
         }
