@@ -1,25 +1,29 @@
-﻿using Sinqia.CoreBank.Dao.Core.Configuration;
-using Sinqia.CoreBank.Dao.Core.Constantes;
-using Sinqia.CoreBank.Dao.Core.Interfaces;
-using Sinqia.CoreBank.Dao.Corporativo.Services.SqlServer;
+﻿using Sinqia.CoreBank.DAO.Core.Configuration;
+using Sinqia.CoreBank.DAO.Core.Constantes;
+using Sinqia.CoreBank.DAO.Core.Interfaces;
+using Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Sinqia.CoreBank.DAO.Core.Services;
 
-namespace Sinqia.CoreBank.Dao.Corporativo.Services
+namespace Sinqia.CoreBank.DAO.Corporativo.Services
 {
-    public class DaoCorporativoFactory
+    public class CorporativoDaoFactory : CoreDaoFactory
     {
-        private ConfiguracaoBaseDataBase _dataBaseConfig;
-        
-        public DaoCorporativoFactory(ConfiguracaoBaseDataBase dataBaseConfig)
+        public CorporativoDaoFactory(ConfiguracaoBaseDataBase dataBaseConfig) : base(dataBaseConfig)
         {
-            _dataBaseConfig = dataBaseConfig;
+            
         }
 
-        public IDao<T> BuscarDaoCorporativo<T>() where T : new()
+        public IDao<T> GetDaoCorporativo<T>() where T : new()
+        {
+            return GetDaoCorporativo<T>(null);
+        }
+
+        public IDao<T> GetDaoCorporativo<T>(IDaoTransacao transacao) where T : new()
         {
             if (string.IsNullOrWhiteSpace(_dataBaseConfig.BancoUtilizado)) throw new Exception("Chave necessária no arquivo de configuração - BancoUtilizado");
             string bancoReferencia = _dataBaseConfig.BancoUtilizado;
@@ -27,7 +31,10 @@ namespace Sinqia.CoreBank.Dao.Corporativo.Services
             if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.SQLSERVER))
             {
                 if(typeof(T) == typeof(tb_dependencia))
-                        return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig);
+                        return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig, transacao);
+
+                if (typeof(T) == typeof(tb_grpemp))
+                    return (IDao<T>)new tb_grpempDaoSqlServer(_dataBaseConfig, transacao);
 
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
@@ -40,7 +47,12 @@ namespace Sinqia.CoreBank.Dao.Corporativo.Services
             return null;
         }
 
-        public IDaoRead<T> BuscarDaoCorporativoLeitura<T>() where T : new()
+        public IDaoRead<T> GetDaoCorporativoLeitura<T>() where T : new()
+        {
+            return GetDaoCorporativoLeitura<T>(null);
+        }
+
+        public IDaoRead<T> GetDaoCorporativoLeitura<T>(IDaoTransacao transacao) where T : new()
         {
             if (string.IsNullOrWhiteSpace(_dataBaseConfig.BancoUtilizado)) throw new Exception("Chave necessária no arquivo de configuração - BancoUtilizado");
             string bancoReferencia = _dataBaseConfig.BancoUtilizado;

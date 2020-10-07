@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sinqia.CoreBank.Dao.Core.Configuration
+namespace Sinqia.CoreBank.DAO.Core.Configuration
 {
     public class ConfiguracaoBaseDataBase
     {
