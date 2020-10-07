@@ -28,7 +28,7 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             if (configuracaoAcessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
             if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.userServico)) throw new ApplicationException("usuario do serviço deve ser parametrizada");
             if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.passServico)) throw new ApplicationException("Senha do serviço deve ser parametrizada");
-            if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.chaveServico)) throw new ApplicationException("Chave de criptografia do serviço deve ser parametrizada");
+            //if (string.IsNullOrWhiteSpace(configuracaoAcessoCUC.chaveServico)) throw new ApplicationException("Chave de criptografia do serviço deve ser parametrizada");
 
             string token = string.Empty;
             string login = configuracaoAcessoCUC.userServico;

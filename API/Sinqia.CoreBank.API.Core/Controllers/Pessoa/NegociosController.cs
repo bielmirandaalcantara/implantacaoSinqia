@@ -29,7 +29,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
         private LogService _log;
         private AdaptadorNegocios _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
-        private IntegracaoNegociosCUCService  _clientNegocio;
+        private IntegracaoPessoaCUCService _clientPessoa;
 
         public NegociosController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
@@ -38,7 +38,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);            
             _adaptador = new AdaptadorNegocios(_log);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
-            _clientNegocio = new IntegracaoNegociosCUCService(_configuracaoCUC, _log);           
+            _clientPessoa = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);           
         }
 
         /// <summary>
@@ -86,17 +86,17 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientNegocio.CarregarParametrosCUCNegocios(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetNegocioRegistroOutrosBancos> registros = new List<DataSetNegocioRegistroOutrosBancos>();
-                registros.Add(_adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocios, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
-                dataSetNegocios.RegistroNegocioOutrosBancos = registros.ToArray();
+                registros.Add(_adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocioBanco, ConstantesInegracao.StatusLinhaCUC.Insercao, listaErros));
+                dataSetPessoa.RegistroNegocioBanco = registros.ToArray();
 
-                var retNegocios = _clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
+                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
-                if (retNegocios.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
@@ -107,7 +107,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                retorno = _adaptador.AdaptarMsgRetorno(msg,listaErros);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
@@ -177,17 +177,17 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientNegocio.CarregarParametrosCUCNegocios(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(msg.header.empresa.Value, msg.header.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
+                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
                 List<DataSetNegocioRegistroOutrosBancos> registros = new List<DataSetNegocioRegistroOutrosBancos>();
-                registros.Add(_adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocios, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
-                dataSetNegocios.RegistroNegocioOutrosBancos = registros.ToArray();
+                registros.Add(_adaptador.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(msg.body.RegistroNegocioBanco, ConstantesInegracao.StatusLinhaCUC.Atualizacao, listaErros));
+                dataSetPessoa.RegistroNegocioBanco = registros.ToArray();
 
-                var retNegocios = _clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
+                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
-                if (retNegocios.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
@@ -257,19 +257,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
 
-                ParametroIntegracaoPessoa parm = _clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-                DataSetNegocioOutrosBancos dataSetNegocios = new DataSetNegocioOutrosBancos();
-
-                IntegracaoPessoaCUCService _clientPessoa = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);
-
+                ParametroIntegracaoPessoa parm = _clientPessoa.CarregarParametrosCUCPessoa(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
                 DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
 
-                dataSetNegocios.RegistroNegocioOutrosBancos = _adaptador.AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(codPessoa, sequencial, dataSetPessoa.RegistroPessoa[0].cod_fil, listaErros);
+                dataSetPessoa.RegistroNegocioBanco = _adaptador.AdaptarMsgRegistronegociosToDataSetNegocioRegistroMegociosExclusao(codPessoa, sequencial, dataSetPessoa.RegistroPessoa[0].cod_fil, listaErros);
 
-                var retNegocios = _clientNegocio.AtualizarNegocios(parm, dataSetNegocios);
+                var retPessoa = _clientPessoa.AtualizarPessoa(parm, dataSetPessoa);
 
-                if (retNegocios.Excecao != null)
-                    throw new ApplicationException($"Retorno serviço CUC - {retNegocios.Excecao.Mensagem}");
+                if (retPessoa.Excecao != null)
+                    throw new ApplicationException($"Retorno serviço CUC - {retPessoa.Excecao.Mensagem}");
 
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
@@ -301,93 +297,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
-        }
-
-        /// <summary>
-        /// Consulta os dados do cliente em outros bancos
-        /// </summary>
-        /// <param name="codPessoa">Código da pessoa</param>
-        /// <param name="empresa">Empresa referente a consulta</param>
-        /// <param name="dependencia">Dependência referente a consulta</param>
-        /// <param name="usuario">usuário responsável pela consulta</param>
-        /// <returns>MsgRetorno</returns>
-        [HttpGet]
-        [Route("api/core/cadastros/pessoa/{codPessoa}/negocios")]
-        [ProducesResponseType(typeof(MsgRegistroNegociosTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRegistroNegociosTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgRegistroNegociosTemplate), StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getNegocio([FromRoute] string codPessoa, [FromQuery] ParametroBaseQuery parametrosBase)
-        {
-            List<string> listaErros = new List<string>();
-            MsgRetornoGet retorno;
-            string identificador = string.Empty;
-            MsgRegistroNegociosBody body = new MsgRegistroNegociosBody();
-
-            try
-            {
-                _log.TraceMethodStart();
-
-                identificador = Util.GerarIdentificadorUnico();
-                _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
-                _log.SetIdentificador(identificador);
-
-                if (string.IsNullOrWhiteSpace(codPessoa))
-                    throw new ApplicationException("Parâmetro codPessoa obrigatório");
-
-                if (parametrosBase.empresa == null || parametrosBase.empresa.Value.Equals(0))
-                    throw new ApplicationException("Parâmetro empresa obrigatório");
-
-                if (parametrosBase.dependencia == null || parametrosBase.dependencia.Value.Equals(0))
-                    throw new ApplicationException("Parâmetro dependencia obrigatório");
-
-                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
-                ParametroIntegracaoPessoa parm = _clientNegocio.CarregarParametrosCUCNegocios(parametrosBase.empresa.Value, parametrosBase.dependencia.Value, acessoCUC.userServico, _configuracaoCUC.Value.SiglaSistema, token);
-
-                IntegracaoPessoaCUCService _clientPessoa = new IntegracaoPessoaCUCService(_configuracaoCUC, _log);
-
-                DataSetPessoa dataSetPessoa = _clientPessoa.SelecionarCabecalho(parm, codPessoa);
-
-                DataSetNegocioOutrosBancos dataSetNegocio = _clientNegocio.SelecionarNegocios(parm, codPessoa, dataSetPessoa.RegistroPessoa[0].cod_fil);
-                body.RegistroNegocios = _adaptador.AdaptaDataSetNegocioToMsgNegocio(dataSetNegocio, listaErros);
-
-                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
-
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.OK, retorno);
-            }
-            catch (LogErrorException LogEx)
-            {
-                listaErros.Add(LogEx.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
-                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
-            }
-            catch (ApplicationException appEx)
-            {
-
-                listaErros.Add(appEx.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
-
-                _log.Error(appEx);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
-            }
-            catch (Exception ex)
-            {
-                listaErros.Add(ex.Message);
-                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
-
-                _log.Error(ex);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
-            }
-
         }
 
     }

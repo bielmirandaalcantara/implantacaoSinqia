@@ -24,7 +24,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 
     public class MsgRegistroNegociosBody
     {
-        public MsgRegistroNegocios RegistroNegocios { get; set; }
+        public MsgRegistroNegocios RegistroNegocioBanco { get; set; }
     }
 
     /// <summary>

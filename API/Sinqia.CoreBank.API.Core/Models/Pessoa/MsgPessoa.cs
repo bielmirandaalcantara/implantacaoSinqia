@@ -196,11 +196,13 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// <summary>
         /// Segmento
         /// </summary>
+        [Required(ErrorMessage ="Campo obrigatório")]
         public string codigoSegmento { get; set; }
 
         /// <summary>
         /// Sub Segmento
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string codigoSubsegmento { get; set; }
 
         /// <summary>
