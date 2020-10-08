@@ -18,7 +18,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
 
         private AdaptadorPerfil _AdaptadorPerfil; 
 
-        private AdaptadorReferencia _AdaptadorReferencia; 
+        private AdaptadorReferencia _AdaptadorReferencia;
+
+        private AdaptadorNegocios _AdaptadorNegocios;
 
         private LogService _log;
 
@@ -29,6 +31,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             _AdaptadorEndereco = new AdaptadorEndereco(_log);
             _AdaptadorPerfil = new AdaptadorPerfil(_log);
             _AdaptadorReferencia = new AdaptadorReferencia(_log);
+            _AdaptadorNegocios = new AdaptadorNegocios(_log);
         }
 
         public MsgRetorno AdaptarMsgRetorno(MsgPessoa msgPessoa, IList<string> erros)
@@ -196,6 +199,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
 
             if (registroPessoa.RegistroReferencia != null && registroPessoa.RegistroReferencia.Any())
                 xml.RegistroReferencia = _AdaptadorReferencia.AdaptarMsgRegistroreferenciaToDataSetPessoaRegistroReferencia(registroPessoa.RegistroReferencia, statusLinha, erros);
+
+            if (registroPessoa.RegistroNegocioBanco != null && registroPessoa.RegistroNegocioBanco.Any())
+                xml.RegistroNegocioBanco = _AdaptadorNegocios.AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(registroPessoa.RegistroNegocioBanco, statusLinha, erros);
 
             _log.TraceMethodEnd();
 

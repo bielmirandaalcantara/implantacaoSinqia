@@ -86,6 +86,21 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Pessoa
             return retorno;
         }
 
+        public DataSetNegocioRegistroOutrosBancos[] AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(MsgRegistroNegocios[] msg, string statusLinha, IList<string> erros)
+        {
+            _log.TraceMethodStart();
+
+            List<DataSetNegocioRegistroOutrosBancos> registroDocumentos = new List<DataSetNegocioRegistroOutrosBancos>();
+            foreach (var negocios in msg)
+            {
+                registroDocumentos.Add(AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(negocios, statusLinha, erros));
+            }
+
+            _log.TraceMethodEnd();
+
+            return registroDocumentos.ToArray();
+        }
+
         public DataSetNegocioRegistroOutrosBancos AdaptarMsgRegistroNegocioToDataSetNegocioRegistroNegocio(MsgRegistroNegocios msg, string statusLinha, IList<string> erros)
         {
             _log.TraceMethodStart();

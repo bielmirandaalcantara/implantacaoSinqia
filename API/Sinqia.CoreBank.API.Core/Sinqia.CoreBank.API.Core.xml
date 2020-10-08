@@ -245,16 +245,6 @@
             <param name="usuario">usuário responsável pela consulta</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.NegociosController.getNegocio(System.String,Sinqia.CoreBank.API.Core.Models.ParametroBaseQuery)">
-            <summary>
-            Consulta os dados do cliente em outros bancos
-            </summary>
-            <param name="codPessoa">Código da pessoa</param>
-            <param name="empresa">Empresa referente a consulta</param>
-            <param name="dependencia">Dependência referente a consulta</param>
-            <param name="usuario">usuário responsável pela consulta</param>
-            <returns>MsgRetorno</returns>
-        </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.PerfilController.postPerfil(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgPerfil)">
             <summary>
             Vinculação de perfis para uma pessoa
@@ -2534,6 +2524,11 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgRegistropessoaCompleto.RegistroReferencia">
             <summary>
             Inclusão de referências da pessoa
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgRegistropessoaCompleto.RegistroNegocioBanco">
+            <summary>
+            Inclusão dsa contas do cliente em outros bancos
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgReferencia.header">

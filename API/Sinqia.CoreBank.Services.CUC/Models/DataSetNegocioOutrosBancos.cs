@@ -23,7 +23,7 @@ namespace Sinqia.CoreBank.Services.CUC.Models
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    public class DataSetNegocioRegistroOutrosBancos
+    public class DataSetNegocioRegistroOutrosBancos_
     {
         [XmlElement(IsNullable = false)]
         public string statuslinha { get; set; }

@@ -51,5 +51,9 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// Inclusão de referências da pessoa
         /// </summary>
         public MsgRegistroreferencia[] RegistroReferencia { get; set; }
+        /// <summary>
+        /// Inclusão dsa contas do cliente em outros bancos
+        /// </summary>
+        public MsgRegistroNegocios[] RegistroNegocioBanco { get; set; }
     }
 }
