@@ -31,11 +31,22 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services
             if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.SQLSERVER))
             {
                 if(typeof(T) == typeof(tb_dependencia))
-                        return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig, transacao);
 
-                if (typeof(T) == typeof(tb_grpemp))
+                if (typeof(T) == typeof(tb_depope))
+                    return (IDao<T>)new tb_depopeDaoSqlServer(_dataBaseConfig, transacao);
+
+                if (typeof(T) == typeof(tb_gerente))
+                    return (IDao<T>)new tb_gerenteDaoSqlServer(_dataBaseConfig, transacao);
+
+                if(typeof(T) == typeof(tb_grpemp))
                     return (IDao<T>)new tb_grpempDaoSqlServer(_dataBaseConfig, transacao);
 
+                if (typeof(T) == typeof(tb_operador))
+                    return (IDao<T>)new tb_operadorDaoSqlServer(_dataBaseConfig, transacao);
+
+                if (typeof(T) == typeof(tb_prodbco))
+                    return (IDao<T>)new tb_prodbcoDaoSqlServer(_dataBaseConfig, transacao);
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
             {
@@ -54,23 +65,7 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services
 
         public IDaoRead<T> GetDaoCorporativoLeitura<T>(IDaoTransacao transacao) where T : new()
         {
-            if (string.IsNullOrWhiteSpace(_dataBaseConfig.BancoUtilizado)) throw new Exception("Chave necessária no arquivo de configuração - BancoUtilizado");
-            string bancoReferencia = _dataBaseConfig.BancoUtilizado;
-
-            if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.SQLSERVER))
-            {
-                if (typeof(T) == typeof(tb_dependencia))
-                    return (IDaoRead<T>)new tb_dependenciaDaoSqlServer(_dataBaseConfig);
-
-            }
-            else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
-            {
-                throw new NotImplementedException();
-            }
-            else
-                throw new Exception("Chave não reconhecida no arquivo de configuração - BancoUtilizado");
-
-            return null;
+            return GetDaoCorporativo<T>(transacao);
         }
 
     }

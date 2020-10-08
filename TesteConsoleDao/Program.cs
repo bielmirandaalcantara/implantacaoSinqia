@@ -6,6 +6,7 @@ using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace TesteConsoleDao
 {
@@ -18,19 +19,60 @@ namespace TesteConsoleDao
                 .AddJsonFile("appsettings.json");  
             IConfigurationRoot config = builder.Build();
             ConfiguracaoBaseDataBase configBase = config.GetSection("ConfiguracaoBaseDataBase").Get<ConfiguracaoBaseDataBase>();
-
-
+            
+            
             var factory = new CorporativoDaoFactory(configBase);
+
+
+            /*
+            
             var dao = factory.GetDaoCorporativo<tb_dependencia>();
-            IEnumerable<tb_dependencia> result = dao.Obter();
 
 
-            tb_grpemp grpemp = new tb_grpemp()
+
+            //--Obter todos
+            //IEnumerable<tb_dependencia> result = dao.Obter();
+
+
+
+            //--update com um obter com código
+            IEnumerable<tb_dependencia> result2 = dao.Obter("cod_depend = 55");
+            tb_dependencia dependenciaAlterar = result2.FirstOrDefault();
+            if(dependenciaAlterar != null)
             {
-                cod_grpemp = 99
-                , abv_grpemp = "GT"
-                , des_grpemp = "Teste do Gabriel"                
+                dependenciaAlterar.nom_abv_depend = "SINQIA TESTE - G";
+                dao.Atualizar(dependenciaAlterar, "cod_depend = 55", new List<string>() {"nom_abv_depend"});
+            }
+            
+
+            //insert
+
+            tb_dependencia dep = new tb_dependencia()
+            {
+                cod_empresa = 1
+                ,cod_depend = 88
+                ,cod_municipio = 5621
+                ,nom_abv_depend = "TESTE GABRIEL"
+                ,nom_depend = "TESTE GABRIEL N"
+                ,bas_cgc_depend = "45520049"
+                ,fil_cgc_depend = "0001"
+                ,dig_cgc_depend = "03"
+                ,tip_log_depend = "RUA"
+                ,end_depend = "RUA CAMPO SANTO"
+                ,cpl_log_depend = "182"
+                ,bai_depend = "VILA CURUÇA"
+                ,cep_depend = "09230330"
+                ,ddd_fone_depend = "11"
+                ,tel_depend = "25343033"
+                ,dat_ini_depend = DateTime.Now.AddDays(-5)
+                ,dat_cad = DateTime.Now
+                ,usu_atu = "att"
+                ,dat_atu = DateTime.Now
+                ,idc_sit = "A"
+                ,tip_tpdepend = "A"
+                ,num_log_depend = "408"
             };
+
 
             var factoryCore = new CoreDaoFactory(configBase);
             using (var transacao = factoryCore.GetTransacao())
@@ -39,8 +81,8 @@ namespace TesteConsoleDao
                 try
                 {
 
-                    var daoTransacao = factory.GetDaoCorporativo<tb_grpemp>(transacao);
-                    daoTransacao.Inserir(grpemp);
+                    var daoTransacao = factory.GetDaoCorporativo<tb_dependencia>(transacao);
+                    daoTransacao.Inserir(dep);
                     transacao.Commit();
 
                 }
@@ -50,6 +92,14 @@ namespace TesteConsoleDao
                     throw;
                 }
             }
+
+            */
+
+            var dao = factory.GetDaoCorporativo<tb_dependencia>();
+            dao.Remover(new tb_dependencia(), "cod_depend = 88");
+
+
+
         }
     }
 }

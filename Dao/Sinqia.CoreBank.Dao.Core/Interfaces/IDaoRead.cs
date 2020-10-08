@@ -7,8 +7,6 @@ namespace Sinqia.CoreBank.DAO.Core.Interfaces
 {
     public interface IDaoRead<T>
     {
-        DataTable ObterDataTable();
-        DataTable ObterDataTable(string where);
         IEnumerable<T> Obter();
         IEnumerable<T> Obter(string where);
     }
