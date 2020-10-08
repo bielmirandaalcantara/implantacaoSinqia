@@ -9,6 +9,7 @@ using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
+using Sinqia.CoreBank.DAO.Core.Services.SqlServer;
 
 namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
 {
@@ -40,45 +41,23 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
-        public void Atualizar(tb_dependencia entidade)
-        {
-            throw new NotImplementedException();
-        }
-
         public void Atualizar(tb_dependencia entidade, string where)
         {
-            throw new NotImplementedException();
+            Atualizar(entidade, where, null);
         }
 
-        public void Atualizar(tb_dependencia entidade, string[] campos, string where)
-        {
-            throw new NotImplementedException();
-        }
-
-        public tb_dependencia Inserir(tb_dependencia entidade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void InserirLote(IEnumerable<tb_dependencia> entidade)
-        {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<tb_dependencia> Obter()
+        public void Atualizar(tb_dependencia entidade, string where, List<string> campos)
         {
             if (!_conexaoExterna) _connection.Open();
 
             try
             {
-                IEnumerable<tb_dependencia> dependencia;
+                string query = Util.GerarQueryUpdate(entidade, where, campos);
 
-                if(_trans != null)
-                    dependencia = _connection.Query<tb_dependencia>("Select * from tb_dependencia", null, _trans);
+                if (_trans != null)
+                    _connection.Execute(query, entidade, _trans);
                 else
-                    dependencia = _connection.Query<tb_dependencia>("Select * from tb_dependencia");
-
-                return dependencia;
+                    _connection.Execute(query, entidade);
             }
             finally
             {
@@ -91,34 +70,87 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
+        public tb_dependencia Inserir(tb_dependencia entidade)
+        {
+            if (!_conexaoExterna) _connection.Open();
+
+            try
+            {
+                string query = Util.GerarQueryInsert(entidade);
+
+                if (_trans != null)
+                    _connection.Execute(query, entidade, _trans);
+                else
+                    _connection.Execute(query, entidade);
+
+                return entidade;
+            }
+            finally
+            {
+                if (!_conexaoExterna)
+                {
+                    if (_connection.State != ConnectionState.Closed)
+                        _connection.Close();
+                }
+
+            }
+        }
+        
+        public IEnumerable<tb_dependencia> Obter()
+        {
+            return Obter(string.Empty);
+        }
+
         public IEnumerable<tb_dependencia> Obter(string where)
         {
-            throw new NotImplementedException();
+            if (!_conexaoExterna) _connection.Open();
+
+            try
+            {
+                IEnumerable<tb_dependencia> lista;
+                string query = Util.GerarQuerySelect(new tb_dependencia(), where);
+
+                if (_trans != null)
+                    lista = _connection.Query<tb_dependencia>(query, null, _trans);
+                else
+                    lista = _connection.Query<tb_dependencia>(query);
+
+                return lista;
+            }
+            finally
+            {
+                if (!_conexaoExterna)
+                {
+                    if (_connection.State != ConnectionState.Closed)
+                        _connection.Close();
+                }
+
+            }
         }
 
-        public DataTable ObterDataTable()
+        public void Remover(tb_dependencia entidade, string where)
         {
-            throw new NotImplementedException();
-        }
+            if (!_conexaoExterna) _connection.Open();
 
-        public DataTable ObterDataTable(string where)
-        {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                string query = Util.GerarQueryDelete(entidade, where);
 
-        public void remover(tb_dependencia entidade)
-        {
-            throw new NotImplementedException();
-        }
+                if (_trans != null)
+                    _connection.Execute(query, null, _trans);
+                else
+                    _connection.Execute(query);
 
-        public void remover(tb_dependencia entidade, string where)
-        {
-            throw new NotImplementedException();
-        }
+            }
+            finally
+            {
+                if (!_conexaoExterna)
+                {
+                    if (_connection.State != ConnectionState.Closed)
+                        _connection.Close();
+                }
 
-        public void remover()
-        {
-            throw new NotImplementedException();
+            }
         }
     }
 }
