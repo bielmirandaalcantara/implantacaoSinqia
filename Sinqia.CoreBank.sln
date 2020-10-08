@@ -47,6 +47,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteConsoleDao", "TesteCon
 		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9} = {6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.BLL.Corporativo", "BLL\Sinqia.CoreBank.BLL.Corporativo\Sinqia.CoreBank.BLL.Corporativo.csproj", "{6911F7F1-A759-4B5B-BCD9-53F380037EB9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,6 +91,10 @@ Global
 		{51F435EF-0EF8-461E-9C95-053F02AB63CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51F435EF-0EF8-461E-9C95-053F02AB63CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51F435EF-0EF8-461E-9C95-053F02AB63CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{F0609185-091B-4B2F-9CE7-E22E9DE80D38} = {62D34583-B0FB-48DE-B295-C3673D74FE57}
 		{3C52B8C9-CF9E-4552-87D8-EFE67F19B742} = {62D34583-B0FB-48DE-B295-C3673D74FE57}
 		{51F435EF-0EF8-461E-9C95-053F02AB63CB} = {62D34583-B0FB-48DE-B295-C3673D74FE57}
+		{6911F7F1-A759-4B5B-BCD9-53F380037EB9} = {10239089-859A-4F73-9B5A-6058F267AF63}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F71A16CA-0FAC-4945-9CCE-7025CC7ECB98}
