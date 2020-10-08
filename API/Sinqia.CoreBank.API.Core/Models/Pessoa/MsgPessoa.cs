@@ -711,12 +711,18 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// </summary>
         public string tipoDeclarado { get; set; }
 
- 
-       //public string indicadorClienteEstrangeiro { get; set; }
 
-        //public string tipoDocumentoEstrangeiro { get; set; }
+        //public string indicadorClienteEstrangeiro { get; set; }
 
-        //public string numeroDocumentoEstrangeiro { get; set; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public string tipoDocumentoEstrangeiro { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string numeroDocumentoEstrangeiro { get; set; }
 
         /// <summary>
         /// 
