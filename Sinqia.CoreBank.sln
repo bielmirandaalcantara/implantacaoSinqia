@@ -49,6 +49,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteConsoleDao", "TesteCon
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.BLL.Corporativo", "BLL\Sinqia.CoreBank.BLL.Corporativo\Sinqia.CoreBank.BLL.Corporativo.csproj", "{6911F7F1-A759-4B5B-BCD9-53F380037EB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Dominio.Core", "Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj", "{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6911F7F1-A759-4B5B-BCD9-53F380037EB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -110,6 +116,7 @@ Global
 		{3C52B8C9-CF9E-4552-87D8-EFE67F19B742} = {62D34583-B0FB-48DE-B295-C3673D74FE57}
 		{51F435EF-0EF8-461E-9C95-053F02AB63CB} = {62D34583-B0FB-48DE-B295-C3673D74FE57}
 		{6911F7F1-A759-4B5B-BCD9-53F380037EB9} = {10239089-859A-4F73-9B5A-6058F267AF63}
+		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3} = {039A4952-BC89-4B46-A917-4CDB6E4E15AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F71A16CA-0FAC-4945-9CCE-7025CC7ECB98}

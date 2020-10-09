@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Dao\Sinqia.CoreBank.Dao.Core\Sinqia.CoreBank.Dao.Core.csproj" />
+    <ProjectReference Include="..\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj" />
   </ItemGroup>
 
 </Project>

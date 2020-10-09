@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Sinqia.CoreBank.Dominio.Core.Attributes;
 
 namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 {
@@ -22,6 +23,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (string.IsNullOrEmpty(campos))
                 {
                     campos = prop.Name;
@@ -50,6 +53,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
             string sets = string.Empty;
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (camposSelecionados != null && !camposSelecionados.Any(c => c.Equals(prop.Name))) continue;
                
                 if (string.IsNullOrEmpty(sets))
@@ -58,8 +63,12 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
                     sets = sets + $" ,  {prop.Name} = {paramPrefixo + prop.Name} ";                                              
             }
 
+            //trava para update all sem where
+            if((camposSelecionados == null || !camposSelecionados.Any()) && string.IsNullOrWhiteSpace(where))
+                throw new ApplicationException("Não é permitido um update de todos os campos sem filtro pela aplicação");
+
             query.AppendFormat(" update {0} set {1} ", objType.Name, sets);
-            if (!string.IsNullOrEmpty(where))  query.AppendFormat("  where {2} ", objType.Name, sets, where);
+            if (!string.IsNullOrWhiteSpace(where))  query.AppendFormat("  where {0} ", where);
 
             return query.ToString();
         }
@@ -74,6 +83,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (string.IsNullOrEmpty(campos))
                     campos = prop.Name;
                 else
@@ -82,7 +93,7 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 
             query.AppendFormat(" select {0} ", campos);
             query.AppendFormat(" from {0} ", objType.Name);
-            if(!string.IsNullOrEmpty(where)) query.AppendFormat(" where {0} ", where);
+            if(!string.IsNullOrWhiteSpace(where)) query.AppendFormat(" where {0} ", where);
 
             return query.ToString();
         }
@@ -90,25 +101,14 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
         public static string GerarQueryDelete(object entity, string where)
         {
             StringBuilder query = new StringBuilder();
-            string campos = string.Empty;
-
             Type objType = entity.GetType();
-            PropertyInfo[] properties = objType.GetProperties();
-
-            foreach (PropertyInfo prop in properties)
-            {
-                if (string.IsNullOrEmpty(campos))
-                    campos = prop.Name;
-                else
-                    campos = campos + ", " + prop.Name;
-            }
 
             //trava para o delete sem where
             if (string.IsNullOrEmpty(where))
                 throw new ApplicationException("Não é permitido um delete sem filtro pela aplicação");
 
             query.AppendFormat(" delete from {0} ", objType.Name);
-            if (!string.IsNullOrEmpty(where)) query.AppendFormat(" where {0} ", where);
+            if (!string.IsNullOrWhiteSpace(where)) query.AppendFormat(" where {0} ", where);
 
             return query.ToString();
         }
