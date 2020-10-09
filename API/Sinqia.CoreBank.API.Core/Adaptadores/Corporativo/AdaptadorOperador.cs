@@ -11,9 +11,27 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
     public class AdaptadorOperador
     {
         private LogService _log;
+        private AdaptadorGerente _AdaptadorGerente;
+
         public AdaptadorOperador(LogService log)
         {
             _log = log;
+            _AdaptadorGerente = new AdaptadorGerente(_log);
+        }
+
+        public tb_operador AdaptarMsgOperadorGerenteToModel(MsgRegistroOperador msg)
+        {
+
+            tb_operador tb_operador = new tb_operador();
+
+            tb_operador = AdaptarMsgOperadorToModeltb_operador(msg);
+
+            var listatbgerente = new List<tb_gerente>();
+            listatbgerente.Add(_AdaptadorGerente.AdaptarMsgOperadorToModeltb_gerente(msg));
+
+            tb_operador.tb_gerentes = listatbgerente;
+
+            return tb_operador;
         }
 
         public tb_operador AdaptarMsgOperadorToModeltb_operador(MsgRegistroOperador msg)
@@ -89,22 +107,85 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             if (!string.IsNullOrWhiteSpace(msg.codigoCRK))
                 tb_operador.OPECODCRK = msg.codigoCRK;
 
-            //if (msg.dataInicioOperacao != null && msg.dataInicioOperacao.Value != DateTime.MinValue)
-            //    tb_operador.dat_ini_gerente = msg.dataInicioOperacao;
-
-            //if (!string.IsNullOrWhiteSpace(msg.tipoGerente))
-            //    tb_operador.tip_gerente = msg.tipoGerente;
-
-            //if (!string.IsNullOrWhiteSpace(msg.situacaoGerente))
-            //    tb_operador.sit_gerente = msg.situacaoGerente;
-
-            //if (msg.dataFimOperacao != null && msg.dataFimOperacao.Value != DateTime.MinValue)
-            //    tb_operador.dat_fim_gerente = msg.dataFimOperacao;
-
-            //if (!string.IsNullOrWhiteSpace(msg.indicadorRecebCadVencido))
-            //    tb_operador.GERIDCMAILCUCVCT = msg.indicadorRecebCadVencido;
-
             return tb_operador;
+        }
+
+        public MsgRegistroOperador tb_operadorToMsgOperador(tb_operador tb_operador)
+        {
+            _log.TraceMethodStart();
+
+            MsgRegistroOperador msg = new MsgRegistroOperador();
+
+            if (tb_operador.cod_empresa != null && tb_operador.cod_empresa.Value > 0)
+                msg.codigoSisbacen = tb_operador.cod_empresa;
+
+            if (tb_operador.cod_oper != null && tb_operador.cod_oper.Value > 0)
+                msg.codigoFuncionario = tb_operador.cod_oper;
+
+            if (tb_operador.cod_depend != null && tb_operador.cod_depend.Value > 0)
+                msg.codigoDependenciaSisbacen = tb_operador.cod_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.nom_oper))
+                msg.nomeFuncionario = tb_operador.nom_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.nom_abv_oper))
+                msg.nomeAbreviadoFuncionario = tb_operador.nom_abv_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.idt_oper))
+                msg.identificadorFuncionario = tb_operador.idt_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.log_oper))
+                msg.loginFuncionario = tb_operador.log_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.tip_oper))
+                msg.tipoFuncionario = tb_operador.tip_oper;
+
+            if (tb_operador.dat_cad != null && tb_operador.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastro = tb_operador.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.usu_atu))
+                msg.usuarioUltimaAtualizacao = tb_operador.usu_atu;
+
+            if (tb_operador.dat_atu != null && tb_operador.dat_atu.Value != DateTime.MinValue)
+                msg.dataUltimaAtualizacao = tb_operador.dat_atu;
+
+            if (tb_operador.dat_sit != null && tb_operador.dat_sit.Value != DateTime.MinValue)
+                msg.dataSituacao = tb_operador.dat_sit;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.idc_sit))
+                msg.indicadorSituacao = tb_operador.idc_sit;
+
+            if (tb_operador.cod_cargo != null && tb_operador.cod_cargo.Value > 0)
+                msg.codigoCargoFuncionario = tb_operador.cod_cargo;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.cpf_oper))
+                msg.cpfOperador = tb_operador.cpf_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.dig_oper))
+                msg.digitoOperador = tb_operador.dig_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.sex_oper))
+                msg.sexoOperador = tb_operador.sex_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.ddd_oper))
+                msg.dddOperador = tb_operador.ddd_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.tel_oper))
+                msg.telefoneOperador = tb_operador.tel_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.ram_oper))
+                msg.ramalOperador = tb_operador.ram_oper;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.eml_oper))
+                msg.emailOperador = tb_operador.eml_oper;
+
+            if (tb_operador.cod_ger_origem != null && tb_operador.cod_ger_origem.Value > 0)
+                msg.codigoGerenteOrigem = tb_operador.cod_ger_origem;
+
+            if (!string.IsNullOrWhiteSpace(tb_operador.OPECODCRK))
+                msg.codigoCRK = tb_operador.OPECODCRK;
+
+            return msg;
         }
     }
 }

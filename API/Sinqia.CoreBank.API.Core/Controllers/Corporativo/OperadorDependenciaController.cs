@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.Configuracao.Configuration;
+using Sinqia.CoreBank.API.Core.Adaptadores.Corporativo;
+using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
+using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Services;
 using System;
@@ -22,12 +24,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
+        private AdaptadorOperadorDependencia _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
 
         public OperadorDependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
+            _adaptador = new AdaptadorOperadorDependencia(_log);
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
         }
@@ -67,6 +71,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
+
+                tb_depope tb_dependencia = _adaptador.AdaptarMsgOperadorDependenciaToModeltb_depope(msg.body.RegistroOperadorDependencia);
 
                 _log.TraceMethodEnd();
 
@@ -134,6 +140,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
+
+                tb_depope tb_dependencia = _adaptador.AdaptarMsgOperadorDependenciaToModeltb_depope(msg.body.RegistroOperadorDependencia);
 
                 _log.TraceMethodEnd();
 

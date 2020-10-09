@@ -2,10 +2,10 @@
 using System.ServiceModel;
 using Microsoft.Extensions.Options;
 using Microsoft.Win32;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Criptografia.Services;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
-using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
