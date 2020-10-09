@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sinqia.CoreBank.Dominio.Core.Attributes;
 
 namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
 {
@@ -29,5 +30,8 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
         public string eml_oper { get; set; }
         public int? cod_ger_origem { get; set; }
         public string OPECODCRK { get; set; }
+
+        [IgnorePersistencia]
+        public IEnumerable<tb_gerente> tb_gerentes { get; set; }
     }
 }

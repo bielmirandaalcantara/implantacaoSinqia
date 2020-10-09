@@ -8,4 +8,8 @@
     <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj" />
+  </ItemGroup>
+
 </Project>

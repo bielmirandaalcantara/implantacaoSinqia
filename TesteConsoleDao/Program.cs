@@ -22,18 +22,16 @@ namespace TesteConsoleDao
             
             
             var factory = new CorporativoDaoFactory(configBase);
-
-
-            /*
+            
             
             var dao = factory.GetDaoCorporativo<tb_dependencia>();
 
 
 
             //--Obter todos
-            //IEnumerable<tb_dependencia> result = dao.Obter();
+            IEnumerable<tb_dependencia> result = dao.Obter();
 
-
+/*
 
             //--update com um obter com código
             IEnumerable<tb_dependencia> result2 = dao.Obter("cod_depend = 55");
@@ -93,12 +91,12 @@ namespace TesteConsoleDao
                 }
             }
 
-            */
+            
 
             var dao = factory.GetDaoCorporativo<tb_dependencia>();
             dao.Remover(new tb_dependencia(), "cod_depend = 88");
 
-
+*/
 
         }
     }

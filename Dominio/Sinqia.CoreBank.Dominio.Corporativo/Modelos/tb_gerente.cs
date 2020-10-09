@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Sinqia.CoreBank.Dominio.Core.Attributes;
 
 namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
 {

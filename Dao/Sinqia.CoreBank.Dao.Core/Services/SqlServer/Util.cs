@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using Sinqia.CoreBank.Dominio.Core.Attributes;
 
 namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 {
@@ -22,6 +23,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (string.IsNullOrEmpty(campos))
                 {
                     campos = prop.Name;
@@ -50,6 +53,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
             string sets = string.Empty;
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (camposSelecionados != null && !camposSelecionados.Any(c => c.Equals(prop.Name))) continue;
                
                 if (string.IsNullOrEmpty(sets))
@@ -78,6 +83,8 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
 
             foreach (PropertyInfo prop in properties)
             {
+                if (prop.GetCustomAttributes(typeof(IgnorePersistenciaAttribute), false).Any()) continue;
+
                 if (string.IsNullOrEmpty(campos))
                     campos = prop.Name;
                 else
