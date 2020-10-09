@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using Sinqia.CoreBank.DAO.Core.Interfaces;
-using Sinqia.CoreBank.DAO.Core.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Services;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.DAO.Core.Services.SqlServer;

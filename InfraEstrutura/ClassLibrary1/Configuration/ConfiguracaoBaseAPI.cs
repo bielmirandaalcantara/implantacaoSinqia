@@ -1,10 +1,9 @@
-﻿using Sinqia.CoreBank.Logging.Configuration;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sinqia.CoreBank.API.Core.Configuration
+namespace Sinqia.CoreBank.Configuracao.Configuration
 {
     public class ConfiguracaoBaseAPI
     {

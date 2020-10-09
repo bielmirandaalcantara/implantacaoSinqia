@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj" />
     <ProjectReference Include="..\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
   </ItemGroup>
 

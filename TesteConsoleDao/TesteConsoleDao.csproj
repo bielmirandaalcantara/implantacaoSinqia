@@ -16,6 +16,7 @@
     <ProjectReference Include="..\DAO\Sinqia.CoreBank.DAO.Core\Sinqia.CoreBank.DAO.Core.csproj" />
     <ProjectReference Include="..\DAO\Sinqia.CoreBank.DAO.Corporativo\Sinqia.CoreBank.DAO.Corporativo.csproj" />
     <ProjectReference Include="..\Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj" />
+    <ProjectReference Include="..\Infraestrutura\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj" />
     <ProjectReference Include="..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
   </ItemGroup>
 

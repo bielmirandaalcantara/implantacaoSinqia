@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;

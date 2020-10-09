@@ -14,8 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
-using Sinqia.CoreBank.API.Core.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 
 namespace Sinqia.CoreBank.API.Core
 {
@@ -54,6 +53,7 @@ namespace Sinqia.CoreBank.API.Core
             });
             services.Configure<ConfiguracaoBaseCUC>(Configuration.GetSection("ConfiguracaoBaseCUC"));
             services.Configure<ConfiguracaoBaseAPI>(Configuration.GetSection("ConfiguracaoBaseAPI"));
+            services.Configure<ConfiguracaoBaseDataBase>(Configuration.GetSection("ConfiguracaoBaseDataBase"));
             services.Configure<ApiBehaviorOptions>(options =>
             {
                 options.SuppressModelStateInvalidFilter = true; // This is the setting

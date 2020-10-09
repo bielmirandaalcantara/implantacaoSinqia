@@ -11,10 +11,9 @@ using Microsoft.AspNetCore.Http;
 using Sinqia.CoreBank.Services.CUC.Models;
 using System.Linq;
 using Sinqia.CoreBank.Services.CUC.Services;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.Services.CUC.Constantes;
-using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Pessoa

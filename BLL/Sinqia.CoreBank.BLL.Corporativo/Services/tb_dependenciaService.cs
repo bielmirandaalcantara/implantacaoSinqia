@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.DAO.Core.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.DAO.Corporativo.Services;
 using System;

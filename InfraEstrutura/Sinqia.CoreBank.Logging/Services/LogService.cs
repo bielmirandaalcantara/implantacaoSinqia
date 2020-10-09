@@ -1,5 +1,5 @@
 ﻿using Sinqia.CoreBank.InputOutput.Services;
-using Sinqia.CoreBank.Logging.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using System;
 using System.Diagnostics;
 using System.Text;

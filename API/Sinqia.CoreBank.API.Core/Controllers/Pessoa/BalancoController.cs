@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores.Pessoa;
-using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
@@ -11,7 +10,7 @@ using Sinqia.CoreBank.API.Core.Models.Pessoa.Templates;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using Sinqia.CoreBank.Services.CUC.Models;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;

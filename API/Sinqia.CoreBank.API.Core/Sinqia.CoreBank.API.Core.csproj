@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\BLL\Sinqia.CoreBank.BLL.Corporativo\Sinqia.CoreBank.BLL.Corporativo.csproj" />
+    <ProjectReference Include="..\..\Infraestrutura\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj" />
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
     <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
