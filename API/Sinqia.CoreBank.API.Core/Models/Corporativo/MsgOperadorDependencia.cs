@@ -35,16 +35,16 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código da Empresa
         /// </summary>
-        public int codigoEmpresa { get; set; }
+        public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// Código da dependencia
         /// </summary>
-        public int codigoDependencia { get; set; }
+        public int? codigoDependencia { get; set; }
 
         /// <summary>
         /// Código do Operador
         /// </summary>
-        public int codigoOperador { get; set; }
+        public int? codigoOperador { get; set; }
     }
 }

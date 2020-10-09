@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using Sinqia.CoreBank.API.Core.Adaptadores.Corporativo;
 using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
+using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
@@ -21,12 +23,14 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
+        private AdaptadorProdutoBancario _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
 
         public ProdutoBancarioController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
+            _adaptador = new AdaptadorProdutoBancario(_log);
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
         }
@@ -66,6 +70,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
+
+                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
 
                 _log.TraceMethodEnd();
 
@@ -133,6 +139,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
                 if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
                 string token = _ServiceAutenticacao.GetToken(acessoCUC);
+
+                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
 
                 _log.TraceMethodEnd();
 

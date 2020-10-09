@@ -37,5 +37,29 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             return tb_grpemp;
         }
+
+        public MsgRegistroGrupoEmpresarial tb_grpempToMsgGrupoEmpresarial(tb_grpemp tb_dependencia)
+        {
+            _log.TraceMethodStart();
+
+            MsgRegistroGrupoEmpresarial msg = new MsgRegistroGrupoEmpresarial();
+
+            if (tb_dependencia.cod_grpemp != null && tb_dependencia.cod_grpemp.Value > 0)
+                msg.codigoGrupoEmpresarial = tb_dependencia.cod_grpemp;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.abv_grpemp))
+                msg.nomeAbreviadoGrupoEmpresarial = tb_dependencia.abv_grpemp;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.des_grpemp))
+                msg.nomedoGrupoEmpresarial = tb_dependencia.des_grpemp;
+
+            if (tb_dependencia.cod_empresa != null && tb_dependencia.cod_empresa.Value > 0)
+                msg.codigoEmpresaSisbacen = tb_dependencia.cod_empresa;
+
+            if (tb_dependencia.cod_depend != null && tb_dependencia.cod_depend.Value > 0)
+                msg.codigoDependenciaSisbacen = tb_dependencia.cod_depend;
+
+            return msg;
+        }
     }
 }

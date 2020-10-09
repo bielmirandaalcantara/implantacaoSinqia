@@ -190,5 +190,182 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             return tb_dependencia;
         }
+
+        public MsgRegistroDependencia tb_depndenciaToMsgDependencia(tb_dependencia tb_dependencia)
+        {
+            _log.TraceMethodStart();
+
+            MsgRegistroDependencia msg = new MsgRegistroDependencia();
+
+            if (tb_dependencia.cod_empresa != null && tb_dependencia.cod_empresa.Value > 0)
+                msg.codigoEmpresa = tb_dependencia.cod_empresa;
+
+            if (tb_dependencia.cod_depend != null && tb_dependencia.cod_depend.Value > 0)
+                msg.codigoDependência = tb_dependencia.cod_depend;
+
+            if (tb_dependencia.cod_municipio != null && tb_dependencia.cod_municipio.Value > 0)
+                msg.codigoMunicipio = tb_dependencia.cod_municipio;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.nom_abv_depend))
+                msg.nomeAbreviado = tb_dependencia.nom_abv_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.nom_depend))
+                msg.nomeCompleto = tb_dependencia.nom_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.bas_cgc_depend))
+                msg.cgcBase = tb_dependencia.bas_cgc_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.fil_cgc_depend))
+                msg.cgcFilial = tb_dependencia.fil_cgc_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.dig_cgc_depend))
+                msg.cgccDigito = tb_dependencia.dig_cgc_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tip_log_depend))
+                msg.tipoLogradouro = tb_dependencia.tip_log_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.end_depend))
+                msg.logradouro = tb_dependencia.end_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.cpl_log_depend))
+                msg.complementoLogradouro = tb_dependencia.cpl_log_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.bai_depend))
+                msg.descricaoBairro = tb_dependencia.bai_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.cep_depend))
+                msg.cep = tb_dependencia.cep_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone_depend))
+                msg.dddTelefone = tb_dependencia.ddd_fone_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone2_depend))
+                msg.dddTelefone2 = tb_dependencia.ddd_fone2_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone3_depend))
+                msg.dddTelefone3 = tb_dependencia.ddd_fone3_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone4_depend))
+                msg.dddTelefone4 = tb_dependencia.ddd_fone4_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_depend))
+                msg.numeroTelefone = tb_dependencia.tel_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_2_depend))
+                msg.numeroTelefone2 = tb_dependencia.tel_2_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_3_depend))
+                msg.numeroTelefone3 = tb_dependencia.tel_3_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_4_depend))
+                msg.numeroTelefone4 = tb_dependencia.tel_4_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_depend))
+                msg.numeroRamal = tb_dependencia.ram_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_2_depend))
+                msg.numeroRamal2 = tb_dependencia.ram_2_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_3_depend))
+                msg.numeroRamal3 = tb_dependencia.ram_3_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_4_depend))
+                msg.numeroRamal4 = tb_dependencia.ram_4_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax_depend))
+                msg.dddFax = tb_dependencia.ddd_fax_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax2_depend))
+                msg.dddFax2 = tb_dependencia.ddd_fax2_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax3_depend))
+                msg.dddFax3 = tb_dependencia.ddd_fax3_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_depend))
+                msg.numeroFax = tb_dependencia.fax_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_2_depend))
+                msg.numeroFax2 = tb_dependencia.fax_2_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_3_depend))
+                msg.numeroFax3 = tb_dependencia.fax_3_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.eml_depend))
+                msg.email = tb_dependencia.eml_depend;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ins_estadual))
+                msg.inscricaoEstadual = tb_dependencia.ins_estadual;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.ins_municipal))
+                msg.inscricaoMunicipal = tb_dependencia.ins_municipal;
+
+            if (tb_dependencia.nvl_sup_depend != null && tb_dependencia.nvl_sup_depend.Value > 0)
+                msg.nivelHierarquico = tb_dependencia.nvl_sup_depend;
+
+            if (tb_dependencia.nvl_1_depend != null && tb_dependencia.nvl_1_depend.Value > 0)
+                msg.nivelHierarquico1 = tb_dependencia.nvl_1_depend;
+
+            if (tb_dependencia.nvl_2_depend != null && tb_dependencia.nvl_2_depend.Value > 0)
+                msg.nivelHierarquico2 = tb_dependencia.nvl_2_depend;
+
+            if (tb_dependencia.nvl_3_depend != null && tb_dependencia.nvl_3_depend.Value > 0)
+                msg.nivelHierarquico3 = tb_dependencia.nvl_3_depend;
+
+            if (tb_dependencia.nvl_4_depend != null && tb_dependencia.nvl_4_depend.Value > 0)
+                msg.nivelHierarquico4 = tb_dependencia.nvl_4_depend;
+
+            if (tb_dependencia.nvl_5_depend != null && tb_dependencia.nvl_5_depend.Value > 0)
+                msg.nivelHierarquico5 = tb_dependencia.nvl_5_depend;
+
+            if (tb_dependencia.nvl_6_depend != null && tb_dependencia.nvl_6_depend.Value > 0)
+                msg.nivelHierarquico6 = tb_dependencia.nvl_6_depend;
+
+            if (tb_dependencia.nvl_7_depend != null && tb_dependencia.nvl_7_depend.Value > 0)
+                msg.nivelHierarquico7 = tb_dependencia.nvl_7_depend;
+
+            if (tb_dependencia.nvl_8_depend != null && tb_dependencia.nvl_8_depend.Value > 0)
+                msg.nivelHierarquico8 = tb_dependencia.nvl_8_depend;
+
+            if (tb_dependencia.nvl_9_depend != null && tb_dependencia.nvl_9_depend.Value > 0)
+                msg.nivelHierarquico9 = tb_dependencia.nvl_9_depend;
+
+            if (tb_dependencia.nvl_10_depend != null && tb_dependencia.nvl_10_depend.Value > 0)
+                msg.nivelHierarquico10 = tb_dependencia.nvl_10_depend;
+
+            if (tb_dependencia.dat_ini_depend != null && tb_dependencia.dat_ini_depend.Value != DateTime.MinValue)
+                msg.dataInicioOperacao = tb_dependencia.dat_ini_depend;
+
+            if (tb_dependencia.dat_fim_depend != null && tb_dependencia.dat_fim_depend.Value != DateTime.MinValue)
+                msg.dataFimOperacao = tb_dependencia.dat_fim_depend;
+
+            if (tb_dependencia.dat_cad != null && tb_dependencia.dat_cad.Value != DateTime.MinValue)
+                msg.dataCadastro = tb_dependencia.dat_cad;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.usu_atu))
+                msg.usuarioUltimaAtualizacao = tb_dependencia.usu_atu;
+
+            if (tb_dependencia.dat_atu != null && tb_dependencia.dat_atu.Value != DateTime.MinValue)
+                msg.dataAtualizacao = tb_dependencia.dat_atu;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.idc_sit))
+                msg.indicadorSituacao = tb_dependencia.idc_sit;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.tip_tpdepend))
+                msg.tipoDependencia = tb_dependencia.tip_tpdepend;
+
+            if (tb_dependencia.cod_camara != null && tb_dependencia.cod_camara.Value > 0)
+                msg.codigoCamaraCompensacao = tb_dependencia.cod_camara;
+
+            if (!string.IsNullOrWhiteSpace(tb_dependencia.num_log_depend))
+                msg.numeroLogradouro = tb_dependencia.num_log_depend;
+
+            if (tb_dependencia.dat_rollout != null && tb_dependencia.dat_rollout.Value != DateTime.MinValue)
+                msg.dataRollOut = tb_dependencia.dat_rollout;
+
+            if (tb_dependencia.dat_sit != null && tb_dependencia.dat_sit.Value != DateTime.MinValue)
+                msg.dataSituacao = tb_dependencia.dat_sit;
+
+            return msg;
+        }
     }
 }
