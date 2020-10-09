@@ -1,13 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
-using Sinqia.CoreBank.API.Core.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Sinqia.CoreBank.API.Core.Constantes;
 using Sinqia.CoreBank.Criptografia.Services;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 
 namespace Sinqia.CoreBank.API.Core.Controllers

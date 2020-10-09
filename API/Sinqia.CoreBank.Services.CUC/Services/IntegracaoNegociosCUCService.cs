@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Sinqia.CoreBank.Services.CUC.Models;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.Constantes;
 using System.Xml.Serialization;
 using System.IO;
@@ -66,9 +66,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
                 stringXML = textWriter.ToString();
             }
 
-            _log.TraceMethodEnd();
-
             _log.Trace("XML Gerado: " + stringXML);
+            _log.TraceMethodEnd();
 
             return AtualizarNegocios(param, stringXML);
         }
@@ -85,7 +84,11 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             try
             {
+                _log.Trace($"Chamando o método CUC: {configuracaoURICUC.URI}");
+
                 var ret = client.Atualizar(parametrosLogin, xml);
+
+                _log.Trace($"Finalização da chamada do método CUC: {configuracaoURICUC.URI} ");
 
                 RetornoIntegracaoNegocios retorno = GerarRetornoIntegracaoNegocios(ret);
 

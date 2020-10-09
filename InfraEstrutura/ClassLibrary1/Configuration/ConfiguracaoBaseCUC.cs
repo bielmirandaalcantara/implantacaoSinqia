@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Sinqia.CoreBank.Services.CUC.Models.Configuration
+namespace Sinqia.CoreBank.Configuracao.Configuration
 {
     public class ConfiguracaoBaseCUC 
     {

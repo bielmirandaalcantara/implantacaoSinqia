@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj" />
+    <ProjectReference Include="..\..\Infraestrutura\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj" />
   </ItemGroup>
 
 </Project>

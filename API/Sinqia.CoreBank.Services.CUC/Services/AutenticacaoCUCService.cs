@@ -5,7 +5,7 @@ using Microsoft.Win32;
 using Sinqia.CoreBank.Criptografia.Services;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Services.CUC.Constantes;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.WCF.Autenticacao;
 
 namespace Sinqia.CoreBank.Services.CUC.Services
@@ -33,7 +33,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             string token = string.Empty;
             string login = configuracaoAcessoCUC.userServico;
             string senha = configuracaoAcessoCUC.passServico;
-            string chave = BuscarChaveServico();
+            string chave = configuracaoAcessoCUC.chaveServico;
+            //string chave = BuscarChaveServico();
 
             senha = DescriptografarSenhaServico(senha, chave);
 
@@ -43,8 +44,12 @@ namespace Sinqia.CoreBank.Services.CUC.Services
 
             try
             {
+                _log.Trace($"Chamando o método CUC: {configuracaoURICUC.URI}");
+
                 CucCluRetornoAutenticacao dadosRetorno = client.Autenticar(login, senha);
                 token = dadosRetorno.Token;
+
+                _log.Trace($"Finalizando a chamada do método CUC: {configuracaoURICUC.URI}");
 
                 _log.TraceMethodEnd();
 
@@ -90,11 +95,11 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
             catch (UnauthorizedAccessException erro)
             {
-                throw new Exception("Não tem permissão de acesso: " + erro.Message);
+                throw new Exception("Não tem permissão de acesso ao registro do windows: " + erro.Message);
             }
             catch (Exception erro)
             {
-                throw new Exception("Erroao buscar a chave do serviço", erro);
+                throw new Exception("Erro ao buscar a chave do serviço. Ela pode não estar cadastrada no registro do windows", erro);
             }
             
         }

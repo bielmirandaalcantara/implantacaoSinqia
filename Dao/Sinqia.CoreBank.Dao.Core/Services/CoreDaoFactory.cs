@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Sinqia.CoreBank.DAO.Core.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Constantes;
 using Sinqia.CoreBank.DAO.Core.Interfaces;
 using Sinqia.CoreBank.DAO.Core.Services.SqlServer;

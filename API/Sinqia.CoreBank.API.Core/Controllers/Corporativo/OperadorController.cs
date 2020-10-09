@@ -8,7 +8,7 @@ using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;

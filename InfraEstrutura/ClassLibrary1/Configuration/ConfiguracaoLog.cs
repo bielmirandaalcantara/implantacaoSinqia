@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Sinqia.CoreBank.Logging.Configuration
+namespace Sinqia.CoreBank.Configuracao.Configuration
 {
     public class ConfiguracaoLog
     {

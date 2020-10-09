@@ -6,7 +6,7 @@
 //using Microsoft.Extensions.Options;
 //using Sinqia.CoreBank.Services.CUC.WCF.CadatroPessoaSimplificada;
 //using Sinqia.CoreBank.Services.CUC.Models;
-//using Sinqia.CoreBank.Services.CUC.Models.Configuration;
+//using Sinqia.CoreBank.Configuracao.Configuration;
 //using Sinqia.CoreBank.Services.CUC.Constantes;
 //using System.Xml.Serialization;
 //using System.IO;
@@ -81,7 +81,11 @@
 //            var client = new CucCliCadastroPessoaSimplificadaClient(CucCliCadastroPessoaSimplificadaClient.EndpointConfiguration.BasicHttpBinding_ICucCliCadastroPessoaSimplificada, address);
 //            try
 //            {
+//                _log.Trace($"Chamando o método CUC: {configuracaoURICUC.URI}");
+//
 //                var ret = client.Atualizar(parametrosLogin, xml);
+//
+//                _log.Trace($"Finalizando a chamada do método CUC: {configuracaoURICUC.URI}");
 
 //                RetornoIntegracaoPessoaSimplificada retorno = GerarRetornoIntegracaoPessoaSimplificada(ret);
 

@@ -2,19 +2,20 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores.Corporativo;
-using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
-using Sinqia.CoreBank.Services.CUC.Models.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Sinqia.CoreBank.BLL.Corporativo.Services;
+using Sinqia.CoreBank.Configuracao.Configuration;
+
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -28,7 +29,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         private AdaptadorDependencia _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
 
-        public DependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public DependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
@@ -70,11 +71,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
                 tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
+
+                //tb_dependenciaService serviceDependencia = new tb_dependenciaService();
 
                 _log.TraceMethodEnd();
 

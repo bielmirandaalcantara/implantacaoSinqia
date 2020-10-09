@@ -1,4 +1,4 @@
-﻿using Sinqia.CoreBank.DAO.Core.Configuration;
+﻿using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Constantes;
 using Sinqia.CoreBank.DAO.Core.Interfaces;
 using Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer;

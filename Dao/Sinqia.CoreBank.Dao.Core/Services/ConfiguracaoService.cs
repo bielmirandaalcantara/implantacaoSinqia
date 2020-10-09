@@ -1,4 +1,4 @@
-﻿using Sinqia.CoreBank.DAO.Core.Configuration;
+﻿using Sinqia.CoreBank.Configuracao.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
