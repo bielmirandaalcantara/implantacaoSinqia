@@ -4,4 +4,19 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\DAO\Sinqia.CoreBank.DAO.Core\Sinqia.CoreBank.DAO.Core.csproj" />
+    <ProjectReference Include="..\..\DAO\Sinqia.CoreBank.DAO.Corporativo\Sinqia.CoreBank.DAO.Corporativo.csproj" />
+    <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj" />
+    <ProjectReference Include="..\..\Infraestrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
+    <ProjectReference Include="..\..\Infraestrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
+    <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.Options">
+      <HintPath>C:\Program Files\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.options\2.1.1\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>
