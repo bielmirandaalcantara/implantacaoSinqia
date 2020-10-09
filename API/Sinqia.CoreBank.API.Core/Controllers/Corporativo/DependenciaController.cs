@@ -28,6 +28,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         public LogService _log;
         private AdaptadorDependencia _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
+        private tb_dependenciaService _ServiceDependencia;
 
         public DependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
@@ -36,6 +37,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _adaptador = new AdaptadorDependencia(_log);
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _ServiceDependencia = new tb_dependenciaService(configuracaoDataBase);
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
 
-                //tb_dependenciaService serviceDependencia = new tb_dependenciaService();
+                _ServiceDependencia.GravarDependencia(tb_dependencia);
 
                 _log.TraceMethodEnd();
 
