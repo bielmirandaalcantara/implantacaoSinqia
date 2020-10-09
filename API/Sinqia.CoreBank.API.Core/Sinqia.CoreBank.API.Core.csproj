@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj" />
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
     <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />

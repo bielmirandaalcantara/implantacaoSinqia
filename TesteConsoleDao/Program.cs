@@ -24,7 +24,6 @@ namespace TesteConsoleDao
             var factory = new CorporativoDaoFactory(configBase);
 
 
-            /*
             
             var dao = factory.GetDaoCorporativo<tb_dependencia>();
 
@@ -43,7 +42,8 @@ namespace TesteConsoleDao
                 dependenciaAlterar.nom_abv_depend = "SINQIA TESTE - G";
                 dao.Atualizar(dependenciaAlterar, "cod_depend = 55", new List<string>() {"nom_abv_depend"});
             }
-            
+
+            /*
 
             //insert
 
@@ -95,8 +95,8 @@ namespace TesteConsoleDao
 
             */
 
-            var dao = factory.GetDaoCorporativo<tb_dependencia>();
-            dao.Remover(new tb_dependencia(), "cod_depend = 88");
+            //var dao = factory.GetDaoCorporativo<tb_dependencia>();
+            //dao.Remover(new tb_dependencia(), "cod_depend = 88");
 
 
 

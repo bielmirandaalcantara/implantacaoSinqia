@@ -42,7 +42,7 @@ namespace Sinqia.CoreBank.DAO.Core.Services.SqlServer
         }
 
         public static string GerarQueryUpdate(object entity, string where, List<string> camposSelecionados = null)
-        {
+       {
             StringBuilder query = new StringBuilder();
 
             Type objType = entity.GetType();
