@@ -91,5 +91,6 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             dao.Remover(entity, where);
         }
+
     }
 }

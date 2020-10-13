@@ -38,7 +38,7 @@
             <summary>
             Cadastro de grupo empresarial
             </summary>
-            <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+            <param name="codGrupoEmpresarial">Código da grupo empresarial</param>_ServiceGrupoEmpresarial
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.putGrupoEmpresarial(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgGrupoEmpresarial)">
@@ -48,14 +48,14 @@
             <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.deleteGrupoEmpresarial(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.deleteGrupoEmpresarial(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de grupo empresarial
             </summary>
             <param name="codGrupoEmpresarial">Código da grupo wmpresarial</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.getGrupoEmpresarial(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.getGrupoEmpresarial(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de grupo empresarial
             </summary>
@@ -104,14 +104,14 @@
             <param name="codOperadorDependencia">Código do operador dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de operador dependencia
             </summary>
             <param name="codOperadorDependencia">Código do operador dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de OperadorDependencia
             </summary>
@@ -132,14 +132,14 @@
             <param name="codProdutoBancario">Código do produto bancario</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.deleteProdutoBancario(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.deleteProdutoBancario(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de produto bancario
             </summary>
             <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.getProdutoBancario(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.getProdutoBancario(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de produto bancario
             </summary>

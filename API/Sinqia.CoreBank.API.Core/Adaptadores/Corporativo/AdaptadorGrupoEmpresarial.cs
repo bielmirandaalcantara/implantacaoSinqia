@@ -1,4 +1,6 @@
-﻿using Sinqia.CoreBank.API.Core.Models.Corporativo;
+﻿using Sinqia.CoreBank.API.Core.Constantes;
+using Sinqia.CoreBank.API.Core.Models;
+using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
 using System;
@@ -38,28 +40,122 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return tb_grpemp;
         }
 
-        public MsgRegistroGrupoEmpresarial tb_grpempToMsgGrupoEmpresarial(tb_grpemp tb_dependencia)
+        public MsgRegistroGrupoEmpresarial tb_grpempToMsgGrupoEmpresarial(tb_grpemp tb_grpemp)
         {
             _log.TraceMethodStart();
 
             MsgRegistroGrupoEmpresarial msg = new MsgRegistroGrupoEmpresarial();
 
-            if (tb_dependencia.cod_grpemp != null && tb_dependencia.cod_grpemp.Value > 0)
-                msg.codigoGrupoEmpresarial = tb_dependencia.cod_grpemp;
+            if (tb_grpemp.cod_grpemp != null && tb_grpemp.cod_grpemp.Value > 0)
+                msg.codigoGrupoEmpresarial = tb_grpemp.cod_grpemp;
 
-            if (!string.IsNullOrWhiteSpace(tb_dependencia.abv_grpemp))
-                msg.nomeAbreviadoGrupoEmpresarial = tb_dependencia.abv_grpemp;
+            if (!string.IsNullOrWhiteSpace(tb_grpemp.abv_grpemp))
+                msg.nomeAbreviadoGrupoEmpresarial = tb_grpemp.abv_grpemp;
 
-            if (!string.IsNullOrWhiteSpace(tb_dependencia.des_grpemp))
-                msg.nomedoGrupoEmpresarial = tb_dependencia.des_grpemp;
+            if (!string.IsNullOrWhiteSpace(tb_grpemp.des_grpemp))
+                msg.nomedoGrupoEmpresarial = tb_grpemp.des_grpemp;
 
-            if (tb_dependencia.cod_empresa != null && tb_dependencia.cod_empresa.Value > 0)
-                msg.codigoEmpresaSisbacen = tb_dependencia.cod_empresa;
+            if (tb_grpemp.cod_empresa != null && tb_grpemp.cod_empresa.Value > 0)
+                msg.codigoEmpresaSisbacen = tb_grpemp.cod_empresa;
 
-            if (tb_dependencia.cod_depend != null && tb_dependencia.cod_depend.Value > 0)
-                msg.codigoDependenciaSisbacen = tb_dependencia.cod_depend;
+            if (tb_grpemp.cod_depend != null && tb_grpemp.cod_depend.Value > 0)
+                msg.codigoDependenciaSisbacen = tb_grpemp.cod_depend;
 
             return msg;
         }
+
+        public MsgRetorno AdaptarMsgRetorno(MsgGrupoEmpresarial msg, IList<string> erros)
+        {
+            _log.TraceMethodStart();
+
+            MsgRetorno retorno = new MsgRetorno();
+            string identificador = string.Empty;
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
+
+            if (msg != null && msg.header != null)
+            {
+                identificador = msg.header.identificadorEnvio;
+                dataEnvio = msg.header.dataHoraEnvio.HasValue ? msg.header.dataHoraEnvio.Value : DateTime.Now;
+            }
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
+            retorno.header = header;
+
+            _log.TraceMethodEnd();
+
+            return retorno;
+        }
+
+        public MsgRetorno AdaptarMsgRetorno(IList<string> erros, string identificador)
+        {
+            _log.TraceMethodStart();
+
+            MsgRetorno retorno = new MsgRetorno();
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
+            retorno.header = header;
+
+            _log.TraceMethodEnd();
+
+            return retorno;
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros, string identificador)
+        {
+            _log.TraceMethodStart();
+
+            MsgRetornoGet retorno = new MsgRetornoGet();
+            DateTime dataEnvio = DateTime.MinValue;
+            string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
+
+            var header = new MsgHeaderRetorno()
+            {
+                identificador = identificador,
+                dataHoraEnvio = dataEnvio,
+                dataHoraRetorno = DateTime.Now,
+                status = status
+            };
+            retorno.header = header;
+
+            if (erros.Any())
+            {
+                header.erros = erros.ToArray();
+            }
+
+            if (!erros.Any() && msg != null)
+                retorno.body = msg;
+
+            _log.TraceMethodEnd();
+
+            return retorno;
+        }
+
     }
 }
