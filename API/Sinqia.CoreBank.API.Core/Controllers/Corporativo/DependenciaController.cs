@@ -23,7 +23,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
     [Produces("application/json")]
     public class DependenciaController : ControllerBase
     {
-        public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AdaptadorDependencia _adaptador;
@@ -33,10 +32,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         public DependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
-            _configuracaoCUC = configuracaoCUC;
-            _adaptador = new AdaptadorDependencia(_log);
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
-            _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _adaptador = new AdaptadorDependencia(_log);
             _ServiceDependencia = new tb_dependenciaService(configuracaoDataBase);
         }
 
@@ -73,36 +70,48 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                    _log.TraceMethodEnd();
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
                 tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
 
                 _ServiceDependencia.GravarDependencia(tb_dependencia);
 
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
         }
 
@@ -140,38 +149,39 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
                 tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
 
+                _ServiceDependencia.EditarDependencia(tb_dependencia);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }
@@ -180,6 +190,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// Exclusão de dados de dependencia
         /// </summary>
         /// <param name="codDependencia">Código da dependencia</param>
+        /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -188,7 +199,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteDependencia([FromRoute] string codDependencia)
+        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -199,42 +210,48 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             {
                 _log.TraceMethodStart();
 
+                if (codigoEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codDependencia == null)
+                    throw new ApplicationException("Parâmetro codDependencia obrigatório");
+
                 identificador = Util.GerarIdentificadorUnico();
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                _ServiceDependencia.ExcluirDependencia(codigoEmpresa.Value, codDependencia.Value);
+
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }
@@ -243,6 +260,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// Exclusão de dados de dependencia
         /// </summary>
         /// <param name="codDependencia">Código da dependencia</param>
+        /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -251,56 +269,63 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getDependencia([FromRoute] string codDependencia)
+        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
         {
-
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
             string identificador = string.Empty;
+            MsgRegistroDependenciaBody body = new MsgRegistroDependenciaBody();
 
             try
             {
                 _log.TraceMethodStart();
 
                 identificador = Util.GerarIdentificadorUnico();
-                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
+                _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (string.IsNullOrWhiteSpace(codDependencia))
+                if (codigoEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codDependencia == null)
                     throw new ApplicationException("Parâmetro codDependencia obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                var dependencias = _ServiceDependencia.BuscarDependencias(codigoEmpresa.Value, codDependencia.Value);
+
+                if (dependencias != null && dependencias.Any())
+                    body.RegistroDependencia = _adaptador.tb_depndenciaToMsgDependencia(dependencias.First());
+
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
 
                 _log.TraceMethodEnd();
 
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }

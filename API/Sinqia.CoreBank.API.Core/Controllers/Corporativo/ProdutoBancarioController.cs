@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Sinqia.CoreBank.API.Core.Adaptadores.Corporativo;
-using Sinqia.CoreBank.API.Core.Configuration;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
@@ -30,8 +29,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _configuracaoCUC = configuracaoCUC;
-            _adaptador = new AdaptadorProdutoBancario(_log);
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
+            _adaptador = new AdaptadorProdutoBancario(_log);
             _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
         }
         /// <summary>

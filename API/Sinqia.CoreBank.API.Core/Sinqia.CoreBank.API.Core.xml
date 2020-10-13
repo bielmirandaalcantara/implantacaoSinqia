@@ -18,18 +18,20 @@
             <param name="codDependencia">Código da dependencia</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.deleteDependencia(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.deleteDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de dependencia
             </summary>
             <param name="codDependencia">Código da dependencia</param>
+            <param name="codigoEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.getDependencia(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.getDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Exclusão de dados de dependencia
             </summary>
             <param name="codDependencia">Código da dependencia</param>
+            <param name="codigoEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.postGrupoEmpresarial(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgGrupoEmpresarial)">

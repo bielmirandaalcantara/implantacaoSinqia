@@ -57,6 +57,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                 throw new ApplicationException($"Dados informados já foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
 
             entity = dao.Inserir(entity);
+
             return entity;
         }
 
@@ -75,16 +76,18 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
         }
 
-        public void ExcluirDependencia(tb_dependencia entity)
+        public void ExcluirDependencia(int cod_empresa, int cod_depend)
         {
             var dao = _factory.GetDaoCorporativo<tb_dependencia>();
 
-            string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
+            string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
 
             var entityBanco = dao.Obter(where);
 
             if (entityBanco == null || !entityBanco.Any())
-                throw new ApplicationException($"Dados informados não estão cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
+                throw new ApplicationException($"Dados informados não estão cadastrados - empresa: {cod_empresa} e dependência: {cod_depend} ");
+
+            var entity = entityBanco.FirstOrDefault();
 
             dao.Remover(entity, where);
         }
