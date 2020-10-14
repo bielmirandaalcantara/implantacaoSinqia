@@ -14,9 +14,9 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private ConfiguracaoBaseDataBase _databaseConfig;
         private CorporativoDaoFactory _factory;
 
-        public tb_depopeService(IOptions<ConfiguracaoBaseDataBase> dataBaseConfig)
+        public tb_depopeService(ConfiguracaoBaseDataBase dataBaseConfig)
         {
-            _databaseConfig = dataBaseConfig.Value;
+            _databaseConfig = dataBaseConfig;
             _factory = new CorporativoDaoFactory(_databaseConfig);
         }
 

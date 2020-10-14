@@ -14,15 +14,16 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
     public class OperadorGerenteService
     {
         private ConfiguracaoBaseDataBase _databaseConfig;
-        private CoreDaoFactory _factoryCore;
         private tb_operadorService _serviceOperador;
         private tb_gerenteService _serviceGerente;
+        private CoreDaoFactory _factoryCore;
 
-        public OperadorGerenteService(IOptions<ConfiguracaoBaseDataBase> dataBaseConfig)
+        public OperadorGerenteService(ConfiguracaoBaseDataBase dataBaseConfig)
         {
-            _databaseConfig = dataBaseConfig.Value;
+            _databaseConfig = dataBaseConfig;
             _serviceOperador = new tb_operadorService(dataBaseConfig);
             _serviceGerente = new tb_gerenteService(dataBaseConfig);
+            _factoryCore = new CoreDaoFactory(dataBaseConfig);
         }
 
         public tb_operador BuscarOperadorGerentePorCodigo(int cod_empresa, int cod_oper, string tipoGerente, IDaoTransacao transacao = null)

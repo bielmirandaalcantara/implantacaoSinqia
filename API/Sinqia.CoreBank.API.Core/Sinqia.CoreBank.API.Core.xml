@@ -4,7 +4,7 @@
         <name>Sinqia.CoreBank.API.Core</name>
     </assembly>
     <members>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.postDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.postDependencia(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia)">
             <summary>
             Cadastro de dependencia
             </summary>
@@ -34,7 +34,7 @@
             <param name="codigoEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.postGrupoEmpresarial(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgGrupoEmpresarial)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.postGrupoEmpresarial(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgGrupoEmpresarial)">
             <summary>
             Cadastro de grupo empresarial
             </summary>
@@ -62,7 +62,7 @@
             <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.postOperador(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.postOperador(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
             <summary>
             Cadastro de Operador
             </summary>
@@ -94,7 +94,7 @@
             <param name="tipoGerente">Tipo do gerente - Default: G</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
             <summary>
             Cadastro de Operador dependencia
             </summary>
@@ -122,7 +122,7 @@
             <param name="codOperadorDependencia">Código da OperadorDependencia</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.postProdutoBancario(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.postProdutoBancario(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
             <summary>
             Cadastro de produto bancario
             </summary>

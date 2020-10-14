@@ -17,12 +17,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private CorporativoDaoFactory _factory;
         private CoreDaoFactory _factoryCore;
 
-        public tb_dependenciaService(IOptions<ConfiguracaoBaseDataBase> dataBaseConfig)
+        public tb_dependenciaService(ConfiguracaoBaseDataBase dataBaseConfig)
         {
-            _databaseConfig = dataBaseConfig.Value;
+            _databaseConfig = dataBaseConfig;
             _factory = new CorporativoDaoFactory(_databaseConfig);
             _factoryCore = new CoreDaoFactory(_databaseConfig);
-        }
+        }       
 
         public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
@@ -54,13 +54,22 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         {
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
+            if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
+                throw new ApplicationException("Código da empresa inválido");
+
+            tb_empresaService empresaService = new tb_empresaService(_databaseConfig);
+
+            tb_empresa empresa = empresaService.BuscarEmpresaPorCodigo(entity.cod_empresa.Value, transacao);
+
+            if (empresa == null)
+                throw new ApplicationException("Empresa informada não cadastrada");
+
+
             string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
-
             var entityBanco = dao.Obter(where);
-
             if (entityBanco != null && entityBanco.Any())
                 throw new ApplicationException($"Dados informados já foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
-
+            
             entity = dao.Inserir(entity);
 
             return entity;

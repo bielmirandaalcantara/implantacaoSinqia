@@ -32,7 +32,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperador(_log);
-            _operadorGerenteService = new OperadorGerenteService(configuracaoDataBase);
+            _operadorGerenteService = new OperadorGerenteService(configuracaoDataBase.Value);
         }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codOperador">Código do operador</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
+        [Route("api/core/cadastros/corporativo/operador")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postOperador([FromRoute] string codOperador, [FromBody] MsgOperador msg)
+        public ActionResult postOperador([FromBody] MsgOperador msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;

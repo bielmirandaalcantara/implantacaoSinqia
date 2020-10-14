@@ -33,7 +33,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorProdutoBancario(_log);
-            _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase);
+            _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase.Value);
         }
         /// <summary>
         /// Cadastro de produto bancario
@@ -41,13 +41,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}")]
+        [Route("api/core/cadastros/corporativo/produtoBancario")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postProdutoBancario([FromRoute] string codProdutoBancario, [FromBody] MsgProdutoBancario msg)
+        public ActionResult postProdutoBancario([FromBody] MsgProdutoBancario msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;

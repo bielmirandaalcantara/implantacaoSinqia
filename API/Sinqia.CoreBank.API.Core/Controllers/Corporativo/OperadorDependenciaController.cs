@@ -33,7 +33,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperadorDependencia(_log);
-            _ServiceOperadorDependencia = new tb_depopeService(configuracaoDataBase);
+            _ServiceOperadorDependencia = new tb_depopeService(configuracaoDataBase.Value);
         }
         /// <summary>
         /// Cadastro de Operador dependencia
@@ -41,13 +41,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codOperadorDependencia">Código do Operador dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
+        [Route("api/core/cadastros/corporativo/OperadorDependencia")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postOperadorDependencia([FromRoute] string codOperadorDependencia, [FromBody] MsgOperadorDependencia msg)
+        public ActionResult postOperadorDependencia([FromBody] MsgOperadorDependencia msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;

@@ -32,7 +32,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorGrupoEmpresarial(_log);
-            _ServiceGrupoEmpresarial = new tb_grpempService(configuracaoDataBase);
+            _ServiceGrupoEmpresarial = new tb_grpempService(configuracaoDataBase.Value);
         }
 
         /// <summary>
@@ -41,13 +41,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>_ServiceGrupoEmpresarial
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/GrupoEmpresarial")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult postGrupoEmpresarial([FromRoute] string codGrupoEmpresarial, [FromBody] MsgGrupoEmpresarial msg)
+        public ActionResult postGrupoEmpresarial([FromBody] MsgGrupoEmpresarial msg)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;

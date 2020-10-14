@@ -7,11 +7,13 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
 {
     public class tb_dependencia
     {
+        public const string situacaoAtivo = "A";
+        public const string situacaoInativo = "I";
+
+
         public int? cod_empresa { get; set; }
         public int? cod_depend { get; set; }
         public int? cod_municipio { get; set; }
-
-        [IgnorePersistencia]
         public string nom_abv_depend { get; set; }
         public string nom_depend { get; set; }
         public string bas_cgc_depend { get; set; }
