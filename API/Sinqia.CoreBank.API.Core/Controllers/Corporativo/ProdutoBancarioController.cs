@@ -8,30 +8,32 @@ using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
 using Sinqia.CoreBank.Configuracao.Configuration;
-using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
+using Sinqia.CoreBank.Services.CUC.Services;
+using Sinqia.CoreBank.BLL.Corporativo.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
+    [ApiController]
+    [Produces("application/json")]
     public class ProdutoBancarioController : ControllerBase
     {
-        public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AdaptadorProdutoBancario _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
+        private tb_prodbcoService _ServiceProdutoBancario;
 
-        public ProdutoBancarioController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public ProdutoBancarioController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
-            _configuracaoCUC = configuracaoCUC;
+            configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorProdutoBancario(_log);
-            _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase);
         }
         /// <summary>
         /// Cadastro de produto bancario
@@ -39,7 +41,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpPost]
-        [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
+        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -66,11 +68,20 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                    _log.TraceMethodEnd();
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
 
                 tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
+
+                _ServiceProdutoBancario.GravarProdutoBancario(tb_prodbco);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
 
@@ -107,7 +118,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codProdutoBancario">Código do produto bancario</param>
         /// <returns>MsgRetorno</returns>
         [HttpPut]
-        [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
+        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -134,16 +145,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.SetIdentificador(msg.header.identificadorEnvio);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
+                
                 tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
 
-                _log.TraceMethodEnd();
+                _ServiceProdutoBancario.EditarProdutoBancario(tb_prodbco);
 
-                return StatusCode((int)HttpStatusCode.OK);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)
@@ -177,13 +187,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
+        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}/empresa/{codigoEmpresa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteProdutoBancario([FromRoute] string codProdutoBancario)
+        public ActionResult deleteProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -194,19 +204,24 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             {
                 _log.TraceMethodStart();
 
+                if (codigoEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codProdutoBancario == null)
+                    throw new ApplicationException("Parâmetro codProdutoBancario obrigatório");
+
                 identificador = Util.GerarIdentificadorUnico();
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                _ServiceProdutoBancario.ExcluirProdutoBancario(codigoEmpresa.Value, codProdutoBancario.Value);
+
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)
@@ -246,33 +261,40 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgProdutoBancarioTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getProdutoBancario([FromRoute] string codProdutoBancario)
+        public ActionResult getProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
             string identificador = string.Empty;
+            MsgProdutoBancarioBody body = new MsgProdutoBancarioBody();
 
             try
             {
                 _log.TraceMethodStart();
 
                 identificador = Util.GerarIdentificadorUnico();
-                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
+                _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (string.IsNullOrWhiteSpace(codProdutoBancario))
+                if (codigoEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codProdutoBancario == null)
                     throw new ApplicationException("Parâmetro codProdutoBancario obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                var produtoBancario = _ServiceProdutoBancario.BuscarProdutoBancario(codigoEmpresa.Value, codProdutoBancario.Value);
+
+                if (produtoBancario != null && produtoBancario.Any())
+                    body.RegistroProdutoBancario = _adaptador.tb_prodbcoToMsgProdutoBancario(produtoBancario.First());
+
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
 
                 _log.TraceMethodEnd();
 
-                return StatusCode((int)HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)

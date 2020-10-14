@@ -5,15 +5,15 @@ using Sinqia.CoreBank.API.Core.Adaptadores.Corporativo;
 using Sinqia.CoreBank.API.Core.Models;
 using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
+using Sinqia.CoreBank.BLL.Corporativo.Services;
+using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
-using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -21,25 +21,24 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
     [Produces("application/json")]
     public class GrupoEmpresarialController : ControllerBase
     {
-        public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AdaptadorGrupoEmpresarial _adaptador;
         private AutenticacaoCUCService _ServiceAutenticacao;
+        private tb_grpempService _ServiceGrupoEmpresarial;
 
-        public GrupoEmpresarialController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public GrupoEmpresarialController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
-            _configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorGrupoEmpresarial(_log);
-            _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _ServiceGrupoEmpresarial = new tb_grpempService(configuracaoDataBase);
         }
 
         /// <summary>
         /// Cadastro de grupo empresarial
         /// </summary>
-        /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+        /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>_ServiceGrupoEmpresarial
         /// <returns>MsgRetorno</returns>
         [HttpPost]
         [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
@@ -69,11 +68,21 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                    _log.TraceMethodEnd();
+
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
 
                 tb_grpemp tb_grpemp = _adaptador.AdaptarMsgGrupoEmpresarialToModeltb_grpemp(msg.body.RegistroGrupoEmpresarial);
+
+                _ServiceGrupoEmpresarial.GravarGrupoEmpresarial(tb_grpemp);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
 
@@ -137,16 +146,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.SetIdentificador(msg.header.identificadorEnvio);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
+                               
                 tb_grpemp tb_grpemp = _adaptador.AdaptarMsgGrupoEmpresarialToModeltb_grpemp(msg.body.RegistroGrupoEmpresarial);
 
-                _log.TraceMethodEnd();
+                _ServiceGrupoEmpresarial.EditarGrupoEmpresarial(tb_grpemp);
 
-                return StatusCode((int)HttpStatusCode.OK);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)
@@ -180,13 +188,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codGrupoEmpresarial">Código da grupo wmpresarial</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}/empresa/{codigoEmpresa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteGrupoEmpresarial([FromRoute] string codGrupoEmpresarial)
+        public ActionResult deleteGrupoEmpresarial([FromRoute] int? codGrupoEmpresarial, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -203,13 +211,12 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                _ServiceGrupoEmpresarial.ExcluirGrupoEmpresarial(codigoEmpresa.Value, codGrupoEmpresarial.Value);
+
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)
@@ -243,18 +250,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
+        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}/empresa/{codigoEmpresa}")]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getGrupoEmpresarial([FromRoute] string codGrupoEmpresarial)
+        public ActionResult getGrupoEmpresarial([FromRoute] int? codGrupoEmpresarial, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
             string identificador = string.Empty;
+            MsgRegistroGrupoEmpresarialBody body = new MsgRegistroGrupoEmpresarialBody();
 
             try
             {
@@ -264,18 +272,24 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (string.IsNullOrWhiteSpace(codGrupoEmpresarial))
+                if (codigoEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codGrupoEmpresarial == null)
                     throw new ApplicationException("Parâmetro codGrupoEmpresarial obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                var grupoEmpresarial = _ServiceGrupoEmpresarial.BuscarGrupoEmpresarial(codigoEmpresa.Value, codGrupoEmpresarial.Value);
+
+                if (grupoEmpresarial != null && grupoEmpresarial.Any())
+                    body.RegistroGrupoEmpresarial = _adaptador.tb_grpempToMsgGrupoEmpresarial(grupoEmpresarial.First());
+
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
 
                 _log.TraceMethodEnd();
 
-                return StatusCode((int)HttpStatusCode.OK);
+                return StatusCode((int)HttpStatusCode.OK, retorno);
 
             }
             catch (LogErrorException LogEx)

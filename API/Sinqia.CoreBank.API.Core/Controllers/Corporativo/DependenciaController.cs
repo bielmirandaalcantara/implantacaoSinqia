@@ -190,7 +190,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
+        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}/empresa/{codigoEmpresa}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -260,7 +260,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
+        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}/empresa/{codigoEmpresa}")]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status500InternalServerError)]
