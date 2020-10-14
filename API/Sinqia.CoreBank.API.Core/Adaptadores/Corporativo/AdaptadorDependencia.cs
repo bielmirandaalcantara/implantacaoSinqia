@@ -316,97 +316,97 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.codigoMunicipio = tb_dependencia.cod_municipio;
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.nom_abv_depend))
-                msg.nomeAbreviado = tb_dependencia.nom_abv_depend;
+                msg.nomeAbreviado = tb_dependencia.nom_abv_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.nom_depend))
-                msg.nomeCompleto = tb_dependencia.nom_depend;
+                msg.nomeCompleto = tb_dependencia.nom_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.bas_cgc_depend))
-                msg.cgcBase = tb_dependencia.bas_cgc_depend;
+                msg.cgcBase = tb_dependencia.bas_cgc_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.fil_cgc_depend))
-                msg.cgcFilial = tb_dependencia.fil_cgc_depend;
+                msg.cgcFilial = tb_dependencia.fil_cgc_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.dig_cgc_depend))
-                msg.cgccDigito = tb_dependencia.dig_cgc_depend;
+                msg.cgccDigito = tb_dependencia.dig_cgc_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tip_log_depend))
-                msg.tipoLogradouro = tb_dependencia.tip_log_depend;
+                msg.tipoLogradouro = tb_dependencia.tip_log_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.end_depend))
-                msg.logradouro = tb_dependencia.end_depend;
+                msg.logradouro = tb_dependencia.end_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.cpl_log_depend))
-                msg.complementoLogradouro = tb_dependencia.cpl_log_depend;
+                msg.complementoLogradouro = tb_dependencia.cpl_log_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.bai_depend))
-                msg.descricaoBairro = tb_dependencia.bai_depend;
+                msg.descricaoBairro = tb_dependencia.bai_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.cep_depend))
-                msg.cep = tb_dependencia.cep_depend;
+                msg.cep = tb_dependencia.cep_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone_depend))
-                msg.dddTelefone = tb_dependencia.ddd_fone_depend;
+                msg.dddTelefone = tb_dependencia.ddd_fone_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone2_depend))
-                msg.dddTelefone2 = tb_dependencia.ddd_fone2_depend;
+                msg.dddTelefone2 = tb_dependencia.ddd_fone2_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone3_depend))
-                msg.dddTelefone3 = tb_dependencia.ddd_fone3_depend;
+                msg.dddTelefone3 = tb_dependencia.ddd_fone3_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fone4_depend))
-                msg.dddTelefone4 = tb_dependencia.ddd_fone4_depend;
+                msg.dddTelefone4 = tb_dependencia.ddd_fone4_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_depend))
-                msg.numeroTelefone = tb_dependencia.tel_depend;
+                msg.numeroTelefone = tb_dependencia.tel_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_2_depend))
-                msg.numeroTelefone2 = tb_dependencia.tel_2_depend;
+                msg.numeroTelefone2 = tb_dependencia.tel_2_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_3_depend))
-                msg.numeroTelefone3 = tb_dependencia.tel_3_depend;
+                msg.numeroTelefone3 = tb_dependencia.tel_3_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tel_4_depend))
-                msg.numeroTelefone4 = tb_dependencia.tel_4_depend;
+                msg.numeroTelefone4 = tb_dependencia.tel_4_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_depend))
-                msg.numeroRamal = tb_dependencia.ram_depend;
+                msg.numeroRamal = tb_dependencia.ram_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_2_depend))
-                msg.numeroRamal2 = tb_dependencia.ram_2_depend;
+                msg.numeroRamal2 = tb_dependencia.ram_2_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_3_depend))
-                msg.numeroRamal3 = tb_dependencia.ram_3_depend;
+                msg.numeroRamal3 = tb_dependencia.ram_3_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ram_4_depend))
-                msg.numeroRamal4 = tb_dependencia.ram_4_depend;
+                msg.numeroRamal4 = tb_dependencia.ram_4_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax_depend))
-                msg.dddFax = tb_dependencia.ddd_fax_depend;
+                msg.dddFax = tb_dependencia.ddd_fax_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax2_depend))
-                msg.dddFax2 = tb_dependencia.ddd_fax2_depend;
+                msg.dddFax2 = tb_dependencia.ddd_fax2_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ddd_fax3_depend))
-                msg.dddFax3 = tb_dependencia.ddd_fax3_depend;
+                msg.dddFax3 = tb_dependencia.ddd_fax3_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_depend))
-                msg.numeroFax = tb_dependencia.fax_depend;
+                msg.numeroFax = tb_dependencia.fax_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_2_depend))
-                msg.numeroFax2 = tb_dependencia.fax_2_depend;
+                msg.numeroFax2 = tb_dependencia.fax_2_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.fax_3_depend))
-                msg.numeroFax3 = tb_dependencia.fax_3_depend;
+                msg.numeroFax3 = tb_dependencia.fax_3_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.eml_depend))
-                msg.email = tb_dependencia.eml_depend;
+                msg.email = tb_dependencia.eml_depend.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ins_estadual))
-                msg.inscricaoEstadual = tb_dependencia.ins_estadual;
+                msg.inscricaoEstadual = tb_dependencia.ins_estadual.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.ins_municipal))
-                msg.inscricaoMunicipal = tb_dependencia.ins_municipal;
+                msg.inscricaoMunicipal = tb_dependencia.ins_municipal.TrimEnd();
 
             if (tb_dependencia.nvl_sup_depend != null && tb_dependencia.nvl_sup_depend.Value > 0)
                 msg.nivelHierarquico = tb_dependencia.nvl_sup_depend;
@@ -451,22 +451,22 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.dataCadastro = tb_dependencia.dat_cad;
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.usu_atu))
-                msg.usuarioUltimaAtualizacao = tb_dependencia.usu_atu;
+                msg.usuarioUltimaAtualizacao = tb_dependencia.usu_atu.TrimEnd();
 
             if (tb_dependencia.dat_atu != null && tb_dependencia.dat_atu.Value != DateTime.MinValue)
                 msg.dataAtualizacao = tb_dependencia.dat_atu;
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.idc_sit))
-                msg.indicadorSituacao = tb_dependencia.idc_sit;
+                msg.indicadorSituacao = tb_dependencia.idc_sit.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.tip_tpdepend))
-                msg.tipoDependencia = tb_dependencia.tip_tpdepend;
+                msg.tipoDependencia = tb_dependencia.tip_tpdepend.TrimEnd();
 
             if (tb_dependencia.cod_camara != null && tb_dependencia.cod_camara.Value > 0)
                 msg.codigoCamaraCompensacao = tb_dependencia.cod_camara;
 
             if (!string.IsNullOrWhiteSpace(tb_dependencia.num_log_depend))
-                msg.numeroLogradouro = tb_dependencia.num_log_depend;
+                msg.numeroLogradouro = tb_dependencia.num_log_depend.TrimEnd();
 
             if (tb_dependencia.dat_rollout != null && tb_dependencia.dat_rollout.Value != DateTime.MinValue)
                 msg.dataRollOut = tb_dependencia.dat_rollout;

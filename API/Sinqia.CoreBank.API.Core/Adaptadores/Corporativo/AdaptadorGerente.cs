@@ -72,16 +72,16 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.dataFimOperacao = tb_gerente.dat_fim_gerente;
 
             if (!string.IsNullOrWhiteSpace(tb_gerente.tip_gerente))
-                msg.tipoGerente = tb_gerente.tip_gerente;
+                msg.tipoGerente = tb_gerente.tip_gerente.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_gerente.sit_gerente))
-                msg.situacaoGerente = tb_gerente.sit_gerente;
+                msg.situacaoGerente = tb_gerente.sit_gerente.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_gerente.usu_atu_gerente))
-                msg.usuarioUltimaAtualizacao = tb_gerente.usu_atu_gerente;
+                msg.usuarioUltimaAtualizacao = tb_gerente.usu_atu_gerente.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_gerente.GERIDCMAILCUCVCT))
-                msg.indicadorRecebCadVencido = tb_gerente.GERIDCMAILCUCVCT;
+                msg.indicadorRecebCadVencido = tb_gerente.GERIDCMAILCUCVCT.TrimEnd();
 
             return msg;
         }

@@ -236,25 +236,25 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.codigoDependenciaSisbacen = tb_operador.cod_depend;
 
             if (!string.IsNullOrWhiteSpace(tb_operador.nom_oper))
-                msg.nomeFuncionario = tb_operador.nom_oper;
+                msg.nomeFuncionario = tb_operador.nom_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.nom_abv_oper))
-                msg.nomeAbreviadoFuncionario = tb_operador.nom_abv_oper;
+                msg.nomeAbreviadoFuncionario = tb_operador.nom_abv_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.idt_oper))
-                msg.identificadorFuncionario = tb_operador.idt_oper;
+                msg.identificadorFuncionario = tb_operador.idt_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.log_oper))
-                msg.loginFuncionario = tb_operador.log_oper;
+                msg.loginFuncionario = tb_operador.log_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.tip_oper))
-                msg.tipoFuncionario = tb_operador.tip_oper;
+                msg.tipoFuncionario = tb_operador.tip_oper.TrimEnd();
 
             if (tb_operador.dat_cad != null && tb_operador.dat_cad.Value != DateTime.MinValue)
                 msg.dataCadastro = tb_operador.dat_cad;
 
             if (!string.IsNullOrWhiteSpace(tb_operador.usu_atu))
-                msg.usuarioUltimaAtualizacao = tb_operador.usu_atu;
+                msg.usuarioUltimaAtualizacao = tb_operador.usu_atu.TrimEnd();
 
             if (tb_operador.dat_atu != null && tb_operador.dat_atu.Value != DateTime.MinValue)
                 msg.dataUltimaAtualizacao = tb_operador.dat_atu;
@@ -263,37 +263,37 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.dataSituacao = tb_operador.dat_sit;
 
             if (!string.IsNullOrWhiteSpace(tb_operador.idc_sit))
-                msg.indicadorSituacao = tb_operador.idc_sit;
+                msg.indicadorSituacao = tb_operador.idc_sit.TrimEnd();
 
             if (tb_operador.cod_cargo != null && tb_operador.cod_cargo.Value > 0)
                 msg.codigoCargoFuncionario = tb_operador.cod_cargo;
 
             if (!string.IsNullOrWhiteSpace(tb_operador.cpf_oper))
-                msg.cpfOperador = tb_operador.cpf_oper;
+                msg.cpfOperador = tb_operador.cpf_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.dig_oper))
-                msg.digitoOperador = tb_operador.dig_oper;
+                msg.digitoOperador = tb_operador.dig_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.sex_oper))
-                msg.sexoOperador = tb_operador.sex_oper;
+                msg.sexoOperador = tb_operador.sex_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.ddd_oper))
-                msg.dddOperador = tb_operador.ddd_oper;
+                msg.dddOperador = tb_operador.ddd_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.tel_oper))
-                msg.telefoneOperador = tb_operador.tel_oper;
+                msg.telefoneOperador = tb_operador.tel_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.ram_oper))
-                msg.ramalOperador = tb_operador.ram_oper;
+                msg.ramalOperador = tb_operador.ram_oper.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_operador.eml_oper))
-                msg.emailOperador = tb_operador.eml_oper;
+                msg.emailOperador = tb_operador.eml_oper.TrimEnd();
 
             if (tb_operador.cod_ger_origem != null && tb_operador.cod_ger_origem.Value > 0)
                 msg.codigoGerenteOrigem = tb_operador.cod_ger_origem;
 
             if (!string.IsNullOrWhiteSpace(tb_operador.OPECODCRK))
-                msg.codigoCRK = tb_operador.OPECODCRK;
+                msg.codigoCRK = tb_operador.OPECODCRK.TrimEnd();
 
             return msg;
         }

@@ -59,10 +59,10 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.codigoProduto = tb_prodbco.cod_prodbco;
 
             if (!string.IsNullOrWhiteSpace(tb_prodbco.abv_prodbco))
-                msg.nomeAbreviado = tb_prodbco.abv_prodbco;
+                msg.nomeAbreviado = tb_prodbco.abv_prodbco.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_prodbco.des_prodbco))
-                msg.nomeCompleto = tb_prodbco.des_prodbco;
+                msg.nomeCompleto = tb_prodbco.des_prodbco.TrimEnd();
 
             if (tb_prodbco.cod_grproduto != null && tb_prodbco.cod_grproduto.Value > 0)
                 msg.codigoGrupo = tb_prodbco.cod_grproduto;

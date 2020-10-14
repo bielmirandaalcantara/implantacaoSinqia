@@ -50,10 +50,10 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.codigoGrupoEmpresarial = tb_grpemp.cod_grpemp;
 
             if (!string.IsNullOrWhiteSpace(tb_grpemp.abv_grpemp))
-                msg.nomeAbreviadoGrupoEmpresarial = tb_grpemp.abv_grpemp;
+                msg.nomeAbreviadoGrupoEmpresarial = tb_grpemp.abv_grpemp.TrimEnd();
 
             if (!string.IsNullOrWhiteSpace(tb_grpemp.des_grpemp))
-                msg.nomedoGrupoEmpresarial = tb_grpemp.des_grpemp;
+                msg.nomedoGrupoEmpresarial = tb_grpemp.des_grpemp.TrimEnd();
 
             if (tb_grpemp.cod_empresa != null && tb_grpemp.cod_empresa.Value > 0)
                 msg.codigoEmpresaSisbacen = tb_grpemp.cod_empresa;
