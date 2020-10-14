@@ -76,18 +76,22 @@
             <param name="codOperador">Código do operador</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.deleteOperador(System.String)">
-            <summary>
-            Exclusão de dados de Operador
-            </summary>
-            <param name="codOperador">Código do operador</param>codOperador
-            <returns>MsgRetorno</returns>
-        </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.getOperador(System.String)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.deleteOperador(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
             <summary>
             Exclusão de dados de Operador
             </summary>
             <param name="codOperador">Código do operador</param>
+            <param name="codEmpresa">Código da empresa</param>
+            <param name="tipoGerente">Tipo do gerente - Default: G</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.getOperador(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
+            <summary>
+            Exclusão de dados de Operador
+            </summary>
+            <param name="codOperador">Código do operador</param>
+            <param name="codEmpresa">Código da empresa</param>
+            <param name="tipoGerente">Tipo do gerente - Default: G</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">

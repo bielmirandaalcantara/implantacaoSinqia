@@ -125,7 +125,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return retorno;
         }
 
-        public tb_dependencia AdaptarMsgDependenciaToModeltb_dependencia(MsgRegistroDependencia msg)
+        public tb_dependencia AdaptarMsgDependenciaTotb_dependencia(MsgRegistroDependencia msg)
         {
             tb_dependencia tb_dependencia = new tb_dependencia();
 

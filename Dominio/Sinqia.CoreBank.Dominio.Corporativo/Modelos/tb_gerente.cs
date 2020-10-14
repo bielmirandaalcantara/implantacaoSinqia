@@ -7,6 +7,8 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
 {
     public class tb_gerente
     {
+        public const string tip_gerenteDefault = "G";
+
         public int? cod_empresa { get; set; }
         public int? cod_oper { get; set; }
         public int? cod_depend { get; set; }

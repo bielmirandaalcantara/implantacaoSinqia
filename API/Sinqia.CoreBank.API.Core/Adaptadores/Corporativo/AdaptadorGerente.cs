@@ -16,7 +16,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log = log;
         }
 
-        public tb_gerente AdaptarMsgOperadorToModeltb_gerente(MsgRegistroOperador msg)
+        public tb_gerente AdaptarMsgOperadorTotb_gerente(MsgRegistroOperador msg)
         {
             tb_gerente tb_gerente = new tb_gerente();
 
@@ -36,7 +36,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 tb_gerente.dat_fim_gerente = msg.dataFimOperacao;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoGerente))
-                tb_gerente.tip_gerente = msg.tipoGerente;
+                tb_gerente.tip_gerente = msg.tipoGerente.ToUpper();
 
             if (!string.IsNullOrWhiteSpace(msg.situacaoGerente))
                 tb_gerente.sit_gerente = msg.situacaoGerente;

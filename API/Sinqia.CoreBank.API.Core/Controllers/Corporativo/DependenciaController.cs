@@ -7,12 +7,10 @@ using Sinqia.CoreBank.API.Core.Models.Corporativo;
 using Sinqia.CoreBank.API.Core.Models.Corporativo.Templates;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.Logging.Services;
-using Sinqia.CoreBank.Services.CUC.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using Sinqia.CoreBank.BLL.Corporativo.Services;
 using Sinqia.CoreBank.Configuracao.Configuration;
 
@@ -26,10 +24,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AdaptadorDependencia _adaptador;
-        private AutenticacaoCUCService _ServiceAutenticacao;
         private tb_dependenciaService _ServiceDependencia;
 
-        public DependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
+        public DependenciaController(IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
@@ -79,7 +76,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
+                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia);
 
                 _ServiceDependencia.GravarDependencia(tb_dependencia);
 
@@ -149,7 +146,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaToModeltb_dependencia(msg.body.RegistroDependencia);
+                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia);
 
                 _ServiceDependencia.EditarDependencia(tb_dependencia);
 

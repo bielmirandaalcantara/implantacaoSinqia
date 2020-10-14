@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Sinqia.CoreBank.BLL.Corporativo.Services;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -21,20 +22,19 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
     [Produces("application/json")]
     public class OperadorController : ControllerBase
     {
-        public IOptions<ConfiguracaoBaseCUC> _configuracaoCUC;
         public IOptions<ConfiguracaoBaseAPI> _configuracaoBaseAPI;
         public LogService _log;
         private AdaptadorOperador _adaptador;
-        private AutenticacaoCUCService _ServiceAutenticacao;
+        private OperadorGerenteService _operadorGerenteService;
 
-        public OperadorController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI)
+        public OperadorController(IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
-            _configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperador(_log);
-            _ServiceAutenticacao = new AutenticacaoCUCService(_configuracaoCUC, _log);
+            _operadorGerenteService = new OperadorGerenteService(configuracaoDataBase);
         }
+
         /// <summary>
         /// Cadastro de Operador
         /// </summary>
@@ -67,39 +67,40 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.SetIdentificador(msg.header.identificadorEnvio);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
                 
-                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteToModel(msg.body.RegistroOperador);
+                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador);
+
+                _operadorGerenteService.GravarOperadorGerente(tb_operador);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
 
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
         }
 
@@ -117,7 +118,6 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         public ActionResult putOperador([FromRoute] string codOperador, [FromBody] MsgOperador msg)
         {
-
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
 
@@ -137,101 +137,38 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador);
 
-                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteToModel(msg.body.RegistroOperador);
+                _operadorGerenteService.AtualizarOperadorGerente(tb_operador);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-
-        }
-
-        /// <summary>
-        /// Exclusão de dados de Operador
-        /// </summary>
-        /// <param name="codOperador">Código do operador</param>codOperador
-        /// <returns>MsgRetorno</returns>
-        [HttpDelete]
-        [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
-        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
-        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteOperador([FromRoute] string codOperador)
-        {
-
-            List<string> listaErros = new List<string>();
-            MsgRetorno retorno;
-            string identificador = string.Empty;
-
-            try
-            {
-                _log.TraceMethodStart();
-
-                identificador = Util.GerarIdentificadorUnico();
-                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
-                _log.SetIdentificador(identificador);
-
-                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
-
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
-
-                _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
-            }
-            catch (LogErrorException LogEx)
-            {
-                listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
-            }
-            catch (ApplicationException appEx)
-            {
-
-                listaErros.Add(appEx.Message);
-
-                _log.Error(appEx);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
-            }
-            catch (Exception ex)
-            {
-                listaErros.Add(ex.Message);
-
-                _log.Error(ex);
-                _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }
@@ -240,17 +177,18 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// Exclusão de dados de Operador
         /// </summary>
         /// <param name="codOperador">Código do operador</param>
+        /// <param name="codEmpresa">Código da empresa</param>
+        /// <param name="tipoGerente">Tipo do gerente - Default: G</param>
         /// <returns>MsgRetorno</returns>
-        [HttpGet]
+        [HttpDelete]
         [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
-        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status401Unauthorized)]
-        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getOperador([FromRoute] string codOperador)
+        public ActionResult deleteOperador([FromRoute] int? codOperador, [FromQuery] int? codEmpresa, [FromQuery] string tipoGerente)
         {
-
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
             string identificador = string.Empty;
@@ -263,41 +201,119 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (string.IsNullOrWhiteSpace(codOperador))
-                    throw new ApplicationException("Parâmetro codOperador obrigatório");
-
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                ConfiguracaoAcessoCUC acessoCUC = _configuracaoCUC.Value.AcessoCUC;
-                if (acessoCUC == null) throw new Exception("Configuração de acesso não parametrizado no arquivo de configuração - AcessoCUC");
-                string token = _ServiceAutenticacao.GetToken(acessoCUC);
+                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codigo do operador - obrigatório");
+                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codigo da empresa - obrigatório");
+                if (string.IsNullOrWhiteSpace(tipoGerente)) tipoGerente = tb_gerente.tip_gerenteDefault;
+
+                _operadorGerenteService.ExcluirOperadorGerente(codEmpresa.Value, codOperador.Value, tipoGerente);
+
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
+        }
+
+        /// <summary>
+        /// Exclusão de dados de Operador
+        /// </summary>
+        /// <param name="codOperador">Código do operador</param>
+        /// <param name="codEmpresa">Código da empresa</param>
+        /// <param name="tipoGerente">Tipo do gerente - Default: G</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpGet]
+        [Route("api/core/cadastros/corporativo/operador/{codOperador}")]
+        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(typeof(MsgOperadorTemplate), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public ActionResult getOperador([FromRoute] int? codOperador, [FromQuery] int? codEmpresa, [FromQuery] string tipoGerente)
+        {
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+            string identificador = string.Empty;
+            MsgRegistroOperadorBody body = new MsgRegistroOperadorBody();
+
+            try
+            {
+                _log.TraceMethodStart();
+
+                identificador = Util.GerarIdentificadorUnico();
+                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
+                _log.SetIdentificador(identificador);
+
+                if (codOperador == null)
+                    throw new ApplicationException("Parâmetro codOperador obrigatório");
+
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+
+
+                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codigo do operador - obrigatório");
+                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codigo da empresa - obrigatório");
+                if (string.IsNullOrWhiteSpace(tipoGerente)) tipoGerente = tb_gerente.tip_gerenteDefault;
+
+                tb_operador operador = _operadorGerenteService.BuscarOperadorGerentePorCodigo(codEmpresa.Value,codOperador.Value, tipoGerente);
+
+                if (operador != null)
+                    body.RegistroOperador = _adaptador.tb_operadorToMsgOperador(operador);                
+
+                retorno = _adaptador.AdaptarMsgRetornoGet(body, listaErros, identificador);
+
+                _log.TraceMethodEnd();
+
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+                listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }

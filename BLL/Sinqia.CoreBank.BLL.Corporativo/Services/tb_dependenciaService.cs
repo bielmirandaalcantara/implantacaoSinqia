@@ -2,6 +2,8 @@
 using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
 using Sinqia.CoreBank.DAO.Corporativo.Services;
+using Sinqia.CoreBank.DAO.Core.Services;
+using Sinqia.CoreBank.DAO.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,16 +15,19 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
     {
         private ConfiguracaoBaseDataBase _databaseConfig;
         private CorporativoDaoFactory _factory;
+        private CoreDaoFactory _factoryCore;
 
         public tb_dependenciaService(IOptions<ConfiguracaoBaseDataBase> dataBaseConfig)
         {
             _databaseConfig = dataBaseConfig.Value;
             _factory = new CorporativoDaoFactory(_databaseConfig);
+            _factoryCore = new CoreDaoFactory(_databaseConfig);
         }
 
-        public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend)
+        public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
-            var dao = _factory.GetDaoCorporativo<tb_dependencia>();
+            var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
+
             tb_dependencia retorno = null;
 
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
@@ -42,12 +47,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
 
-            return dao.Obter(where);            
+            return dao.Obter(where);
         }
 
-        public tb_dependencia GravarDependencia(tb_dependencia entity)
+        public tb_dependencia GravarDependencia(tb_dependencia entity, IDaoTransacao transacao = null)
         {
-            var dao = _factory.GetDaoCorporativo<tb_dependencia>();
+            var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
 
@@ -61,9 +66,9 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             return entity;
         }
 
-        public void EditarDependencia(tb_dependencia entity)
+        public void EditarDependencia(tb_dependencia entity, IDaoTransacao transacao = null)
         {
-            var dao = _factory.GetDaoCorporativo<tb_dependencia>();
+            var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
 
@@ -76,9 +81,9 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
         }
 
-        public void ExcluirDependencia(int cod_empresa, int cod_depend)
+        public void ExcluirDependencia(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
-            var dao = _factory.GetDaoCorporativo<tb_dependencia>();
+            var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
 
