@@ -10,6 +10,6 @@ namespace Sinqia.CoreBank.DAO.Core.Interfaces
         T Inserir(T entidade);
         void Atualizar(T entidade, string where);
         void Atualizar(T entidade, string where, List<string> campos);    
-        void Remover(T entidade, string where);
+        void Remover(T entidade, string where);        
     }
 }

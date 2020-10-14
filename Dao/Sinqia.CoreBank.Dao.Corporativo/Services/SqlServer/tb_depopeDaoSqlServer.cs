@@ -96,6 +96,8 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
         
+
+
         public IEnumerable<tb_depope> Obter()
         {
             return Obter(string.Empty);
@@ -116,6 +118,37 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
                     lista = _connection.Query<tb_depope>(query);
 
                 return lista;
+            }
+            finally
+            {
+                if (!_conexaoExterna)
+                {
+                    if (_connection.State != ConnectionState.Closed)
+                        _connection.Close();
+                }
+
+            }
+        }
+
+        public tb_depope ObterPrimeiro(string where)
+        {
+            if (!_conexaoExterna) _connection.Open();
+
+            try
+            {
+                tb_depope retorno = null;
+                IEnumerable<tb_depope> lista;
+                string query = Util.GerarQuerySelect(new tb_depope(), where);
+
+                if (_trans != null)
+                    lista = _connection.Query<tb_depope>(query, null, _trans);
+                else
+                    lista = _connection.Query<tb_depope>(query);
+
+                if (lista.Any())
+                    retorno = lista.First();
+
+                return retorno;
             }
             finally
             {

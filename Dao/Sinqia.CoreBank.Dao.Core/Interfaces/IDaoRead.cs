@@ -9,5 +9,6 @@ namespace Sinqia.CoreBank.DAO.Core.Interfaces
     {
         IEnumerable<T> Obter();
         IEnumerable<T> Obter(string where);
+        T ObterPrimeiro(string where);
     }
 }

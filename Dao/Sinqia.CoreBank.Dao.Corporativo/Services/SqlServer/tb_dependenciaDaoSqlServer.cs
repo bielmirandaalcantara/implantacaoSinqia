@@ -128,6 +128,37 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
+        public tb_dependencia ObterPrimeiro(string where)
+        {
+            if (!_conexaoExterna) _connection.Open();
+
+            try
+            {
+                tb_dependencia retorno = null;
+                IEnumerable<tb_dependencia> lista;
+                string query = Util.GerarQuerySelect(new tb_dependencia(), where);
+
+                if (_trans != null)
+                    lista = _connection.Query<tb_dependencia>(query, null, _trans);
+                else
+                    lista = _connection.Query<tb_dependencia>(query);
+
+                if (lista.Any())
+                    retorno = lista.First();
+
+                return retorno;
+            }
+            finally
+            {
+                if (!_conexaoExterna)
+                {
+                    if (_connection.State != ConnectionState.Closed)
+                        _connection.Close();
+                }
+
+            }
+        }
+
         public void Remover(tb_dependencia entidade, string where)
         {
             if (!_conexaoExterna) _connection.Open();

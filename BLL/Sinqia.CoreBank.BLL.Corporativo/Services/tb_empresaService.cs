@@ -25,14 +25,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         {
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_empresa>() : _factory.GetDaoCorporativo<tb_empresa>(transacao);
 
-            tb_empresa retorno = null;
-
-            string where = $" cod_empresa = {cod_empresa} ";
-
-            var listaEntity = dao.Obter(where);
-
-            if (listaEntity != null && listaEntity.Any())
-                retorno = listaEntity.FirstOrDefault();
+            tb_empresa retorno = dao.ObterPrimeiro($" cod_empresa = {cod_empresa} ");            
 
             return retorno;
 

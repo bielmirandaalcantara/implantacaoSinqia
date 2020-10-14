@@ -13,14 +13,14 @@ using Sinqia.CoreBank.DAO.Core.Services.SqlServer;
 
 namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
 {
-    internal class tb_prodbcoDaoSqlServer : IDao<tb_prodbco>
+    internal class tb_tpdependDaoSqlServer : IDao<tb_tpdepend>
     {
         private const string _banco = "SQLSERVER";
         private SqlConnection _connection;
         private IDbTransaction _trans;
         private bool _conexaoExterna = false;
 
-        public tb_prodbcoDaoSqlServer(ConfiguracaoBaseDataBase dataBaseConfig, IDaoTransacao transacao = null)
+        public tb_tpdependDaoSqlServer(ConfiguracaoBaseDataBase dataBaseConfig, IDaoTransacao transacao = null)
         {
             PreencherConexao(dataBaseConfig, transacao);
         }
@@ -41,12 +41,12 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
-        public void Atualizar(tb_prodbco entidade, string where)
+        public void Atualizar(tb_tpdepend entidade, string where)
         {
             Atualizar(entidade, where, null);
         }
 
-        public void Atualizar(tb_prodbco entidade, string where, List<string> campos)
+        public void Atualizar(tb_tpdepend entidade, string where, List<string> campos)
         {
             if (!_conexaoExterna) _connection.Open();
 
@@ -70,7 +70,7 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
 
-        public tb_prodbco Inserir(tb_prodbco entidade)
+        public tb_tpdepend Inserir(tb_tpdepend entidade)
         {
             if (!_conexaoExterna) _connection.Open();
 
@@ -96,24 +96,24 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
             }
         }
         
-        public IEnumerable<tb_prodbco> Obter()
+        public IEnumerable<tb_tpdepend> Obter()
         {
             return Obter(string.Empty);
         }
 
-        public IEnumerable<tb_prodbco> Obter(string where)
+        public IEnumerable<tb_tpdepend> Obter(string where)
         {
             if (!_conexaoExterna) _connection.Open();
 
             try
             {
-                IEnumerable<tb_prodbco> lista;
-                string query = Util.GerarQuerySelect(new tb_prodbco(), where);
+                IEnumerable<tb_tpdepend> lista;
+                string query = Util.GerarQuerySelect(new tb_tpdepend(), where);
 
                 if (_trans != null)
-                    lista = _connection.Query<tb_prodbco>(query, null, _trans);
+                    lista = _connection.Query<tb_tpdepend>(query, null, _trans);
                 else
-                    lista = _connection.Query<tb_prodbco>(query);
+                    lista = _connection.Query<tb_tpdepend>(query);
 
                 return lista;
             }
@@ -127,21 +127,20 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
 
             }
         }
-
-        public tb_prodbco ObterPrimeiro(string where)
+        public tb_tpdepend ObterPrimeiro(string where)
         {
             if (!_conexaoExterna) _connection.Open();
 
             try
             {
-                tb_prodbco retorno = null;
-                IEnumerable<tb_prodbco> lista;
-                string query = Util.GerarQuerySelect(new tb_prodbco(), where);
+                tb_tpdepend retorno = null;
+                IEnumerable<tb_tpdepend> lista;
+                string query = Util.GerarQuerySelect(new tb_tpdepend(), where);
 
                 if (_trans != null)
-                    lista = _connection.Query<tb_prodbco>(query, null, _trans);
+                    lista = _connection.Query<tb_tpdepend>(query, null, _trans);
                 else
-                    lista = _connection.Query<tb_prodbco>(query);
+                    lista = _connection.Query<tb_tpdepend>(query);
 
                 if (lista.Any())
                     retorno = lista.First();
@@ -158,8 +157,7 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services.SqlServer
 
             }
         }
-
-        public void Remover(tb_prodbco entidade, string where)
+        public void Remover(tb_tpdepend entidade, string where)
         {
             if (!_conexaoExterna) _connection.Open();
 

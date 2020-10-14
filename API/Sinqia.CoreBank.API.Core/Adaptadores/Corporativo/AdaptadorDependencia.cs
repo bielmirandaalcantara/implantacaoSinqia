@@ -283,7 +283,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 tb_dependencia.idc_sit = msg.indicadorSituacao;
 
             if (!string.IsNullOrWhiteSpace(msg.tipoDependencia))
-                tb_dependencia.tip_tpdepend = msg.tipoDependencia;
+                tb_dependencia.tip_tpdepend = msg.tipoDependencia.ToUpper();
 
             if (msg.codigoCamaraCompensacao != null && msg.codigoCamaraCompensacao.Value > 0)
                 tb_dependencia.cod_camara = msg.codigoCamaraCompensacao;

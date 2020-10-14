@@ -50,6 +50,12 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services
 
                 if (typeof(T) == typeof(tb_empresa))
                     return (IDao<T>)new tb_empresaDaoSqlServer(_dataBaseConfig, transacao);
+
+                if (typeof(T) == typeof(tb_municipio))
+                    return (IDao<T>)new tb_municipioDaoSqlServer(_dataBaseConfig, transacao);
+
+                if (typeof(T) == typeof(tb_tpdepend))
+                    return (IDao<T>)new tb_tpdependDaoSqlServer(_dataBaseConfig, transacao);
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
             {

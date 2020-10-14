@@ -16,12 +16,14 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private ConfiguracaoBaseDataBase _databaseConfig;
         private CorporativoDaoFactory _factory;
         private CoreDaoFactory _factoryCore;
+        private tb_empresaService _empresaService;
 
         public tb_dependenciaService(ConfiguracaoBaseDataBase dataBaseConfig)
         {
             _databaseConfig = dataBaseConfig;
             _factory = new CorporativoDaoFactory(_databaseConfig);
             _factoryCore = new CoreDaoFactory(_databaseConfig);
+            _empresaService = new tb_empresaService(_databaseConfig);
         }       
 
         public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
@@ -57,19 +59,43 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
                 throw new ApplicationException("Código da empresa inválido");
 
-            tb_empresaService empresaService = new tb_empresaService(_databaseConfig);
-
-            tb_empresa empresa = empresaService.BuscarEmpresaPorCodigo(entity.cod_empresa.Value, transacao);
-
+            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.cod_empresa.Value, transacao);
             if (empresa == null)
                 throw new ApplicationException("Empresa informada não cadastrada");
 
-
-            string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
-            var entityBanco = dao.Obter(where);
-            if (entityBanco != null && entityBanco.Any())
+            var entityBanco = dao.ObterPrimeiro($" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ");
+            if (entityBanco != null)
                 throw new ApplicationException($"Dados informados já foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
-            
+
+            if (entity.cod_municipio != null)
+            {
+                var daoMunicipio = _factory.GetDaoCorporativo<tb_municipio>(transacao);
+                var municipio = daoMunicipio.ObterPrimeiro($" cod_municipio = {entity.cod_municipio} ");
+                if (municipio == null)
+                    throw new ApplicationException("Município não encontrado na base de dados");
+            }
+            else
+                throw new ApplicationException("Município obrigatório");
+
+            if(entity.tip_tpdepend != null)
+            {
+                var daoTpDepend = _factory.GetDaoCorporativo<tb_tpdepend>(transacao);
+                var tipoDepend = daoTpDepend.ObterPrimeiro($" tip_tpdepend  = '{entity.tip_tpdepend}' ");
+                if (tipoDepend == null)
+                    throw new ApplicationException("Tipo de dependência inválido");
+            }
+            else
+                throw new ApplicationException("Tipo de dependência obrigatório");
+
+            if(entity.idc_sit != null)
+            {
+                if (!entity.idc_sit.ToUpper().Equals(tb_dependencia.situacaoAtivo)
+                  && !entity.idc_sit.ToUpper().Equals(tb_dependencia.situacaoInativo))
+                    throw new ApplicationException("Campo indicador de situação inválido");
+            }
+            else
+                throw new ApplicationException("Campo indicador de situação obrigatório");
+
             entity = dao.Inserir(entity);
 
             return entity;
