@@ -36,12 +36,14 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código da Empresa Sisbacen
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// cod_produto_bancário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoProduto { get; set; }
 
         /// <summary>
@@ -62,6 +64,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código do Grupo Produto bancário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoGrupo { get; set; }
 
         /// <summary>

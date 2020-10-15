@@ -36,18 +36,21 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código Empresa Sisbacen
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoSisbacen { get; set; }
 
         /// <summary>
         /// cod_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoFuncionario { get; set; }
 
         /// <summary>
         /// Código Dependência Sisbacen
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoDependenciaSisbacen { get; set; }
 
         /// <summary>
@@ -121,7 +124,8 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código do cargo do Funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
-        public int? codigoCargoFuncionario { get; set; }
+        [Range(0, 999999999, ErrorMessage = "Tamanho limite excedido para o campo")]
+        public long? codigoCargoFuncionario { get; set; }
 
         /// <summary>
         /// CPF do operador
@@ -168,7 +172,8 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código do gerente no sistema de origem
         /// </summary>
-        public int? codigoGerenteOrigem { get; set; }
+        [Range(0, 999999999, ErrorMessage = "Tamanho limite excedido para o campo")]
+        public long? codigoGerenteOrigem { get; set; }
 
         /// <summary>
         /// Código CRK
