@@ -27,7 +27,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             _operadorService = new tb_operadorService(_databaseConfig);
         }
 
-        public tb_depope GravarOperadorDependencia(tb_depope entity)
+        public tb_depope GravarOperadorDependencia(tb_depope entity, IDaoTransacao transacao = null)
         {
             var dao = _factory.GetDaoCorporativo<tb_depope>();
 
@@ -39,6 +39,10 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             if (entity.oper_cod == null || entity.oper_cod.Value <= 0)
                 throw new ApplicationException("Código do operador inválido");
+
+            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.emp_cod.Value, transacao);
+            if (empresa == null)
+                throw new ApplicationException("Empresa informada não cadastrada");
 
             string where = $" emp_cod = {entity.emp_cod} and oper_cod = {entity.oper_cod} ";
 
@@ -59,19 +63,19 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (entity.emp_cod == null || entity.emp_cod.Value <= 0)
                 throw new ApplicationException("Código da empresa inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.emp_cod.Value, transacao);
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
+            if (entity.oper_cod == null || entity.oper_cod.Value <= 0)
+                throw new ApplicationException("Código do operador inválido");
 
             if (entity.depend_cod == null || entity.depend_cod.Value <= 0)
                 throw new ApplicationException("Código de dependencia inválido");
 
+            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.emp_cod.Value, transacao);
+            if (empresa == null)
+                throw new ApplicationException("Empresa informada não cadastrada");
+
             tb_dependencia dependencia = _dependenciaService.BuscarDependenciaPorCodigo(entity.emp_cod.Value, entity.depend_cod.Value, transacao);
             if (dependencia == null)
                 throw new ApplicationException("Dependencia informada não cadastrada");
-
-            if(entity.oper_cod == null || entity.oper_cod.Value <= 0)
-                throw new ApplicationException("Código do operador inválido");
 
             tb_operador operador = _operadorService.BuscarOperadorPorCodigo(entity.emp_cod.Value, entity.oper_cod.Value, transacao);
             if (dependencia == null)

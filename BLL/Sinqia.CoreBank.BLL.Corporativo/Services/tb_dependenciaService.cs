@@ -17,6 +17,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private CorporativoDaoFactory _factory;
         private CoreDaoFactory _factoryCore;
         private tb_empresaService _empresaService;
+        private tb_dependenciaService _dependenciaService;
 
         public tb_dependenciaService(ConfiguracaoBaseDataBase dataBaseConfig)
         {
@@ -24,6 +25,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             _factory = new CorporativoDaoFactory(_databaseConfig);
             _factoryCore = new CoreDaoFactory(_databaseConfig);
             _empresaService = new tb_empresaService(_databaseConfig);
+            _dependenciaService = new tb_dependenciaService(_databaseConfig);
         }       
 
         public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
