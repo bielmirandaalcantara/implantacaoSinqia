@@ -48,12 +48,14 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Nome abreviado do Produto bancário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(18, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string nomeAbreviado { get; set; }
 
         /// <summary>
         /// nome_completo_produto_bancário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(40, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string nomeCompleto { get; set; }
 
         /// <summary>
@@ -65,11 +67,13 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// indicador replica
         /// </summary>
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string indicadorReplica { get; set; }
 
         /// <summary>
         /// Tipo de produto
         /// </summary>
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string tipoProduto { get; set; }
 
     }

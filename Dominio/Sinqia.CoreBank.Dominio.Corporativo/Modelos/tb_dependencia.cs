@@ -13,7 +13,7 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
 
         public int? cod_empresa { get; set; }
         public int? cod_depend { get; set; }
-        public int? cod_municipio { get; set; }
+        public long? cod_municipio { get; set; }
         public string nom_abv_depend { get; set; }
         public string nom_depend { get; set; }
         public string bas_cgc_depend { get; set; }

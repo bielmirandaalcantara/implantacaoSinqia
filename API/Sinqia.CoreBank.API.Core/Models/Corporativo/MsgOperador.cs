@@ -54,30 +54,35 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// nome_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(40, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string nomeFuncionario { get; set; }
 
         /// <summary>
         /// nome_abreviado_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(18, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string nomeAbreviadoFuncionario { get; set; }
 
         /// <summary>
         /// identificador_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(8, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string identificadorFuncionario { get; set; }
 
         /// <summary>
         /// login_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(20, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string loginFuncionario { get; set; }
 
         /// <summary>
         /// tipo_funcionário
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string tipoFuncionario { get; set; }
 
         /// <summary>
@@ -90,6 +95,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código do usuário da atualização
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(40, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
@@ -108,6 +114,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// indicador_situação
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
@@ -119,36 +126,43 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// CPF do operador
         /// </summary>
+        [MaxLength(9, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string cpfOperador { get; set; }
 
         /// <summary>
         /// Digito do Operador
         /// </summary>
+        [MaxLength(2, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string digitoOperador { get; set; }
 
         /// <summary>
         /// Sexo do Operador
         /// </summary>
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string sexoOperador { get; set; }
 
         /// <summary>
         /// DDD do Operador
         /// </summary>
+        [MaxLength(4, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string dddOperador { get; set; }
 
         /// <summary>
         /// Telefone do Operador
         /// </summary>
+        [MaxLength(15, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string telefoneOperador { get; set; }
 
         /// <summary>
         /// Ramal do Operador
         /// </summary>
+        [MaxLength(6, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string ramalOperador { get; set; }
 
         /// <summary>
         /// Email do Operador
         /// </summary>
+        [MaxLength(100, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string emailOperador { get; set; }
 
         /// <summary>
@@ -159,6 +173,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código CRK
         /// </summary>
+        [MaxLength(20, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string codigoCRK { get; set; }
 
         /// <summary>
@@ -171,12 +186,14 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// tipo_gerente
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string tipoGerente { get; set; }
 
         /// <summary>
         /// situação_gerente
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string situacaoGerente { get; set; }
 
         /// <summary>
@@ -187,6 +204,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Indica se o gerente deve receber email de clientes com cadastro vencido
         /// </summary>
+        [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string indicadorRecebCadVencido { get; set; }
 
     }
