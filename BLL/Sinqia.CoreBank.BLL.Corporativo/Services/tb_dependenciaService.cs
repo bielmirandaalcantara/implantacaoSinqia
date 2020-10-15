@@ -96,6 +96,14 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             else
                 throw new ApplicationException("Campo indicador de situação obrigatório");
 
+            if(entity.cod_camara != null)
+            {
+                var daoCamara = _factory.GetDaoCorporativo<tb_camara>(transacao);
+                var camara = daoCamara.ObterPrimeiro($" cod_camara = {entity.cod_camara} ");
+                if (camara == null)
+                    throw new ApplicationException("Código de camara de compensação inválido");
+            }
+
             entity = dao.Inserir(entity);
 
             return entity;
