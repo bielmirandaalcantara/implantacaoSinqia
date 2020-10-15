@@ -1013,15 +1013,41 @@
             Data e hora que foi enviado a mensagem
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.dependencia">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.identificador">
             <summary>
-            Dependencia
+            Identificador da mensagem para localização (caso exista)
             </summary>
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeader.empresa">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraEnvio">
             <summary>
-            Empresa
+            Data e hora que foi enviado a mensagem
             </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraRetorno">
+            <summary>
+            Data e hora do retorno da mensagem
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.codigoPessoa">
+            <summary>
+            Código da pessoa cadastrado no sistema (nulo caso seja retorno de um get com inumeros códigos ou ocorra alguma inconsistência)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.codigoChave">
+            <summary>
+            Código cadastrado no sistema (nulo caso seja retorno de um get com inumeros códigos ou ocorra alguma inconsistência)
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.status">
+            <summary>
+            OK - sucesso / ERRO - Com erro
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.erros">
+            <summary>
+            Lista de erros na integração (nulo caso a integração ocorra com sucesso)
+            </summary>
+            
         </member>
         <member name="T:Sinqia.CoreBank.API.Core.Models.MsgRetorno">
             <summary>
@@ -1036,36 +1062,6 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.MsgRetornoGet.body">
             <summary>
             body da mensagem get
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.identificador">
-            <summary>
-            Identificador da mensagem para localização (caso exista)
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.codigoPessoa">
-            <summary>
-            Código da pessoa cadastrado no sistema (nulo caso seja retorno de um get com inumeros códigos ou ocorra alguma inconsistência)
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraEnvio">
-            <summary>
-            Data e hora que foi enviado a mensagem
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.dataHoraRetorno">
-            <summary>
-            Data e hora do retorno da mensagem
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.status">
-            <summary>
-            OK - sucesso / ERRO - Com erro
-            </summary>
-        </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.MsgHeaderRetorno.erros">
-            <summary>
-            Lista de erros na integração (nulo caso a integração ocorra com sucesso)
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.ParametroBalancoQuery.detalhe">
@@ -1538,6 +1534,21 @@
         <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgRegistroendereco.codigoPais">
             <summary>
             País FATCA
+            </summary>
+        </member>
+        <member name="T:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgHeaderPessoa">
+            <summary>
+            Classe responsável pelo header das mensagens 
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgHeaderPessoa.dependencia">
+            <summary>
+            Dependencia
+            </summary>
+        </member>
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgHeaderPessoa.empresa">
+            <summary>
+            Empresa
             </summary>
         </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Pessoa.MsgNegocios.header">

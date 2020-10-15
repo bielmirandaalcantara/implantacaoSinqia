@@ -4,22 +4,22 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
-namespace Sinqia.CoreBank.API.Core.Models
+namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     /// <summary>
     /// Classe responsável pelo header das mensagens 
     /// </summary>
-    public class MsgHeader
+    public class MsgHeaderPessoa : MsgHeader
     {
         /// <summary>
-        /// Identificador da mensagem para localização (caso exista)
-        /// </summary>
-        public string identificadorEnvio { get; set; }
-        /// <summary>
-        /// Data e hora que foi enviado a mensagem
+        /// Dependencia
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
-        public DateTime? dataHoraEnvio { get; set; }
-
+        public int? dependencia { get; set; }
+        /// <summary>
+        /// Empresa
+        /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
+        public int? empresa { get; set; }
     }
 }

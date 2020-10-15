@@ -12,7 +12,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
         /// erros será nulo em retornos http 200
         /// identificador será nulo ou em branco caso seja uma requisição GET
         /// </summary>
-        public MsgHeader header { get; set; }
+        public MsgHeaderPessoa header { get; set; }
         /// <summary>
         /// corpo da mensagem
         /// body será nulo ou vazio caso retornos http 400 e 500

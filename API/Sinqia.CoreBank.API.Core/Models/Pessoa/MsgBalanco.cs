@@ -8,7 +8,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Pessoa
 {
     public class MsgBalanco
     {
-        public MsgHeader header { get; set; }
+        public MsgHeaderPessoa header { get; set; }
 
         /// <summary>
         /// corpo da mensagem
