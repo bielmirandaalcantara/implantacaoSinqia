@@ -36,18 +36,21 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// Código da Empresa
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// Código da dependencia
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoDependencia { get; set; }
 
         /// <summary>
         /// Código do Operador
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
+        [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
         public int? codigoOperador { get; set; }
     }
 }

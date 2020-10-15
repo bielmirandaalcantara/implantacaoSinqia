@@ -20,7 +20,7 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
         public DateTime? dat_atu { get; set; }
         public DateTime? dat_sit { get; set; }
         public string idc_sit { get; set; }
-        public int? cod_cargo { get; set; }
+        public long? cod_cargo { get; set; }
         public string cpf_oper { get; set; }
         public string dig_oper { get; set; }
         public string sex_oper { get; set; }
@@ -28,7 +28,7 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
         public string tel_oper { get; set; }
         public string ram_oper { get; set; }
         public string eml_oper { get; set; }
-        public int? cod_ger_origem { get; set; }
+        public long? cod_ger_origem { get; set; }
         public string OPECODCRK { get; set; }
 
         [IgnorePersistencia]
