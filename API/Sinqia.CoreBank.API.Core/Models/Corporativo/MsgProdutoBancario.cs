@@ -35,26 +35,31 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código da Empresa Sisbacen
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// cod_produto_bancário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoProduto { get; set; }
 
         /// <summary>
         /// Nome abreviado do Produto bancário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeAbreviado { get; set; }
 
         /// <summary>
         /// nome_completo_produto_bancário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeCompleto { get; set; }
 
         /// <summary>
         /// Código do Grupo Produto bancário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoGrupo { get; set; }
 
         /// <summary>

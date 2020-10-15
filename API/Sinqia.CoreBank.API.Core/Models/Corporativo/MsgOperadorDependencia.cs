@@ -35,16 +35,19 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código da Empresa
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// Código da dependencia
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoDependencia { get; set; }
 
         /// <summary>
         /// Código do Operador
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoOperador { get; set; }
     }
 }

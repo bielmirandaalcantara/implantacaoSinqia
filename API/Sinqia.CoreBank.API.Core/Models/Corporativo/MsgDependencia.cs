@@ -37,41 +37,49 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código Empresa Sisbacen
         /// </summary>
+        [Required(ErrorMessage ="Campo obrigatório")]
         public int? codigoEmpresa { get; set; }
 
         /// <summary>
         /// Código Dependência Sisbacen
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoDependência { get; set; }
 
         /// <summary>
         /// Código do Município
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoMunicipio { get; set; }
 
         /// <summary>
         /// Nome abreviado da Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeAbreviado { get; set; }
 
         /// <summary>
         /// Nome completo da Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeCompleto { get; set; }
 
         /// <summary>
         /// CGC base da Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string cgcBase { get; set; }
 
         /// <summary>
         /// CGC Filial da dependecia
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string cgcFilial { get; set; }
 
         /// <summary>
         /// CGC Digito da dependencia
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string cgccDigito { get; set; }
 
         /// <summary>
@@ -82,6 +90,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Logradouro da Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string logradouro { get; set; }
 
         /// <summary>
@@ -262,6 +271,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Início de operação da Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataInicioOperacao { get; set; }
 
         /// <summary>
@@ -272,26 +282,31 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de cadastramento
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Código do usuário da atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data de atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>
         /// Indicador de Situação
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Tipo de Dependência
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string tipoDependencia { get; set; }
 
         /// <summary>

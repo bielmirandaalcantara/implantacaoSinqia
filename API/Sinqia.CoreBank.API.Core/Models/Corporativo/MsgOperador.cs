@@ -35,71 +35,85 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Código Empresa Sisbacen
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoSisbacen { get; set; }
 
         /// <summary>
         /// cod_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoFuncionario { get; set; }
 
         /// <summary>
         /// Código Dependência Sisbacen
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoDependenciaSisbacen { get; set; }
 
         /// <summary>
         /// nome_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeFuncionario { get; set; }
 
         /// <summary>
         /// nome_abreviado_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string nomeAbreviadoFuncionario { get; set; }
 
         /// <summary>
         /// identificador_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string identificadorFuncionario { get; set; }
 
         /// <summary>
         /// login_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string loginFuncionario { get; set; }
 
         /// <summary>
         /// tipo_funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string tipoFuncionario { get; set; }
 
         /// <summary>
         /// Data de cadastramento
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
         /// Código do usuário da atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string usuarioUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// Data de atualização
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataUltimaAtualizacao { get; set; }
 
         /// <summary>
         /// data_situaçao
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataSituacao { get; set; }
 
         /// <summary>
         /// indicador_situação
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string indicadorSituacao { get; set; }
 
         /// <summary>
         /// Código do cargo do Funcionário
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public int? codigoCargoFuncionario { get; set; }
 
         /// <summary>
@@ -150,16 +164,19 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// data_inicio_operação_gerente
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataInicioOperacao { get; set; }
 
         /// <summary>
         /// tipo_gerente
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string tipoGerente { get; set; }
 
         /// <summary>
         /// situação_gerente
         /// </summary>
+        [Required(ErrorMessage = "Campo obrigatório")]
         public string situacaoGerente { get; set; }
 
         /// <summary>
