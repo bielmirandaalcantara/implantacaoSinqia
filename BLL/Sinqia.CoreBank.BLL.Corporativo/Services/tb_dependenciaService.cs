@@ -151,6 +151,8 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                 if (municipio == null)
                     throw new ApplicationException("Município não encontrado na base de dados");
             }
+            else
+                throw new ApplicationException("Município obrigatório");
 
             if (entity.tip_tpdepend != null)
             {
@@ -159,6 +161,8 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                 if (tipoDepend == null)
                     throw new ApplicationException("Tipo de dependência inválido");
             }
+            else
+                throw new ApplicationException("Tipo de dependência obrigatório");
 
             if (entity.idc_sit != null)
             {
@@ -166,6 +170,8 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                   && !entity.idc_sit.ToUpper().Equals(tb_dependencia.situacaoInativo))
                     throw new ApplicationException("Campo indicador de situação inválido");
             }
+            else
+                throw new ApplicationException("Campo indicador de situação obrigatório");
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
 
