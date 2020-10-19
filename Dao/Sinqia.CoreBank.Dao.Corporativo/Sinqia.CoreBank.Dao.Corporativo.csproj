@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Dominio\Sinqia.CoreBank.Dominio.Corporativo\Sinqia.CoreBank.Dominio.Corporativo.csproj" />
-    <ProjectReference Include="..\..\Infraestrutura\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj" />
+    <ProjectReference Include="..\..\Infraestrutura\Sinqia.CoreBank.Configuracao\Sinqia.CoreBank.Configuracao.csproj" />
     <ProjectReference Include="..\Sinqia.CoreBank.DAO.Core\Sinqia.CoreBank.DAO.Core.csproj" />
   </ItemGroup>
 

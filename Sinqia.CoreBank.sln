@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.BLL.Corpora
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Dominio.Core", "Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj", "{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Configuracao", "Infraestrutura\ClassLibrary1\Sinqia.CoreBank.Configuracao.csproj", "{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Configuracao", "Infraestrutura\Sinqia.CoreBank.Configuracao\Sinqia.CoreBank.Configuracao.csproj", "{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
