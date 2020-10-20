@@ -33,7 +33,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorProdutoBancario(_log);
-            _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase.Value);
+            _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase.Value, _log);
         }
         /// <summary>
         /// Cadastro de produto bancario

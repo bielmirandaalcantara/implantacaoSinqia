@@ -33,7 +33,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperadorDependencia(_log);
-            _ServiceOperadorDependencia = new tb_depopeService(configuracaoDataBase.Value);
+            _ServiceOperadorDependencia = new tb_depopeService(configuracaoDataBase.Value, _log);
         }
         /// <summary>
         /// Cadastro de Operador dependencia

@@ -31,7 +31,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorDependencia(_log);
-            _ServiceDependencia = new tb_dependenciaService(configuracaoDataBase.Value);
+            _ServiceDependencia = new tb_dependenciaService(configuracaoDataBase.Value, _log);
         }
 
         /// <summary>

@@ -18,6 +18,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_gerente AdaptarMsgOperadorTotb_gerente(MsgRegistroOperador msg)
         {
+            _log.TraceMethodStart();
+
             tb_gerente tb_gerente = new tb_gerente();
 
             if (msg.codigoSisbacen != null && msg.codigoSisbacen.Value > 0)
@@ -46,6 +48,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(msg.indicadorRecebCadVencido))
                 tb_gerente.GERIDCMAILCUCVCT = msg.indicadorRecebCadVencido;
+
+            _log.TraceMethodEnd();
 
             return tb_gerente;
         }
@@ -82,6 +86,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(tb_gerente.GERIDCMAILCUCVCT))
                 msg.indicadorRecebCadVencido = tb_gerente.GERIDCMAILCUCVCT.TrimEnd();
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

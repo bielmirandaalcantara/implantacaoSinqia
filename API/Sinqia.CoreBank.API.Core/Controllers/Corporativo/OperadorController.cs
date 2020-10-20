@@ -32,7 +32,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperador(_log);
-            _operadorGerenteService = new OperadorGerenteService(configuracaoDataBase.Value);
+            _operadorGerenteService = new OperadorGerenteService(configuracaoDataBase.Value, _log);
         }
 
         /// <summary>

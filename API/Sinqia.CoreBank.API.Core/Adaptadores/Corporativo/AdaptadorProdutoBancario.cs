@@ -20,6 +20,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_prodbco AdaptarMsgProdutoBancarioToModeltb_prodbco(MsgRegistroProdutoBancario msg)
         {
+            _log.TraceMethodStart();
+
             tb_prodbco tb_prodbco = new tb_prodbco();
 
             if (msg.codigoEmpresa != null && msg.codigoEmpresa.Value > 0)
@@ -42,6 +44,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(msg.tipoProduto))
                 tb_prodbco.tip_produto = msg.tipoProduto;
+
+            _log.TraceMethodEnd();
 
             return tb_prodbco;
         }
@@ -72,6 +76,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(tb_prodbco.tip_produto))
                 msg.tipoProduto = tb_prodbco.tip_produto;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

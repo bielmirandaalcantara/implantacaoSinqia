@@ -20,6 +20,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_grpemp AdaptarMsgGrupoEmpresarialToModeltb_grpemp(MsgRegistroGrupoEmpresarial msg)
         {
+            _log.TraceMethodStart();
+
             tb_grpemp tb_grpemp = new tb_grpemp();
 
             if (msg.codigoGrupoEmpresarial != null && msg.codigoGrupoEmpresarial.Value > 0)
@@ -36,6 +38,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (msg.codigoDependenciaSisbacen != null && msg.codigoDependenciaSisbacen.Value > 0)
                 tb_grpemp.cod_depend = msg.codigoDependenciaSisbacen;
+
+            _log.TraceMethodEnd();
 
             return tb_grpemp;
         }
@@ -60,6 +64,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (tb_grpemp.cod_depend != null && tb_grpemp.cod_depend.Value > 0)
                 msg.codigoDependenciaSisbacen = tb_grpemp.cod_depend;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

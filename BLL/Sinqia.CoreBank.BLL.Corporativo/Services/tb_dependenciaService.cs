@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.BLL.Corporativo.Services
 {
@@ -18,17 +19,21 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private CoreDaoFactory _factoryCore;
         private tb_empresaService _empresaService;
         private tb_dependenciaService _dependenciaService;
+        private LogService _log;
 
-        public tb_dependenciaService(ConfiguracaoBaseDataBase dataBaseConfig)
+        public tb_dependenciaService(ConfiguracaoBaseDataBase dataBaseConfig, LogService log)
         {
+            _log = log;
             _databaseConfig = dataBaseConfig;
-            _factory = new CorporativoDaoFactory(_databaseConfig);
+            _factory = new CorporativoDaoFactory(_databaseConfig, _log);
             _factoryCore = new CoreDaoFactory(_databaseConfig);
-            _empresaService = new tb_empresaService(_databaseConfig);
+            _empresaService = new tb_empresaService(_databaseConfig, _log);            
         }       
 
         public tb_dependencia BuscarDependenciaPorCodigo(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             tb_dependencia retorno = null;
@@ -39,11 +44,6 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (cod_depend == null || cod_depend <= 0)
                 throw new ApplicationException("Código de dependencia inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(cod_empresa, transacao);
-
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
-
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
 
             var listaEntity = dao.Obter(where);
@@ -51,13 +51,15 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (listaEntity != null && listaEntity.Any())
                 retorno = listaEntity.FirstOrDefault();
 
+            _log.TraceMethodEnd();
             return retorno;
 
         }
 
         public IEnumerable<tb_dependencia> BuscarDependencias(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
-            
+            _log.TraceMethodStart();
+
             if (cod_empresa == null || cod_empresa <= 0)
                 throw new ApplicationException("Código da empresa inválido");
 
@@ -73,11 +75,17 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
 
-            return dao.Obter(where);
+            var retorno = dao.Obter(where);
+
+            _log.TraceMethodEnd();
+
+            return retorno;
         }
 
         public tb_dependencia GravarDependencia(tb_dependencia entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
@@ -130,11 +138,15 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             entity = dao.Inserir(entity);
 
+            _log.TraceMethodEnd();
+
             return entity;
         }
 
         public void EditarDependencia(tb_dependencia entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
@@ -180,12 +192,15 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (entityBanco == null || !entityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
 
-            dao.Atualizar(entity, where);           
+            dao.Atualizar(entity, where);
 
+            _log.TraceMethodEnd();
         }
 
         public void ExcluirDependencia(int cod_empresa, int cod_depend, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_dependencia>() : _factory.GetDaoCorporativo<tb_dependencia>(transacao);
 
             if (cod_empresa == null || cod_empresa <= 0)
@@ -209,6 +224,8 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             var entity = entityBanco.FirstOrDefault();
 
             dao.Remover(entity, where);
+
+            _log.TraceMethodEnd();
         }
 
     }

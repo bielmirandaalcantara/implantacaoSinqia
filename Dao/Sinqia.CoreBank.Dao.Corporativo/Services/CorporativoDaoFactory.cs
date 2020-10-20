@@ -8,14 +8,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Sinqia.CoreBank.DAO.Core.Services;
+using Sinqia.CoreBank.Logging.Services;
 
 namespace Sinqia.CoreBank.DAO.Corporativo.Services
 {
     public class CorporativoDaoFactory : CoreDaoFactory
     {
-        public CorporativoDaoFactory(ConfiguracaoBaseDataBase dataBaseConfig) : base(dataBaseConfig)
+        private LogService _log;
+
+        public CorporativoDaoFactory(ConfiguracaoBaseDataBase dataBaseConfig, LogService log) : base(dataBaseConfig)
         {
-            
+            _log = log;
         }
 
         public IDao<T> GetDaoCorporativo<T>() where T : new()
@@ -31,34 +34,34 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services
             if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.SQLSERVER))
             {
                 if(typeof(T) == typeof(tb_dependencia))
-                    return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>) new tb_dependenciaDaoSqlServer(_dataBaseConfig,_log, transacao);
 
                 if (typeof(T) == typeof(tb_depope))
-                    return (IDao<T>)new tb_depopeDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_depopeDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_gerente))
-                    return (IDao<T>)new tb_gerenteDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_gerenteDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if(typeof(T) == typeof(tb_grpemp))
-                    return (IDao<T>)new tb_grpempDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_grpempDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_operador))
-                    return (IDao<T>)new tb_operadorDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_operadorDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_prodbco))
-                    return (IDao<T>)new tb_prodbcoDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_prodbcoDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_empresa))
-                    return (IDao<T>)new tb_empresaDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_empresaDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_municipio))
-                    return (IDao<T>)new tb_municipioDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_municipioDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_tpdepend))
-                    return (IDao<T>)new tb_tpdependDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_tpdependDaoSqlServer(_dataBaseConfig, _log, transacao);
 
                 if (typeof(T) == typeof(tb_camara))
-                    return (IDao<T>)new tb_camaraDaoSqlServer(_dataBaseConfig, transacao);
+                    return (IDao<T>)new tb_camaraDaoSqlServer(_dataBaseConfig, _log, transacao);
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
             {

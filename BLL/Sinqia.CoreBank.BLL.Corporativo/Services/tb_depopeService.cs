@@ -3,6 +3,7 @@ using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Interfaces;
 using Sinqia.CoreBank.DAO.Corporativo.Services;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
+using Sinqia.CoreBank.Logging.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,22 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private tb_empresaService _empresaService;
         private tb_dependenciaService _dependenciaService;
         private tb_operadorService _operadorService;
+        private LogService _log;
 
-        public tb_depopeService(ConfiguracaoBaseDataBase dataBaseConfig)
+        public tb_depopeService(ConfiguracaoBaseDataBase dataBaseConfig, LogService log)
         {
+            _log = log;
             _databaseConfig = dataBaseConfig;
-            _factory = new CorporativoDaoFactory(_databaseConfig);
-            _empresaService = new tb_empresaService(_databaseConfig);
-            _dependenciaService = new tb_dependenciaService(_databaseConfig);
-            _operadorService = new tb_operadorService(_databaseConfig);
+            _factory = new CorporativoDaoFactory(_databaseConfig, _log);
+            _empresaService = new tb_empresaService(_databaseConfig, _log);
+            _dependenciaService = new tb_dependenciaService(_databaseConfig, _log);
+            _operadorService = new tb_operadorService(_databaseConfig, _log);            
         }
 
         public tb_depope GravarOperadorDependencia(tb_depope entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = _factory.GetDaoCorporativo<tb_depope>();
 
             if (entity.emp_cod == null || entity.emp_cod.Value <= 0)
@@ -40,10 +45,6 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (entity.oper_cod == null || entity.oper_cod.Value <= 0)
                 throw new ApplicationException("Código do operador inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.emp_cod.Value, transacao);
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
-
             string where = $" emp_cod = {entity.emp_cod} and oper_cod = {entity.oper_cod} ";
 
             var entityBanco = dao.Obter(where);
@@ -53,11 +54,14 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             entity = dao.Inserir(entity);
 
+            _log.TraceMethodEnd();
             return entity;
         }
 
         public void EditarOperadorDependencia(tb_depope entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = transacao == null ? _factory.GetDaoCorporativo<tb_depope>() : _factory.GetDaoCorporativo<tb_depope>(transacao);
 
             if (entity.emp_cod == null || entity.emp_cod.Value <= 0)
@@ -90,10 +94,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             dao.Atualizar(entity, where);
 
+            _log.TraceMethodEnd();
         }
 
         public void ExcluirOperadorDependencia(int emp_cod, int oper_cod, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
 
             if (emp_cod == null || emp_cod <= 0)
                 throw new ApplicationException("Código da empresa inválido");
@@ -123,10 +129,13 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             var entity = entityBanco.FirstOrDefault();
 
             dao.Remover(entity, where);
+
+            _log.TraceMethodEnd();
         }
 
         public IEnumerable<tb_depope> BuscarOperadorDependencia(int emp_cod, int oper_cod, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
 
             if (emp_cod == null || emp_cod <= 0)
                 throw new ApplicationException("Código da empresa inválido");
@@ -148,7 +157,10 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" emp_cod = {emp_cod} and oper_cod = {oper_cod} ";
 
-            return dao.Obter(where);
+            var retorno = dao.Obter(where);
+
+            _log.TraceMethodEnd();
+            return retorno;
         }
     }
 }

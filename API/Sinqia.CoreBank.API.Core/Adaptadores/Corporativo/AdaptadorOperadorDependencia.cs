@@ -20,6 +20,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_depope AdaptarMsgOperadorDependenciaToModeltb_depope(MsgRegistroOperadorDependencia msg)
         {
+            _log.TraceMethodStart();
+
             tb_depope tb_depope = new tb_depope();
 
             if (msg.codigoEmpresa != null && msg.codigoEmpresa.Value > 0)
@@ -30,6 +32,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (msg.codigoOperador != null && msg.codigoOperador.Value > 0)
                 tb_depope.oper_cod = msg.codigoOperador;
+
+            _log.TraceMethodEnd();
 
             return tb_depope;
         }
@@ -48,6 +52,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (tb_depope.oper_cod != null && tb_depope.oper_cod.Value > 0)
                 msg.codigoOperador = tb_depope.oper_cod;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

@@ -131,6 +131,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_operador AdaptarMsgOperadorGerenteTotb_operador(MsgRegistroOperador msg)
         {
+            _log.TraceMethodStart();
 
             tb_operador tb_operador = new tb_operador();
 
@@ -141,11 +142,15 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             tb_operador.tb_gerentes = listatbgerente;
 
+            _log.TraceMethodEnd();
+
             return tb_operador;
         }
 
         public tb_operador AdaptarMsgOperadorTotb_operador(MsgRegistroOperador msg)
         {
+            _log.TraceMethodStart();
+
             tb_operador tb_operador = new tb_operador();
 
             if (msg.codigoSisbacen != null && msg.codigoSisbacen.Value > 0)
@@ -216,6 +221,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(msg.codigoCRK))
                 tb_operador.OPECODCRK = msg.codigoCRK;
+
+            _log.TraceMethodEnd();
 
             return tb_operador;
         }
@@ -294,6 +301,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (!string.IsNullOrWhiteSpace(tb_operador.OPECODCRK))
                 msg.codigoCRK = tb_operador.OPECODCRK.TrimEnd();
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

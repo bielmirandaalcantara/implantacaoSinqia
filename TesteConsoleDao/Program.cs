@@ -3,6 +3,7 @@ using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Services;
 using Sinqia.CoreBank.DAO.Corporativo.Services;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
+using Sinqia.CoreBank.Logging.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,9 +20,11 @@ namespace TesteConsoleDao
                 .AddJsonFile("appsettings.json");  
             IConfigurationRoot config = builder.Build();
             ConfiguracaoBaseDataBase configBase = config.GetSection("ConfiguracaoBaseDataBase").Get<ConfiguracaoBaseDataBase>();
-            
-            
-            var factory = new CorporativoDaoFactory(configBase);
+            ConfiguracaoBaseAPI configBaseAPI = config.GetSection("ConfiguracaoBaseAPI").Get<ConfiguracaoBaseAPI>();
+
+            LogService _log = new LogService(configBaseAPI.Log);
+
+            var factory = new CorporativoDaoFactory(configBase, _log);
             
             
             var dao = factory.GetDaoCorporativo<tb_dependencia>();

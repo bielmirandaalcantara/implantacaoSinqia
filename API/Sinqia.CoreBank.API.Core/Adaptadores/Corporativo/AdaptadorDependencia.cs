@@ -127,6 +127,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
         public tb_dependencia AdaptarMsgDependenciaTotb_dependencia(MsgRegistroDependencia msg)
         {
+            _log.TraceMethodStart();
+
             tb_dependencia tb_dependencia = new tb_dependencia();
 
             if (msg.codigoEmpresa != null && msg.codigoEmpresa.Value > 0)
@@ -296,6 +298,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (msg.dataSituacao != null && msg.dataSituacao.Value != DateTime.MinValue)
                 tb_dependencia.dat_sit = msg.dataSituacao;
+
+            _log.TraceMethodEnd();
 
             return tb_dependencia;
         }
@@ -473,6 +477,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             if (tb_dependencia.dat_sit != null && tb_dependencia.dat_sit.Value != DateTime.MinValue)
                 msg.dataSituacao = tb_dependencia.dat_sit;
+
+            _log.TraceMethodEnd();
 
             return msg;
         }

@@ -32,7 +32,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorGrupoEmpresarial(_log);
-            _ServiceGrupoEmpresarial = new tb_grpempService(configuracaoDataBase.Value);
+            _ServiceGrupoEmpresarial = new tb_grpempService(configuracaoDataBase.Value, _log);
         }
 
         /// <summary>

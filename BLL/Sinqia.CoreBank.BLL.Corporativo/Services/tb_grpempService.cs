@@ -3,6 +3,7 @@ using Sinqia.CoreBank.Configuracao.Configuration;
 using Sinqia.CoreBank.DAO.Core.Interfaces;
 using Sinqia.CoreBank.DAO.Corporativo.Services;
 using Sinqia.CoreBank.Dominio.Corporativo.Modelos;
+using Sinqia.CoreBank.Logging.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,17 +17,21 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
         private CorporativoDaoFactory _factory;
         private tb_empresaService _empresaService;
         private tb_dependenciaService _dependenciaService;
+        private LogService _log;
 
-        public tb_grpempService(ConfiguracaoBaseDataBase dataBaseConfig)
+        public tb_grpempService(ConfiguracaoBaseDataBase dataBaseConfig, LogService log)
         {
+            _log = log;
             _databaseConfig = dataBaseConfig;
-            _factory = new CorporativoDaoFactory(_databaseConfig);
-            _empresaService = new tb_empresaService(_databaseConfig);
-            _dependenciaService = new tb_dependenciaService(_databaseConfig);
+            _factory = new CorporativoDaoFactory(_databaseConfig, _log);
+            _empresaService = new tb_empresaService(_databaseConfig, _log);
+            _dependenciaService = new tb_dependenciaService(_databaseConfig, _log);            
         }
 
         public tb_grpemp GravarGrupoEmpresarial(tb_grpemp entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = _factory.GetDaoCorporativo<tb_grpemp>();
 
             if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
@@ -52,11 +57,15 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             entity = dao.Inserir(entity);
 
+            _log.TraceMethodEnd();
+
             return entity;
         }
 
         public void EditarGrupoEmpresarial(tb_grpemp entity, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = _factory.GetDaoCorporativo<tb_grpemp>();
 
             if (entity.cod_empresa == null || entity.cod_empresa.Value <= 0)
@@ -82,10 +91,13 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             dao.Atualizar(entity, where);
 
+            _log.TraceMethodEnd();
         }
 
         public void ExcluirGrupoEmpresarial(int cod_empresa, int cod_grpemp, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = _factory.GetDaoCorporativo<tb_grpemp>();
 
             if (cod_empresa == null || cod_empresa <= 0)
@@ -109,10 +121,14 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             var entity = entityBanco.FirstOrDefault();
 
             dao.Remover(entity, where);
+
+            _log.TraceMethodEnd();
         }
 
         public IEnumerable<tb_grpemp> BuscarGrupoEmpresarial(int cod_empresa, int cod_grpemp, IDaoTransacao transacao = null)
         {
+            _log.TraceMethodStart();
+
             var dao = _factory.GetDaoCorporativo<tb_grpemp>();
 
             if (cod_empresa == null || cod_empresa <= 0)
@@ -121,14 +137,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (cod_grpemp == null || cod_grpemp <= 0)
                 throw new ApplicationException("Código de grupo empresarial inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(cod_empresa, transacao);
-
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
-
             string where = $" cod_empresa = {cod_empresa} and cod_grpemp = {cod_grpemp} ";
 
-            return dao.Obter(where);
+            var retorno = dao.Obter(where);
+
+            _log.TraceMethodEnd();
+            return retorno;
         }
 
     }
