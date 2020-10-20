@@ -196,7 +196,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
+        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromRoute] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -266,7 +266,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
+        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromRoute] int? codigoEmpresa)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
