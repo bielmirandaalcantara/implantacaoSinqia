@@ -16,12 +16,19 @@ namespace Sinqia.CoreBank.DAO.Core.Services
             var ConnectionString = dataBaseConfig.ConnectionStrings.FirstOrDefault(c => c.Banco.Equals(bancoReferencia));
             if (ConnectionString == null) throw new Exception("String de conexão para SQL Server não configurada no arquivo de configuração - ConnectionStrings");
             if (string.IsNullOrWhiteSpace(ConnectionString.Conexao)) throw new Exception("String de conexão inválida ou não informada no arquivo de configuração - ConnectionStrings");
-            /*
-             * Inserir critografia
-             * 
-             *
-             */
-            return ConnectionString.Conexao;
+            string connDescrptografada = DescriptografarStringConexao(ConnectionString.Conexao);
+            return connDescrptografada;
+        }
+
+        private static string DescriptografarStringConexao(string conn)
+        {   
+            string senhaDescriptografada = string.Empty;
+            CriptografiaServices criptografia = new CriptografiaServices();
+            senhaDescriptografada = criptografia.Decrypt(conn);
+            if (senhaDescriptografada == null)
+                throw new Exception("Ocorreu um erro ao tentar descriptografar as informações de acesso ao banco de dados");
+
+            return senhaDescriptografada;
         }
     }
 }

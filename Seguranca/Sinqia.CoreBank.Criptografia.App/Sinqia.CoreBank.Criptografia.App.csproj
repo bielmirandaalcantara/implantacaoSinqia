@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantesRegistro.cs" />
     <Compile Include="Criptografia.cs" />
     <Compile Include="FrmCriptografia.cs">
       <SubType>Form</SubType>

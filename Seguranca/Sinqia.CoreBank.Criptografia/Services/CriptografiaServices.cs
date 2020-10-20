@@ -74,6 +74,7 @@ namespace Sinqia.CoreBank.Criptografia.Services
             _algorithm = new RijndaelManaged();
             _algorithm.Mode = CipherMode.CBC;
             _cryptProvider = CryptProvider.Rijndael;
+            _key = RegistroLocalService.BuscarChaveServico();
         }
 
         /// <summary>

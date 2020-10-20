@@ -33,10 +33,8 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             string token = string.Empty;
             string login = configuracaoAcessoCUC.userServico;
             string senha = configuracaoAcessoCUC.passServico;
-            string chave = configuracaoAcessoCUC.chaveServico;
-            //string chave = BuscarChaveServico();
 
-            senha = DescriptografarSenhaServico(senha, chave);
+            senha = DescriptografarSenhaServico(senha);
 
             ConfiguracaoURICUC configuracaoURICUC = ConfiguracaoCUCService.BuscarURI(ConstantesInegracao.URLConfiguracao.Autenticacao, _configuracaoCUC);
             EndpointAddress address = new EndpointAddress(configuracaoURICUC.URI);
@@ -70,38 +68,18 @@ namespace Sinqia.CoreBank.Services.CUC.Services
             }
         }
 
-        private string DescriptografarSenhaServico(string senha, string chave)
+        private string DescriptografarSenhaServico(string senha)
         {
             _log.TraceMethodStart();
 
             string senhaDescriptografada = string.Empty;
             CriptografiaServices criptografia = new CriptografiaServices();
-            criptografia.Key = chave;
             senhaDescriptografada = criptografia.Decrypt(senha);
+            if (senhaDescriptografada == null)
+                throw new Exception("Ocorreu um erro ao tentar descriptografar as informações de acesso ao CUC");
 
             _log.TraceMethodEnd();
             return senhaDescriptografada;
-        }
-
-        private string BuscarChaveServico()
-        {
-            try
-            {
-                // cria uma referêcnia para a chave de registro Software
-                RegistryKey rk = Registry.CurrentUser.OpenSubKey("Sinqia.CoreBank.Registro", true);
-                // realiza a leitura do registro
-                var chave = rk.OpenSubKey("chaveIntegrador", true).GetValue("Chave").ToString();
-                return chave;
-            }
-            catch (UnauthorizedAccessException erro)
-            {
-                throw new Exception("Não tem permissão de acesso ao registro do windows: " + erro.Message);
-            }
-            catch (Exception erro)
-            {
-                throw new Exception("Erro ao buscar a chave do serviço. Ela pode não estar cadastrada no registro do windows", erro);
-            }
-            
-        }
+        }        
     }
 }
