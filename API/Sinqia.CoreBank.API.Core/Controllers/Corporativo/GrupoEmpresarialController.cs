@@ -27,7 +27,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         private AutenticacaoCUCService _ServiceAutenticacao;
         private tb_grpempService _ServiceGrupoEmpresarial;
 
-        public GrupoEmpresarialController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
+        public GrupoEmpresarialController(IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
@@ -188,7 +188,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codGrupoEmpresarial">Código da grupo wmpresarial</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -250,7 +250,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/GrupoEmpresarial/{codGrupoEmpresarial}")]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(MsgGrupoEmpresarialTemplate), StatusCodes.Status500InternalServerError)]

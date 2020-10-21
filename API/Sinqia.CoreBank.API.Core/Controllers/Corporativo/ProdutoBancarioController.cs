@@ -27,10 +27,9 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         private AutenticacaoCUCService _ServiceAutenticacao;
         private tb_prodbcoService _ServiceProdutoBancario;
 
-        public ProdutoBancarioController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
+        public ProdutoBancarioController(IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
-            configuracaoCUC = configuracaoCUC;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorProdutoBancario(_log);
             _ServiceProdutoBancario = new tb_prodbcoService(configuracaoDataBase.Value, _log);
@@ -187,7 +186,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]

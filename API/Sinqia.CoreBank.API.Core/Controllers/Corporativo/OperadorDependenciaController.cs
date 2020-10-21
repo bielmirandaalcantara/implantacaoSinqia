@@ -28,7 +28,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         private AutenticacaoCUCService _ServiceAutenticacao;
         private tb_depopeService _ServiceOperadorDependencia;
 
-        public OperadorDependenciaController(IOptions<ConfiguracaoBaseCUC> configuracaoCUC, IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
+        public OperadorDependenciaController(IOptions<ConfiguracaoBaseAPI> configuracaoBaseAPI, IOptions<ConfiguracaoBaseDataBase> configuracaoDataBase)
         {
             _configuracaoBaseAPI = configuracaoBaseAPI;
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
@@ -186,7 +186,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codOperadorDependencia">Código do operador dependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
@@ -254,7 +254,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codOperadorDependencia">Código da OperadorDependencia</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
         [ProducesResponseType(typeof(MsgOperadorDependenciaTemplate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgOperadorDependenciaTemplate), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(MsgOperadorDependenciaTemplate), StatusCodes.Status500InternalServerError)]

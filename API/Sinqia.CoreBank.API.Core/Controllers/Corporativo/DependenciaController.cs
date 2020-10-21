@@ -190,13 +190,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
-        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromRoute] int? codigoEmpresa)
+        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -260,13 +260,13 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// <param name="codigoEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
-        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}/empresa/{codigoEmpresa}")]
+        [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromRoute] int? codigoEmpresa)
+        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
