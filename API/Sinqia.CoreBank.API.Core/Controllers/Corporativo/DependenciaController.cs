@@ -58,6 +58,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+                if (msg.body.RegistroDependencia == null) throw new ApplicationException("Mensagem inválida - corpo da mensagem não informado");
 
                 if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
                     msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
@@ -137,6 +138,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 if (msg == null) throw new ApplicationException("Mensagem inválida");
                 if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
                 if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+                if (msg.body.RegistroDependencia == null) throw new ApplicationException("Mensagem inválida - corpo da mensagem não informado");
 
                 if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
                     msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
@@ -145,6 +147,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.SetIdentificador(msg.header.identificadorEnvio);
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                    _log.TraceMethodEnd();
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
 
                 tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia);
 

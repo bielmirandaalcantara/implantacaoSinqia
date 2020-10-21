@@ -136,6 +136,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                     throw new ApplicationException("Código de camara de compensação inválido");
             }
 
+            if (entity.dat_cad == null || entity.dat_cad == DateTime.MinValue)
+                entity.dat_cad = DateTime.Now;
+
+            if (entity.dat_atu == null || entity.dat_atu == DateTime.MinValue)
+                entity.dat_atu = DateTime.Now;
+
             entity = dao.Inserir(entity);
 
             _log.TraceMethodEnd();
@@ -191,6 +197,9 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             if (entityBanco == null || !entityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
+
+            if (entity.dat_atu == null || entity.dat_atu == DateTime.MinValue)
+                entity.dat_atu = DateTime.Now;
 
             dao.Atualizar(entity, where);
 

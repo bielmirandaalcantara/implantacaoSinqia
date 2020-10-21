@@ -138,7 +138,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             tb_operador = AdaptarMsgOperadorTotb_operador(msg);
 
             var listatbgerente = new List<tb_gerente>();
-            listatbgerente.Add(_AdaptadorGerente.AdaptarMsgOperadorTotb_gerente(msg));
+
+            if(_AdaptadorGerente.OperadorEhUmGerente(msg))
+                listatbgerente.Add(_AdaptadorGerente.AdaptarMsgOperadorTotb_gerente(msg));
 
             tb_operador.tb_gerentes = listatbgerente;
 
@@ -225,6 +227,21 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log.TraceMethodEnd();
 
             return tb_operador;
+        }
+
+        public MsgRegistroOperador Adaptartb_operadorToMsgOperadorGerente(tb_operador tb_operador)
+        {
+            _log.TraceMethodStart();
+
+            MsgRegistroOperador msg = new MsgRegistroOperador();
+            msg = tb_operadorToMsgOperador(tb_operador);
+
+            if(tb_operador.tb_gerentes != null && tb_operador.tb_gerentes.Any())
+                msg = _AdaptadorGerente.Adaptartb_depndenciaToMsgOperador(msg, tb_operador.tb_gerentes.First(g=>g.sit_gerente.Equals(tb_gerente.sit_gerenteDefault)));
+
+            _log.TraceMethodEnd();
+
+            return msg;
         }
 
         public MsgRegistroOperador tb_operadorToMsgOperador(tb_operador tb_operador)

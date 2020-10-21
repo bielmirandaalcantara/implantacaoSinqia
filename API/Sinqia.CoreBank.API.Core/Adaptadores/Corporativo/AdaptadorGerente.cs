@@ -16,6 +16,11 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log = log;
         }
 
+        public bool OperadorEhUmGerente(MsgRegistroOperador msg)
+        {
+            return !string.IsNullOrWhiteSpace(msg.situacaoGerente) || !string.IsNullOrWhiteSpace(msg.tipoGerente);
+        }
+
         public tb_gerente AdaptarMsgOperadorTotb_gerente(MsgRegistroOperador msg)
         {
             _log.TraceMethodStart();
@@ -54,11 +59,9 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return tb_gerente;
         }
 
-        public MsgRegistroOperador tb_depndenciaToMsgOperador(tb_gerente tb_gerente)
+        public MsgRegistroOperador Adaptartb_depndenciaToMsgOperador(MsgRegistroOperador msg, tb_gerente tb_gerente)
         {
             _log.TraceMethodStart();
-
-            MsgRegistroOperador msg = new MsgRegistroOperador();
 
             if (tb_gerente.cod_empresa != null && tb_gerente.cod_empresa.Value > 0)
                 msg.codigoSisbacen = tb_gerente.cod_empresa;

@@ -1,0 +1,25 @@
+{
+  "header": {
+    "identificadorEnvio": "teste Gabriel",
+    "dataHoraEnvio": "2020-10-21T14:14:51.626Z"
+  },
+  "body": {
+    "RegistroOperador": {
+			"dataCadastro": "2020-10-21T10:59:19.163",
+            "dataSituacao": "2020-10-21T10:59:19.163",
+            "codigoSisbacen" : 1,
+            "nomeFuncionario": "Gabriel",
+            "tipoFuncionario": "A",
+            "loginFuncionario": "opeGabr",
+            "codigoFuncionario": 888,
+            "indicadorSituacao": "A",
+            "dataInicioOperacao": "2020-10-21T10:59:19.163",
+            "dataUltimaAtualizacao": "2020-10-21T10:59:19.163",
+            "codigoCargoFuncionario": 1,
+            "identificadorFuncionario": "opeGabr",
+            "nomeAbreviadoFuncionario": "Operador 2",
+            "usuarioUltimaAtualizacao":"Oper2",
+            "codigoDependenciaSisbacen" : 1
+    }
+  }
+}

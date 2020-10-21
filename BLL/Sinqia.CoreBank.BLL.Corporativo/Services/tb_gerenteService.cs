@@ -52,6 +52,12 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (entityBanco != null && entityBanco.Any())
                 throw new ApplicationException($"Dados informados já foram cadastrados - empresa: {entity.cod_empresa} e operador-gerente: {entity.cod_oper} ");
 
+            if(string.IsNullOrWhiteSpace(entity.tip_gerente))
+                throw new ApplicationException($"Tipo do gerente obrigatório");
+
+            if (string.IsNullOrWhiteSpace(entity.sit_gerente))
+                throw new ApplicationException($"Situação do gerente obrigatório");
+
             entity = dao.Inserir(entity);
 
             _log.TraceMethodEnd();

@@ -13,5 +13,11 @@ namespace Sinqia.CoreBank.API.Core.Constantes
             public const string Erro = "ERRO";
             public const string OK = "OK";
         }
+
+        public static class ModoIntegracao
+        {
+            public const string ModoInclusao = "I";
+            public const string ModoAlteracao = "A";
+        }
     }
 }

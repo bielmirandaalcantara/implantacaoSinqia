@@ -327,7 +327,6 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de cadastramento
         /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
@@ -340,7 +339,6 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de atualização
         /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataAtualizacao { get; set; }
 
         /// <summary>

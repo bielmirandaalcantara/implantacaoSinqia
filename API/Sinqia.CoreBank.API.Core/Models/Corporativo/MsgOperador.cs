@@ -91,7 +91,6 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de cadastramento
         /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataCadastro { get; set; }
 
         /// <summary>
@@ -104,7 +103,6 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// Data de atualização
         /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
         public DateTime? dataUltimaAtualizacao { get; set; }
 
         /// <summary>
@@ -190,14 +188,12 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// <summary>
         /// tipo_gerente
         /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
         [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string tipoGerente { get; set; }
 
         /// <summary>
         /// situação_gerente
-        /// </summary>
-        [Required(ErrorMessage = "Campo obrigatório")]
+        /// </summary>        
         [MaxLength(1, ErrorMessage = "Tamanho limite excedido para o campo")]
         public string situacaoGerente { get; set; }
 
