@@ -46,7 +46,7 @@ namespace Sinqia.CoreBank.API.Core.Models.Corporativo
         /// </summary>
         [Required(ErrorMessage = "Campo obrigatório")]
         [Range(0, 99999, ErrorMessage = "Tamanho limite excedido para o campo")]
-        public int? codigoDependência { get; set; }
+        public int? codigoDependencia { get; set; }
 
         /// <summary>
         /// Código do Município

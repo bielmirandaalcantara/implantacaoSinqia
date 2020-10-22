@@ -66,11 +66,6 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (cod_depend == null || cod_depend <= 0)
                 throw new ApplicationException("Código de dependencia inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(cod_empresa, transacao);
-
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
-
             var dao = _factory.GetDaoCorporativo<tb_dependencia>();
 
             string where = $" cod_empresa = {cod_empresa} and cod_depend = {cod_depend} ";
@@ -193,13 +188,69 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_depend = {entity.cod_depend} ";
 
-            var entityBanco = dao.Obter(where);
+            var listaEntityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
+            if (listaEntityBanco == null || !listaEntityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e dependência: {entity.cod_depend} ");
 
+            var entityBanco = listaEntityBanco.First();
+
+            entityBanco.cod_municipio = entity.cod_municipio;
+            entityBanco.nom_abv_depend = entity.nom_abv_depend;
+            entityBanco.nom_depend = entity.nom_depend;
+            entityBanco.bas_cgc_depend = entity.bas_cgc_depend;
+            entityBanco.fil_cgc_depend = entity.fil_cgc_depend;
+            entityBanco.dig_cgc_depend = entity.dig_cgc_depend;
+            entityBanco.tip_log_depend = entity.tip_log_depend;
+            entityBanco.end_depend = entity.end_depend;
+            entityBanco.cpl_log_depend = entity.cpl_log_depend;
+            entityBanco.bai_depend = entity.bai_depend;
+            entityBanco.cep_depend = entity.cep_depend;
+            entityBanco.ddd_fone_depend = entity.ddd_fone_depend;
+            entityBanco.ddd_fone2_depend = entity.ddd_fone2_depend;
+            entityBanco.ddd_fone3_depend = entity.ddd_fone3_depend;
+            entityBanco.ddd_fone4_depend = entity.ddd_fone4_depend;
+            entityBanco.tel_depend = entity.tel_depend;
+            entityBanco.tel_2_depend = entity.tel_2_depend;
+            entityBanco.tel_3_depend = entity.tel_3_depend;
+            entityBanco.tel_4_depend = entity.tel_4_depend;
+            entityBanco.ram_depend = entity.ram_depend;
+            entityBanco.ram_2_depend = entity.ram_2_depend;
+            entityBanco.ram_3_depend = entity.ram_3_depend;
+            entityBanco.ram_4_depend = entity.ram_4_depend;
+            entityBanco.ddd_fax_depend = entity.ddd_fax_depend;
+            entityBanco.ddd_fax2_depend = entity.ddd_fax2_depend;
+            entityBanco.ddd_fax3_depend = entity.ddd_fax3_depend;
+            entityBanco.fax_depend = entity.fax_depend;
+            entityBanco.fax_2_depend = entity.fax_2_depend;
+            entityBanco.fax_3_depend = entity.fax_3_depend;
+            entityBanco.eml_depend = entity.eml_depend;
+            entityBanco.ins_estadual = entity.ins_estadual;
+            entityBanco.ins_municipal = entity.ins_municipal;
+            entityBanco.nvl_sup_depend = entity.nvl_sup_depend;
+            entityBanco.nvl_1_depend = entity.nvl_1_depend;
+            entityBanco.nvl_2_depend = entity.nvl_2_depend;
+            entityBanco.nvl_3_depend = entity.nvl_3_depend;
+            entityBanco.nvl_4_depend = entity.nvl_4_depend;
+            entityBanco.nvl_5_depend = entity.nvl_5_depend;
+            entityBanco.nvl_6_depend = entity.nvl_6_depend;
+            entityBanco.nvl_7_depend = entity.nvl_7_depend;
+            entityBanco.nvl_8_depend = entity.nvl_8_depend;
+            entityBanco.nvl_9_depend = entity.nvl_9_depend;
+            entityBanco.nvl_10_depend = entity.nvl_10_depend;
+            entityBanco.dat_ini_depend = entity.dat_ini_depend;
+            entityBanco.dat_fim_depend = entity.dat_fim_depend;
+
+            entityBanco.usu_atu = entity.usu_atu;
             if (entity.dat_atu == null || entity.dat_atu == DateTime.MinValue)
-                entity.dat_atu = DateTime.Now;
+                entityBanco.dat_atu = DateTime.Now;
+
+            entityBanco.idc_sit = entity.idc_sit;
+            entityBanco.tip_tpdepend = entity.tip_tpdepend;
+            entityBanco.cod_camara = entity.cod_camara;
+            entityBanco.num_log_depend = entity.num_log_depend;
+            entityBanco.dat_rollout = entity.dat_rollout;
+            entityBanco.dat_sit = entity.dat_sit;
 
             dao.Atualizar(entity, where);
 

@@ -62,6 +62,9 @@ namespace Sinqia.CoreBank.DAO.Corporativo.Services
 
                 if (typeof(T) == typeof(tb_camara))
                     return (IDao<T>)new tb_camaraDaoSqlServer(_dataBaseConfig, _log, transacao);
+
+                if (typeof(T) == typeof(tb_grproduto))
+                    return (IDao<T>)new tb_grprodutoDaoSqlServer(_dataBaseConfig, _log, transacao);
             }
             else if (bancoReferencia.ToUpper().Equals(ConstantesDao.BancoUtilizado.ORACLE))
             {

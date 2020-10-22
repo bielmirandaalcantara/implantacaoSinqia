@@ -72,15 +72,23 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_oper = {entity.cod_oper} and tip_gerente = '{entity.tip_gerente.ToUpper()}' ";
 
-            var entityBanco = dao.Obter(where);
+            var listaEntityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
-                throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e operador-gerente: {entity.cod_oper} ");
+            if (listaEntityBanco != null && listaEntityBanco.Any())
+            {
+                var entityBanco = listaEntityBanco.First();
 
-            dao.Atualizar(entity, where);
+                entityBanco.cod_depend = entity.cod_depend;
+                entityBanco.dat_ini_gerente = entity.dat_ini_gerente;
+                entityBanco.dat_fim_gerente = entity.dat_fim_gerente;
+                entityBanco.usu_atu_gerente = entity.usu_atu_gerente;
+                entityBanco.sit_gerente = entity.sit_gerente;
+                entityBanco.GERIDCMAILCUCVCT = entity.GERIDCMAILCUCVCT;
+
+                dao.Atualizar(entityBanco, where);
+            }
 
             _log.TraceMethodEnd();
-
         }
 
         public void ExcluirGerente(int cod_empresa, int cod_oper, string tipoGerente, IDaoTransacao transacao = null)
@@ -93,12 +101,13 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             var entityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
-                throw new ApplicationException($"Dados informados não estão cadastrados - empresa: {cod_empresa} e operador-gerente: {cod_oper} ");
+            if (entityBanco != null && entityBanco.Any())
+            {
+                var entity = entityBanco.FirstOrDefault();
 
-            var entity = entityBanco.FirstOrDefault();
+                dao.Remover(entity, where);
 
-            dao.Remover(entity, where);
+            }
 
             _log.TraceMethodEnd();
         }

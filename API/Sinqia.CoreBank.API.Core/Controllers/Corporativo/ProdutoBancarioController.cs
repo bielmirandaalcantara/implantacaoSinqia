@@ -14,6 +14,7 @@ using System.Linq;
 using System.Net;
 using Sinqia.CoreBank.Services.CUC.Services;
 using Sinqia.CoreBank.BLL.Corporativo.Services;
+using Sinqia.CoreBank.API.Core.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -77,38 +78,38 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
+                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario, ConstantesIntegracao.ModoIntegracao.ModoInclusao);
 
                 _ServiceProdutoBancario.GravarProdutoBancario(tb_prodbco);
 
                 retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.TraceMethodEnd();
-
-                return StatusCode((int)HttpStatusCode.OK);
-
+                return StatusCode((int)HttpStatusCode.OK, retorno);
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
         }
 
@@ -156,7 +157,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario);
+                tb_prodbco tb_prodbco = _adaptador.AdaptarMsgProdutoBancarioToModeltb_prodbco(msg.body.RegistroProdutoBancario, ConstantesIntegracao.ModoIntegracao.ModoAlteracao);
 
                 _ServiceProdutoBancario.EditarProdutoBancario(tb_prodbco);
 
@@ -164,29 +165,30 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
-
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }
@@ -195,6 +197,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// Exclusão de dados de produto bancario
         /// </summary>
         /// <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
+        /// <param name="codEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/produtoBancario/{codProdutoBancario}")]
@@ -203,7 +206,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codigoEmpresa)
+        public ActionResult deleteProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -214,8 +217,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             {
                 _log.TraceMethodStart();
 
-                if (codigoEmpresa == null)
-                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+                if (codEmpresa == null)
+                    throw new ApplicationException("Parâmetro codEmpresa obrigatório");
 
                 if (codProdutoBancario == null)
                     throw new ApplicationException("Parâmetro codProdutoBancario obrigatório");
@@ -226,43 +229,45 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                _ServiceProdutoBancario.ExcluirProdutoBancario(codigoEmpresa.Value, codProdutoBancario.Value);
+                _ServiceProdutoBancario.ExcluirProdutoBancario(codEmpresa.Value, codProdutoBancario.Value);
 
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.TraceMethodEnd();
                 return StatusCode((int)HttpStatusCode.OK, retorno);
-
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }
 
         /// <summary>
-        /// Exclusão de dados de produto bancario
+        /// Busca de dados de produto bancario
         /// </summary>
         /// <param name="codProdutoBancario">Código do produto bancario</param>
+        /// <param name="codEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/ProdutoBancario/{codProdutoBancario}")]
@@ -271,7 +276,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgProdutoBancarioTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codigoEmpresa)
+        public ActionResult getProdutoBancario([FromRoute] int? codProdutoBancario, [FromQuery] int? codEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -287,15 +292,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (codigoEmpresa == null)
-                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+                if (codEmpresa == null)
+                    throw new ApplicationException("Parâmetro codEmpresa obrigatório");
 
                 if (codProdutoBancario == null)
                     throw new ApplicationException("Parâmetro codProdutoBancario obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                var produtoBancario = _ServiceProdutoBancario.BuscarProdutoBancario(codigoEmpresa.Value, codProdutoBancario.Value);
+                var produtoBancario = _ServiceProdutoBancario.BuscarProdutoBancario(codEmpresa.Value, codProdutoBancario.Value);
 
                 if (produtoBancario != null && produtoBancario.Any())
                     body.RegistroProdutoBancario = _adaptador.tb_prodbcoToMsgProdutoBancario(produtoBancario.First());
@@ -305,29 +310,30 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.TraceMethodEnd();
 
                 return StatusCode((int)HttpStatusCode.OK, retorno);
-
             }
             catch (LogErrorException LogEx)
             {
                 listaErros.Add(LogEx.Message);
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
             catch (ApplicationException appEx)
             {
-
                 listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(appEx);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.BadRequest);
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
             }
             catch (Exception ex)
             {
                 listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetornoGet(listaErros, identificador);
 
                 _log.Error(ex);
                 _log.TraceMethodEnd();
-                return StatusCode((int)HttpStatusCode.InternalServerError);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
             }
 
         }

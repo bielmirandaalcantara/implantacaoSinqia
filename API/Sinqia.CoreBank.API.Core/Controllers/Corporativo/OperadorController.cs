@@ -15,6 +15,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Sinqia.CoreBank.BLL.Corporativo.Services;
+using Sinqia.CoreBank.API.Core.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -78,7 +79,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador);
+                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador, ConstantesIntegracao.ModoIntegracao.ModoInclusao);
 
                 _operadorGerenteService.GravarOperadorGerente(tb_operador);
 
@@ -157,7 +158,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador);
+                tb_operador tb_operador = _adaptador.AdaptarMsgOperadorGerenteTotb_operador(msg.body.RegistroOperador, ConstantesIntegracao.ModoIntegracao.ModoAlteracao);
 
                 _operadorGerenteService.AtualizarOperadorGerente(tb_operador);
 
@@ -223,8 +224,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codigo do operador - obrigatório");
-                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codigo da empresa - obrigatório");
+                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codOperador - obrigatório");
+                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codEmpresa - obrigatório");
                 if (string.IsNullOrWhiteSpace(tipoGerente)) tipoGerente = tb_gerente.tip_gerenteDefault;
 
                 _operadorGerenteService.ExcluirOperadorGerente(codEmpresa.Value, codOperador.Value, tipoGerente);
@@ -262,7 +263,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Exclusão de dados de Operador
+        /// Busca de dados de Operador
         /// </summary>
         /// <param name="codOperador">Código do operador</param>
         /// <param name="codEmpresa">Código da empresa</param>
@@ -296,8 +297,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
 
-                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codigo do operador - obrigatório");
-                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codigo da empresa - obrigatório");
+                if (codOperador == null || codOperador.Value == 0) throw new ApplicationException("Parâmetro codEmpresa - obrigatório");
+                if (codEmpresa == null || codEmpresa.Value == 0) throw new ApplicationException("Parâmetro codEmpresa - obrigatório");
                 if (string.IsNullOrWhiteSpace(tipoGerente)) tipoGerente = tb_gerente.tip_gerenteDefault;
 
                 tb_operador operador = _operadorGerenteService.BuscarOperadorGerentePorCodigo(codEmpresa.Value,codOperador.Value, tipoGerente);

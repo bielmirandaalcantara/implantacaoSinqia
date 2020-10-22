@@ -84,12 +84,18 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_grpemp = {entity.cod_grpemp} ";
 
-            var entityBanco = dao.Obter(where);
+            var listaEntityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
+            if (listaEntityBanco == null || !listaEntityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e grupo empresarial: {entity.cod_grpemp} ");
 
-            dao.Atualizar(entity, where);
+            var entityBanco = listaEntityBanco.First();
+
+            entityBanco.abv_grpemp = entity.abv_grpemp;
+            entityBanco.des_grpemp = entity.des_grpemp;
+            entityBanco.cod_depend = entity.cod_depend;
+
+            dao.Atualizar(entityBanco, where);
 
             _log.TraceMethodEnd();
         }

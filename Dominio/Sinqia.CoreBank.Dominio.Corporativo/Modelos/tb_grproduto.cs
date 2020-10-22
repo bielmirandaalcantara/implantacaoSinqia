@@ -8,8 +8,8 @@ namespace Sinqia.CoreBank.Dominio.Corporativo.Modelos
     {
         public int? cod_empresa { get; set; }
         public int? cod_grproduto { get; set; }
-        public int? abv_grproduto { get; set; }
-        public int? des_grproduto { get; set; }
+        public string abv_grproduto { get; set; }
+        public string des_grproduto { get; set; }
         public int? cod_sistema { get; set; }
     }
 }

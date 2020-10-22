@@ -18,7 +18,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log = log;
         }
 
-        public tb_grpemp AdaptarMsgGrupoEmpresarialToModeltb_grpemp(MsgRegistroGrupoEmpresarial msg)
+        public tb_grpemp AdaptarMsgGrupoEmpresarialToModeltb_grpemp(MsgRegistroGrupoEmpresarial msg, string modo)
         {
             _log.TraceMethodStart();
 
@@ -76,7 +76,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             if (msg != null && msg.header != null)
@@ -110,7 +110,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log.TraceMethodStart();
 
             MsgRetorno retorno = new MsgRetorno();
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
@@ -133,18 +133,27 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return retorno;
         }
 
+        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros)
+        {
+            return AdaptarMsgRetornoGet(null, erros, string.Empty);
+        }
+
+        public MsgRetornoGet AdaptarMsgRetornoGet(IList<string> erros, string identificador)
+        {
+            return AdaptarMsgRetornoGet(null, erros, identificador);
+        }
+
         public MsgRetornoGet AdaptarMsgRetornoGet(object msg, IList<string> erros, string identificador)
         {
             _log.TraceMethodStart();
 
             MsgRetornoGet retorno = new MsgRetornoGet();
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
             {
                 identificador = identificador,
-                dataHoraEnvio = dataEnvio,
                 dataHoraRetorno = DateTime.Now,
                 status = status
             };

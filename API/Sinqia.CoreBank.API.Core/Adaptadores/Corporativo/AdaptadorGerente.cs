@@ -21,7 +21,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return !string.IsNullOrWhiteSpace(msg.situacaoGerente) || !string.IsNullOrWhiteSpace(msg.tipoGerente);
         }
 
-        public tb_gerente AdaptarMsgOperadorTotb_gerente(MsgRegistroOperador msg)
+        public tb_gerente AdaptarMsgOperadorTotb_gerente(MsgRegistroOperador msg, string modo)
         {
             _log.TraceMethodStart();
 

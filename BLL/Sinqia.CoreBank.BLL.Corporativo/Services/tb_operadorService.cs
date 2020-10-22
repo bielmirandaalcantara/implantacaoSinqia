@@ -63,11 +63,6 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             if (cod_oper == null || cod_oper <= 0)
                 throw new ApplicationException("Código do operador inválido");
 
-            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(cod_empresa, transacao);
-
-            if (empresa == null)
-                throw new ApplicationException("Empresa informada não cadastrada");
-
             string where = $" cod_empresa = {cod_empresa} and cod_oper = {cod_oper} ";
 
             var retorno = dao.Obter(where);
@@ -131,15 +126,38 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_oper = {entity.cod_oper} ";
 
-            var entityBanco = dao.Obter(where);
+            var listaEntityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
+            if (listaEntityBanco == null || !listaEntityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e operador: {entity.cod_oper} ");
+
+            var entityBanco = listaEntityBanco.First();
+
+            entityBanco.cod_depend = entity.cod_depend;
+            entityBanco.nom_oper = entity.nom_oper;
+            entityBanco.nom_abv_oper = entity.nom_abv_oper;
+            entityBanco.idt_oper = entity.idt_oper;
+            entityBanco.log_oper = entity.log_oper;
+            entityBanco.tip_oper = entity.tip_oper;
+            entityBanco.usu_atu = entity.usu_atu;
 
             if (entity.dat_atu == null || entity.dat_atu == DateTime.MinValue)
                 entity.dat_atu = DateTime.Now;
 
-            dao.Atualizar(entity, where);
+            entityBanco.dat_sit = entity.dat_sit;
+            entityBanco.idc_sit = entity.idc_sit;
+            entityBanco.cod_cargo = entity.cod_cargo;
+            entityBanco.cpf_oper = entity.cpf_oper;
+            entityBanco.dig_oper = entity.dig_oper;
+            entityBanco.sex_oper = entity.sex_oper;
+            entityBanco.ddd_oper = entity.ddd_oper;
+            entityBanco.tel_oper = entity.tel_oper;
+            entityBanco.ram_oper = entity.ram_oper;
+            entityBanco.eml_oper = entity.eml_oper;
+            entityBanco.cod_ger_origem = entity.cod_ger_origem;
+            entityBanco.OPECODCRK = entity.OPECODCRK;
+
+            dao.Atualizar(entityBanco, where);
 
             _log.TraceMethodEnd();
 

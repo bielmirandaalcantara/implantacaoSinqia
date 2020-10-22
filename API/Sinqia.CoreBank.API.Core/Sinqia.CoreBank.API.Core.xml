@@ -23,15 +23,15 @@
             Exclusão de dados de dependencia
             </summary>
             <param name="codDependencia">Código da dependencia</param>
-            <param name="codigoEmpresa">Código da empresa</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.DependenciaController.getDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            Exclusão de dados de dependencia
+            Busca de dados de dependencia
             </summary>
             <param name="codDependencia">Código da dependencia</param>
-            <param name="codigoEmpresa">Código da empresa</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.postGrupoEmpresarial(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgGrupoEmpresarial)">
@@ -53,13 +53,15 @@
             Exclusão de dados de grupo empresarial
             </summary>
             <param name="codGrupoEmpresarial">Código da grupo wmpresarial</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.GrupoEmpresarialController.getGrupoEmpresarial(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            Exclusão de dados de grupo empresarial
+            Busca de dados de grupo empresarial
             </summary>
             <param name="codGrupoEmpresarial">Código da grupo empresarial</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.postOperador(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperador)">
@@ -87,39 +89,20 @@
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorController.getOperador(System.Nullable{System.Int32},System.Nullable{System.Int32},System.String)">
             <summary>
-            Exclusão de dados de Operador
+            Busca de dados de Operador
             </summary>
             <param name="codOperador">Código do operador</param>
             <param name="codEmpresa">Código da empresa</param>
             <param name="tipoGerente">Tipo do gerente - Default: G</param>
             <returns>MsgRetorno</returns>
         </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            Cadastro de Operador dependencia
+            Busca de dados de OperadorDependencia
             </summary>
-            <param name="codOperadorDependencia">Código do Operador dependencia</param>
-            <returns>MsgRetorno</returns>
-        </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.putOperadorDependencia(System.String,Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
-            <summary>
-            Alteração de dados do operador dependencia
-            </summary>
-            <param name="codOperadorDependencia">Código do operador dependencia</param>
-            <returns>MsgRetorno</returns>
-        </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Exclusão de dados de operador dependencia
-            </summary>
-            <param name="codOperadorDependencia">Código do operador dependencia</param>
-            <returns>MsgRetorno</returns>
-        </member>
-        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32})">
-            <summary>
-            Exclusão de dados de OperadorDependencia
-            </summary>
-            <param name="codOperadorDependencia">Código da OperadorDependencia</param>
+            <param name="codOperador">Código da Operador</param>
+            <param name="codDependencia">Código da Dependência</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.postProdutoBancario(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgProdutoBancario)">
@@ -141,13 +124,15 @@
             Exclusão de dados de produto bancario
             </summary>
             <param name="codProdutoBancario">Código do produto bancario</param>codProdutoBancario
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.ProdutoBancarioController.getProdutoBancario(System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
-            Exclusão de dados de produto bancario
+            Busca de dados de produto bancario
             </summary>
             <param name="codProdutoBancario">Código do produto bancario</param>
+            <param name="codEmpresa">Código da empresa</param>
             <returns>MsgRetorno</returns>
         </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Pessoa.BalancoController.postBalanco(System.String,Sinqia.CoreBank.API.Core.Models.Pessoa.MsgBalanco)">
@@ -383,7 +368,7 @@
             Código Empresa Sisbacen
             </summary>        
         </member>
-        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.codigoDependência">
+        <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgRegistroDependencia.codigoDependencia">
             <summary>
             Código Dependência Sisbacen
             </summary>

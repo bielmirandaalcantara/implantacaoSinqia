@@ -24,7 +24,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
 
             MsgRetorno retorno = new MsgRetorno();
             string identificador = string.Empty;
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             if (msg != null && msg.header != null)
@@ -62,7 +62,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log.TraceMethodStart();
 
             MsgRetorno retorno = new MsgRetorno();
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
@@ -100,13 +100,12 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             _log.TraceMethodStart();
 
             MsgRetornoGet retorno = new MsgRetornoGet();
-            DateTime dataEnvio = DateTime.MinValue;
+            DateTime dataEnvio = DateTime.Now;
             string status = erros.Any() ? ConstantesIntegracao.StatusIntegracao.Erro : ConstantesIntegracao.StatusIntegracao.OK;
 
             var header = new MsgHeaderRetorno()
             {
                 identificador = identificador,
-                dataHoraEnvio = dataEnvio,
                 dataHoraRetorno = DateTime.Now,
                 status = status
             };
@@ -125,7 +124,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             return retorno;
         }
 
-        public tb_dependencia AdaptarMsgDependenciaTotb_dependencia(MsgRegistroDependencia msg)
+        public tb_dependencia AdaptarMsgDependenciaTotb_dependencia(MsgRegistroDependencia msg ,string modo)
         {
             _log.TraceMethodStart();
 
@@ -134,8 +133,8 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
             if (msg.codigoEmpresa != null && msg.codigoEmpresa.Value > 0)
                 tb_dependencia.cod_empresa = msg.codigoEmpresa;
 
-            if (msg.codigoDependência != null && msg.codigoDependência.Value > 0)
-                tb_dependencia.cod_depend = msg.codigoDependência;
+            if (msg.codigoDependencia != null && msg.codigoDependencia.Value > 0)
+                tb_dependencia.cod_depend = msg.codigoDependencia;
 
             if (msg.codigoMunicipio != null && msg.codigoMunicipio.Value > 0)
                 tb_dependencia.cod_municipio = msg.codigoMunicipio;
@@ -314,7 +313,7 @@ namespace Sinqia.CoreBank.API.Core.Adaptadores.Corporativo
                 msg.codigoEmpresa = tb_dependencia.cod_empresa;
 
             if (tb_dependencia.cod_depend != null && tb_dependencia.cod_depend.Value > 0)
-                msg.codigoDependência = tb_dependencia.cod_depend;
+                msg.codigoDependencia = tb_dependencia.cod_depend;
 
             if (tb_dependencia.cod_municipio != null && tb_dependencia.cod_municipio.Value > 0)
                 msg.codigoMunicipio = tb_dependencia.cod_municipio;

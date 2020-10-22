@@ -74,7 +74,7 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                 throw new ApplicationException("Empresa informada não cadastrada");
 
             tb_grproduto grproduto = _grprodutoService.BuscarGrupoProdutoPorCodigo(entity.cod_empresa.Value, entity.cod_grproduto.Value, transacao);
-            if (empresa == null)
+            if (grproduto == null)
                 throw new ApplicationException("Grupo do produto informado não cadastrado");
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_prodbco = {entity.cod_prodbco} ";
@@ -110,17 +110,25 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
                 throw new ApplicationException("Empresa informada não cadastrada");
 
             tb_grproduto grproduto = _grprodutoService.BuscarGrupoProdutoPorCodigo(entity.cod_empresa.Value, entity.cod_grproduto.Value, transacao);
-            if (empresa == null)
+            if (grproduto == null)
                 throw new ApplicationException("Grupo do produto informado não cadastrado");
 
             string where = $" cod_empresa = {entity.cod_empresa} and cod_prodbco = {entity.cod_prodbco} ";
 
-            var entityBanco = dao.Obter(where);
+            var listaEntityBanco = dao.Obter(where);
 
-            if (entityBanco == null || !entityBanco.Any())
+            if (listaEntityBanco == null || !listaEntityBanco.Any())
                 throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.cod_empresa} e produto bancário: {entity.cod_prodbco} ");
 
-            dao.Atualizar(entity, where);
+            var entityBanco = listaEntityBanco.First();
+
+            entityBanco.abv_prodbco = entity.abv_prodbco;
+            entityBanco.des_prodbco = entity.des_prodbco;
+            entityBanco.cod_grproduto = entity.cod_grproduto;
+            entityBanco.idc_replica = entity.idc_replica;
+            entityBanco.tip_produto = entity.tip_produto;
+
+            dao.Atualizar(entityBanco, where);
 
             _log.TraceMethodEnd();
         }

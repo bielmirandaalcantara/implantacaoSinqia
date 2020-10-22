@@ -13,7 +13,7 @@ using System.Linq;
 using System.Net;
 using Sinqia.CoreBank.BLL.Corporativo.Services;
 using Sinqia.CoreBank.Configuracao.Configuration;
-
+using Sinqia.CoreBank.API.Core.Constantes;
 
 namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 {
@@ -77,7 +77,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia);
+                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia, ConstantesIntegracao.ModoIntegracao.ModoInclusao);
 
                 _ServiceDependencia.GravarDependencia(tb_dependencia);
 
@@ -157,7 +157,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                     return StatusCode((int)HttpStatusCode.BadRequest, retorno);
                 }
 
-                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia);
+                tb_dependencia tb_dependencia = _adaptador.AdaptarMsgDependenciaTotb_dependencia(msg.body.RegistroDependencia, ConstantesIntegracao.ModoIntegracao.ModoAlteracao);
 
                 _ServiceDependencia.EditarDependencia(tb_dependencia);
 
@@ -198,7 +198,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         /// Exclusão de dados de dependencia
         /// </summary>
         /// <param name="codDependencia">Código da dependencia</param>
-        /// <param name="codigoEmpresa">Código da empresa</param>
+        /// <param name="codEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpDelete]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -207,7 +207,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
-        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
+        public ActionResult deleteDependencia([FromRoute] int? codDependencia, [FromQuery] int? codEmpresa)
         {
 
             List<string> listaErros = new List<string>();
@@ -218,8 +218,8 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             {
                 _log.TraceMethodStart();
 
-                if (codigoEmpresa == null)
-                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+                if (codEmpresa == null)
+                    throw new ApplicationException("Parâmetro codEmpresa obrigatório");
 
                 if (codDependencia == null)
                     throw new ApplicationException("Parâmetro codDependencia obrigatório");
@@ -230,7 +230,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                _ServiceDependencia.ExcluirDependencia(codigoEmpresa.Value, codDependencia.Value);
+                _ServiceDependencia.ExcluirDependencia(codEmpresa.Value, codDependencia.Value);
 
                 retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
 
@@ -265,10 +265,10 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         }
 
         /// <summary>
-        /// Exclusão de dados de dependencia
+        /// Busca de dados de dependencia
         /// </summary>
         /// <param name="codDependencia">Código da dependencia</param>
-        /// <param name="codigoEmpresa">Código da empresa</param>
+        /// <param name="codEmpresa">Código da empresa</param>
         /// <returns>MsgRetorno</returns>
         [HttpGet]
         [Route("api/core/cadastros/corporativo/dependencia/{codDependencia}")]
@@ -277,7 +277,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgDependenciaTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromQuery] int? codigoEmpresa)
+        public ActionResult getDependencia([FromRoute] int? codDependencia, [FromQuery] int? codEmpresa)
         {
             List<string> listaErros = new List<string>();
             MsgRetorno retorno;
@@ -292,15 +292,15 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
                 _log.Information($"Iniciando processamento [get] com o identificador {identificador}");
                 _log.SetIdentificador(identificador);
 
-                if (codigoEmpresa == null)
-                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+                if (codEmpresa == null)
+                    throw new ApplicationException("Parâmetro codEmpresa obrigatório");
 
                 if (codDependencia == null)
                     throw new ApplicationException("Parâmetro codDependencia obrigatório");
 
                 if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
 
-                var dependencias = _ServiceDependencia.BuscarDependencias(codigoEmpresa.Value, codDependencia.Value);
+                var dependencias = _ServiceDependencia.BuscarDependencias(codEmpresa.Value, codDependencia.Value);
 
                 if (dependencias != null && dependencias.Any())
                     body.RegistroDependencia = _adaptador.tb_depndenciaToMsgDependencia(dependencias.First());
