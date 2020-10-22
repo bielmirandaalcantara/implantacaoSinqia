@@ -17,11 +17,19 @@ namespace Sinqia.CoreBank.Criptografia.App
         {
             if (!ValidarCampos())
                 return;
-
+            
             string textoACriptografar = txtTexto.Text;
-            string chaveCriptografada = txtChave.Text;
+            string chaveCriptografada = txtChave.Text;           
 
-            _cripto.Key = chaveCriptografada;
+            string chave = BuscarChaveVariavel();
+
+            if (string.IsNullOrWhiteSpace(chave))
+            {
+                MessageBox.Show("A chave não foi gravada no ambiente");
+                return;
+            }
+
+            _cripto.Key = chave;
             string textoCriptografado = _cripto.Encrypt(textoACriptografar);
             txtTextoCripto.Text = textoCriptografado;
         }
@@ -62,6 +70,7 @@ namespace Sinqia.CoreBank.Criptografia.App
             try
             {
                 Environment.SetEnvironmentVariable(ConstantesVariavel.CHAVESINQIA, chave, EnvironmentVariableTarget.Machine);
+                MessageBox.Show("Chave gravada");
             }
             catch (UnauthorizedAccessException erro)
             {
