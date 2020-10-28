@@ -15,6 +15,9 @@ create table tb_depusrSINCRO(
 	emp_cod	numeric not null
 	, depend_cod numeric not null
 	, usuar_cod	numeric not null
-	, statusIntegracao varchar(1)
-	, dataStatusIntegracao datetime
+    , SCHAVEINTEGRACAO varchar(50) null
+    , SMETODO varchar(10) not null
+    , SQTDETENTATIVA numeric not null
+	, SSTATUSINTEGRACAO varchar(10) not null
+	, SDATAINTEGRACAO datetime not null
 )
