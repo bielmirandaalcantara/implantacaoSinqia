@@ -23,7 +23,7 @@ create table tb_depusrSINCRO(
     , SCHAVEINTEGRACAO varchar(50) null
     , SMETODO varchar(10) not null
     , SQTDETENTATIVA numeric not null
-	, SSTATUSINTEGRACAO varchar(1) not null
+	, SSTATUSINTEGRACAO varchar(10) not null
 	, SDATAINTEGRACAO datetime not null
 );
 
