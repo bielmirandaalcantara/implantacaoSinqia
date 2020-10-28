@@ -47,11 +47,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TesteConsoleDao", "TesteCon
 		{6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9} = {6DCA60E2-7CF5-4DBB-8F8D-4841A099EEF9}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.BLL.Corporativo", "BLL\Sinqia.CoreBank.BLL.Corporativo\Sinqia.CoreBank.BLL.Corporativo.csproj", "{6911F7F1-A759-4B5B-BCD9-53F380037EB9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.BLL.Corporativo", "BLL\Sinqia.CoreBank.BLL.Corporativo\Sinqia.CoreBank.BLL.Corporativo.csproj", "{6911F7F1-A759-4B5B-BCD9-53F380037EB9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Dominio.Core", "Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj", "{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Dominio.Core", "Dominio\Sinqia.CoreBank.Dominio.Core\Sinqia.CoreBank.Dominio.Core.csproj", "{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.Configuracao", "Infraestrutura\Sinqia.CoreBank.Configuracao\Sinqia.CoreBank.Configuracao.csproj", "{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.Configuracao", "Infraestrutura\Sinqia.CoreBank.Configuracao\Sinqia.CoreBank.Configuracao.csproj", "{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundServices", "BackgroundServices", "{E7C2C843-9EBD-4D78-8112-11C19DFF5049}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.SincronizadorTabela", "BackgroundServices\Sinqia.CoreBank.SincronizadorTabela\Sinqia.CoreBank.SincronizadorTabela.csproj", "{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -107,6 +111,10 @@ Global
 		{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{853B5E29-F9EB-443A-ADB8-7CC5AB276A96}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -124,6 +132,7 @@ Global
 		{6911F7F1-A759-4B5B-BCD9-53F380037EB9} = {10239089-859A-4F73-9B5A-6058F267AF63}
 		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3} = {039A4952-BC89-4B46-A917-4CDB6E4E15AA}
 		{853B5E29-F9EB-443A-ADB8-7CC5AB276A96} = {10B65279-8700-4B0A-B5AB-13A997D32314}
+		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7} = {E7C2C843-9EBD-4D78-8112-11C19DFF5049}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F71A16CA-0FAC-4945-9CCE-7025CC7ECB98}

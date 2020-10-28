@@ -1,0 +1,3 @@
+sc create "Sinqia.CoreBank.SincronizadorTabela" binPath="C:\LabService\Sinqia.CoreBank.SincronizadorTabela.exe"
+
+sc delete "Sinqia.CoreBank.SincronizadorTabela"
