@@ -1,24 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.IO;
-using System.ServiceProcess;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
-using Quartz;
+﻿using Quartz;
 using Quartz.Impl;
-using Sinqia.CoreBank.SincronizadorTabela.Constantes;
-using Sinqia.CoreBank.SincronizadorTabela.InputOutput;
-using Sinqia.CoreBank.SincronizadorTabela.Logging;
 using Sinqia.CoreBank.SincronizadorTabela.Configuration;
+using Sinqia.CoreBank.SincronizadorTabela.Constantes;
+using Sinqia.CoreBank.SincronizadorTabela.Logging;
+using System;
+using System.ServiceProcess;
 
 namespace Sinqia.CoreBank.SincronizadorTabela.Services
 {
     public class SincronizadorTabelasService : ServiceBase
     {
-        private string _jobStatus;
         private ConfiguracaoService _configurationService;
         private LogService _log;
         private int _intervalo;
@@ -43,7 +34,12 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
             try
             {
                 _config = _configurationService.BuscarConfiguracaoServico();
+                _configurationService.ValidarArquivoConfiguracao(_config);
+
                 _log = new LogService(_config.Log);
+
+                _log.Information("............................ Iniciando log Serviço - Modo Console ............................");
+
                 _intervalo = _config.IntervaloSegundos;              
 
                 foreach (var conexao in _config.Conexoes)
@@ -70,14 +66,23 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
             try
             {
                 _config = _configurationService.BuscarConfiguracaoServico();
+                _configurationService.ValidarArquivoConfiguracao(_config);
+
                 _log = new LogService(_config.Log);
+
+                _log.Information("............................ Iniciando log Serviço - Modo Service ............................");
+
                 _intervalo = _config.IntervaloSegundos;
+
+                _log.Information("Configurando estrutura agendamento");
+
                 _scheduler = StdSchedulerFactory.GetDefaultScheduler().GetAwaiter().GetResult();
 
                 foreach (var conexao in _config.Conexoes)
                 {
                     JobDataMap map = new JobDataMap();
                     map.Add("conexao", conexao);
+                    map.Add("nomeConexao", conexao.NomeConexao);
                     map.Add("log", _log);
 
                     IJobDetail jobConexao = JobBuilder.Create<ConexaoService>()
@@ -98,18 +103,18 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
                     _scheduler.ScheduleJob(jobConexao, triggerConexao);
                 }
 
+                _log.Information("Iniciando agendamentos");
                 _scheduler.Start();
 
             }
-            catch (LogErrorException logEx)
+            catch (LogErrorException)
             {
                 throw;
             }
             catch (Exception ex)
             {
-                _log.Error($"Erro na inicialização do serviço", ex);
-            }
-            
+                _log?.Error($"Erro na inicialização do serviço", ex);
+            }            
         }
 
         protected override void OnStop()

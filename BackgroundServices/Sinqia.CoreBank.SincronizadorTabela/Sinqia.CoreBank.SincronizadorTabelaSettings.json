@@ -1,12 +1,12 @@
 {
-  "IntervaloSegundos": 2,
+  "IntervaloSegundos": 10,
   "Conexoes": [
     {
       "NomeConexao": "MYSQLTOSQL",
       "NomeBancoDe": "MYSQL",
-      "ConexaoDe": "Provider=SQLOLEDB;Server=SRSSPN249;Database=testesinqia;User Id=testeSinqiaApp; Password=1234",
+      "ConexaoDe": "TlpwUO7NPqTyPSfdEretsh9cJrgINf2YAKvTlV8+TzNGRZ9xs51kH5OHxwoUrpN1H8yEgSU/sE+CfvzRA/nll0kABNTsAH35aLqDn1Ad3bc=",
       "NomeBancoPara": "SQLSERVER",
-      "ConexaoPara": "Data Source=SRSSPN249; Initial Catalog=Teste; User Id=sa; Password=1234",
+      "ConexaoPara": "9aVtXtPyAnInMm4Gnet3wFO3LIIzSWeDqiixTE9TxqeT5Z/55MQv/+ihVVTpp5PbKLqIz9pqc4q6ZuaGHJKzlh5odkWw5ys+kjAETLiRzQI=",
       "PrefixoTabelaControle": "SINCRO",
       "QuantidadeMaximaTentativas": 3,
       "LimiteDiasSincronizacao": 2,
@@ -16,7 +16,7 @@
     }
   ],
   "Log": {
-    "HabilitarTrace": "true",
+    "HabilitarTrace": "false",
     "HabilitarLog": "true",
     "GerarPastaNaoEncontrada": "true",
     "NomeArquivo": "LogServico",

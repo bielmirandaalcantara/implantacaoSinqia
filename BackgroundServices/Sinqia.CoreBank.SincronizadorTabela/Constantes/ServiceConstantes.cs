@@ -18,7 +18,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Constantes
     {
         public const string Novo = "NEW";
         public const string Atualizando = "UPDATING";
-        public const string Finalizado = "ERROR";
+        public const string Finalizado = "FINISHED";
         public const string Erro = "ERROR";
     }
 
