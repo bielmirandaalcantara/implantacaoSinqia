@@ -35,7 +35,161 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
             _log = new LogService(_configuracaoBaseAPI.Value.Log ?? null);
             _adaptador = new AdaptadorOperadorDependencia(_log);
             _ServiceOperadorDependencia = new tb_depopeService(configuracaoDataBase.Value, _log);
-        }      
+        }
+
+        /// <summary>
+        /// Cadastro de Operador dependencia
+        /// </summary>
+        /// <param name="codOperadorDependencia">Código do Operador dependencia</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpPost]
+        [Route("api/core/cadastros/corporativo/OperadorDependencia")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult postOperadorDependencia([FromBody] MsgOperadorDependencia msg)
+        {
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+
+            try
+            {
+                _log.TraceMethodStart();
+
+                if (msg == null) throw new ApplicationException("Mensagem inválida");
+                if (msg.header == null) throw new ApplicationException("Mensagem inválida - chave header não informada");
+                if (msg.body == null) throw new ApplicationException("Mensagem inválida - chave body não informada");
+                if (msg.body.RegistroOperadorDependencia == null) throw new ApplicationException("Mensagem inválida - corpo da mensagem não informado");
+
+                if (string.IsNullOrWhiteSpace(msg.header.identificadorEnvio))
+                    msg.header.identificadorEnvio = Util.GerarIdentificadorUnico();
+
+                _log.Information($"Iniciando o processamento da mensagem [post] com o identificador {msg.header.identificadorEnvio}");
+                _log.SetIdentificador(msg.header.identificadorEnvio);
+
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+
+                listaErros = Util.ValidarModel(ModelState);
+                if (listaErros.Any())
+                {
+                    retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                    _log.TraceMethodEnd();
+                    return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+                }
+
+                tb_depope tb_depope = _adaptador.AdaptarMsgOperadorDependenciaToModeltb_depope(msg.body.RegistroOperadorDependencia, ConstantesIntegracao.ModoIntegracao.ModoInclusao);
+
+                _ServiceOperadorDependencia.GravarOperadorDependencia(tb_depope);
+
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+
+                listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(msg, listaErros);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+        }
+             
+
+        /// <summary>
+        /// Exclusão de dados de operador dependencia
+        /// </summary>
+        /// <param name="codOperadorDependencia">Código do operador dependencia</param>
+        /// <returns>MsgRetorno</returns>
+        [HttpDelete]
+        [Route("api/core/cadastros/corporativo/OperadorDependencia/{codOperadorDependencia}")]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(MsgRetorno), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
+        public ActionResult deleteOperadorDependencia([FromRoute] int? codOperadorDependencia, [FromQuery] int? codEmpresa, [FromQuery] int? codDependencia)
+        {
+
+            List<string> listaErros = new List<string>();
+            MsgRetorno retorno;
+            string identificador = string.Empty;
+
+            try
+            {
+                _log.TraceMethodStart();
+
+                if (codEmpresa == null)
+                    throw new ApplicationException("Parâmetro codigoEmpresa obrigatório");
+
+                if (codOperadorDependencia == null)
+                    throw new ApplicationException("Parâmetro codOperadorDependencia obrigatório");
+
+                if (codDependencia == null)
+                    throw new ApplicationException("Parâmetro codigodependencia obrigatório");
+
+                identificador = Util.GerarIdentificadorUnico();
+                _log.Information($"Iniciando processamento [delete] com o identificador {identificador}");
+                _log.SetIdentificador(identificador);
+
+                if (!Util.ValidarApiKey(Request, _configuracaoBaseAPI)) return StatusCode((int)HttpStatusCode.Unauthorized);
+
+                _ServiceOperadorDependencia.ExcluirOperadorDependencia(codEmpresa.Value, codOperadorDependencia.Value, codDependencia.Value);
+
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.OK, retorno);
+
+            }
+            catch (LogErrorException LogEx)
+            {
+                listaErros.Add(LogEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+            catch (ApplicationException appEx)
+            {
+                listaErros.Add(appEx.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+
+                _log.Error(appEx);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.BadRequest, retorno);
+            }
+            catch (Exception ex)
+            {
+                listaErros.Add(ex.Message);
+                retorno = _adaptador.AdaptarMsgRetorno(listaErros, identificador);
+
+                _log.Error(ex);
+                _log.TraceMethodEnd();
+                return StatusCode((int)HttpStatusCode.InternalServerError, retorno);
+            }
+
+        }
 
         /// <summary>
         /// Busca de dados de OperadorDependencia
@@ -51,7 +205,7 @@ namespace Sinqia.CoreBank.API.Core.Controllers.Corporativo
         [ProducesResponseType(typeof(MsgOperadorDependenciaTemplate), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public ActionResult getOperadorDependencia([FromQuery] int? codOperador, [FromQuery] int? codDependencia, [FromQuery] int? codEmpresa)
+        public ActionResult getOperadorDependencia([FromQuery] int? codOperador, [FromQuery] int? codEmpresa, [FromQuery] int? codDependencia)
         {
 
             List<string> listaErros = new List<string>();
