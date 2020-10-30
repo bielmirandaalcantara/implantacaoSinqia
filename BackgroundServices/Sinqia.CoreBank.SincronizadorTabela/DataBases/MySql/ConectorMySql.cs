@@ -39,7 +39,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
 
             string query = $" select * from {tabelaControle} ";
@@ -65,7 +65,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
 
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -116,7 +116,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
             List<MySqlParameter> parameters = new List<MySqlParameter>();
 
@@ -237,7 +237,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
 
             string strConn = _stringConexaoPara;
             List<MySqlParameter> parameters = new List<MySqlParameter>();
-            string queryBusca = $" select * from dbo.{tabela} where 1=1 ";
+            string queryBusca = $" select * from {tabela} where 1=1 ";
             foreach (DataColumn column in data.Columns)
             {
                 if (column.ColumnName.ToUpper().Equals(ColunasConfiguracao.CHAVEINTEGRACAO)) continue;

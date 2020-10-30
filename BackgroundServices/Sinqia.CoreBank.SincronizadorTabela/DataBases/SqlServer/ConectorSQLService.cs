@@ -37,7 +37,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.SqlServer
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
 
             string query = $" select * from {tabelaControle}";
@@ -62,7 +62,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.SqlServer
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
             List<SqlParameter> parameters = new List<SqlParameter>();
 
@@ -113,7 +113,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.SqlServer
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;            
 
             string statusIntegracaoAnterior = row[ColunasConfiguracao.STATUSINTEGRACAO].Equals(DBNull.Value) ? string.Empty : row[ColunasConfiguracao.STATUSINTEGRACAO].ToString();

@@ -11,7 +11,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Configuration
         public string NomeConexao { get; set; }
         public string NomeBancoDe { get; set; }
         public string ConexaoDe { get; set; }
-        public string PrefixoTabelaControle { get; set; }
+        public string SufixoTabelaControle { get; set; }
         public string NomeBancoPara { get; set; }
         public string ConexaoPara { get; set; }
         public int QuantidadeMaximaTentativas { get; set; }

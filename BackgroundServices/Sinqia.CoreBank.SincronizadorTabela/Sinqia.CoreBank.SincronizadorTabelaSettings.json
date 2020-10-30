@@ -2,16 +2,16 @@
   "IntervaloSegundos": 10,
   "Conexoes": [
     {
-      "NomeConexao": "MYSQLTOSQL",
-      "NomeBancoDe": "MYSQL",
-      "ConexaoDe": "TlpwUO7NPqTyPSfdEretsh9cJrgINf2YAKvTlV8+TzNGRZ9xs51kH5OHxwoUrpN1H8yEgSU/sE+CfvzRA/nll0kABNTsAH35aLqDn1Ad3bc=",
+      "NomeConexao": "SYBASETOSQL",
+      "NomeBancoDe": "SYBASE",
+      "ConexaoDe": "Svs5Rzgq46+sjmRFX5lzNGoqVY0GkCL9d7Xcs8nHB+qgSdgCFmNSDP2IOl0nto4s3LJRMAYR+OGw0EJI18iM0CkvoCN0bqiedK5cNlwDV5g=",
       "NomeBancoPara": "SQLSERVER",
       "ConexaoPara": "9aVtXtPyAnInMm4Gnet3wFO3LIIzSWeDqiixTE9TxqeT5Z/55MQv/+ihVVTpp5PbKLqIz9pqc4q6ZuaGHJKzlh5odkWw5ys+kjAETLiRzQI=",
-      "PrefixoTabelaControle": "SINCRO",
+      "SufixoTabelaControle": "SINCRO",
       "QuantidadeMaximaTentativas": 3,
       "LimiteDiasSincronizacao": 2,
       "ListaTabelas": [
-        "TB_DEPUSR"
+        "tb_depusr"
       ]
     }
   ],

@@ -39,10 +39,10 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
 
-            string query = $" select * from {tabelaControle} ";
+            string query = $" select * from dbo.{tabelaControle} ";
             query += $" where {ColunasConfiguracao.STATUSINTEGRACAO} in ('{StatusIntegracao.Novo}', '{StatusIntegracao.Atualizando}')";
             query += $" and {ColunasConfiguracao.DATAINTEGRACAO} >= @dataLimite ";
 
@@ -64,13 +64,13 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
             List<AseParameter> parameters = new List<AseParameter>();
 
             string statusIntegracaoAnterior = row[ColunasConfiguracao.STATUSINTEGRACAO].Equals(DBNull.Value) ? string.Empty : row[ColunasConfiguracao.STATUSINTEGRACAO].ToString();
 
-            string query = $" update {tabelaControle} set {ColunasConfiguracao.CHAVEINTEGRACAO} = @chaveIntegracaoAtual , {ColunasConfiguracao.STATUSINTEGRACAO} = @statusIntegracaoAtual ";
+            string query = $" update dbo.{tabelaControle} set {ColunasConfiguracao.CHAVEINTEGRACAO} = @chaveIntegracaoAtual , {ColunasConfiguracao.STATUSINTEGRACAO} = @statusIntegracaoAtual ";
             query += $" where {ColunasConfiguracao.STATUSINTEGRACAO} = @statusIntegracaoAnterior ";
 
             parameters.Add(new AseParameter
@@ -115,13 +115,13 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
         {
             _log.TraceMethodStart();
 
-            string tabelaControle = string.Concat(tabela, _conexaoConf.PrefixoTabelaControle);
+            string tabelaControle = string.Concat(tabela, _conexaoConf.SufixoTabelaControle);
             string strConn = _stringConexaoDe;
             List<AseParameter> parameters = new List<AseParameter>();
 
             string statusIntegracaoAnterior = row[ColunasConfiguracao.STATUSINTEGRACAO].Equals(DBNull.Value) ? string.Empty : row[ColunasConfiguracao.STATUSINTEGRACAO].ToString();
 
-            string query = $" update {tabelaControle} set {ColunasConfiguracao.STATUSINTEGRACAO} = @statusIntegracao , {ColunasConfiguracao.QTDETENTATIVA} = @qtdTentativas ";
+            string query = $" update dbo.{tabelaControle} set {ColunasConfiguracao.STATUSINTEGRACAO} = @statusIntegracao , {ColunasConfiguracao.QTDETENTATIVA} = @qtdTentativas ";
             query += $" where {ColunasConfiguracao.CHAVEINTEGRACAO} = @chaveIntegracao ";
 
             parameters.Add(new AseParameter
@@ -190,7 +190,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
                 listaColunas.Add(column.ColumnName);
             };
 
-            string query = $" insert into {tabela} ({string.Join(",", listaColunas.Select(c => c))}) values ({string.Join(",", listaColunas.Select(c => string.Format("@{0}", c)))})";
+            string query = $" insert into dbo.{tabela} ({string.Join(",", listaColunas.Select(c => c))}) values ({string.Join(",", listaColunas.Select(c => string.Format("@{0}", c)))})";
 
             ExecutarQuerySemRetorno(query, strConn, parameters);
 
@@ -204,7 +204,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.DataBases.MySql
             string strConn = _stringConexaoPara;
 
             List<AseParameter> parameters = new List<AseParameter>();
-            string query = $" delete {tabela} where 1=1 ";
+            string query = $" delete dbo.{tabela} where 1=1 ";
             bool temColunaSelecionada = false;
             foreach (DataColumn column in data.Columns)
             {

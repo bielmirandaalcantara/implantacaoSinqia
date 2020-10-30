@@ -86,7 +86,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
                 if (string.IsNullOrWhiteSpace(conexao.ConexaoPara))
                     throw new ApplicationException("Configuração inválida, conexão do banco destinatário não encontado");
 
-                if (string.IsNullOrWhiteSpace(conexao.PrefixoTabelaControle))
+                if (string.IsNullOrWhiteSpace(conexao.SufixoTabelaControle))
                     throw new ApplicationException("Configuração inválida, prefixo não eoncontrado");
             }
         }
