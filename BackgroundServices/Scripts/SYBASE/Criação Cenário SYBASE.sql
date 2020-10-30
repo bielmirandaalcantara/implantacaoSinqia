@@ -23,14 +23,24 @@ create table tb_depusrSINCRO(
 )
 
 
-create trigger [dbo].[tg_tb_depusr_ins_sincro] ON [dbo].[tb_depusr] after insert as
+create trigger tg_tb_depusr_ins_sincro on tb_depusr for insert as 
+
+--insert command
 begin
-insert into tb_depusrSINCRO (emp_cod,depend_cod,usuar_cod, SCHAVEINTEGRACAO, SMETODO, SQTDETENTATIVA, SSTATUSINTEGRACAO, SDATAINTEGRACAO)
-select emp_cod,depend_cod,usuar_cod, null,'INSERT',0, 'NEW' ,GETDATE() from inserted
+    insert into tb_depusrSINCRO (emp_cod,depend_cod,usuar_cod, SCHAVEINTEGRACAO, SMETODO, SQTDETENTATIVA, SSTATUSINTEGRACAO, SDATAINTEGRACAO)
+    select emp_cod,depend_cod,usuar_cod, null,'INSERT',0, 'NEW' ,GETDATE() from inserted
 end
 
-create trigger [dbo].[tg_tb_depusr_del_sincro] ON [dbo].[tb_depusr] after delete as
+
+
+
+create trigger tg_tb_depusr_del_sincro on tb_depusr for delete as 
+
+--delete command
 begin
-insert into tb_depusrSINCRO (emp_cod,depend_cod,usuar_cod, SCHAVEINTEGRACAO, SMETODO, SQTDETENTATIVA, SSTATUSINTEGRACAO, SDATAINTEGRACAO)
-select emp_cod,depend_cod,usuar_cod, null,'DELETE',0, 'NEW' ,GETDATE() from deleted
+    insert into tb_depusrSINCRO (emp_cod,depend_cod,usuar_cod, SCHAVEINTEGRACAO, SMETODO, SQTDETENTATIVA, SSTATUSINTEGRACAO, SDATAINTEGRACAO)
+    select emp_cod,depend_cod,usuar_cod, null,'DELETE',0, 'NEW' ,GETDATE() from deleted
 end
+
+
+
