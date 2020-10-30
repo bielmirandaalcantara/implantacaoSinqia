@@ -52,5 +52,116 @@ namespace Sinqia.CoreBank.BLL.Corporativo.Services
             _log.TraceMethodEnd();
             return retorno;
         }
+
+        public tb_depope GravarOperadorDependencia(tb_depope entity, IDaoTransacao transacao = null)
+        {
+            _log.TraceMethodStart();
+
+            var dao = _factory.GetDaoCorporativo<tb_depope>();
+
+            if (entity.emp_cod == null || entity.emp_cod.Value <= 0)
+                throw new ApplicationException("Código da empresa inválido");
+
+            if (entity.depend_cod == null || entity.depend_cod.Value <= 0)
+                throw new ApplicationException("Código de dependencia inválido");
+
+            if (entity.oper_cod == null || entity.oper_cod.Value <= 0)
+                throw new ApplicationException("Código do operador inválido");
+
+            string where = $" emp_cod = {entity.emp_cod} and oper_cod = {entity.oper_cod} and depend_cod = {entity.depend_cod}";
+
+            var entityBanco = dao.Obter(where);
+
+            if (entityBanco != null && entityBanco.Any())
+                throw new ApplicationException($"Dados informados já foram cadastrados - empresa: {entity.emp_cod}, operador: {entity.oper_cod} e dependencia: {entity.depend_cod} ");
+
+            entity = dao.Inserir(entity);
+
+            _log.TraceMethodEnd();
+            return entity;
+        }
+
+        public void EditarOperadorDependencia(tb_depope entity, IDaoTransacao transacao = null)
+        {
+            _log.TraceMethodStart();
+
+            var dao = transacao == null ? _factory.GetDaoCorporativo<tb_depope>() : _factory.GetDaoCorporativo<tb_depope>(transacao);
+
+            if (entity.emp_cod == null || entity.emp_cod.Value <= 0)
+                throw new ApplicationException("Código da empresa inválido");
+
+            if (entity.oper_cod == null || entity.oper_cod.Value <= 0)
+                throw new ApplicationException("Código do operador inválido");
+
+            if (entity.depend_cod == null || entity.depend_cod.Value <= 0)
+                throw new ApplicationException("Código de dependencia inválido");
+
+            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(entity.emp_cod.Value, transacao);
+            if (empresa == null)
+                throw new ApplicationException("Empresa informada não cadastrada");
+
+            tb_dependencia dependencia = _dependenciaService.BuscarDependenciaPorCodigo(entity.emp_cod.Value, entity.depend_cod.Value, transacao);
+            if (dependencia == null)
+                throw new ApplicationException("Dependencia informada não cadastrada");
+
+            tb_operador operador = _operadorService.BuscarOperadorPorCodigo(entity.emp_cod.Value, entity.oper_cod.Value, transacao);
+            if (dependencia == null)
+                throw new ApplicationException("Operador informado não cadastrado");
+
+            string where = $" emp_cod = {entity.emp_cod} and oper_cod = {entity.oper_cod} ";
+
+            var entityBanco = dao.Obter(where);
+
+            if (entityBanco == null || !entityBanco.Any())
+                throw new ApplicationException($"Dados informados não foram cadastrados - empresa: {entity.emp_cod} e operador dependencia: {entity.oper_cod} ");
+
+            dao.Atualizar(entity, where);
+
+            _log.TraceMethodEnd();
+        }
+
+        public void ExcluirOperadorDependencia(int emp_cod, int oper_cod, int dep_cod, IDaoTransacao transacao = null)
+        {
+            _log.TraceMethodStart();
+
+            if (emp_cod == null || emp_cod <= 0)
+                throw new ApplicationException("Código da empresa inválido");
+
+            if (oper_cod == null || oper_cod <= 0)
+                throw new ApplicationException("Código do operador inválido");
+
+            if (dep_cod == null || dep_cod <= 0)
+                throw new ApplicationException("Código da dependencia inválido");
+
+            tb_empresa empresa = _empresaService.BuscarEmpresaPorCodigo(emp_cod, transacao);
+
+            if (empresa == null)
+                throw new ApplicationException("Empresa informada não cadastrada");
+
+            tb_operador operador = _operadorService.BuscarOperadorPorCodigo(emp_cod, oper_cod, transacao);
+
+            if (operador == null)
+                throw new ApplicationException("Operador informado não cadastrado");
+
+            tb_dependencia dependencia = _dependenciaService.BuscarDependenciaPorCodigo(emp_cod, oper_cod, transacao);
+
+            if (operador == null)
+                throw new ApplicationException("Dependência informado não cadastrado");
+
+            var dao = _factory.GetDaoCorporativo<tb_depope>();
+
+            string where = $" emp_cod = {emp_cod} and oper_cod = {oper_cod} and depend_cod = {dep_cod} ";
+
+            var entityBanco = dao.Obter(where);
+
+            if (entityBanco == null || !entityBanco.Any())
+                throw new ApplicationException($"Dados informados não estão cadastrados - empresa: {emp_cod}, operador: {oper_cod} e dependencia: {dep_cod}");
+
+            var entity = entityBanco.FirstOrDefault();
+
+            dao.Remover(entity, where);
+
+            _log.TraceMethodEnd();
+        }
     }
 }

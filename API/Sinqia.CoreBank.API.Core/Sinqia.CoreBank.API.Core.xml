@@ -96,6 +96,20 @@
             <param name="tipoGerente">Tipo do gerente - Default: G</param>
             <returns>MsgRetorno</returns>
         </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.postOperadorDependencia(Sinqia.CoreBank.API.Core.Models.Corporativo.MsgOperadorDependencia)">
+            <summary>
+            Cadastro de Operador dependencia
+            </summary>
+            <param name="codOperadorDependencia">Código do Operador dependencia</param>
+            <returns>MsgRetorno</returns>
+        </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.deleteOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
+            <summary>
+            Exclusão de dados de operador dependencia
+            </summary>
+            <param name="codOperadorDependencia">Código do operador dependencia</param>
+            <returns>MsgRetorno</returns>
+        </member>
         <member name="M:Sinqia.CoreBank.API.Core.Controllers.Corporativo.OperadorDependenciaController.getOperadorDependencia(System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32})">
             <summary>
             Busca de dados de OperadorDependencia
