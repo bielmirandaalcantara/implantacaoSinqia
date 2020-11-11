@@ -5,6 +5,7 @@ using Sinqia.CoreBank.SincronizadorTabela.Constantes;
 using Sinqia.CoreBank.SincronizadorTabela.Logging;
 using System;
 using System.ServiceProcess;
+using Sinqia.CoreBank.SincronizadorTabela.Constantes;
 
 namespace Sinqia.CoreBank.SincronizadorTabela.Services
 {
@@ -38,7 +39,10 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
 
                 _log = new LogService(_config.Log);
 
-                _log.Information("............................ Iniciando log Serviço - Modo Console ............................");
+                _log.Information("............................ Iniciando log Serviço ............................");
+                _log.Information(" Modo: Console");
+                _log.Information($" Versão Service: {ControleVersaoConstantes.VersaoService}");
+                _log.Information("...............................................................................");
 
                 _intervalo = _config.IntervaloSegundos;              
 
@@ -70,7 +74,10 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
 
                 _log = new LogService(_config.Log);
 
-                _log.Information("............................ Iniciando log Serviço - Modo Service ............................");
+                 _log.Information("............................ Iniciando log Serviço ............................");
+                _log.Information(" Modo: Service");
+                _log.Information($" Versão Service: {ControleVersaoConstantes.VersaoService}");
+                _log.Information("...............................................................................");
 
                 _intervalo = _config.IntervaloSegundos;
 

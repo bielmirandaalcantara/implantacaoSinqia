@@ -44,7 +44,7 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
 
             try
             {
-                _log.Information($"=> Iniciando Ciclo da conexão: {_nomeConexao}");
+                _log.Information($"=> Iniciando Ciclo da conexão: {_nomeConexao} - Service Versão: {ControleVersaoConstantes.VersaoService}");
 
                 _factory = new FactoryConector(_configConexao, _log);
                 if (_factory == null) throw new ApplicationException($"Nome do Banco da conexão {_nomeConexao} não encontrado na lista de bancos configuráveis");
@@ -119,9 +119,10 @@ namespace Sinqia.CoreBank.SincronizadorTabela.Services
                 {
                     _log.Error("Erro no processo de busca ao banco de dados de envio: ", ex);
                 }
-
-                _log.TraceMethodEnd();
+                
             }
+            _log.Information($"Finalizando Sincronização de tabelas para a conexão: {_configConexao.NomeConexao}");
+            _log.TraceMethodEnd();
         }
     }
 }
