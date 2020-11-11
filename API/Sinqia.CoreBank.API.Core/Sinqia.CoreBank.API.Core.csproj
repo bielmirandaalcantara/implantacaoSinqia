@@ -10,13 +10,13 @@
 
   <ItemGroup>
     <Compile Remove="Attributes\**" />
+    <Compile Remove="wwwroot\**" />
     <Content Remove="Attributes\**" />
+    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Attributes\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Attributes\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
+    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +32,7 @@
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.InputOutput\Sinqia.CoreBank.InputOutput.csproj" />
     <ProjectReference Include="..\..\InfraEstrutura\Sinqia.CoreBank.Logging\Sinqia.CoreBank.Logging.csproj" />
     <ProjectReference Include="..\..\Seguranca\Sinqia.CoreBank.Criptografia\Sinqia.CoreBank.Criptografia.csproj" />
+    <ProjectReference Include="..\..\Sinqia.CoreBank.ConstantesGerais\Sinqia.CoreBank.ConstantesGerais.csproj" />
     <ProjectReference Include="..\Sinqia.CoreBank.Services.CUC\Sinqia.CoreBank.Services.CUC.csproj" />
   </ItemGroup>
 

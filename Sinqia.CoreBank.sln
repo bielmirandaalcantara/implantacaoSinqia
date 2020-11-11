@@ -57,6 +57,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BackgroundServices", "Backg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sinqia.CoreBank.SincronizadorTabela", "BackgroundServices\Sinqia.CoreBank.SincronizadorTabela\Sinqia.CoreBank.SincronizadorTabela.csproj", "{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sinqia.CoreBank.ConstantesGerais", "Sinqia.CoreBank.ConstantesGerais\Sinqia.CoreBank.ConstantesGerais.csproj", "{B2BC8D30-99CA-49B7-8A1C-B25250B228AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -115,6 +117,10 @@ Global
 		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2BC8D30-99CA-49B7-8A1C-B25250B228AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2BC8D30-99CA-49B7-8A1C-B25250B228AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2BC8D30-99CA-49B7-8A1C-B25250B228AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2BC8D30-99CA-49B7-8A1C-B25250B228AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -133,6 +139,7 @@ Global
 		{1BCD6F3E-29BE-4FA1-AB74-1EFA9AE8A2C3} = {039A4952-BC89-4B46-A917-4CDB6E4E15AA}
 		{853B5E29-F9EB-443A-ADB8-7CC5AB276A96} = {10B65279-8700-4B0A-B5AB-13A997D32314}
 		{C5BB7572-F8A1-4857-A444-58B2EEEF68A7} = {E7C2C843-9EBD-4D78-8112-11C19DFF5049}
+		{B2BC8D30-99CA-49B7-8A1C-B25250B228AF} = {10B65279-8700-4B0A-B5AB-13A997D32314}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F71A16CA-0FAC-4945-9CCE-7025CC7ECB98}

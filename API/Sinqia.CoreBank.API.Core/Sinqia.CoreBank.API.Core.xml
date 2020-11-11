@@ -358,6 +358,12 @@
             <param name="numeroRenda">Número da renda</param>
             <returns>MsgRetorno</returns>
         </member>
+        <member name="M:Sinqia.CoreBank.API.Core.Controllers.VerificarVersaoController.getVersao">
+            <summary>
+            Busca a Versão da API
+            </summary>
+            <returns>MsgRetorno</returns>
+        </member>
         <member name="P:Sinqia.CoreBank.API.Core.Models.Corporativo.MsgDependencia.header">
             <summary>
             header da mensagem
